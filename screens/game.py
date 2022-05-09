@@ -1,6 +1,4 @@
 import PySimpleGUI as sg
-
-import PySimpleGUI as sg
 NAME = "GAME"
 MAIN_BACK_COLOR = '#112B3C'
 # Vertical Space
@@ -31,7 +29,6 @@ def _menu_options():
         [sg.Button('Exit',key='exit  ', size=(32, 1),
                    font=('Sketch 3D', 20),
                    button_color=(text_color, back_color), pad=default_padding, mouseover_colors=on_hover_color, border_width=12)]
-    
     ]
     return layout
 

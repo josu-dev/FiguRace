@@ -26,7 +26,7 @@ def _menu_options():
     layout = [
         [_v_spacer((0, 16))],
         [_h_spacer((50, 0)),
-         sg.Text('time per game ',
+        sg.Text('time per game ',
                  font=('Sketch 3D', 25),
                  size=(16, 1),
                  background_color=back_color,
@@ -83,20 +83,15 @@ def _menu_options():
                       pad=default_padding,
                       mouseover_colors=on_hover_color,
                       border_width=12),
-         _h_spacer((600, 0)), ]
+         _h_spacer((600, 0))]
 
     ]
-    return layout
+    return sg.Column(layout)
 
 
 layout = [[_title()],
           [_menu_options()],
           ]
-
-# Create the Window
-window = sg.Window('Figurace -' + NAME, layout,
-                   background_color=MAIN_BACK_COLOR).Finalize()
-window.Maximize()
 
 def main():
     # Create the Window
