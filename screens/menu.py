@@ -1,5 +1,4 @@
 import PySimpleGUI as sg
-import PySimpleGUI as sg
 
 NAME = "MENU"
 MAIN_BACK_COLOR = '#112B3C'
