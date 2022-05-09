@@ -1,8 +1,12 @@
 from typing import Any
 import PySimpleGUI as sg
 
-ElementLayout = list[list[sg.Element]]
-class LayoutHandler:
+from PyCustomGUI.missing_typings import ElementLayout
+
+
+class LayoutController:
+    GOTO_VIEW = '-GOTO-VIEW-'
+
     def __init__(self):
         self.actual_layout: str
         self.window : sg.Window
@@ -31,3 +35,5 @@ class LayoutHandler:
         self.actual_layout = starting_layout
         self.window[self.actual_layout].update(visible=True)
         return self.window
+
+print(LayoutController.GOTO_VIEW)
