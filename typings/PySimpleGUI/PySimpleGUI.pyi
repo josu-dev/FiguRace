@@ -480,6 +480,7 @@ class Element:
     SetTooltip = ...
     SetFocus = ...
 
+ElementLayout = list[list[Element]]
 
 class Input(Element):
     """
@@ -1667,7 +1668,7 @@ class Window():
         Changes the icon that """
         ...
     
-    def read(self, timeout:int|float|None=None, timeout_key=..., close=...) -> tuple[str,dict[str,str]]:
+    def read(self, timeout:int|float|None=..., timeout_key:str=..., close:bool=...) -> tuple[str|None, dict[str|int|tuple[Any],str]]:
         """
         THE biggest deal metho"""
         ...
@@ -2112,6 +2113,7 @@ def Titlebar(title=..., icon=..., text_color=..., background_color=..., font=...
     ...
 
 MenuLayout = list[list[str | list[str]]]
+
 def MenubarCustom(menu_definition:MenuLayout=[[]], disabled_text_color:str|None=None, bar_font:str|None=None, font:str|None=None, tearoff:str|None=None, pad:int|None=None, p:int|None=None, background_color:str|None=None, text_color:str|None=None, bar_background_color:str|None=None, bar_text_color:str|None=None, key:str|None=None, k:str|None=None) -> Column:
     """
     A custom Menubar that repl"""
