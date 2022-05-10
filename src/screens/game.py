@@ -26,7 +26,7 @@ def _menu_options():
     layout = [
         [_v_spacer((0, 16))],
         [sg.Text('TAS JOGANDO RE PIOLA PA ', font='Sketch 72')],
-        [sg.Button('Exit',key='exit  ', size=(32, 1),
+        [sg.Button('Exit', key='exit  ', size=(32, 1),
                    font=('Sketch 3D', 20),
                    button_color=(text_color, back_color), pad=default_padding, mouseover_colors=on_hover_color, border_width=12)]
     ]
@@ -36,12 +36,13 @@ def _menu_options():
 layout = [[_title()],
           [sg.Column(_menu_options(), background_color=MAIN_BACK_COLOR)],
           ]
+
+
 def main():
     # Create the Window
     window = sg.Window('Figurace -' + NAME, layout,
-                    background_color=MAIN_BACK_COLOR, element_justification='c').Finalize()
+                       background_color=MAIN_BACK_COLOR, element_justification='c').Finalize()
     window.Maximize()
-
 
     while True:     # Event Loop
         event, values = window.read()
@@ -66,6 +67,7 @@ def main():
                 print('exit cancelled')
 
     window.close()
+
 
 if __name__ == '__main__':
     main()
