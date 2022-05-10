@@ -1,37 +1,55 @@
-from typing import Any
+from typing import Callable
 import PySimpleGUI as sg
 
 from PyCustomGUI.missing_typings import ElementLayout
 
+GOTO_VIEW = '-GOTO-VIEW-'
 
-class LayoutController:
-    GOTO_VIEW = '-GOTO-VIEW-'
+class Screen:
+    def __init__(self, key: str, layout: ElementLayout, reset: Callable[..., None]):
+        self.key = key
+        self.is_visible = False
+        self.container = sg.Column(layout, key=key, visible=False)
+        self._reset = reset
+    
+    def turn_visivility(self) -> None:
+        self.is_visible = not self.is_visible
+        if self.is_visible:
+            self.reset()
+        self.container.update(visible= self.is_visible)
+    
+    def reset(self) -> None:
+        self._reset(None)
+
+class WindowLayoutController:
 
     def __init__(self):
-        self.actual_layout: str
-        self.window: sg.Window
+        self.actual_layout: str = ''
         self.layout_stack: list[str] = []
-        self.layouts: list[str] = []
-        self.window_layout: list[sg.Element] = []
+        self.layouts: dict[str, Layout] = {}
+        self.composed_layout: list[sg.Element] = []
 
     def goto_layout(self, key: str) -> None:
-        self.window[self.actual_layout].update(visible=False)
+        self.layouts[self.actual_layout].turn_visivility()
         if key in self.layout_stack:
-            self.window[self.actual_layout].update(visible=False)
             self.actual_layout = self.layout_stack.pop()
         else:
             self.layout_stack.append(self.actual_layout)
             self.actual_layout = key
-            
-        self.window[self.actual_layout].update(visible=True)
 
-    def registry(self, layout: ElementLayout, key: str) -> None:
-        self.layouts.append(key)
-        self.window_layout.append(
-            sg.Column(layout=layout, key=key, visible=False))
+        self.layouts[self.actual_layout].turn_visivility()
 
-    def create_window(self, starting_layout: str, window_config: dict[Any, Any]) -> sg.Window:
-        self.window = sg.Window(layout=[self.window_layout], **window_config)
-        self.actual_layout = starting_layout
-        self.window[self.actual_layout].update(visible=True)
-        return self.window
+    def register(self, screen: Screen) -> None:
+        if layout.key in self.layouts:
+            raise Exception(f'Already registered a layout with key {layout.key}')
+        self.layouts[layout.key] = layout
+        self.composed_layout.append(layout.container)
+
+    def get_composed_layout(self) -> ElementLayout:
+        return [self.composed_layout]
+    
+    def init(self, key:str)-> None:
+        if key not in self.layouts:
+            raise Exception(f'{key} isnt a registered at composed layouts')
+        self.actual_layout = key
+        self.layouts[key].turn_visivility()

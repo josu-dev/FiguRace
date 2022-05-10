@@ -1406,7 +1406,7 @@ class Column(Element):
         Can use like the Windo"""
         ...
     
-    def update(self, visible=...):
+    def update(self, visible=...) -> None:
         """
         Changes some of the se"""
         ...
