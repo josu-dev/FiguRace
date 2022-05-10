@@ -1,9 +1,10 @@
 import PySimpleGUI as sg
 NAME = "CONFIGURATION"
 MAIN_BACK_COLOR = '#112B3C'
+TEXT_COLOR = '#EFEFEF'
+
+
 # Vertical Space
-
-
 def _v_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
     return sg.Column([[]], size=padding, background_color=MAIN_BACK_COLOR)
 
@@ -15,13 +16,51 @@ def _h_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
 
 
 def _title() -> sg.Text:
-    return sg.Text('C O N F I G U R A T I O N S', size=(800, 1), background_color=MAIN_BACK_COLOR, text_color='#EFEFEF', key='-title-', font=('System', 82), justification='center', pad=64)
+    return sg.Text('C O N F I G U R A T I O N S', size=(800, 1), background_color=MAIN_BACK_COLOR, text_color='#EFEFEF', key='-title-', font=('System', 76), justification='center', pad=64)
+
+
+# TODO parameters to the other screens
+# TODO db.loadConfigurations(time_per_game,rounds_per_game,points_added,point_substracted,features_per_level)
+_time_per_game = 60
+_rounds_per_game = 5
+_points_added = 10
+_points_substracted = 10
+_features_per_level = 3
+
+
+_cmb_time_per_game = sg.Combo(
+    ('15', '30', '60', '90', '180', '300'),
+    _time_per_game,
+    size=(10, 40),
+    readonly=True,
+    key='-TIME-',)
+
+_cmb_features_per_level = sg.Combo(('1', '2', '3', '4', '5'),
+                                   _features_per_level,
+                                   readonly=True,
+                                   size=(10, 40),
+                                   key='-CARXLEVEL-', )
+
+_cmb_rounds_per_game = sg.Combo(('3', '5', '8', '10', '20'),
+                                _rounds_per_game,
+                                readonly=True,
+                                size=(10, 40),
+                                key='-QROUNDS-',)
+
+_cmb_plus_points = sg.Combo(('1', '5', '10', '25', '50'),
+                            _points_added,
+                            readonly=True,
+                            size=(10, 40),
+                            key='-+QXANSWER-',)
+
+_cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
+                           _points_substracted,
+                           readonly=True,
+                           size=(10, 40),
+                           key='--QXANSWER-',)
 
 
 def _menu_options():
-    MAIN_BACK_COLOR = '#112B3C'
-    text_color = '#EFEFEF'
-    on_hover_color = MAIN_BACK_COLOR
     default_padding = 16
     layout = [
         [_h_spacer((50, 0)),
@@ -29,7 +68,7 @@ def _menu_options():
                       disabled=True,
                       font=('System', 25),
                       size=(16, 1),
-                      text_color=text_color,
+                      text_color=TEXT_COLOR,
                       no_scrollbar=True,
                       background_color=MAIN_BACK_COLOR,
                       pad=default_padding,
@@ -37,38 +76,28 @@ def _menu_options():
                       justification='center'),
 
          sg.Text('Seconds ', background_color=MAIN_BACK_COLOR),
+         _cmb_time_per_game,
 
-         sg.Combo(
-             ('15', '30', '60', '90', '180', '300'),
-             time_per_game,
-             size=(10, 40),
-             readonly=True,
-             key='-TIME-',),
 
-         _h_spacer((350, 0)),
+         sg.Push(),
 
          sg.Multiline('Features per level', size=(16, 1),
                       font=('System', 25),
                       disabled=True,
-                      text_color=text_color,
+                      text_color=TEXT_COLOR,
                       no_scrollbar=True,
                       background_color=MAIN_BACK_COLOR,
                       pad=default_padding,
                       border_width=12),
          sg.Text('Amount  ', background_color=MAIN_BACK_COLOR),
 
-         sg.Combo(('1', '2', '3', '4', '5'),
-                  features_per_level,
-                  readonly=True,
-                  size=(10, 40),
-                  key='-CARXLEVEL-', ),
-         _h_spacer((50, 0))
+         _cmb_features_per_level
 
          ],
 
         [_h_spacer((50, 0)),
          sg.Multiline('Rounds per game',
-                      text_color=text_color,
+                      text_color=TEXT_COLOR,
                       size=(16, 1),
                       disabled=True,
                       font=('System', 25),
@@ -77,14 +106,10 @@ def _menu_options():
                       no_scrollbar=True,
                       border_width=12),
          sg.Text('Rounds   ', background_color=MAIN_BACK_COLOR),
-         sg.Combo(('3', '5', '8', '10', '20'),
-                  rounds_per_game,
-                  readonly=True,
-                  size=(10, 40),
-                  key='-QROUNDS-',),
-         _h_spacer((350, 0)),
+         _cmb_rounds_per_game,
+         sg.Push(),
          sg.Multiline('Points added',
-                      text_color=text_color,
+                      text_color=TEXT_COLOR,
                       no_scrollbar=True,
                       auto_size_text=True,
                       size=(16, 1),
@@ -94,15 +119,11 @@ def _menu_options():
                       pad=default_padding,
                       border_width=12),
          sg.Text('Correct  ', background_color=MAIN_BACK_COLOR),
-         sg.Combo(('1', '5', '10', '25', '50'),
-                  points_added,
-                  readonly=True,
-                  size=(10, 40),
-                  key='-+QXANSWER-',),
-         _h_spacer((50, 0))],
+         _cmb_plus_points,
+         ],
         [_h_spacer((50, 0)),
             sg.Multiline('Points substracted',
-                         text_color=text_color,
+                         text_color=TEXT_COLOR,
                          no_scrollbar=True,
                          auto_size_text=True,
                          size=(16, 1),
@@ -112,56 +133,62 @@ def _menu_options():
                          pad=default_padding,
                          border_width=12),
          sg.Text('Wrong    ', background_color=MAIN_BACK_COLOR),
-         sg.Combo(('1', '5', '10', '25', '50'),
-                  points_added,
-                  readonly=True,
-                  size=(10, 40),
-                  key='--QXANSWER-',),
-         _h_spacer((1000, 0))],
+         _cmb_sub_points,
+         sg.Push()],
 
-        [_h_spacer((550, 0)),
+        [sg.Push(),
          _v_spacer((0, 350)),
+            sg.Button('<--', key='-BACK-',
+                      border_width=12,
+                      size=(16, 1),
+                      button_color=(
+                          TEXT_COLOR, MAIN_BACK_COLOR),
+                      mouseover_colors=MAIN_BACK_COLOR,
+                      font=('System', 25)),
 
-            sg.Button('Exit', size=(16, 1),
+            sg.Button('Save Changes', size=(16, 1),
+                      key='-SAVE-',
                       font=('System', 25),
-                      button_color=(text_color, MAIN_BACK_COLOR),
+                      button_color=(TEXT_COLOR, MAIN_BACK_COLOR),
                       pad=default_padding,
-                      mouseover_colors=on_hover_color,
+                      mouseover_colors=MAIN_BACK_COLOR,
                       border_width=12),
-         _h_spacer((600, 0)), ]]
+            sg.Push(), ]]
 
     return layout
 
 
-# TODO parameters to the other screens
-time_per_game = 60
-rounds_per_game = 5
-points_added = 10
-point_substracted = 10
-features_per_level = 3
-
-layout = [[_title()],
-          [_menu_options()],
-          ]
+_configuration_layout = [[_title()],
+                         [_menu_options()],
+                         ]
 
 
 if __name__ == '__main__':
     # Create the Window
-    window = sg.Window('Figurace -' + NAME, layout,
+    window = sg.Window('Figurace -' + NAME, _configuration_layout,
                        background_color=MAIN_BACK_COLOR).Finalize()
     window.Maximize()
 
     while True:     # Event Loop
         event, values = window.read()
 
+        if event in ('-SAVE-',):  # SAVE CONFIG
+            # TODO SAVE DATA
+            # db.saveConfigurations()
+            print('Saving time per game ' + values['-TIME-'])
+            print('Saving Features per level ' + values['-CARXLEVEL-'])
+            print('Saving Rounds per game ' + values['-QROUNDS-'])
+            print('Saving Points added ' + values['-+QXANSWER-'])
+            print('Saving Points substracted ' + values['--QXANSWER-'])
+
         if event in ('Exit',):  # EXIT GAME
-            # TODO Save the data
+            # TODO BACK TO MENU
             if (sg.PopupOKCancel('Are you sure ? ', button_color=('#FFFFFF', '#205375'), text_color='#FFFFFF') == 'OK'):
                 print('Closing Game..')
                 break
             else:
                 print('Exit cancelled')
 
-        if event in (sg.WIN_CLOSED, ):
+        if event in (sg.WIN_CLOSED, ):  # WIN CLOSED BY OS
             break
     window.close()
