@@ -4,6 +4,7 @@ from handlers import observer
 from src.screens import base_screen
 
 DEFAULT_TITLE = 'Figurace'
+DEFAULT_INITIAL_SCREEN = base_screen.screen.key
 
 layout_controller = WindowLayoutController()
 
@@ -19,4 +20,5 @@ def window_set_up() -> sg.Window:
     window_layout = layout_controller.get_composed_layout()
 
     window = sg.Window(DEFAULT_TITLE, window_layout, finalize=True)
+    layout_controller.init(DEFAULT_INITIAL_SCREEN)
     return window

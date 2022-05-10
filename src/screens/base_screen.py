@@ -49,3 +49,14 @@ screen = Screen(
     _screen_layout,
     reset
 )
+
+def main() -> None:
+    window = sg.Window(SCREEN_NAME, _screen_layout)
+
+    while True:
+        event, values = window.read()
+
+        if event == sg.WIN_CLOSED: break
+
+if __name__ == '__main__':
+    main()
