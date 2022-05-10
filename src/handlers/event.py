@@ -3,14 +3,14 @@ from typing import Any, Callable
 subscribers: dict[str, list[Callable[..., Any]]] = dict()
 
 
-def subscribe(event_type: str, fn: Callable[..., Any]) -> None:
+def subscribe(event_type: str, function: Callable[..., Any]) -> None:
     if event_type not in subscribers:
         subscribers[event_type] = []
-    subscribers[event_type].append(fn)
+    subscribers[event_type].append(function)
 
 
 def post_event(event_type: str, data: Any) -> None:
     if event_type not in subscribers:
         return
-    for fn in subscribers[event_type]:
-        fn(data)
+    for function in subscribers[event_type]:
+        function(data)
