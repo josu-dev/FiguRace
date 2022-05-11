@@ -12,7 +12,8 @@ SCREEN_NAME = '-PROFILES-'
 _screen_main_title = sg.Text(SCREEN_NAME,
                              size=(len(SCREEN_NAME), 1),
                              background_color=theme.BG_BASE,
-                             font=(theme.FONT_FAMILY, 45), pad=0,
+                             font=(theme.FONT_FAMILY, 45),
+                             pad=0,
                              text_color=theme.TEXT_ACCENT)
 
 _discord_1 = sg.Image(data=discord_red.source,
@@ -75,7 +76,6 @@ button_4 = sg.Button('Free',
 
 buttons = cg.CustomHList(theme.BG_BASE).add(
     [[_discord_1], [button_1]],
-    justification='c',
     background_color=theme.BG_BASE,
     element_justification='c'
 ).add(
@@ -106,22 +106,26 @@ _screen_layout = [
     [_turn],
 ]
 
+
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
     pass
 
 # observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 
+
 def reset(*args):
     # This function resets de elements of the screen to defaults/configuration values
     # It runs every time that window view moves to this screen
     pass
+
 
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
     reset
 )
+
 
 def main() -> None:
     window = sg.Window('Figurace - ' + SCREEN_NAME, _screen_layout,
@@ -141,6 +145,7 @@ def main() -> None:
         if event == sg.WIN_CLOSED:
             break
     window.close()
+
 
 if __name__ == '__main__':
     main()
