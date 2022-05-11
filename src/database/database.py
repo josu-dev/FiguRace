@@ -1,6 +1,7 @@
 from os import path
 
 from database.subsistems.app import load_app_settings
+from database.subsistems.user import UsersController
 
 from subsistems.theme import Theme
 
@@ -10,6 +11,4 @@ theme = Theme()
 
 app = load_app_settings()
 
-def 
-# - Handle load of theme
-# - Handle load, update, save of app settings
+users = UsersController()
