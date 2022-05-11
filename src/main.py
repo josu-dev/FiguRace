@@ -9,8 +9,8 @@ def main():
 
     while True:
         event, values = window.read()
-
-        if event in (sg.WIN_CLOSED, window_c.EXIT_APLICATION):
+        print(event)
+        if event == sg.WIN_CLOSED or event.startswith(window_c.EXIT_APLICATION):
             observer.post_event(window_c.EXIT_APLICATION)
             break
 
