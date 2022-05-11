@@ -75,10 +75,13 @@ def function_to_execute_on_event() -> None:
 def reset(*args):
     # Funcions
     pass
-
+_screen_config = {
+    'background_color':theme.BG_BASE
+}
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
+    _screen_config,
     reset
 )
 

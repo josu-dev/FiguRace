@@ -176,10 +176,14 @@ def _menu_options():
     return config_layout
 
 
-_configuration_layout = [[_title()],
-                         [sg.Column(_menu_options())],
-                         ]
+_screen_layout = [
+    [_title()],
+    [sg.Column(_menu_options())],
+]
 
+_screen_config = {
+    'background_color':theme.BG_BASE
+}
 
 def reset(*args):
     # Funcions
@@ -188,7 +192,8 @@ def reset(*args):
 
 screen = Screen(
     SCREEN_NAME,
-    _configuration_layout,
+    _screen_layout,
+    _screen_config,
     reset
 )
 

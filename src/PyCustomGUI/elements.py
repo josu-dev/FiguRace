@@ -1,5 +1,10 @@
 from contextlib import contextmanager
+from typing import Any
+
 import PySimpleGUI as sg
+
+Element = sg.Element | sg.Column | sg.Text | sg.Button | sg.Input | sg.Multiline | sg.Frame | sg.Combo | sg.Listbox
+ElementLayout = list[list[Element]]
 
 
 @contextmanager
@@ -24,43 +29,51 @@ class OpenWindow:
         self.window.close()
 
 
-class CustomList:
-    def __init__(self):
-        self.contenedor = []
-        self.buttons = []
+class HorizontalList:
+    def __init__(self, **column_parameters: Any):
+        self._container: list[sg.Column] = []
+        self._config = column_parameters
 
-    def add(self, fila):
-        self.contenedor.append(fila)
-        self.buttons.append(fila[0])
+    def add(self, layout: ElementLayout):
+        element = sg.Column(layout, **self._config)
+        self._container.append(element)
         return self
 
     def pack(self):
-        return sg.Column(self.contenedor), self.buttons
+        return sg.Column([self._container], **self._config)
 
 
-class CustomHList:
-    def __init__(self, backgraund):
-        self.contenedor = []
-        self.backgraund = backgraund
+class VerticalList:
+    def __init__(self, **column_parameters: Any):
+        self._container: list[list[Element]] = []
+        self._config = column_parameters
 
-    def add(self, layout, *args, **kwargs):
-        element = sg.Column(layout, *args, **kwargs)
-        self.contenedor.append(element)
+    def add(self, layout: ElementLayout):
+        element = sg.Column(layout, **self._config)
+        self._container.append([element])
         return self
 
     def pack(self):
-        return sg.Column([self.contenedor], background_color=self.backgraund, justification='c')
+        return sg.Column(self._container)
 
 
-def CenterElement(element):
-    return sg.Column([
-        [sg.VPush(background_color='#112B3C')],
-        [element],
-        [sg.VPush(background_color='#112B3C')]
-    ],        
-        justification='center',
-        background_color='#112B3C',
-        # background_color='#112B3C',
-        # pad=(150,150)
-        expand_y=True
+def CenteredElement(element: Element, **column_parameters: Any) -> sg.Column:
+    column_parameters['justification'] = 'c'
+    column_parameters['expand_y'] = True
+    column_parameters['expand_x'] = True
+
+    return sg.Column(
+        [[element]],
+        **column_parameters
+    )
+
+
+def CenteredLayout(layout: ElementLayout, **column_parameters: Any) -> sg.Column:
+    column_parameters['justification'] = 'c'
+    column_parameters['expand_y'] = True
+    column_parameters['expand_x'] = True
+
+    return sg.Column(
+        layout,
+        **column_parameters
     )
