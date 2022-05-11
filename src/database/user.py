@@ -2,9 +2,10 @@ import json
 from os import path
 from typing import Any, Callable, TypedDict
 
-from ..paths import DATA_PATH
+from src import SRC_PATH
 
-USERS_PATH = path.join(DATA_PATH, 'users.json')
+
+USERS_PATH = path.join(SRC_PATH,'database','data','users.json')
 
 class UserDefinition(TypedDict):
     nick: str

@@ -2,23 +2,22 @@ from typing import Callable
 import PySimpleGUI as sg
 
 
-GOTO_VIEW = '-GOTO-VIEW-'
-
 class Screen:
     def __init__(self, key: str, layout: list[list[sg.Element]], reset: Callable[..., None]):
         self.key = key
         self.is_visible = False
         self.container = sg.Column(layout, key=key, visible=False)
         self._reset = reset
-    
+
     def turn_visivility(self) -> None:
         self.is_visible = not self.is_visible
         if self.is_visible:
             self.reset()
-        self.container.update(visible= self.is_visible)
-    
+        self.container.update(visible=self.is_visible)
+
     def reset(self) -> None:
         self._reset(None)
+
 
 class WindowLayoutController:
 
@@ -41,14 +40,15 @@ class WindowLayoutController:
 
     def register(self, screen: Screen) -> None:
         if screen.key in self.layouts:
-            raise Exception(f'Already registered a layout with key {screen.key}')
+            raise Exception(
+                f'Already registered a layout with key {screen.key}')
         self.layouts[screen.key] = screen
         self.composed_layout.append(screen.container)
 
     def get_composed_layout(self) -> list[list[sg.Element]]:
         return [self.composed_layout]
-    
-    def init(self, key:str)-> None:
+
+    def init(self, key: str) -> None:
         if key not in self.layouts:
             raise Exception(f'{key} isnt a registered at composed layouts')
         self.actual_layout = key

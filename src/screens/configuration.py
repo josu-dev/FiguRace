@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
-
-from src.handlers.layout import GOTO_VIEW, Screen
+from src import constants as const
+from src.handlers.layout import Screen
 SCREEN_NAME = "-CONFIGURATION-"
 MAIN_BACK_COLOR = '#112B3C'
 BUTTON_COLOR = '#112B3C'
@@ -152,7 +152,7 @@ def _menu_options():
         [sg.Push(),
          _v_spacer((0, 350)),
             sg.Button('<--',
-                      key=f'{GOTO_VIEW} -MENU-',
+                      key=f'{const.GOTO_VIEW} -MENU-',
                       border_width=12,
                       size=(16, 1),
                       button_color=(

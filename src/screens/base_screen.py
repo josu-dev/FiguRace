@@ -1,12 +1,13 @@
-import sys, os
 from typing import Any
-sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
-
 import PySimpleGUI as sg
-from src.handlers.layout import GOTO_VIEW, Screen
+from src import constants as const
+
+from src.handlers.layout import Screen
 from src.handlers import observer
 
 SCREEN_NAME = '-BASE-SCREEN-'
+
+
 def _v_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
     return sg.Column([[]], size=padding)
 
@@ -15,7 +16,7 @@ _main_title = sg.Text('FIGURACE', size=(800, 1), text_color='#EFEFEF',
                       key='-title-', font=('Sketch 3D', 82), justification='center', pad=64)
 
 _button_exit = sg.Button(
-    'Exit', key='-EXIT-APP-', size=(32, 1),
+    'Exit', key=const.EXIT_APLICATION, size=(32, 1),
     font=('Sketch 3D', 20), border_width=12
 )
 
@@ -43,7 +44,7 @@ observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 # For example -MY-EVENT-NAME- some_data_here
 
 
-def reset(*args:Any):
+def reset(*args: Any):
     # This function resets de elements of the screen to defaults/configuration values
     # It runs every time that window view moves to this screen
     pass
@@ -57,15 +58,18 @@ screen = Screen(
 
 
 def main() -> None:
+    # Comment screen variable assigment if this file will be runned directly
     window = sg.Window(SCREEN_NAME, _screen_layout)
 
     while True:
         event, values = window.read()
 
-        if event == sg.WIN_CLOSED:
+        if event == sg.WIN_CLOSED or event.startswith(const.EXIT_APLICATION):
             break
 
+        values = values
     window.close()
+
 
 if __name__ == '__main__':
     main()

@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
+from src import constants as const
 from src.handlers.layout import Screen
-from src.handlers import observer, layout
+from src.handlers import observer
 from src.screens.profile import select_profile, create_profile
 from src.screens import menu
 from src.handlers.theme import theme
@@ -17,7 +18,7 @@ _profile_layout = [
     ],
     [
         sg.Button('Create Profile',
-                  key=f'{layout.GOTO_VIEW} {create_profile.SCREEN_NAME}',
+                  key=f'{const.GOTO_VIEW} {create_profile.SCREEN_NAME}',
                   border_width=20,
                   size=(15, 1),
                   button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON),
@@ -27,7 +28,7 @@ _profile_layout = [
 
     [
         sg.Button('Select Profile',
-                  key=f'{layout.GOTO_VIEW} {select_profile.SCREEN_NAME}',
+                  key=f'{const.GOTO_VIEW} {select_profile.SCREEN_NAME}',
                   border_width=20,
                   size=(15, 1),
                   button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON),
@@ -39,7 +40,7 @@ _profile_layout = [
     ]
 ]
 
-_turn = sg.Button('<--', key=f'{layout.GOTO_VIEW} {menu.SCREEN_NAME}',
+_turn = sg.Button('<--', key=f'{const.GOTO_VIEW} {menu.SCREEN_NAME}',
                   border_width=15,
                   size=(7, 0),
                   button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON),

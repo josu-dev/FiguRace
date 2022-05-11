@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
+from src import constants as const
 from src.handlers.layout import Screen
-from src.handlers import layout
+
 SCREEN_NAME = "-MENU-"
 MAIN_BACK_COLOR = '#112B3C'
 BUTTON_COLOR = '#6FC5FF'
@@ -29,7 +30,7 @@ _btn_start_game_ = sg.Button('Start Game',
                              border_width=12)
 
 _btn_options = sg.Button('Options', size=(18, 1),
-                         key=f'{layout.GOTO_VIEW} -CONFIGURATION-',
+                         key=f'{const.GOTO_VIEW} -CONFIGURATION-',
                          auto_size_button=True,
                          font=font,
                          button_color=(TEXT_COLOR, BUTTON_COLOR),
@@ -38,7 +39,7 @@ _btn_options = sg.Button('Options', size=(18, 1),
                          border_width=12)
 
 _btn_profile = sg.Button('Profile', size=(18, 1),
-                         key=f'{layout.GOTO_VIEW} -PROFILE-',
+                         key=f'{const.GOTO_VIEW} -PROFILE-',
                          auto_size_button=True,
                          font=font,
                          button_color=(TEXT_COLOR, BUTTON_COLOR),
@@ -58,7 +59,7 @@ def _menu_options():
         [_v_spacer((0, 12))],
         [sg.Button('Exit', size=(18, 1),
                    auto_size_button=True,
-                   key='-EXIT-APP-',
+                   key=const.EXIT_APLICATION,
                    font=font,
                    button_color=(TEXT_COLOR, BUTTON_COLOR),
                    pad=default_padding,
