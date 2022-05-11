@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
-from handlers.layout import Screen
-from handlers import observer
+from src.handlers.layout import Screen
+from src.handlers import observer
 
 SCREEN_NAME = '-BASE-SCREEN-'
 
