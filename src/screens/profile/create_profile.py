@@ -9,12 +9,12 @@ TEXT_BUTTON_COLOR = '#243F50'
 TITLE_COLOR = '#2D8BC5'
 TEXT_FONT = ('System', 45)
 
-_screen_main_title = sg.Text(SCREEN_NAME,
-                             size=500,
+_screen_main_title = sg.Text(SCREEN_NAME, size=500,
                              background_color=BACK_GROUND_COLOR,
                              font=('Segoe Script', 45),
-                             pad=0,
-                             text_color=TITLE_COLOR)
+                             text_color=TITLE_COLOR,
+                             pad=0)
+
 
 _create_profile_layout = [
     [
@@ -82,6 +82,7 @@ _screen_layout = [
     ]
 ]
 
+
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
     pass
@@ -99,6 +100,7 @@ def reset():
 #     reset
 # )
 
+
 def main() -> None:
     window = sg.Window('Figurace - ' + SCREEN_NAME,
                        _screen_layout,
@@ -113,6 +115,7 @@ def main() -> None:
         if events == sg.WIN_CLOSED:
             break
     window.close()
+
 
 if __name__ == '__main__':
     main()

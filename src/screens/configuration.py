@@ -1,6 +1,7 @@
 import PySimpleGUI as sg
 NAME = "CONFIGURATION"
 MAIN_BACK_COLOR = '#112B3C'
+BUTTON_COLOR = '#112B3C'
 TEXT_COLOR = '#EFEFEF'
 
 
@@ -31,32 +32,37 @@ _features_per_level = 3
 _cmb_time_per_game = sg.Combo(
     ('15', '30', '60', '90', '180', '300'),
     _time_per_game,
-    size=(10, 40),
+    font=('System', 24),
+    size=(5, 40),
     readonly=True,
     key='-TIME-',)
 
 _cmb_features_per_level = sg.Combo(('1', '2', '3', '4', '5'),
                                    _features_per_level,
+                                   font=('System', 24),
                                    readonly=True,
-                                   size=(10, 40),
+                                   size=(5, 30),
                                    key='-CARXLEVEL-', )
 
 _cmb_rounds_per_game = sg.Combo(('3', '5', '8', '10', '20'),
                                 _rounds_per_game,
+                                font=('System', 24),
                                 readonly=True,
-                                size=(10, 40),
+                                size=(5, 24),
                                 key='-QROUNDS-',)
 
 _cmb_plus_points = sg.Combo(('1', '5', '10', '25', '50'),
                             _points_added,
+                            font=('System', 24),
                             readonly=True,
-                            size=(10, 40),
+                            size=(5, 24),
                             key='-+QXANSWER-',)
 
 _cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
                            _points_substracted,
+                           font=('System', 24),
                            readonly=True,
-                           size=(10, 40),
+                           size=(5, 30),
                            key='--QXANSWER-',)
 
 
@@ -70,7 +76,7 @@ def _menu_options():
                       size=(16, 1),
                       text_color=TEXT_COLOR,
                       no_scrollbar=True,
-                      background_color=MAIN_BACK_COLOR,
+                      background_color=BUTTON_COLOR,
                       pad=default_padding,
                       border_width=12,
                       justification='center'),
@@ -86,7 +92,7 @@ def _menu_options():
                       disabled=True,
                       text_color=TEXT_COLOR,
                       no_scrollbar=True,
-                      background_color=MAIN_BACK_COLOR,
+                      background_color=BUTTON_COLOR,
                       pad=default_padding,
                       border_width=12),
          sg.Text('Amount  ', background_color=MAIN_BACK_COLOR),
@@ -101,7 +107,7 @@ def _menu_options():
                       size=(16, 1),
                       disabled=True,
                       font=('System', 25),
-                      background_color=MAIN_BACK_COLOR,
+                      background_color=BUTTON_COLOR,
                       pad=default_padding,
                       no_scrollbar=True,
                       border_width=12),
@@ -114,7 +120,7 @@ def _menu_options():
                       auto_size_text=True,
                       size=(16, 1),
                       disabled=True,
-                      background_color=MAIN_BACK_COLOR,
+                      background_color=BUTTON_COLOR,
                       font=('System', 25),
                       pad=default_padding,
                       border_width=12),
@@ -128,7 +134,7 @@ def _menu_options():
                          auto_size_text=True,
                          size=(16, 1),
                          disabled=True,
-                         background_color=MAIN_BACK_COLOR,
+                         background_color=BUTTON_COLOR,
                          font=('System', 25),
                          pad=default_padding,
                          border_width=12),
@@ -181,7 +187,7 @@ if __name__ == '__main__':
             print('Saving Points added ' + values['-+QXANSWER-'])
             print('Saving Points substracted ' + values['--QXANSWER-'])
 
-        if event in ('Exit',):  # EXIT GAME
+        if event in ('-BACK-',):  # EXIT GAME
             # TODO BACK TO MENU
             if (sg.PopupOKCancel('Are you sure ? ', button_color=('#FFFFFF', '#205375'), text_color='#FFFFFF') == 'OK'):
                 print('Closing Game..')

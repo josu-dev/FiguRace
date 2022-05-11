@@ -2,9 +2,10 @@ import PySimpleGUI as sg
 
 SCREEN_NAME = "MENU"
 MAIN_BACK_COLOR = '#112B3C'
-BACK_COLOR = '#205375'
-TEXT_COLOR = '#EFEFEF'
-default_padding = 6
+BUTTON_COLOR = '#6FC5FF'
+TEXT_COLOR = '#112B3C'
+ON_HOVER_COLOR = '#5A9ECC'
+default_padding = 2
 font = ('System', 32)
 
 
@@ -18,46 +19,49 @@ def _title():
 
 _btn_start_game_ = sg.Button('Start Game',
                              key='-START-',
-                             size=(15, 1),
+                             size=(18, 1),
                              font=font,
                              auto_size_button=True,
-                             button_color=(TEXT_COLOR, BACK_COLOR),
+                             button_color=(TEXT_COLOR, BUTTON_COLOR),
                              pad=default_padding,
-                             mouseover_colors=MAIN_BACK_COLOR,
+                             mouseover_colors=ON_HOVER_COLOR,
                              border_width=12)
 
-_btn_options = sg.Button('Options', size=(15, 1),
+_btn_options = sg.Button('Options', size=(18, 1),
                          key='-OPTIONS-',
                          auto_size_button=True,
                          font=font,
-                         button_color=(TEXT_COLOR, BACK_COLOR),
+                         button_color=(TEXT_COLOR, BUTTON_COLOR),
                          pad=default_padding,
-                         mouseover_colors=MAIN_BACK_COLOR,
+                         mouseover_colors=ON_HOVER_COLOR,
                          border_width=12)
 
-_btn_profile = sg.Button('Profile', size=(15, 1),
+_btn_profile = sg.Button('Profile', size=(18, 1),
                          key='-PROFILE-',
                          auto_size_button=True,
                          font=font,
-                         button_color=(TEXT_COLOR, BACK_COLOR),
+                         button_color=(TEXT_COLOR, BUTTON_COLOR),
                          pad=default_padding,
-                         mouseover_colors=MAIN_BACK_COLOR,
+                         mouseover_colors=ON_HOVER_COLOR,
                          border_width=12)
 
 
 def _menu_options():
     layout = [
-        [_v_spacer((0, 16))],
+        [_v_spacer((0, 12))],
         [_btn_start_game_],
+        [_v_spacer((0, 12))],
         [_btn_options],
+        [_v_spacer((0, 12))],
         [_btn_profile],
-        [sg.Button('Exit', size=(15, 1),
+        [_v_spacer((0, 12))],
+        [sg.Button('Exit', size=(18, 1),
                    auto_size_button=True,
                    key='-EXIT-',
                    font=font,
-                   button_color=(TEXT_COLOR, BACK_COLOR),
+                   button_color=(TEXT_COLOR, BUTTON_COLOR),
                    pad=default_padding,
-                   mouseover_colors=MAIN_BACK_COLOR,
+                   mouseover_colors=ON_HOVER_COLOR,
                    border_width=12)]
     ]
     return layout
@@ -71,13 +75,14 @@ _menu_layout = [[_title()],
 
 if __name__ == '__main__':
     # Create the Window
-    window = sg.Window('Figurace -' + SCREEN_NAME, _menu_layout, size=(800, 600),
+    window = sg.Window('Figurace -' + SCREEN_NAME, _menu_layout, resizable=True,
                        background_color=MAIN_BACK_COLOR, element_justification='c').Finalize()
-    window.Maximize()
+    # window.Maximize()
 
     while True:     # Event Loop
         event, values = window.read()
-        if event in ('-START-',):  # the 1st parameter is the event
+
+        if event in ('-START-',):
             # TODO start running the game
             print('Going to the game screen')
 
@@ -91,7 +96,7 @@ if __name__ == '__main__':
 
         if event in ('-EXIT-',):  # EXIT GAME
             # TODO Save the data
-            if (sg.PopupOKCancel('Are you sure ? ', button_color=('#FFFFFF', '#205375'), TEXT_COLOR='#FFFFFF') == 'OK'):
+            if (sg.PopupOKCancel('Are you sure ? ', button_color=('#FFFFFF', '#205375'), text_color='#FFFFFF') == 'OK'):
                 print('Closing Game..')
                 break
             else:

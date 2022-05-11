@@ -43,7 +43,7 @@ button_1 = sg.Button('Pepe',
                      border_width=15,
                      button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
                      mouseover_colors=BACK_GROUND_COLOR,
-                     font=('System',22),
+                     font=('System', 22),
                      pad=0
                      )
 
@@ -53,7 +53,7 @@ button_2 = sg.Button('User',
                      border_width=15,
                      button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
                      mouseover_colors=BACK_GROUND_COLOR,
-                     font=('System',22),
+                     font=('System', 22),
                      pad=0
                      )
 
@@ -63,7 +63,7 @@ button_3 = sg.Button('User',
                      border_width=15,
                      button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
                      mouseover_colors=BACK_GROUND_COLOR,
-                     font=('System',22),
+                     font=('System', 22),
                      pad=0
                      )
 
@@ -73,7 +73,7 @@ button_4 = sg.Button('Free',
                      border_width=15,
                      button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
                      mouseover_colors=BACK_GROUND_COLOR,
-                     font=('System',22),
+                     font=('System', 22),
                      pad=0
                      )
 
@@ -144,8 +144,10 @@ def main() -> None:
             # TODO back to menu
             print('Back page...')
             break
-        if event == sg.WIN_CLOSED:break
+        if event == sg.WIN_CLOSED:
+            break
     window.close()
+
 
 if __name__ == '__main__':
     main()
