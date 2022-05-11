@@ -1,7 +1,7 @@
 from typing import Callable
 import PySimpleGUI as sg
 
-from PyCustomGUI.missing_typings import ElementLayout
+from src.PyCustomGUI.missing_typings import ElementLayout
 
 GOTO_VIEW = '-GOTO-VIEW-'
 

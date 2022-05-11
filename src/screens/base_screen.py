@@ -1,6 +1,14 @@
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
+
 import PySimpleGUI as sg
+from databasee import database as db
+
 from handlers.layout import Screen
 from handlers import observer
+
+theme = db.theme
+print(theme.BORDER)
 
 SCREEN_NAME = '-BASE-SCREEN-'
 
@@ -29,14 +37,17 @@ _screen_layout = [
     [sg.Column(_menu_layout)],
 ]
 
+
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
     pass
+
 
 observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 
 # If an element(normaly a button) needs to emit and event, the way it works is that the button key has the event name first and optional data
 # For example -MY-EVENT-NAME- some_data_here
+
 
 def reset():
     # This function resets de elements of the screen to defaults/configuration values
@@ -50,13 +61,17 @@ screen = Screen(
     reset
 )
 
+
 def main() -> None:
     window = sg.Window(SCREEN_NAME, _screen_layout)
 
     while True:
         event, values = window.read()
 
-        if event == sg.WIN_CLOSED: break
+        if event == sg.WIN_CLOSED:
+            break
+
+    window.close()
 
 if __name__ == '__main__':
     main()

@@ -1,0 +1,30 @@
+{
+    "easy" : {
+        "time_per_round": 60,
+        "rounds_per_game": 10,
+        "points_correct_answer": 10,
+        "points_bad_answer": 0,
+        "caracteristics_shown": 4
+    },
+    "normal" : {
+        "time_per_round": 50,
+        "rounds_per_game": 10,
+        "points_correct_answer": 12,
+        "points_bad_answer": -2,
+        "caracteristics_shown": 3
+    },
+    "hard" : {
+        "time_per_round": 40,
+        "rounds_per_game": 10,
+        "points_correct_answer": 15,
+        "points_bad_answer": -5,
+        "caracteristics_shown": 2
+    },
+    "insane" : {
+        "time_per_round": 30,
+        "rounds_per_game": 10,
+        "points_correct_answer": 20,
+        "points_bad_answer": -10,
+        "caracteristics_shown": 2
+    }
+}

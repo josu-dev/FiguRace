@@ -11,11 +11,12 @@ def open_window(window: sg.Window):
     finally:
         print('ClosingWindow')
         window.close()
-        
+
+
 class OpenWindow:
     def __init__(self, window: sg.Window):
         self.window = window
-    
+
     def __enter__(self):
         return self.window
 

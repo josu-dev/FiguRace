@@ -1,0 +1,17 @@
+{
+    "Blue-Like" : {
+        "BACKGROUND" : "#112B3C",
+        "TEXT" : "#243F50",
+        "INPUT" : "#4BD9F2",
+        "TEXT_INPUT" : "#243F50",
+        "SCROLL" : "#243F50",
+        "BUTTON" : [
+            "#243F50",
+            "#4BD9F2"
+        ],
+        "PROGRESS" : ["#4BD9F2","#243F50"],
+        "BORDER" : 1,
+        "SLIDER_DEPTH" : 1,
+        "PROGRESS_DEPTH" : 1
+    }
+}
