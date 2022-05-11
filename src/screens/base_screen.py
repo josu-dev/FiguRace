@@ -2,10 +2,8 @@ import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
 
 import PySimpleGUI as sg
-from databasee import database as db
-
-from handlers.layout import Screen
-from handlers import observer
+from src.handlers.layout import Screen
+from src.handlers import observer
 
 theme = db.theme
 print(theme.BORDER)
