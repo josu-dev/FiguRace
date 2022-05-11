@@ -3,6 +3,7 @@ from src.handlers.layout import Screen
 from src.handlers import observer, layout
 from src.screens.profile import select_profile, create_profile
 from src.screens import menu
+
 SCREEN_NAME = '-PROFILE-'
 BACKGROUND_COLOR = '#112B3C'
 BUTTON_COLOR = '#6FC5FF'
@@ -81,10 +82,6 @@ def reset(*args):
     # Funcions
     pass
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 0d8b8163126f93a9bfc3fbdd29f22ae740027add
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
