@@ -8,7 +8,7 @@ SCREEN_NAME = '-CREATE-PROFILE-'
 
 _screen_main_title = sg.Text(SCREEN_NAME, size=500,
                              background_color=theme.BG_BASE,
-                             font=('Segoe Script', 45),
+                             font=(theme.FONT_FAMILY, 45),
                              text_color=theme.TEXT_ACCENT,
                              pad=0)
 

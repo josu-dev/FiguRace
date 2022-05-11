@@ -12,7 +12,7 @@ SCREEN_NAME = '-PROFILES-'
 _screen_main_title = sg.Text(SCREEN_NAME,
                              size=(len(SCREEN_NAME), 1),
                              background_color=theme.BG_BASE,
-                             font=('Segoe Script', 45), pad=0,
+                             font=(theme.FONT_FAMILY, 45), pad=0,
                              text_color=theme.TEXT_ACCENT)
 
 _discord_1 = sg.Image(data=discord_red.source,
@@ -45,7 +45,7 @@ button_1 = sg.Button('Pepe',
                      font=(theme.FONT_FAMILY, 22),
                      pad=0
                      )
-button_2 = sg.Button('User',
+button_2 = sg.Button('Charly',
                      k='2',
                      size=(10, 2),
                      border_width=15,
@@ -54,7 +54,7 @@ button_2 = sg.Button('User',
                      font=(theme.FONT_FAMILY, 22),
                      pad=0
                      )
-button_3 = sg.Button('User',
+button_3 = sg.Button('Nestor',
                      k='3',
                      size=(10, 2),
                      border_width=15,
