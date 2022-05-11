@@ -1,8 +1,6 @@
 import PySimpleGUI as sg
-
 from .handlers import observer
 from .handlers import window as window_c
-
 
 def main():
     window = window_c.window_set_up()
