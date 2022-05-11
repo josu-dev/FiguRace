@@ -1,4 +1,5 @@
 import PySimpleGUI as sg
+from src import constants as const
 from .handlers import observer
 from .handlers import window as window_c
 
@@ -8,8 +9,8 @@ def main():
 
     while True:
         event, values = window.read()
-        if event == sg.WIN_CLOSED or event.startswith(window_c.EXIT_APLICATION):
-            observer.post_event(window_c.EXIT_APLICATION)
+        if event == sg.WIN_CLOSED or event.startswith(const.EXIT_APLICATION):
+            observer.post_event(const.EXIT_APLICATION)
             break
 
         event = event.split()

@@ -1,8 +1,7 @@
 import PySimpleGUI as sg
+from src import constants as const
 from src.handlers.layout import Screen
 from src.handlers import observer
-from src.screens.profile import profile
-from src.handlers import layout
 from src.handlers.theme import theme
 SCREEN_NAME = '-CREATE-PROFILE-'
 
@@ -56,7 +55,7 @@ _create_profile_layout = [
 ]
 
 _turn = sg.Button('<--',
-                  key=f'{layout.GOTO_VIEW } -PROFILE-',
+                  key= f'{const.GOTO_VIEW } -PROFILE-',
                   border_width=15,
                   size=(7, 0),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),

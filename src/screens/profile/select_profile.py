@@ -1,10 +1,9 @@
 import PySimpleGUI as sg
-from PySimpleGUI.PySimpleGUI import Image
+from src import constants as const
 from src.handlers.layout import Screen
 from src.handlers import observer
 from src.assets.users import discord_yellow, discord_red, discord_green, discord_grey
 from src.PyCustomGUI import elements as cg
-from src.screens.profile import profile
 from src.handlers import layout
 from src.handlers.theme import theme
 SCREEN_NAME = '-PROFILES-'
@@ -93,7 +92,7 @@ buttons = cg.CustomHList(theme.BG_BASE).add(
 ).pack()
 
 _turn = sg.Button('<--',
-                  key=f'{layout.GOTO_VIEW} -PROFILE-',
+                  key=f'{const.GOTO_VIEW} -PROFILE-',
                   border_width=15,
                   size=(7, 0),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
