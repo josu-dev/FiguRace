@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from src import constants as const
 from src.handlers.layout import Screen
 from src.handlers import observer
-from src.assets.users import discord_yellow, discord_red, discord_green, discord_grey
+from src.assets.users import *
 from src.PyCustomGUI import elements as cg
 from src.handlers import layout
 from src.handlers.theme import theme
@@ -73,22 +73,16 @@ button_4 = sg.Button('Free',
                      pad=0
                      )
 
-buttons = cg.CustomHList(theme.BG_BASE).add(
+buttons = cg.HorizontalList(justification='c',
+    background_color=theme.BG_BASE,
+    element_justification='c').add(
     [[_discord_1], [button_1]],
-    background_color=theme.BG_BASE,
-    element_justification='c'
 ).add(
-    [[_discord_2], [button_2]],
-    background_color=theme.BG_BASE,
-    element_justification='c'
+    [[_discord_2], [button_2]]
 ).add(
-    [[_discord_3], [button_3]],
-    background_color=theme.BG_BASE,
-    element_justification='c'
+    [[_discord_3], [button_3]]
 ).add(
-    [[_discord_4], [button_4]],
-    background_color=theme.BG_BASE,
-    element_justification='c'
+    [[_discord_4], [button_4]]
 ).pack()
 
 _turn = sg.Button('<--',
@@ -101,10 +95,13 @@ _turn = sg.Button('<--',
 
 _screen_layout = [
     [_screen_main_title],
-    [cg.CenterElement(buttons)],
+    [cg.CenteredElement(buttons,background_color=theme.BG_BASE)],
     [_turn],
 ]
 
+_screen_config = {
+    'background_color' : theme.BG_BASE
+}
 
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
@@ -122,29 +119,6 @@ def reset(*args):
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
+    _screen_config,
     reset
 )
-
-
-def main() -> None:
-    window = sg.Window('Figurace - ' + SCREEN_NAME, _screen_layout,
-                       background_color=theme.BG_BASE,
-                       resizable=True,
-                       auto_size_buttons=True,
-                       finalize=True,
-                       alpha_channel=1,
-                       )
-    window.Maximize()
-    while True:
-        event, values = window.read()
-        if event in ('-BACK-'):
-            # TODO back to menu
-            print('Back page...')
-            break
-        if event == sg.WIN_CLOSED:
-            break
-    window.close()
-
-
-if __name__ == '__main__':
-    main()

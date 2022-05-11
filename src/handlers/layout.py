@@ -1,12 +1,16 @@
-from typing import Callable
+from typing import Any, Callable
 import PySimpleGUI as sg
 
 
 class Screen:
-    def __init__(self, key: str, layout: list[list[sg.Element]], reset: Callable[..., None]):
+    def __init__(self, key: str, layout: list[list[sg.Element]], config: dict[str,Any], reset: Callable[..., None]):
+        config['key'] = key
+        config['visible'] = False
+        config['expand_x'] = True
+        config['expand_y'] = True
         self.key = key
         self.is_visible = False
-        self.container = sg.Column(layout, key=key, visible=False)
+        self.container = sg.Column(layout, **config)
         self._reset = reset
 
     def turn_visivility(self) -> None:

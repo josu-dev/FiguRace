@@ -68,9 +68,14 @@ def _menu_options():
 
 
 # All the stuff inside your window.
-_menu_layout = [[_title()],
-                [sg.Column(_menu_options(), background_color=theme.BG_BASE)],
-                ]
+_screen_layout = [
+    [_title()],
+    [sg.Column(_menu_options(), background_color=theme.BG_BASE)],
+]
+
+_screen_config = {
+    'justification': 'c'
+}
 
 
 def reset(*args):
@@ -80,6 +85,7 @@ def reset(*args):
 
 screen = Screen(
     SCREEN_NAME,
-    _menu_layout,
+    _screen_layout,
+    _screen_config,
     reset
 )

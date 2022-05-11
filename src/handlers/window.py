@@ -5,6 +5,7 @@ from src.handlers.layout import WindowLayoutController
 from src.handlers import observer
 from src.screens import base_screen, menu, configuration
 from src.screens.profile import profile, select_profile, create_profile
+from src.handlers.theme import theme
 
 DEFAULT_TITLE = 'Figurace'
 DEFAULT_INITIAL_SCREEN = menu.screen.key
@@ -27,7 +28,7 @@ def window_set_up() -> sg.Window:
     window = sg.Window(
         DEFAULT_TITLE, window_layout,
         finalize=True, element_justification='c',
-        background_color=None
+        background_color=theme.BG_BASE, margins=(0,0)
     )
     window.Maximize()
 

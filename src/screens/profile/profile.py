@@ -75,29 +75,12 @@ def function_to_execute_on_event() -> None:
 def reset(*args):
     # Funcions
     pass
-
+_screen_config = {
+    'background_color':theme.BG_BASE
+}
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
+    _screen_config,
     reset
 )
-
-def main() -> None:
-    window = sg.Window('Figurace - ' + SCREEN_NAME,
-                       _screen_layout, background_color=theme.BG_BASE,
-                       resizable=True).finalize()
-    window.Maximize()
-    while True:
-        events, values = window.read()
-        if events in ('-CREATE-'):
-            # TODO go to Crate profile page
-            print('Go to Creator profile page')
-        if events in ('-SELECT-'):
-            # TODO go to profiles page
-            print('Go to profiles page')
-        if events == sg.WIN_CLOSED:
-            break
-    window.close()
-
-if __name__ == '__main__':
-    main()

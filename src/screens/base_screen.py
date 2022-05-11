@@ -2,6 +2,7 @@ from typing import Any
 import PySimpleGUI as sg
 from src import constants as const
 
+from src.handlers.theme import theme
 from src.handlers.layout import Screen
 from src.handlers import observer
 
@@ -49,10 +50,15 @@ def reset(*args: Any):
     # It runs every time that window view moves to this screen
     pass
 
+_screen_config = {
+    'background_color':theme.BG_BASE,
+    'element_justification':'c',
+}
 
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
+    _screen_config,
     reset
 )
 

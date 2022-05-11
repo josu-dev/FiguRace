@@ -55,7 +55,7 @@ _create_profile_layout = [
 ]
 
 _turn = sg.Button('<--',
-                  key= f'{const.GOTO_VIEW } -PROFILE-',
+                  key=f'{const.GOTO_VIEW } -PROFILE-',
                   border_width=15,
                   size=(7, 0),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
@@ -71,12 +71,19 @@ _screen_layout = [
         sg.Column(_create_profile_layout,
                   background_color=theme.BG_BASE,
                   expand_x=True,
-                  element_justification='c')
+                  element_justification='c',
+                  vertical_alignment='center',
+                  expand_y=True
+                  )
     ],
     [
+        
         _turn
     ]
 ]
+_screen_config = {
+    'background_color': theme.BG_BASE
+}
 
 
 def function_to_execute_on_event() -> None:
@@ -94,25 +101,6 @@ def reset(*args):
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
+    _screen_config,
     reset
 )
-
-
-def main() -> None:
-    window = sg.Window('Figurace - ' + SCREEN_NAME,
-                       _screen_layout,
-                       background_color=theme.BG_BASE,
-                       resizable=True).finalize()
-    window.Maximize()
-    while True:
-        events, values = window.read()
-        if events in ('-BACK-'):
-            print('back page...')
-            break
-        if events == sg.WIN_CLOSED:
-            break
-    window.close()
-
-
-if __name__ == '__main__':
-    main()
