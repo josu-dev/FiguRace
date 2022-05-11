@@ -15,6 +15,7 @@ _screen_main_title = sg.Text(SCREEN_NAME, size=500,
                              text_color=TITLE_COLOR,
                              pad=0)
 
+
 _profile_layout = [
     [
         sg.VPush(background_color=BACK_GROUND_COLOR)
@@ -68,6 +69,7 @@ _screen_layout = [
 
 # _relative_size =
 
+
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
     pass
@@ -106,6 +108,7 @@ def main() -> None:
         if events == sg.WIN_CLOSED:
             break
     window.close()
+
 
 if __name__ == '__main__':
     main()
