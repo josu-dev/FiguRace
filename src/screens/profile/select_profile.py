@@ -4,9 +4,12 @@ from src.handlers.layout import Screen
 from src.handlers import observer
 from src.assets.users import discord_yellow, discord_red, discord_green, discord_grey
 from src.PyCustomGUI import elements as cg
-SCREEN_NAME = 'PROFILES'
+from src.screens.profile import profile
+from src.handlers import layout
+SCREEN_NAME = '-PROFILES-'
 BACK_GROUND_COLOR = '#112B3C'
 BUTTON_COLOR = '#6FC5FF'
+BUTTON_HOVER_COLOR = '#5A9ECC'
 TEXT_BUTTON_COLOR = '#243F50'
 TITLE_COLOR = '#2D8BC5'
 ITEMS = 'ITEM', 'ITEM', 'ITEM', 'ITEM', 'ITEM', 'ITEM', 'ITEM', 'ITEM', 'ITEM', 'ITEM', 'ITEM', 'Holaa'
@@ -42,7 +45,7 @@ button_1 = sg.Button('Pepe',
                      size=(10, 2),
                      border_width=15,
                      button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
-                     mouseover_colors=BACK_GROUND_COLOR,
+                     mouseover_colors=BUTTON_HOVER_COLOR,
                      font=('System', 22),
                      pad=0
                      )
@@ -52,7 +55,7 @@ button_2 = sg.Button('User',
                      size=(10, 2),
                      border_width=15,
                      button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
-                     mouseover_colors=BACK_GROUND_COLOR,
+                     mouseover_colors=BUTTON_HOVER_COLOR,
                      font=('System', 22),
                      pad=0
                      )
@@ -62,7 +65,7 @@ button_3 = sg.Button('User',
                      size=(10, 2),
                      border_width=15,
                      button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
-                     mouseover_colors=BACK_GROUND_COLOR,
+                     mouseover_colors=BUTTON_HOVER_COLOR,
                      font=('System', 22),
                      pad=0
                      )
@@ -72,7 +75,7 @@ button_4 = sg.Button('Free',
                      size=(10, 2),
                      border_width=15,
                      button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
-                     mouseover_colors=BACK_GROUND_COLOR,
+                     mouseover_colors=BUTTON_HOVER_COLOR,
                      font=('System', 22),
                      pad=0
                      )
@@ -97,10 +100,12 @@ buttons = cg.CustomHList(BACK_GROUND_COLOR).add(
     element_justification='c'
 ).pack()
 
-_turn = sg.Button('<--', key='-BACK-', border_width=15,
+_turn = sg.Button('<--',
+                  key= f'{layout.GOTO_VIEW} -PROFILE-',
+                  border_width=15,
                   size=(7, 0),
                   button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
-                  mouseover_colors=BACK_GROUND_COLOR,
+                  mouseover_colors=BUTTON_HOVER_COLOR,
                   font=('System', 20), pad=20)
 
 _screen_layout = [
@@ -117,16 +122,17 @@ def function_to_execute_on_event() -> None:
 # observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 
 
-def reset():
+def reset(*args):
     # This function resets de elements of the screen to defaults/configuration values
     # It runs every time that window view moves to this screen
     pass
 
-# screen = Screen(
-#     SCREEN_NAME,
-#     _screen_layout,
-#     reset
-# )
+
+screen = Screen(
+    SCREEN_NAME,
+    _screen_layout,
+    reset
+)
 
 
 def main() -> None:

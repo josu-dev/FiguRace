@@ -30,7 +30,7 @@ class WindowLayoutController:
         self.composed_layout: list[sg.Element] = []
 
     def goto_layout(self, key: str) -> None:
-        key = key.lstrip('0123456789')
+        key = key.rstrip('0123456789')
         self.layouts[self.actual_layout].turn_visivility()
         if key in self.layout_stack:
             self.actual_layout = self.layout_stack.pop()

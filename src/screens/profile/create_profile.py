@@ -1,10 +1,12 @@
 import PySimpleGUI as sg
 from src.handlers.layout import Screen
 from src.handlers import observer
-
-SCREEN_NAME = 'CREATE PROFILE'
+from src.screens.profile import profile
+from src.handlers import layout
+SCREEN_NAME = '-CREATE-PROFILE-'
 BACK_GROUND_COLOR = '#112B3C'
 BUTTON_COLOR = '#6FC5FF'
+BUTTON_HOVER_COLOR = '#5A9ECC'
 TEXT_BUTTON_COLOR = '#243F50'
 TITLE_COLOR = '#2D8BC5'
 TEXT_FONT = ('System', 45)
@@ -15,11 +17,10 @@ _screen_main_title = sg.Text(SCREEN_NAME, size=500,
                              text_color=TITLE_COLOR,
                              pad=0)
 
-
 _create_profile_layout = [
     [
         sg.Text('Nick', size=(4, 1),
-                background_color='#112B3C',
+                background_color=BACK_GROUND_COLOR,
                 font=TEXT_FONT, pad=(5, 35)),
         sg.Input(size=(20, 15),
                  do_not_clear=False,
@@ -52,18 +53,18 @@ _create_profile_layout = [
         sg.Button('Save', key='-SAVE-',
                   border_width=15, size=(15, 1),
                   button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
-                  mouseover_colors=BACK_GROUND_COLOR,
+                  mouseover_colors=BUTTON_HOVER_COLOR,
                   font=('System', 20),
                   pad=(10, 5))
     ]
 ]
 
 _turn = sg.Button('<--',
-                  key='-BACK-',
+                  key= f'{layout.GOTO_VIEW } -PROFILE-',
                   border_width=15,
                   size=(7, 0),
                   button_color=(TEXT_BUTTON_COLOR, BUTTON_COLOR),
-                  mouseover_colors=BACK_GROUND_COLOR,
+                  mouseover_colors=BUTTON_HOVER_COLOR,
                   font=('System', 20),
                   pad=20)
 
@@ -90,15 +91,15 @@ def function_to_execute_on_event() -> None:
 # observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 
 
-def reset():
+def reset(*args):
     # Funcions
     pass
 
-# screen = Screen(
-#     SCREEN_NAME,
-#     _screen_layout,
-#     reset
-# )
+screen = Screen(
+    SCREEN_NAME,
+    _screen_layout,
+    reset
+)
 
 
 def main() -> None:
