@@ -1,15 +1,14 @@
 import PySimpleGUI as sg
+from handlers.theme import theme
 
 from src.handlers.layout import GOTO_VIEW, Screen
 SCREEN_NAME = "-CONFIGURATION-"
-MAIN_BACK_COLOR = '#112B3C'
-BUTTON_COLOR = '#112B3C'
-TEXT_COLOR = '#EFEFEF'
-
 
 # Vertical Space
+
+
 def _v_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
-    return sg.Column([[]], size=padding, background_color=MAIN_BACK_COLOR)
+    return sg.Column([[]], size=padding, background_color=theme.BG_BASE)
 
 # Horizontal Space
 
@@ -19,7 +18,7 @@ def _h_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
 
 
 def _title() -> sg.Text:
-    return sg.Text('C O N F I G U R A T I O N S', size=(800, 1), background_color=MAIN_BACK_COLOR, text_color='#EFEFEF', key='-title-', font=('System', 76), justification='center', pad=64)
+    return sg.Text('C O N F I G U R A T I O N S', size=(800, 1), background_color=theme.BG_BASE, text_color=theme.TEXT_ACCENT, key='-title-', font=('System', 76), justification='center', pad=64)
 
 
 # TODO parameters to the other screens
@@ -35,6 +34,7 @@ _cmb_time_per_game = sg.Combo(
     ('15', '30', '60', '90', '180', '300'),
     _time_per_game,
     background_color='#8DC3E4',
+    text_color=theme.BG_BASE,
     font=('System', 24),
     size=(5, 40),
     readonly=True,
@@ -43,6 +43,7 @@ _cmb_time_per_game = sg.Combo(
 _cmb_features_per_level = sg.Combo(('1', '2', '3', '4', '5'),
                                    _features_per_level,
                                    background_color='#8DC3E4',
+                                   text_color=theme.BG_BASE,
                                    font=('System', 24),
                                    readonly=True,
                                    size=(5, 30),
@@ -51,6 +52,7 @@ _cmb_features_per_level = sg.Combo(('1', '2', '3', '4', '5'),
 _cmb_rounds_per_game = sg.Combo(('3', '5', '8', '10', '20'),
                                 _rounds_per_game,
                                 background_color='#8DC3E4',
+                                text_color=theme.BG_BASE,
                                 font=('System', 24),
                                 readonly=True,
                                 size=(5, 24),
@@ -59,6 +61,7 @@ _cmb_rounds_per_game = sg.Combo(('3', '5', '8', '10', '20'),
 _cmb_plus_points = sg.Combo(('1', '5', '10', '25', '50'),
                             _points_added,
                             background_color='#8DC3E4',
+                            text_color=theme.BG_BASE,
                             font=('System', 24),
                             readonly=True,
                             size=(5, 24),
@@ -68,6 +71,7 @@ _cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
                            _points_substracted,
                            background_color='#8DC3E4',
                            font=('System', 24),
+                           text_color=theme.BG_BASE,
                            readonly=True,
                            size=(5, 30),
                            key='--QXANSWER-',)
@@ -81,14 +85,14 @@ def _menu_options():
                       disabled=True,
                       font=('System', 25),
                       size=(16, 1),
-                      text_color=TEXT_COLOR,
+                      text_color=theme.TEXT_ACCENT,
                       no_scrollbar=True,
-                      background_color=BUTTON_COLOR,
+                      background_color=theme.BG_BASE,
                       pad=default_padding,
                       border_width=12,
                       justification='center'),
 
-         sg.Text('Seconds ', background_color=MAIN_BACK_COLOR),
+         sg.Text('Seconds ', background_color=theme.BG_BASE),
          _cmb_time_per_game,
 
 
@@ -97,12 +101,12 @@ def _menu_options():
          sg.Multiline('Features per level', size=(16, 1),
                       font=('System', 25),
                       disabled=True,
-                      text_color=TEXT_COLOR,
+                      text_color=theme.TEXT_ACCENT,
                       no_scrollbar=True,
-                      background_color=BUTTON_COLOR,
+                      background_color=theme.BG_BASE,
                       pad=default_padding,
                       border_width=12),
-         sg.Text('Amount  ', background_color=MAIN_BACK_COLOR),
+         sg.Text('Amount  ', background_color=theme.BG_BASE),
 
          _cmb_features_per_level
 
@@ -110,42 +114,42 @@ def _menu_options():
 
         [_h_spacer((50, 0)),
          sg.Multiline('Rounds per game',
-                      text_color=TEXT_COLOR,
+                      text_color=theme.TEXT_ACCENT,
                       size=(16, 1),
                       disabled=True,
                       font=('System', 25),
-                      background_color=BUTTON_COLOR,
+                      background_color=theme.BG_BASE,
                       pad=default_padding,
                       no_scrollbar=True,
                       border_width=12),
-         sg.Text('Rounds   ', background_color=MAIN_BACK_COLOR),
+         sg.Text('Rounds   ', background_color=theme.BG_BASE),
          _cmb_rounds_per_game,
          sg.Push(),
          sg.Multiline('Points added',
-                      text_color=TEXT_COLOR,
+                      text_color=theme.TEXT_ACCENT,
                       no_scrollbar=True,
                       auto_size_text=True,
                       size=(16, 1),
                       disabled=True,
-                      background_color=BUTTON_COLOR,
+                      background_color=theme.BG_BASE,
                       font=('System', 25),
                       pad=default_padding,
                       border_width=12),
-         sg.Text('Correct  ', background_color=MAIN_BACK_COLOR),
+         sg.Text('Correct  ', background_color=theme.BG_BASE),
          _cmb_plus_points,
          ],
         [_h_spacer((50, 0)),
             sg.Multiline('Points substracted',
-                         text_color=TEXT_COLOR,
+                         text_color=theme.TEXT_ACCENT,
                          no_scrollbar=True,
                          auto_size_text=True,
                          size=(16, 1),
                          disabled=True,
-                         background_color=BUTTON_COLOR,
+                         background_color=theme.BG_BASE,
                          font=('System', 25),
                          pad=default_padding,
                          border_width=12),
-         sg.Text('Wrong    ', background_color=MAIN_BACK_COLOR),
+         sg.Text('Wrong    ', background_color=theme.BG_BASE),
          _cmb_sub_points,
          sg.Push()],
 
@@ -156,16 +160,16 @@ def _menu_options():
                       border_width=12,
                       size=(16, 1),
                       button_color=(
-                          TEXT_COLOR, MAIN_BACK_COLOR),
-                      mouseover_colors=MAIN_BACK_COLOR,
+                          theme.TEXT_ACCENT, theme.BG_BASE),
+                      mouseover_colors=theme.BG_BASE,
                       font=('System', 25)),
 
             sg.Button('Save Changes', size=(16, 1),
                       key='-SAVE-',
                       font=('System', 25),
-                      button_color=(TEXT_COLOR, MAIN_BACK_COLOR),
+                      button_color=(theme.TEXT_ACCENT, theme.BG_BASE),
                       pad=default_padding,
-                      mouseover_colors=MAIN_BACK_COLOR,
+                      mouseover_colors=theme.BG_BASE,
                       border_width=12),
             sg.Push(), ]]
 
@@ -191,7 +195,7 @@ screen = Screen(
 if __name__ == '__main__':
     # Create the Window
     window = sg.Window('Figurace -' + SCREEN_NAME, _configuration_layout,
-                       background_color=MAIN_BACK_COLOR).Finalize()
+                       background_color=theme.BG_BASE).Finalize()
     window.Maximize()
 
     while True:     # Event Loop
