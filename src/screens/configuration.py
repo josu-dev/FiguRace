@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
-NAME = "CONFIGURATION"
+
+from src.handlers.layout import GOTO_VIEW, Screen
+SCREEN_NAME = "-CONFIGURATION-"
 MAIN_BACK_COLOR = '#112B3C'
 BUTTON_COLOR = '#112B3C'
 TEXT_COLOR = '#EFEFEF'
@@ -68,7 +70,7 @@ _cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
 
 def _menu_options():
     default_padding = 16
-    layout = [
+    config_layout = [
         [_h_spacer((50, 0)),
          sg.Multiline('Time per game ',
                       disabled=True,
@@ -144,7 +146,8 @@ def _menu_options():
 
         [sg.Push(),
          _v_spacer((0, 350)),
-            sg.Button('<--', key='-BACK-',
+            sg.Button('<--',
+                      key=f'{GOTO_VIEW} -MENU-',
                       border_width=12,
                       size=(16, 1),
                       button_color=(
@@ -161,17 +164,28 @@ def _menu_options():
                       border_width=12),
             sg.Push(), ]]
 
-    return layout
+    return config_layout
 
 
 _configuration_layout = [[_title()],
-                         [_menu_options()],
+                         [sg.Column(_menu_options())],
                          ]
 
 
+def reset(*args):
+    # Funcions
+    pass
+
+
+screen = Screen(
+    SCREEN_NAME,
+    _configuration_layout,
+    reset
+)
+
 if __name__ == '__main__':
     # Create the Window
-    window = sg.Window('Figurace -' + NAME, _configuration_layout,
+    window = sg.Window('Figurace -' + SCREEN_NAME, _configuration_layout,
                        background_color=MAIN_BACK_COLOR).Finalize()
     window.Maximize()
 
@@ -186,14 +200,6 @@ if __name__ == '__main__':
             print('Saving Rounds per game ' + values['-QROUNDS-'])
             print('Saving Points added ' + values['-+QXANSWER-'])
             print('Saving Points substracted ' + values['--QXANSWER-'])
-
-        if event in ('-BACK-',):  # EXIT GAME
-            # TODO BACK TO MENU
-            if (sg.PopupOKCancel('Are you sure ? ', button_color=('#FFFFFF', '#205375'), text_color='#FFFFFF') == 'OK'):
-                print('Closing Game..')
-                break
-            else:
-                print('Exit cancelled')
 
         if event in (sg.WIN_CLOSED, ):  # WIN CLOSED BY OS
             break
