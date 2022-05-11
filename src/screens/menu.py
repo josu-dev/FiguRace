@@ -1,8 +1,7 @@
 import PySimpleGUI as sg
 from src.handlers.layout import Screen
 from src.handlers import layout
-
-SCREEN_NAME = "MENU"
+SCREEN_NAME = "-MENU-"
 MAIN_BACK_COLOR = '#112B3C'
 BUTTON_COLOR = '#6FC5FF'
 TEXT_COLOR = '#112B3C'
@@ -20,7 +19,7 @@ def _title():
 
 
 _btn_start_game_ = sg.Button('Start Game',
-                             key='-START-',
+                             key='-GAME-',
                              size=(18, 1),
                              font=font,
                              auto_size_button=True,
@@ -30,7 +29,7 @@ _btn_start_game_ = sg.Button('Start Game',
                              border_width=12)
 
 _btn_options = sg.Button('Options', size=(18, 1),
-                         key='-OPTIONS-',
+                         key=f'{layout.GOTO_VIEW} -CONFIGURATION-',
                          auto_size_button=True,
                          font=font,
                          button_color=(TEXT_COLOR, BUTTON_COLOR),
@@ -47,6 +46,7 @@ _btn_profile = sg.Button('Profile', size=(18, 1),
                          mouseover_colors=ON_HOVER_COLOR,
                          border_width=12)
 
+
 def _menu_options():
     layout = [
         [_v_spacer((0, 12))],
@@ -58,7 +58,7 @@ def _menu_options():
         [_v_spacer((0, 12))],
         [sg.Button('Exit', size=(18, 1),
                    auto_size_button=True,
-                   key='-EXIT-',
+                   key='-EXIT-APP-',
                    font=font,
                    button_color=(TEXT_COLOR, BUTTON_COLOR),
                    pad=default_padding,
@@ -73,46 +73,14 @@ _menu_layout = [[_title()],
                 [sg.Column(_menu_options(), background_color=MAIN_BACK_COLOR)],
                 ]
 
+
 def reset(*args):
     # Funcions
     pass
+
 
 screen = Screen(
     SCREEN_NAME,
     _menu_layout,
     reset
 )
-
-if __name__ == '__main__':
-    # Create the Window
-    window = sg.Window('Figurace -' + SCREEN_NAME, _menu_layout, resizable=True,
-                       background_color=MAIN_BACK_COLOR, element_justification='c').Finalize()
-    # window.Maximize()
-
-    while True:     # Event Loop
-        event, values = window.read()
-
-        if event in ('-START-',):
-            # TODO start running the game
-            print('Going to the game screen')
-
-        if event in ('-PROFILE-',):
-            # TODO Go to the profile screen
-            print('Going to the profile screen')
-
-        if event in ('-OPTIONS-',):
-            # TODO Go to the options screen
-            print('Going to the Options Screen')
-
-        if event in ('-EXIT-',):  # EXIT GAME
-            # TODO Save the data
-            if (sg.PopupOKCancel('Are you sure ? ', button_color=('#FFFFFF', '#205375'), text_color='#FFFFFF') == 'OK'):
-                print('Closing Game..')
-                break
-            else:
-                print('Exit cancelled')
-
-        if(sg.WIN_CLOSED,):
-            break
-
-    window.close()
