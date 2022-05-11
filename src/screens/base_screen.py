@@ -1,16 +1,12 @@
 import sys, os
+from typing import Any
 sys.path.append(os.path.join(os.path.dirname(__file__),'..'))
 
 import PySimpleGUI as sg
-from src.handlers.layout import Screen
+from src.handlers.layout import GOTO_VIEW, Screen
 from src.handlers import observer
 
-theme = db.theme
-print(theme.BORDER)
-
 SCREEN_NAME = '-BASE-SCREEN-'
-
-
 def _v_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
     return sg.Column([[]], size=padding)
 
@@ -19,7 +15,7 @@ _main_title = sg.Text('FIGURACE', size=(800, 1), text_color='#EFEFEF',
                       key='-title-', font=('Sketch 3D', 82), justification='center', pad=64)
 
 _button_exit = sg.Button(
-    'Exit', key='exit  ', size=(32, 1),
+    'Exit', key='-EXIT-APP-', size=(32, 1),
     font=('Sketch 3D', 20), border_width=12
 )
 
@@ -47,7 +43,7 @@ observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 # For example -MY-EVENT-NAME- some_data_here
 
 
-def reset():
+def reset(*args:Any):
     # This function resets de elements of the screen to defaults/configuration values
     # It runs every time that window view moves to this screen
     pass

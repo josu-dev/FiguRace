@@ -9,8 +9,11 @@ def subscribe(event_type: str, function: Callable[..., Any]) -> None:
     subscribers[event_type].append(function)
 
 
-def post_event(event_type: str, data: Any) -> None:
+def post_event(event_type: str, data: Any | None = None) -> None:
     if event_type not in subscribers:
         return
     for function in subscribers[event_type]:
-        function(data)
+        if data:
+            function(data)
+        else:
+            function()

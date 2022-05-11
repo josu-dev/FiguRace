@@ -12,6 +12,7 @@ class UserDefinition(TypedDict):
     gender : str
     scores : list[int]
     overall_score : int
+    prefered_color: str
 
 class User:
     def __init__(self, definition: UserDefinition):
@@ -30,7 +31,7 @@ class User:
     def age(self) -> int:
         return self._age
     
-    @property.setter
+    @age.setter
     def age(self, age:int) -> None:
         self._age = age
     
@@ -38,7 +39,7 @@ class User:
     def gender(self) -> str:
         return self._gender
     
-    @property.setter
+    @gender.setter
     def gender(self, gender:str) -> None:
         self._gender = gender
     
@@ -69,7 +70,7 @@ class User:
 
 
 def create_user(nick:str, gender:str, age:int, prefered_color:str):
-    user_definition = {
+    user_definition : UserDefinition = {
         'nick' : nick,
         'age' : age,
         'gender' : gender,
@@ -99,20 +100,18 @@ class UsersController:
         for user in self._users:
             if user.nick == nick:
                 return user
+        raise Exception(f'User {nick} hasnt been registered')
     
     @property
     def users(self) -> list[User]:
         return [user for user in self._users]
     
-    @property
     def users_transform(self, fn:Callable[[User],Any]) -> list[Any]:
         return [fn(user) for user in self._users]
     
-    @property
     def user(self, nick: str) -> User:
         return self._find_user(nick)
     
-    @property
     def user_transform(self, nick: str, fn:Callable[[User],Any]) -> User:
         return fn(self._find_user(nick))
     
@@ -120,7 +119,7 @@ class UsersController:
     def current_user(self) -> User:
         return self._users[self._current_user]
     
-    @property.setter
+    @current_user.setter
     def current_user(self, nick:str) -> None:
         self._current_user = self._users.index(self._find_user(nick))
     

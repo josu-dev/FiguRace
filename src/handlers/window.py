@@ -1,7 +1,9 @@
 import PySimpleGUI as sg
-from handlers.layout import GOTO_VIEW, WindowLayoutController
-from handlers import observer
+from src.handlers.layout import GOTO_VIEW, WindowLayoutController
+from src.handlers import observer
 from src.screens import base_screen
+
+EXIT_APLICATION = '-EXIT-APP-'
 
 DEFAULT_TITLE = 'Figurace'
 DEFAULT_INITIAL_SCREEN = base_screen.screen.key
@@ -16,9 +18,11 @@ def window_set_up() -> sg.Window:
     # layout_controller.register(configuration.screen)
     # layout_controller.register(user.screen)
 
+
     observer.subscribe(GOTO_VIEW, layout_controller.goto_layout)
     window_layout = layout_controller.get_composed_layout()
 
     window = sg.Window(DEFAULT_TITLE, window_layout, finalize=True)
     layout_controller.init(DEFAULT_INITIAL_SCREEN)
     return window
+

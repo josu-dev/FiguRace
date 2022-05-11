@@ -26,7 +26,7 @@ class WindowLayoutController:
     def __init__(self):
         self.actual_layout: str = ''
         self.layout_stack: list[str] = []
-        self.layouts: dict[str, Layout] = {}
+        self.layouts: dict[str, Screen] = {}
         self.composed_layout: list[sg.Element] = []
 
     def goto_layout(self, key: str) -> None:
@@ -40,10 +40,10 @@ class WindowLayoutController:
         self.layouts[self.actual_layout].turn_visivility()
 
     def register(self, screen: Screen) -> None:
-        if layout.key in self.layouts:
-            raise Exception(f'Already registered a layout with key {layout.key}')
-        self.layouts[layout.key] = layout
-        self.composed_layout.append(layout.container)
+        if screen.key in self.layouts:
+            raise Exception(f'Already registered a layout with key {screen.key}')
+        self.layouts[screen.key] = screen
+        self.composed_layout.append(screen.container)
 
     def get_composed_layout(self) -> ElementLayout:
         return [self.composed_layout]
