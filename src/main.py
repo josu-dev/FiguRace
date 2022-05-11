@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 
 from .handlers import observer
 from .handlers import window as window_c
-
+from .database import database
 
 def main():
     window = window_c.window_set_up()

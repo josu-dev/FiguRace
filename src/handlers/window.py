@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 from src.handlers.layout import GOTO_VIEW, WindowLayoutController
 from src.handlers import observer
 from src.screens import base_screen
+from src.screens.profile import profile
 
 EXIT_APLICATION = '-EXIT-APP-'
 
@@ -14,6 +15,7 @@ layout_controller = WindowLayoutController()
 def window_set_up() -> sg.Window:
     # All screens in the aplication
     layout_controller.register(base_screen.screen)
+    layout_controller.register(profile.screen)
     # layout_controller.register(menu.screen)
     # layout_controller.register(configuration.screen)
     # layout_controller.register(user.screen)

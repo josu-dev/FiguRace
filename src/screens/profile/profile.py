@@ -81,11 +81,11 @@ def reset():
     # Funcions
     pass
 
-# screen = Screen(
-#     SCREEN_NAME,
-#     _screen_layout,
-#     reset
-# )
+screen = Screen(
+    SCREEN_NAME,
+    _screen_layout,
+    reset
+)
 
 
 def main() -> None:

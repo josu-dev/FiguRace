@@ -8,26 +8,22 @@ RGBStr = str
 
 
 class ThemeDefinition(TypedDict):
-    BACKGROUND: RGBStr
-    TEXT: RGBStr
-    INPUT: RGBStr
-    TEXT_INPUT: RGBStr
-    SCROLL: RGBStr
-    BUTTON: tuple[RGBStr, RGBStr]
-    PROGRESS: tuple[RGBStr, RGBStr]
-    BORDER: int
-    SLIDER_DEPTH: int
-    PROGRESS_DEPTH: int
+    BG_BASE : str
+    BG_PRIMARY : str
+    BG_SECONDARY : str
+    BG_BUTTON : str
+    BG_BUTTON_HOVER : str
 
-    # ACCENT1 : Optional[RGBStr]
-    # ACCENT2 : Optional[RGBStr]
-    # ACCENT3 : Optional[RGBStr]
-
-    # COLOR_LIST : Optional[list[RGBStr]]
-    # BG_LIST : Optional[list[RGBStr]]
-    # FG_LIST : Optional[list[RGBStr]]
-    # BD_COLOR : Optional[RGBStr]
-    # FONT_FAMILY : Optional[str]
+    TEXT_ACCENT : str
+    TEXT_PRIMARY : str
+    TEXT_SECONDARY : str
+    TEXT_BUTTON : str
+    TEXT_BUTTON_HOVER : str
+    
+    BD_ACCENT : int
+    BD_PRIMARY : int
+    BD_SECONDARY : int
+    FONT_FAMILY : str
 
 
 def load_theme() -> ThemeDefinition:
@@ -40,13 +36,19 @@ def load_theme() -> ThemeDefinition:
 class Theme:
     def __init__(self):
         theme_settings = load_theme()
-        self.BACKGROUND = theme_settings['BACKGROUND']
-        self.TEXT = theme_settings['TEXT']
-        self.INPUT = theme_settings['INPUT']
-        self.TEXT_INPUT = theme_settings['TEXT_INPUT']
-        self.SCROLL = theme_settings['SCROLL']
-        self.BUTTON = theme_settings['BUTTON']
-        self.PROGRESS = theme_settings['PROGRESS']
-        self.BORDER = theme_settings['BORDER']
-        self.SLIDER_DEPTH = theme_settings['SLIDER_DEPTH']
-        self.PROGRESS_DEPTH = theme_settings['PROGRESS_DEPTH']
+        self.BG_BASE= theme_settings['BG_BASE']
+        self.BG_PRIMARY= theme_settings['BG_PRIMARY']
+        self.BG_SECONDARY= theme_settings['BG_SECONDARY']
+        self.BG_BUTTON= theme_settings['BG_BUTTON']
+        self.BG_BUTTON_HOVER= theme_settings['BG_BUTTON_HOVER']
+
+        self.TEXT_ACCENT= theme_settings['TEXT_ACCENT']
+        self.TEXT_PRIMARY= theme_settings['TEXT_PRIMARY']
+        self.TEXT_SECONDARY= theme_settings['TEXT_SECONDARY']
+        self.TEXT_BUTTON= theme_settings['TEXT_BUTTON']
+        self.TEXT_BUTTON_HOVER= theme_settings['TEXT_BUTTON_HOVER']
+        
+        self.BD_ACCENT= theme_settings['BD_ACCENT'],
+        self.BD_PRIMARY= theme_settings['BD_PRIMARY'],
+        self.BD_SECONDARY= theme_settings['BD_SECONDARY'],
+        self.FONT_FAMILY= theme_settings['FONT_FAMILY']
