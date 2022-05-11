@@ -1,4 +1,6 @@
 import PySimpleGUI as sg
+from src.handlers.layout import Screen
+from src.handlers import layout
 
 SCREEN_NAME = "MENU"
 MAIN_BACK_COLOR = '#112B3C'
@@ -37,14 +39,13 @@ _btn_options = sg.Button('Options', size=(18, 1),
                          border_width=12)
 
 _btn_profile = sg.Button('Profile', size=(18, 1),
-                         key='-PROFILE-',
+                         key=f'{layout.GOTO_VIEW} -PROFILE-',
                          auto_size_button=True,
                          font=font,
                          button_color=(TEXT_COLOR, BUTTON_COLOR),
                          pad=default_padding,
                          mouseover_colors=ON_HOVER_COLOR,
                          border_width=12)
-
 
 def _menu_options():
     layout = [
@@ -72,6 +73,15 @@ _menu_layout = [[_title()],
                 [sg.Column(_menu_options(), background_color=MAIN_BACK_COLOR)],
                 ]
 
+def reset(*args):
+    # Funcions
+    pass
+
+screen = Screen(
+    SCREEN_NAME,
+    _menu_layout,
+    reset
+)
 
 if __name__ == '__main__':
     # Create the Window
