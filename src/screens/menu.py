@@ -4,7 +4,7 @@ from src.handlers import layout
 SCREEN_NAME = "-MENU-"
 MAIN_BACK_COLOR = '#112B3C'
 BUTTON_COLOR = '#6FC5FF'
-TEXT_COLOR = '#112B3C'
+TEXT_COLOR = '#243F50'
 ON_HOVER_COLOR = '#5A9ECC'
 default_padding = 2
 font = ('System', 32)
