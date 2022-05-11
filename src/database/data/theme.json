@@ -3,10 +3,10 @@
         "BG_BASE": "#112B3C",
         "BG_PRIMARY": "#112B3C",
         "BG_SECONDARY": "#112B3C",
-        "BG_BUTTON": "#112B3C",
-        "BG_BUTTON_HOVER": "#112B3C",
+        "BG_BUTTON": "#6FC5FF",
+        "BG_BUTTON_HOVER": "#5A9ECC",
 
-        "TEXT_ACCENT": "#243F50",
+        "TEXT_ACCENT": "#EFEFEF",
         "TEXT_PRIMARY": "#243F50",
         "TEXT_SECONDARY": "#243F50",
         "TEXT_BUTTON": "#243F50",
