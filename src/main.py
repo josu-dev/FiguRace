@@ -1,10 +1,9 @@
 import PySimpleGUI as sg
 from .handlers import observer
 from .handlers import window as window_c
-from .database import database as db
+
 
 def main():
-    theme = db.theme
     window = window_c.window_set_up()
 
     while True:

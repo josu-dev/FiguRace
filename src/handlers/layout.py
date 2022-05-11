@@ -1,12 +1,11 @@
 from typing import Callable
 import PySimpleGUI as sg
 
-from src.PyCustomGUI.missing_typings import ElementLayout
 
 GOTO_VIEW = '-GOTO-VIEW-'
 
 class Screen:
-    def __init__(self, key: str, layout: ElementLayout, reset: Callable[..., None]):
+    def __init__(self, key: str, layout: list[list[sg.Element]], reset: Callable[..., None]):
         self.key = key
         self.is_visible = False
         self.container = sg.Column(layout, key=key, visible=False)
@@ -46,7 +45,7 @@ class WindowLayoutController:
         self.layouts[screen.key] = screen
         self.composed_layout.append(screen.container)
 
-    def get_composed_layout(self) -> ElementLayout:
+    def get_composed_layout(self) -> list[list[sg.Element]]:
         return [self.composed_layout]
     
     def init(self, key:str)-> None:
