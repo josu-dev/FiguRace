@@ -81,7 +81,6 @@ def reset(*args):
     # Funcions
     pass
 
-
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
