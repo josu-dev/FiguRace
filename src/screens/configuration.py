@@ -3,6 +3,7 @@ from src import constants as const
 from src.handlers.theme import theme
 from src.handlers.layout import Screen
 SCREEN_NAME = "-CONFIGURATION-"
+default_padding = 16
 
 # Vertical Space
 
@@ -18,11 +19,28 @@ def _h_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
 
 
 def _title() -> sg.Text:
-    return sg.Text('C O N F I G U R A T I O N S', size=(800, 1), background_color=theme.BG_BASE, text_color=theme.TEXT_ACCENT, key='-title-', font=('System', 76), justification='center', pad=64)
+    return sg.Text('C O N F I G U R A C I Ó N ', auto_size_text=True, background_color=theme.BG_BASE, text_color=theme.TEXT_ACCENT, key='-title-', font=('System', 76), justification='center', pad=64)
 
 
-# TODO parameters to the other screens
-# TODO db.loadConfigurations(time_per_game,rounds_per_game,points_added,point_substracted,features_per_level)
+def _build_text(text, unit, combo, lines):
+    result = [sg.Multiline(text,
+                           disabled=True,
+                           font=('System', 25),
+                           size=(16, lines),
+                           text_color=theme.TEXT_ACCENT,
+                           no_scrollbar=True,
+                           background_color=theme.BG_BASE,
+                           pad=default_padding,
+                           border_width=12,
+                           justification='center'),
+              sg.Text(unit, background_color=theme.BG_BASE),
+
+              combo, ]
+    return result
+
+
+    # TODO parameters to the other screens
+    # TODO db.loadConfigurations(time_per_game,rounds_per_game,points_added,point_substracted,features_per_level)
 _time_per_game = 60
 _rounds_per_game = 5
 _points_added = 10
@@ -77,80 +95,32 @@ _cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
                            key='--QXANSWER-',)
 
 
-def _menu_options():
-    default_padding = 16
+def _menu_options() -> list[list]:
     config_layout = [
         [_h_spacer((50, 0)),
-         sg.Multiline('Time per game ',
-                      disabled=True,
-                      font=('System', 25),
-                      size=(16, 1),
-                      text_color=theme.TEXT_ACCENT,
-                      no_scrollbar=True,
-                      background_color=theme.BG_BASE,
-                      pad=default_padding,
-                      border_width=12,
-                      justification='center'),
-
-         sg.Text('Seconds ', background_color=theme.BG_BASE),
-         _cmb_time_per_game,
-
+         *_build_text('Tiempo de partida', 'Segundos:',
+                      _cmb_time_per_game, 1),
 
          sg.Push(),
 
-         sg.Multiline('Features per level', size=(16, 1),
-                      font=('System', 25),
-                      disabled=True,
-                      text_color=theme.TEXT_ACCENT,
-                      no_scrollbar=True,
-                      background_color=theme.BG_BASE,
-                      pad=default_padding,
-                      border_width=12),
-         sg.Text('Amount  ', background_color=theme.BG_BASE),
-
-         _cmb_features_per_level
-
+         *_build_text('  Caracteristicas \n  por nivel', 'Cantidad: ',
+                      _cmb_features_per_level, 2)
          ],
 
         [_h_spacer((50, 0)),
-         sg.Multiline('Rounds per game',
-                      text_color=theme.TEXT_ACCENT,
-                      size=(16, 1),
-                      disabled=True,
-                      font=('System', 25),
-                      background_color=theme.BG_BASE,
-                      pad=default_padding,
-                      no_scrollbar=True,
-                      border_width=12),
-         sg.Text('Rounds   ', background_color=theme.BG_BASE),
-         _cmb_rounds_per_game,
+         *_build_text('Rounds por juego', 'Cantidad: ',
+                      _cmb_rounds_per_game, 1),
+
          sg.Push(),
-         sg.Multiline('Points added',
-                      text_color=theme.TEXT_ACCENT,
-                      no_scrollbar=True,
-                      auto_size_text=True,
-                      size=(16, 1),
-                      disabled=True,
-                      background_color=theme.BG_BASE,
-                      font=('System', 25),
-                      pad=default_padding,
-                      border_width=12),
-         sg.Text('Correct  ', background_color=theme.BG_BASE),
-         _cmb_plus_points,
+
+         *_build_text('Puntos añadidos', 'Cantidad: ',
+                      _cmb_plus_points, 1),
+
          ],
         [_h_spacer((50, 0)),
-            sg.Multiline('Points substracted',
-                         text_color=theme.TEXT_ACCENT,
-                         no_scrollbar=True,
-                         auto_size_text=True,
-                         size=(16, 1),
-                         disabled=True,
-                         background_color=theme.BG_BASE,
-                         font=('System', 25),
-                         pad=default_padding,
-                         border_width=12),
-         sg.Text('Wrong    ', background_color=theme.BG_BASE),
-         _cmb_sub_points,
+            *_build_text('Puntos restados', 'Cantidad: ',
+                         _cmb_sub_points, 1),
+
          sg.Push()],
 
         [sg.Push(),
@@ -164,7 +134,7 @@ def _menu_options():
                       mouseover_colors=theme.BG_BASE,
                       font=('System', 25)),
 
-            sg.Button('Save Changes', size=(16, 1),
+            sg.Button('Guardar', size=(16, 1),
                       key='-SAVE-',
                       font=('System', 25),
                       button_color=(theme.TEXT_ACCENT, theme.BG_BASE),
@@ -183,6 +153,7 @@ _configuration_layout = [
 
 _screen_config = {
     'background_color': theme.BG_BASE,
+    'element_justification': 'c'
 }
 
 

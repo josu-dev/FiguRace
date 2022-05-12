@@ -4,49 +4,49 @@ from src.handlers.theme import theme
 from src.handlers.layout import Screen
 
 SCREEN_NAME = "-MENU-"
-default_padding = 2
-font = ('System', 32)
+_default_padding = 2
+_font = ('System', 32)
 
 
 def _v_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
     return sg.Column([[]], size=padding, background_color=theme.BG_BASE)
 
 
-def _title():
+def _title() -> sg.Text:
     return sg.Text('F  I  G  U  R  A  C  E', size=(800, 1), background_color=theme.BG_BASE, text_color='#EFEFEF', key='-title-', font=('Sketch 3D', 86), justification='center', pad=64)
 
 
-_btn_start_game_ = sg.Button('Start Game',
+_btn_start_game_ = sg.Button('Iniciar Juego',
                              key='-GAME-',
                              size=(18, 1),
-                             font=font,
+                             font=_font,
                              auto_size_button=True,
                              button_color=(theme.TEXT_PRIMARY,
                                            theme.BG_BUTTON),
-                             pad=default_padding,
+                             pad=_default_padding,
                              mouseover_colors=theme.BG_BUTTON_HOVER,
                              border_width=12)
 
-_btn_options = sg.Button('Options', size=(18, 1),
+_btn_options = sg.Button('Configuración', size=(18, 1),
                          key=f'{const.GOTO_VIEW} -CONFIGURATION-',
                          auto_size_button=True,
-                         font=font,
+                         font=_font,
                          button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-                         pad=default_padding,
+                         pad=_default_padding,
                          mouseover_colors=theme.BG_BUTTON_HOVER,
                          border_width=12)
 
-_btn_profile = sg.Button('Profile', size=(18, 1),
+_btn_profile = sg.Button('Perfil', size=(18, 1),
                          key=f'{const.GOTO_VIEW} -PROFILE-',
                          auto_size_button=True,
-                         font=font,
+                         font=_font,
                          button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-                         pad=default_padding,
+                         pad=_default_padding,
                          mouseover_colors=theme.BG_BUTTON_HOVER,
                          border_width=12)
 
 
-def _menu_options():
+def _menu_options() -> list[list]:
     layout = [
         [_v_spacer((0, 12))],
         [_btn_start_game_],
@@ -55,12 +55,12 @@ def _menu_options():
         [_v_spacer((0, 12))],
         [_btn_profile],
         [_v_spacer((0, 12))],
-        [sg.Button('Exit', size=(18, 1),
+        [sg.Button('Salir', size=(18, 1),
                    auto_size_button=True,
                    key=const.EXIT_APLICATION,
-                   font=font,
+                   font=_font,
                    button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-                   pad=default_padding,
+                   pad=_default_padding,
                    mouseover_colors=theme.BG_BUTTON_HOVER,
                    border_width=12)]
     ]
@@ -70,12 +70,12 @@ def _menu_options():
 # All the stuff inside your window.
 _screen_layout = [
     [_title()],
-    [sg.Column(_menu_options(), background_color=theme.BG_BASE)],
+    [sg.Column(_menu_options(), background_color=theme.BG_BASE,)],
 ]
 
 _screen_config = {
     'element_justification': 'c',
-    'background_color': theme.BG_BASE
+    'background_color': theme.BG_BASE,
 }
 
 

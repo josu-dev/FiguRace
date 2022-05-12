@@ -27,8 +27,8 @@ def window_set_up() -> sg.Window:
 
     window = sg.Window(
         DEFAULT_TITLE, window_layout,
-        finalize=True, element_justification='c',
-        background_color=theme.BG_BASE, margins=(0,0)
+        finalize=True, element_justification='c', resizable=True,
+        background_color=theme.BG_BASE, margins=(0, 0)
     )
     window.Maximize()
 
