@@ -76,7 +76,7 @@ _screen_layout = [
         _turn
     ]
 ]
-_screen_layout = {
+_screen_config = {
         'background_color':theme.BG_BASE
     }
 def function_to_execute_on_event() -> None:
@@ -93,7 +93,7 @@ def reset(*args):
 screen = Screen(
     SCREEN_NAME,
     _screen_layout,
-    _screen_layout,
+    _screen_config,
     reset
 )
 
