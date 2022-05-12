@@ -74,7 +74,8 @@ _screen_layout = [
 ]
 
 _screen_config = {
-    'justification': 'c'
+    'element_justification': 'c',
+    'background_color': theme.BG_BASE
 }
 
 

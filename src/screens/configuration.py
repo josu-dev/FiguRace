@@ -176,14 +176,16 @@ def _menu_options():
     return config_layout
 
 
-_screen_layout = [
+_configuration_layout = [
     [_title()],
-    [sg.Column(_menu_options())],
+    [sg.Column(_menu_options(), background_color=theme.BG_BASE)],
 ]
 
 _screen_config = {
-    'background_color':theme.BG_BASE
+    'background_color': theme.BG_BASE,
+    'element_justification': 'c'
 }
+
 
 def reset(*args):
     # Funcions
@@ -192,29 +194,7 @@ def reset(*args):
 
 screen = Screen(
     SCREEN_NAME,
-    _screen_layout,
+    _configuration_layout,
     _screen_config,
     reset
 )
-
-if __name__ == '__main__':
-    # Create the Window
-    window = sg.Window('Figurace -' + SCREEN_NAME, _configuration_layout,
-                       background_color=theme.BG_BASE).Finalize()
-    window.Maximize()
-
-    while True:     # Event Loop
-        event, values = window.read()
-
-        if event in ('-SAVE-',):  # SAVE CONFIG
-            # TODO SAVE DATA
-            # db.saveConfigurations()
-            print('Saving time per game ' + values['-TIME-'])
-            print('Saving Features per level ' + values['-CARXLEVEL-'])
-            print('Saving Rounds per game ' + values['-QROUNDS-'])
-            print('Saving Points added ' + values['-+QXANSWER-'])
-            print('Saving Points substracted ' + values['--QXANSWER-'])
-
-        if event in (sg.WIN_CLOSED, ):  # WIN CLOSED BY OS
-            break
-    window.close()
