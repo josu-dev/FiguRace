@@ -5,7 +5,7 @@ from src.handlers import observer
 from src.handlers.theme import theme
 SCREEN_NAME = '-CREATE-PROFILE-'
 
-_screen_main_title = sg.Text(SCREEN_NAME,
+_screen_main_title = sg.Text('CREAR PERFIL',
                              size=500,
                              background_color=theme.BG_BASE,
                              font=(theme.FONT_FAMILY, 45),
@@ -24,7 +24,7 @@ _create_profile_layout = [
                  text_color='white')
     ],
     [
-        sg.Text('Age', size=(4, 1),
+        sg.Text('Edad', size=(4, 1),
                 background_color=theme.BG_BASE,
                 font=(theme.FONT_FAMILY, 45), pad=(5, 35)),
         sg.Input(size=(20, 10),
@@ -34,18 +34,18 @@ _create_profile_layout = [
                  text_color='white')
     ],
     [
-        sg.Text('Gender', size=(7, 1),
+        sg.Text('Género', size=(7, 1),
                 background_color=theme.BG_BASE,
                 font=(theme.FONT_FAMILY, 45), pad=(5, 20)),
-        sg.Combo(('Female', 'Male', 'Undefined', 'Other'),
-                 'Female',
+        sg.Combo(('Femenino', 'Masculino', 'Indefinido', 'Otro'),
+                 'Femenino',
                  background_color='#8DC3E4',
                  font=('System', 30),
                  readonly=True,
                  text_color=theme.BG_BASE)
     ],
     [
-        sg.Button('Save', key='-SAVE-',
+        sg.Button('Guardar', key='-SAVE-',
                   border_width=15, size=(15, 1),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                   mouseover_colors=theme.BG_BUTTON_HOVER,
@@ -77,7 +77,7 @@ _screen_layout = [
                   )
     ],
     [
-        
+
         _turn
     ]
 ]

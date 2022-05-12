@@ -8,8 +8,8 @@ from src.handlers import layout
 from src.handlers.theme import theme
 SCREEN_NAME = '-PROFILES-'
 
-_screen_main_title = sg.Text(SCREEN_NAME,
-                             size=(len(SCREEN_NAME), 1),
+_screen_main_title = sg.Text('SELECCIONAR PERFIL',
+                             size=(len('SELECCIONAR PERFIL'), 1),
                              background_color=theme.BG_BASE,
                              font=(theme.FONT_FAMILY, 45),
                              pad=0,
@@ -63,7 +63,7 @@ button_3 = sg.Button('Nestor',
                      font=(theme.FONT_FAMILY, 22),
                      pad=0
                      )
-button_4 = sg.Button('Free',
+button_4 = sg.Button('Vacío',
                      k='4',
                      size=(10, 2),
                      border_width=15,
@@ -74,8 +74,8 @@ button_4 = sg.Button('Free',
                      )
 
 buttons = cg.HorizontalList(justification='c',
-    background_color=theme.BG_BASE,
-    element_justification='c').add(
+                            background_color=theme.BG_BASE,
+                            element_justification='c').add(
     [[_discord_1], [button_1]],
 ).add(
     [[_discord_2], [button_2]]
@@ -95,13 +95,14 @@ _turn = sg.Button('<--',
 
 _screen_layout = [
     [_screen_main_title],
-    [cg.CenteredElement(buttons,background_color=theme.BG_BASE)],
+    [cg.CenteredElement(buttons, background_color=theme.BG_BASE)],
     [_turn],
 ]
 
 _screen_config = {
-    'background_color' : theme.BG_BASE
+    'background_color': theme.BG_BASE
 }
+
 
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff

@@ -16,7 +16,7 @@ def _title() -> sg.Text:
     return sg.Text('F  I  G  U  R  A  C  E', size=(800, 1), background_color=theme.BG_BASE, text_color='#EFEFEF', key='-title-', font=('Sketch 3D', 86), justification='center', pad=64)
 
 
-_btn_start_game_ = sg.Button('Start Game',
+_btn_start_game_ = sg.Button('Iniciar Juego',
                              key='-GAME-',
                              size=(18, 1),
                              font=_font,
@@ -27,7 +27,7 @@ _btn_start_game_ = sg.Button('Start Game',
                              mouseover_colors=theme.BG_BUTTON_HOVER,
                              border_width=12)
 
-_btn_options = sg.Button('Options', size=(18, 1),
+_btn_options = sg.Button('Configuración', size=(18, 1),
                          key=f'{const.GOTO_VIEW} -CONFIGURATION-',
                          auto_size_button=True,
                          font=_font,
@@ -36,7 +36,7 @@ _btn_options = sg.Button('Options', size=(18, 1),
                          mouseover_colors=theme.BG_BUTTON_HOVER,
                          border_width=12)
 
-_btn_profile = sg.Button('Profile', size=(18, 1),
+_btn_profile = sg.Button('Perfil', size=(18, 1),
                          key=f'{const.GOTO_VIEW} -PROFILE-',
                          auto_size_button=True,
                          font=_font,
@@ -55,7 +55,7 @@ def _menu_options() -> list[list]:
         [_v_spacer((0, 12))],
         [_btn_profile],
         [_v_spacer((0, 12))],
-        [sg.Button('Exit', size=(18, 1),
+        [sg.Button('Salir', size=(18, 1),
                    auto_size_button=True,
                    key=const.EXIT_APLICATION,
                    font=_font,
