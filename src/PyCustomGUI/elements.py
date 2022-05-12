@@ -3,6 +3,7 @@ from typing import Any
 
 import PySimpleGUI as sg
 
+
 Element = sg.Element | sg.Column | sg.Text | sg.Button | sg.Input | sg.Multiline | sg.Frame | sg.Combo | sg.Listbox
 ElementLayout = list[list[Element]]
 
@@ -61,9 +62,12 @@ def CenteredElement(element: Element, **column_parameters: Any) -> sg.Column:
     column_parameters['justification'] = 'c'
     column_parameters['expand_y'] = True
     column_parameters['expand_x'] = True
-
     return sg.Column(
-        [[element]],
+        [
+            [sg.VPush(background_color=None if ('background_color'not in column_parameters)else column_parameters['background_color'])],
+            [element],
+            [sg.VPush(background_color=None if ('background_color'not in column_parameters)else column_parameters['background_color'])]
+            ],
         **column_parameters
     )
 

@@ -5,17 +5,18 @@ from src.handlers import observer
 from src.handlers.theme import theme
 SCREEN_NAME = '-CREATE-PROFILE-'
 
-_screen_main_title = sg.Text(SCREEN_NAME, size=500,
+_screen_main_title = sg.Text(SCREEN_NAME,
+                             size=500,
                              background_color=theme.BG_BASE,
                              font=(theme.FONT_FAMILY, 45),
-                             text_color=theme.TEXT_ACCENT,
-                             pad=0)
+                             pad=0,
+                             text_color=theme.TEXT_ACCENT)
 
 _create_profile_layout = [
     [
         sg.Text('Nick', size=(4, 1),
                 background_color=theme.BG_BASE,
-                font=(theme.FONT_FAMILY,45), pad=(5, 35)),
+                font=(theme.FONT_FAMILY, 45), pad=(5, 35)),
         sg.Input(size=(20, 15),
                  do_not_clear=False,
                  background_color=theme.BG_BASE,
@@ -25,7 +26,7 @@ _create_profile_layout = [
     [
         sg.Text('Age', size=(4, 1),
                 background_color=theme.BG_BASE,
-                font=(theme.FONT_FAMILY,45), pad=(5, 35)),
+                font=(theme.FONT_FAMILY, 45), pad=(5, 35)),
         sg.Input(size=(20, 10),
                  do_not_clear=False,
                  background_color=theme.BG_BASE,
@@ -35,7 +36,7 @@ _create_profile_layout = [
     [
         sg.Text('Gender', size=(7, 1),
                 background_color=theme.BG_BASE,
-                font=(theme.FONT_FAMILY,45), pad=(5, 20)),
+                font=(theme.FONT_FAMILY, 45), pad=(5, 20)),
         sg.Combo(('Female', 'Male', 'Undefined', 'Other'),
                  'Female',
                  background_color='#8DC3E4',
@@ -54,7 +55,7 @@ _create_profile_layout = [
 ]
 
 _turn = sg.Button('<--',
-                  key= f'{const.GOTO_VIEW } -PROFILE-',
+                  key=f'{const.GOTO_VIEW } -PROFILE-',
                   border_width=15,
                   size=(7, 0),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
@@ -70,20 +71,27 @@ _screen_layout = [
         sg.Column(_create_profile_layout,
                   background_color=theme.BG_BASE,
                   expand_x=True,
-                  element_justification='c')
+                  element_justification='c',
+                  vertical_alignment='center',
+                  expand_y=True
+                  )
     ],
     [
+        
         _turn
     ]
 ]
 _screen_config = {
-        'background_color':theme.BG_BASE
-    }
+    'background_color': theme.BG_BASE
+}
+
+
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
     pass
 
 # observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
+
 
 def reset(*args):
     # Funcions
@@ -96,21 +104,3 @@ screen = Screen(
     _screen_config,
     reset
 )
-
-def main() -> None:
-    window = sg.Window('Figurace - ' + SCREEN_NAME,
-                       _screen_layout,
-                       background_color=theme.BG_BASE,
-                       resizable=True).finalize()
-    window.Maximize()
-    while True:
-        events, values = window.read()
-        if events in ('-BACK-'):
-            print('back page...')
-            break
-        if events == sg.WIN_CLOSED:
-            break
-    window.close()
-
-if __name__ == '__main__':
-    main()

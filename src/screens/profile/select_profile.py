@@ -11,7 +11,8 @@ SCREEN_NAME = '-PROFILES-'
 _screen_main_title = sg.Text(SCREEN_NAME,
                              size=(len(SCREEN_NAME), 1),
                              background_color=theme.BG_BASE,
-                             font=(theme.FONT_FAMILY, 45), pad=0,
+                             font=(theme.FONT_FAMILY, 45),
+                             pad=0,
                              text_color=theme.TEXT_ACCENT)
 
 _discord_1 = sg.Image(data=discord_red.source,
@@ -94,7 +95,7 @@ _turn = sg.Button('<--',
 
 _screen_layout = [
     [_screen_main_title],
-    [cg.CenteredElement(buttons)],
+    [cg.CenteredElement(buttons,background_color=theme.BG_BASE)],
     [_turn],
 ]
 
@@ -108,6 +109,7 @@ def function_to_execute_on_event() -> None:
 
 # observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 
+
 def reset(*args):
     # This function resets de elements of the screen to defaults/configuration values
     # It runs every time that window view moves to this screen
@@ -120,25 +122,3 @@ screen = Screen(
     _screen_config,
     reset
 )
-
-def main() -> None:
-    window = sg.Window('Figurace - ' + SCREEN_NAME, _screen_layout,
-                       background_color=theme.BG_BASE,
-                       resizable=True,
-                       auto_size_buttons=True,
-                       finalize=True,
-                       alpha_channel=1,
-                       )
-    window.Maximize()
-    while True:
-        event, values = window.read()
-        if event in ('-BACK-'):
-            # TODO back to menu
-            print('Back page...')
-            break
-        if event == sg.WIN_CLOSED:
-            break
-    window.close()
-
-if __name__ == '__main__':
-    main()
