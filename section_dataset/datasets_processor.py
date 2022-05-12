@@ -2,11 +2,10 @@ import os
 import csv
 
 UPPER_GENDERS = ["EDM", "DFW", "UK", "R&B", "LGBTQ+"]
-TITLE_GENDERS = ["K-Pop"]
 
 path = os.path.dirname(os.path.realpath("."))
 path_file = os.path.join(path,"grupo27", "section_dataset", "base_datasets", 'Spotify_2010-2019_Top_100.csv')
-path_newfile = os.path.join(path,"grupo27", "section_dataset", "base_datasets", 'Spotify.csv')
+path_newfile = os.path.join(path,"grupo27", "section_dataset", "processed_datasets", 'Spotify.csv')
 
 with open(path_file,"r", encoding="utf-8") as File:  
     csv_reader = csv.reader(File, delimiter=',')
