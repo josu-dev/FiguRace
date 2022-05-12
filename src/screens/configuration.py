@@ -178,12 +178,11 @@ def _menu_options():
 
 _configuration_layout = [
     [_title()],
-    [sg.Column(_menu_options(), background_color=theme.BG_BASE)],
+    [sg.Column(_menu_options(), background_color=theme.BG_BASE, expand_x=True)],
 ]
 
 _screen_config = {
     'background_color': theme.BG_BASE,
-    'element_justification': 'c'
 }
 
 
