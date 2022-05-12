@@ -26,7 +26,7 @@ class OpenWindow:
     def __enter__(self):
         return self.window
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, exc_type:Any, exc_value:Any, traceback:Any):
         self.window.close()
 
 

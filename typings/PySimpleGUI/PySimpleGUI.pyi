@@ -1576,20 +1576,20 @@ class ErrorElement(Element):
     Update = ...
 
 
-def Stretch(background_color=...): # -> Text:
+def Stretch(background_color: str | None) -> Text:
     """
     Acts like a Stretch elemen"""
     ...
 
-Push = lambda : Column([[]])
-P = ...
-def VStretch(background_color=...): # -> Text:
+Push = Stretch
+P = Stretch
+def VStretch(background_color: str | None) -> Text:
     """
     Acts like a Stretch elemen"""
     ...
 
-VPush = ...
-VP = ...
+VPush = VStretch
+VP = VStretch
 class Window():
     """
     Represents a single Window"""
