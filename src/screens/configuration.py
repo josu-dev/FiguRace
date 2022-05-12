@@ -18,7 +18,7 @@ def _h_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
 
 
 def _title() -> sg.Text:
-    return sg.Text('C O N F I G U R A T I O N S', size=(800, 1), background_color=theme.BG_BASE, text_color=theme.TEXT_ACCENT, key='-title-', font=('System', 76), justification='center', pad=64)
+    return sg.Text('C O N F I G U R A T I O N S', auto_size_text=True, background_color=theme.BG_BASE, text_color=theme.TEXT_ACCENT, key='-title-', font=('System', 76), justification='center', pad=64)
 
 
 # TODO parameters to the other screens
@@ -77,7 +77,7 @@ _cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
                            key='--QXANSWER-',)
 
 
-def _menu_options():
+def _menu_options() -> list[list]:
     default_padding = 16
     config_layout = [
         [_h_spacer((50, 0)),
@@ -183,6 +183,7 @@ _configuration_layout = [
 
 _screen_config = {
     'background_color': theme.BG_BASE,
+    'element_justification': 'c'
 }
 
 
