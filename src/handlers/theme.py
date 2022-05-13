@@ -1,9 +1,8 @@
 from copy import copy
 from dataclasses import dataclass
 from typing import TypedDict
-from os import path
 
-from src import file, SRC_PATH
+from src import constants as const, file
 
 
 class ThemeJSON(TypedDict):
@@ -91,6 +90,5 @@ class ThemeController:
         self._theme.swap(self._themes[name])
 
 
-_theme_controller = ThemeController(
-    path.join(SRC_PATH, 'database', 'json', 'theme.json'), 'Blue-Like')
+_theme_controller = ThemeController(const.PATH_THEME, 'Blue-Like')
 theme = _theme_controller.theme

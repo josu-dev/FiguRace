@@ -4,6 +4,7 @@ import os
 
 from typing import Any
 
+
 JSON = Any
 
 
@@ -18,7 +19,7 @@ def load_json(path: str, encoding_format: str = 'utf-8') -> JSON:
 def save_json(path: str, value: object, is_custom_class: bool = False, write_mode: str = 'w', encoding_format: str = 'utf-8') -> None:
     with open(path, mode=write_mode, encoding=encoding_format) as file:
         if is_custom_class:
-            json.dump(value, file, default= lambda o: o.__dict__, indent=4)
+            json.dump(value, file, default=lambda o: o.__dict__, indent=4)
         else:
             json.dump(value, file)
 
