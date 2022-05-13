@@ -1,9 +1,9 @@
 from copy import copy
 from dataclasses import dataclass
 from typing import TypedDict
+from os import path
 
 from src import file, SRC_PATH
-from os import path
 
 
 class ThemeJSON(TypedDict):

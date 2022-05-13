@@ -15,9 +15,12 @@ def load_json(path: str, encoding_format: str = 'utf-8') -> JSON:
         return json.load(file)
 
 
-def save_json(path: str, value: object, write_mode: str = 'w', encoding_format: str = 'utf-8') -> None:
+def save_json(path: str, value: object, is_custom_class: bool = False, write_mode: str = 'w', encoding_format: str = 'utf-8') -> None:
     with open(path, mode=write_mode, encoding=encoding_format) as file:
-        return json.dump(value, file)
+        if is_custom_class:
+            json.dump(value, file, default= lambda o: o.__dict__, indent=4)
+        else:
+            json.dump(value, file)
 
 
 def load_csv(path: str, char_delimiter: str = ',', encoding_format: str = 'utf-8') -> tuple[list[str], list[list[str]]]:

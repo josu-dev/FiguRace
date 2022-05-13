@@ -1,9 +1,16 @@
 {
     "default": {
-        "name": "Figurace",
+        "title": "Figurace",
         "full_screen": true,
-        "starting_page": "-MAIN-MENU-",
+        "starting_page": "-MENU-",
         "theme": "Blue-Like",
-        "dificulty" : "easy"
+        "difficulty": "easy"
+    },
+    "custom": {
+        "title": "Figurace",
+        "full_screen": true,
+        "starting_page": "-MENU-",
+        "theme": "Blue-Like",
+        "difficulty": "easy"
     }
 }

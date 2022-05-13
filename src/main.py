@@ -3,8 +3,8 @@ from src import constants as const
 from .handlers import observer
 from .handlers import window as window_c
 
-
 def main():
+    
     window = window_c.window_set_up()
 
     while True:

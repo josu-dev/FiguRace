@@ -1,6 +1,7 @@
 from copy import copy
 from dataclasses import dataclass
 from typing import TypedDict
+
 from src import file
 
 
@@ -70,7 +71,8 @@ class DifficultyController:
     def _save_difficulties(self) -> None:
         file.save_json(
             self._file_path,
-            self._difficulties
+            self._difficulties,
+            is_custom_class=True
         )
 
     def save(self) -> None:
