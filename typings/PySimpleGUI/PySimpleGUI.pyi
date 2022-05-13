@@ -1746,7 +1746,7 @@ class Window():
         Minimize this window t"""
         ...
     
-    def maximize(self): # -> None:
+    def maximize(self) -> None:
         """
         Maximize the window. T"""
         ...

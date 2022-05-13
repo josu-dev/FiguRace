@@ -1,0 +1,9 @@
+{
+    "default": {
+        "name": "Figurace",
+        "full_screen": true,
+        "starting_page": "-MAIN-MENU-",
+        "theme": "Blue-Like",
+        "dificulty" : "easy"
+    }
+}

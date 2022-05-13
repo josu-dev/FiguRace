@@ -25,6 +25,13 @@
         "rounds_per_game": 10,
         "points_correct_answer": 20,
         "points_bad_answer": -10,
-        "caracteristics_shown": 2
+        "caracteristics_shown": 1
+    },
+    "custom" : {
+        "time_per_round": 60,
+        "rounds_per_game": 10,
+        "points_correct_answer": 10,
+        "points_bad_answer": 0,
+        "caracteristics_shown": 4
     }
 }

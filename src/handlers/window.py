@@ -30,7 +30,7 @@ def window_set_up() -> sg.Window:
         finalize=True, element_justification='c', resizable=True,
         background_color=theme.BG_BASE, margins=(0, 0)
     )
-    window.Maximize()
+    window.maximize()
 
     layout_controller.init(DEFAULT_INITIAL_SCREEN)
     return window
