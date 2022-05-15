@@ -29,7 +29,7 @@ Para poder ejecutar el juego solo hay que hacer dos cosas:
     - Ejecutar el siguiente comando en la terminal (instala las dependencias de el juego)
 
     ```bash
-    pip install requirements.txt
+    pip install -r requirements.txt
     ```
 
 - #### A jugar
