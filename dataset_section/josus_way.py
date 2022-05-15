@@ -1,5 +1,5 @@
 import csv
-import os
+from os import path
 from typing import Callable
 
 
@@ -33,9 +33,9 @@ def resample_list(index_sequence: list[int]) -> LineTransform:
     return resample
 
 
-BASE_PATH = os.path.dirname(__file__)
-SRC_PATH = os.path.join(BASE_PATH, 'base_datasets')
-OUTPUT_PATH = os.path.join(BASE_PATH, 'processed_datasets')
+BASE_PATH = path.dirname(__file__)
+SRC_PATH = path.join(BASE_PATH, 'base_datasets')
+OUTPUT_PATH = path.join(BASE_PATH, 'processed_datasets')
 
 
 # Spotify dataset
@@ -109,6 +109,24 @@ POTENTIAL_TABLE = {
     -1: 'Regular'
 }
 
+POSITION_TABLE = {
+    'ST' : 'Delantero',
+    'CM' : 'Volante',
+    'CDM' : 'Volante defensivo',
+    'LB' : 'Lateral izquierdo',
+    'GK' : 'Arquero',
+    'LM' : 'Volante izquierdo',
+    'RM' : 'Volante derecho',
+    'CAM' : 'Volante offensivo',
+    'LW' : 'Volante izquierdo ofensivo',
+    'LWB' : 'Lateral izquierdo ofensivo',
+    'CB' : 'Defensor central',
+    'RB' : 'Lateral derecho',
+    'RW' : 'Volante ofensivo derecho',
+    'RWB' : 'Lateral ofensivo derecho',
+    'CF' : 'Media punta'
+}
+
 
 def fifa_content(values: list[str]) -> list[str]:
     new_values = fifa_resample(values)
@@ -117,7 +135,9 @@ def fifa_content(values: list[str]) -> list[str]:
         if potential >= value:
             new_values[4] = POTENTIAL_TABLE[value]
             break
-    # TODO Position acronym conversion
+    positions = new_values[2].split('|')
+    translated_positions = '|'.join([POSITION_TABLE[acronym] for acronym in positions])
+    new_values[2] = translated_positions
     return new_values
 
 
