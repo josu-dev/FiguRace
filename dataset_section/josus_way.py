@@ -25,10 +25,8 @@ def transform_csv(source_path: str, result_path: str, header_fn: LineTransform, 
 
 
 def resample_list(index_sequence: list[int]) -> LineTransform:
-    sequence = index_sequence
-
     def resample(original: list[str]) -> list[str]:
-        return [original[index] for index in sequence]
+        return [original[index] for index in index_sequence]
 
     return resample
 
@@ -68,7 +66,7 @@ transform_csv(
 
 # Lakes dataset
 
-lakes_resample = resample_list([1, 2, 3, 4, 5, 1])
+lakes_resample = resample_list([1, 2, 3, 4, 5, 0])
 
 
 def dms_to_dd(coord: str, n_decimals: int = 5) -> str:
@@ -76,7 +74,7 @@ def dms_to_dd(coord: str, n_decimals: int = 5) -> str:
     degree, coord = coord[:-2].split('°')
     min, sec = coord.split('\'')
     dd = sign * (int(degree) + int(min)/60 + int(sec)/3600)
-    return str(round(dd, n_decimals))
+    return str(round(dd, n_decimals)) + '°'
 
 
 def lakes_content(values: list[str]) -> list[str]:
@@ -110,21 +108,21 @@ POTENTIAL_TABLE = {
 }
 
 POSITION_TABLE = {
-    'ST' : 'Delantero',
-    'CM' : 'Volante',
-    'CDM' : 'Volante defensivo',
-    'LB' : 'Lateral izquierdo',
-    'GK' : 'Arquero',
-    'LM' : 'Volante izquierdo',
-    'RM' : 'Volante derecho',
-    'CAM' : 'Volante offensivo',
-    'LW' : 'Volante izquierdo ofensivo',
-    'LWB' : 'Lateral izquierdo ofensivo',
-    'CB' : 'Defensor central',
-    'RB' : 'Lateral derecho',
-    'RW' : 'Volante ofensivo derecho',
-    'RWB' : 'Lateral ofensivo derecho',
-    'CF' : 'Media punta'
+    'ST': 'Delantero',
+    'CM': 'Volante',
+    'CDM': 'Volante defensivo',
+    'LB': 'Lateral izquierdo',
+    'GK': 'Arquero',
+    'LM': 'Volante izquierdo',
+    'RM': 'Volante derecho',
+    'CAM': 'Volante offensivo',
+    'LW': 'Volante izquierdo ofensivo',
+    'LWB': 'Lateral izquierdo ofensivo',
+    'CB': 'Defensor central',
+    'RB': 'Lateral derecho',
+    'RW': 'Volante ofensivo derecho',
+    'RWB': 'Lateral ofensivo derecho',
+    'CF': 'Media punta'
 }
 
 
@@ -136,7 +134,8 @@ def fifa_content(values: list[str]) -> list[str]:
             new_values[4] = POTENTIAL_TABLE[value]
             break
     positions = new_values[2].split('|')
-    translated_positions = '|'.join([POSITION_TABLE[acronym] for acronym in positions])
+    translated_positions = '|'.join(
+        [POSITION_TABLE[acronym] for acronym in positions])
     new_values[2] = translated_positions
     return new_values
 
