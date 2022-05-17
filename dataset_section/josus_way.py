@@ -6,7 +6,12 @@ from typing import Callable
 LineTransform = Callable[[list[str]], list[str]]
 
 
-def transform_csv(source_path: str, result_path: str, header_fn: LineTransform, content_fn: LineTransform, source_value_delimiter: str = ',', contains_header: bool = True, remove_header: bool = False, remove_empty_lines: bool = True) -> None:
+def transform_csv(
+    source_path: str, result_path: str,
+    header_fn: LineTransform, content_fn: LineTransform,
+    source_value_delimiter: str = ',',
+    contains_header: bool = True, remove_header: bool = False,
+    remove_empty_lines: bool = True) -> None:
     with (
         open(source_path, mode='r', encoding='utf-8') as src_file,
         open(result_path, mode='w', encoding='utf-8') as res_file
@@ -49,7 +54,7 @@ def spotify_content(values: list[str]) -> list[str]:
     if gender.upper() in MUSICAL_ACRONYMS:
         gender = gender.upper()
     elif '-' in gender:
-        gender = '-'.join([word.title() for word in gender.split()])
+        gender = '-'.join([word.title() for word in gender.split('-')])
     else:
         gender = gender.title()
     new_values[0] = gender
@@ -82,9 +87,8 @@ def lakes_content(values: list[str]) -> list[str]:
     for pos, val in enumerate(new_values):
         if val == '':
             new_values[pos] = 'Desconocido'
-    dms_coords = new_values[4]
-    dd_coords = (dms_to_dd(coord) for coord in dms_coords.split())
-    new_values[4] = ' '.join(dd_coords)
+    dms_coords = new_values[4].split()
+    new_values[4] = dms_to_dd(dms_coords[0]) + ' ' + dms_to_dd(dms_coords[1])
     return new_values
 
 
@@ -110,17 +114,17 @@ POTENTIAL_TABLE = {
 POSITION_TABLE = {
     'ST': 'Delantero',
     'CM': 'Volante',
-    'CDM': 'Volante defensivo',
+    'CDM': 'Medio centro defensivo',
     'LB': 'Lateral izquierdo',
-    'GK': 'Arquero',
+    'GK': 'Portero',
     'LM': 'Volante izquierdo',
     'RM': 'Volante derecho',
-    'CAM': 'Volante offensivo',
-    'LW': 'Volante izquierdo ofensivo',
+    'CAM': 'Volante ofensivo',
+    'LW': 'Extremo izquierdo',
     'LWB': 'Lateral izquierdo ofensivo',
     'CB': 'Defensor central',
     'RB': 'Lateral derecho',
-    'RW': 'Volante ofensivo derecho',
+    'RW': 'Extremo derecho',
     'RWB': 'Lateral ofensivo derecho',
     'CF': 'Media punta'
 }
@@ -134,9 +138,8 @@ def fifa_content(values: list[str]) -> list[str]:
             new_values[4] = POTENTIAL_TABLE[value]
             break
     positions = new_values[2].split('|')
-    translated_positions = '|'.join(
-        [POSITION_TABLE[acronym] for acronym in positions])
-    new_values[2] = translated_positions
+    full_positions = '|'.join([POSITION_TABLE[acronym] for acronym in positions])
+    new_values[2] = full_positions
     return new_values
 
 

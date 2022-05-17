@@ -10,7 +10,7 @@
 - Fabian Martinez Rincon
 - Josue Suarez
 - Iñaki Agustin Lapeyre
-- Lucas Salanitro
+- Lucas Gallardo
 
 
 <br>
