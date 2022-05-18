@@ -11,7 +11,8 @@ def transform_csv(
     header_fn: LineTransformFn, content_fn: LineTransformFn,
     source_value_delimiter: str = ',',
     contains_header: bool = True, remove_header: bool = False,
-    remove_empty_lines: bool = True) -> None:
+    remove_empty_lines: bool = True
+) -> None:
     with (
         open(source_path, mode='r', encoding='utf-8') as src_file,
         open(result_path, mode='w', encoding='utf-8') as res_file
@@ -23,7 +24,7 @@ def transform_csv(
             if not remove_header:
                 writer.writerow(header_fn(header))
         for line in reader:
-            if remove_empty_lines and (line.count('') == len(line)):
+            if remove_empty_lines and line.count('') == len(line):
                 continue
             transformed_line = content_fn(line)
             writer.writerow(transformed_line)
@@ -48,16 +49,18 @@ spotify_resample = list_resample_factory([2, 16, 3, 15, 5, 1])
 MUSICAL_ACRONYMS = ('EDM', 'DFW', 'UK', 'R&B', 'LGBTQ+')
 
 
+def restyle_gender(word: str) -> str:
+    if word.upper() in MUSICAL_ACRONYMS:
+        word = word.upper()
+    else:
+        word = word.title()
+    return word
+
+
 def spotify_content(values: list[str]) -> list[str]:
     new_values = spotify_resample(values)
-    gender = new_values[0]
-    if gender.upper() in MUSICAL_ACRONYMS:
-        gender = gender.upper()
-    elif '-' in gender:
-        gender = '-'.join([word.title() for word in gender.split('-')])
-    else:
-        gender = gender.title()
-    new_values[0] = gender
+    gender_words = new_values[0].split()
+    new_values[0] = ' '.join([restyle_gender(word) for word in gender_words])
     return new_values
 
 
