@@ -3,12 +3,12 @@ from os import path
 from typing import Callable
 
 
-LineTransform = Callable[[list[str]], list[str]]
+LineTransformFn = Callable[[list[str]], list[str]]
 
 
 def transform_csv(
     source_path: str, result_path: str,
-    header_fn: LineTransform, content_fn: LineTransform,
+    header_fn: LineTransformFn, content_fn: LineTransformFn,
     source_value_delimiter: str = ',',
     contains_header: bool = True, remove_header: bool = False,
     remove_empty_lines: bool = True) -> None:
@@ -29,7 +29,7 @@ def transform_csv(
             writer.writerow(transformed_line)
 
 
-def resample_list(index_sequence: list[int]) -> LineTransform:
+def list_resample_factory(index_sequence: list[int]) -> LineTransformFn:
     def resample(original: list[str]) -> list[str]:
         return [original[index] for index in index_sequence]
 
@@ -43,7 +43,7 @@ OUTPUT_PATH = path.join(BASE_PATH, 'processed_datasets')
 
 # Spotify dataset
 
-spotify_resample = resample_list([2, 16, 3, 15, 5, 1])
+spotify_resample = list_resample_factory([2, 16, 3, 15, 5, 1])
 
 MUSICAL_ACRONYMS = ('EDM', 'DFW', 'UK', 'R&B', 'LGBTQ+')
 
@@ -71,7 +71,7 @@ transform_csv(
 
 # Lakes dataset
 
-lakes_resample = resample_list([1, 2, 3, 4, 5, 0])
+lakes_resample = list_resample_factory([1, 2, 3, 4, 5, 0])
 
 
 def dms_to_dd(coord: str, n_decimals: int = 5) -> str:
@@ -87,8 +87,8 @@ def lakes_content(values: list[str]) -> list[str]:
     for pos, val in enumerate(new_values):
         if val == '':
             new_values[pos] = 'Desconocido'
-    dms_coords = new_values[4].split()
-    new_values[4] = dms_to_dd(dms_coords[0]) + ' ' + dms_to_dd(dms_coords[1])
+    latitude, longitude = new_values[4].split()
+    new_values[4] = dms_to_dd(latitude) + ' ' + dms_to_dd(longitude)
     return new_values
 
 
@@ -102,7 +102,7 @@ transform_csv(
 
 # FIFA dataset
 
-fifa_resample = resample_list([8, 2, 3, 5, 7, 1])
+fifa_resample = list_resample_factory([8, 2, 3, 5, 7, 1])
 
 POTENTIAL_TABLE = {
     90: 'Sobresaliente',

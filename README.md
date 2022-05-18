@@ -22,19 +22,19 @@ Para poder ejecutar el juego solo hay que hacer dos cosas:
 
 > Se asume que el ordenador tiene una version de python >= 3.10
 
-- #### Instalacion de dependencias
+1. #### Instalacion de dependencias
 
-    - Primero abrir una terminal/consola en la ubicacion de este archivo
+    Primero abrir una terminal/consola en la ubicacion de este archivo
 
-    - Ejecutar el siguiente comando en la terminal (instala las dependencias de el juego)
+    Ejecutar el siguiente comando en la terminal (instala las dependencias de el juego)
 
     ```bash
     pip install -r requirements.txt
     ```
 
-- #### A jugar
+1. #### A jugar
 
-    - Ahora para comenzar el juego ejecutar el siguiente comando
+    Ahora para comenzar el juego ejecutar el siguiente comando
 
     ```bash
     py figurace.py
