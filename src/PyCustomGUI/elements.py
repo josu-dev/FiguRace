@@ -26,8 +26,34 @@ class OpenWindow:
     def __enter__(self):
         return self.window
 
-    def __exit__(self, exc_type, exc_value, traceback):
+    def __exit__(self, exc_type:Any, exc_value:Any, traceback:Any):
         self.window.close()
+
+
+class HorizontaElementlList:
+    def __init__(self, **column_parameters: Any):
+        self._container: list[Element] = []
+        self._config = column_parameters
+
+    def add(self, element: Element):
+        self._container.append(element)
+        return self
+
+    def pack(self):
+        return sg.Column([self._container], **self._config)
+
+
+class VerticaElementlList:
+    def __init__(self, **column_parameters: Any):
+        self._container: list[list[Element]] = []
+        self._config = column_parameters
+
+    def add(self, element: Element):
+        self._container.append([element])
+        return self
+
+    def pack(self):
+        return sg.Column(self._container, **self._config)
 
 
 class HorizontalList:
@@ -55,19 +81,21 @@ class VerticalList:
         return self
 
     def pack(self):
-        return sg.Column(self._container)
+        return sg.Column(self._container, **self._config)
 
 
 def CenteredElement(element: Element, **column_parameters: Any) -> sg.Column:
     column_parameters['justification'] = 'c'
     column_parameters['expand_y'] = True
     column_parameters['expand_x'] = True
+    background_color = None if 'background_color'not in column_parameters else column_parameters[
+        'background_color']
     return sg.Column(
         [
-            [sg.VPush(background_color=None if ('background_color'not in column_parameters)else column_parameters['background_color'])],
+            [sg.VPush(background_color)],
             [element],
-            [sg.VPush(background_color=None if ('background_color'not in column_parameters)else column_parameters['background_color'])]
-            ],
+            [sg.VPush(background_color)]
+        ],
         **column_parameters
     )
 

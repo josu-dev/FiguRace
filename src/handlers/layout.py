@@ -1,9 +1,10 @@
 from typing import Any, Callable
+
 import PySimpleGUI as sg
 
 
 class Screen:
-    def __init__(self, key: str, layout: list[list[sg.Element]], config: dict[str,Any], reset: Callable[..., None]):
+    def __init__(self, key: str, layout: list[list[sg.Element]], config: dict[str, Any], reset: Callable[..., None]):
         config['key'] = key
         config['visible'] = False
         config['expand_x'] = True
@@ -24,7 +25,6 @@ class Screen:
 
 
 class WindowLayoutController:
-
     def __init__(self):
         self.actual_layout: str = ''
         self.layout_stack: list[str] = []

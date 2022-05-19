@@ -1,31 +1,59 @@
-<h1 align="center">  </h1>
+<h1 align="center">Grupo </a>
+ <img src="https://media.giphy.com/media/lkTunMhUitIEITABuS/giphy.gif" height="38" /></h1>
 
-<h1 align="center"><img src="https://media.giphy.com/media/lkTunMhUitIEITABuS/giphy.gif" height="38" /> Grupo 27</a>
- <img style="transform:scaleX(-1);" src="https://media.giphy.com/media/J5dm29T4xgwyEnUYYc/giphy.gif" height="38" /></h1>
 
-<h3 align="center"> Nombre de los integrantes </h3>
+<br>
+
+
+### Integrantes
 
 - Fabian Martinez Rincon
 - Josue Suarez
 - Iñaki Agustin Lapeyre
-- Lucas Salanitro
+- Lucas Gallardo
 
-<h3 align="center"> La forma de ejecutar cada aplicación </h3>
 
--
+<br>
 
-<h3 align="center"> El sitio donde obtuvo los dataset </h3>
 
--
+### Como ejecutar Figurace
 
-<h3 align="center"> Un archivo con los requerimientos de librerías que utiliza </h3>
+Para poder ejecutar el juego solo hay que hacer dos cosas:
 
-- 
+> Se asume que el ordenador tiene una version de python >= 3.10
 
-<h3 align="center"> Cualquier consideración especial para su ejecución </h3>
+1. #### Instalacion de dependencias
 
--
+    Primero abrir una terminal/consola en la ubicacion de este archivo
 
-<h3 align="center"> Cambio del cambio del cambio pusheado </h3>
+    Ejecutar el siguiente comando en la terminal (instala las dependencias de el juego)
 
--
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+1. #### A jugar
+
+    Ahora para comenzar el juego ejecutar el siguiente comando
+
+    ```bash
+    py figurace.py
+    ```
+
+
+<br>
+
+
+### Fuentes de los dataset
+
+- Spotify - https://www.kaggle.com/datasets/muhmores/spotify-top-100-songs-of-20152019
+
+- Lagos - https://www.ign.gob.ar/NuestrasActividades/Geografia/DatosArgentina/Lagos
+
+- FIFA 2021 - https://www.kaggle.com/datasets/aayushmishra1512/fifa-2021-complete-player-data?resource=download
+
+
+<br>
+
+
+### Extras
