@@ -65,8 +65,8 @@ def spotify_content(values: list[str]) -> list[str]:
 
 
 transform_csv(
-    SRC_PATH + '/Spotify_2010-2019_Top_100.csv',
-    OUTPUT_PATH + '/spotify.processed.csv',
+    path.join(SRC_PATH, 'Spotify_2010-2019_Top_100.csv'),
+    path.join(OUTPUT_PATH, 'spotify.processed.csv'),
     spotify_resample,
     spotify_content
 )
@@ -88,7 +88,7 @@ def dms_to_dd(coord: str, n_decimals: int = 5) -> str:
 def lakes_content(values: list[str]) -> list[str]:
     new_values = lakes_resample(values)
     for pos, val in enumerate(new_values):
-        if val == '':
+        if not val:
             new_values[pos] = 'Desconocido'
     latitude, longitude = new_values[4].split()
     new_values[4] = dms_to_dd(latitude) + ' ' + dms_to_dd(longitude)
@@ -96,8 +96,8 @@ def lakes_content(values: list[str]) -> list[str]:
 
 
 transform_csv(
-    SRC_PATH + '/Lagos Argentina - Hoja 1 (1).csv',
-    OUTPUT_PATH + '/lakes.processed.csv',
+    path.join(SRC_PATH, 'Lagos Argentina - Hoja 1 (1).csv'),
+    path.join(OUTPUT_PATH, 'lakes.processed.csv'),
     lakes_resample,
     lakes_content
 )
@@ -147,8 +147,8 @@ def fifa_content(values: list[str]) -> list[str]:
 
 
 transform_csv(
-    SRC_PATH + '/FIFA-21 Complete.csv',
-    OUTPUT_PATH + '/fifa.processed.csv',
+    path.join(SRC_PATH, 'FIFA-21 Complete.csv'),
+    path.join(OUTPUT_PATH, 'fifa.processed.csv'),
     fifa_resample,
     fifa_content,
     source_value_delimiter=';'

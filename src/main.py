@@ -27,8 +27,8 @@ def main():
     )
 
     while True:
-        event, values = window.read()
-        if event == sg.WIN_CLOSED or event.startswith(const.EXIT_APLICATION):
+        event, _ = window.read()
+        if event is None or event.startswith(const.EXIT_APLICATION):
             observer.post_event(const.EXIT_APLICATION)
             break
 
