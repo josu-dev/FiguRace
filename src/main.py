@@ -34,7 +34,7 @@ def main():
 
         event = event.split()
         if len(event) == 1:
-            observer.post_event(event[0], None)
+            observer.post_event(event[0])
         else:
             observer.post_event(event[0], *event[1:])
 

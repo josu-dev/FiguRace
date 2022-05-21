@@ -24,10 +24,10 @@ def save_json(path: str, value: object, is_custom_class: bool = False, write_mod
             json.dump(value, file)
 
 
-def load_csv(path: str, char_delimiter: str = ',', encoding_format: str = 'utf-8') -> tuple[list[str], list[list[str]]]:
+def load_csv(path: str, char_delimiter: str = ',', encoding_format: str = 'utf-8') -> list[list[str]]:
     if not os.path.exists(path):
         raise Exception(f'No exist a file in: {path}')
 
     with open(path, mode='r', encoding=encoding_format) as file:
         csv_reader = csv.reader(file, delimiter=char_delimiter)
-        return next(csv_reader), list(csv_reader)
+        return list(csv_reader)

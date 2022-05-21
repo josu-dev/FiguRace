@@ -51,16 +51,20 @@ class DifficultyController:
     def update_difficulty(self, name: str = '', **values: int) -> None:
         if name == '' or name == 'custom':
             self._current_difficulty = 'custom'
-            if 'time_per_round' in values:
-                self._difficulty.time_per_round = values['time_per_round']
-            if 'rounds_per_game' in values:
-                self._difficulty.rounds_per_game = values['rounds_per_game']
-            if 'points_correct_answer' in values:
-                self._difficulty.points_correct_answer = values['points_correct_answer']
-            if 'points_bad_answer' in values:
-                self._difficulty.points_bad_answer = values['points_bad_answer']
-            if 'caracteristics_shown' in values:
-                self._difficulty.caracteristics_shown = values['caracteristics_shown']
+            # if 'time_per_round' in values:
+            #     self._difficulty.time_per_round = values['time_per_round']
+            # if 'rounds_per_game' in values:
+            #     self._difficulty.rounds_per_game = values['rounds_per_game']
+            # if 'points_correct_answer' in values:
+            #     self._difficulty.points_correct_answer = values['points_correct_answer']
+            # if 'points_bad_answer' in values:
+            #     self._difficulty.points_bad_answer = values['points_bad_answer']
+            # if 'caracteristics_shown' in values:
+            #     self._difficulty.caracteristics_shown = values['caracteristics_shown']
+            for key, value in values:
+                # this get is for testing in production if an argument recived is invalid could be an if with a continue too
+                getattr(self._difficulty,key)
+                setattr(self._difficulty, key, value)
             self._difficulties['custom'].swap(self._difficulty)
         else:
             self._difficulty.swap(self._difficulties[name])
