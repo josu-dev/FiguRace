@@ -2,6 +2,8 @@ import PySimpleGUI as sg
 from src import constants as const
 from src.handlers.theme import theme
 from src.handlers.layout import Screen
+
+
 SCREEN_NAME = "-CONFIGURATION-"
 default_padding = 16
 
@@ -93,6 +95,22 @@ _cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
                            readonly=True,
                            size=(5, 30),
                            key='--QXANSWER-',)
+_btn_exit = sg.Button('<--',
+                      key=f'{const.GOTO_VIEW} -MENU-',
+                      border_width=12,
+                      size=(16, 1),
+                      button_color=(
+                          theme.TEXT_ACCENT, theme.BG_BASE),
+                      mouseover_colors=theme.BG_BASE,
+                      font=('System', 25))
+
+_btn_save = sg.Button('Guardar', size=(16, 1),
+                      key='-SAVE-',
+                      font=('System', 25),
+                      button_color=(theme.TEXT_ACCENT, theme.BG_BASE),
+                      pad=default_padding,
+                      mouseover_colors=theme.BG_BASE,
+                      border_width=12)
 
 
 def _menu_options() -> list[list]:
@@ -125,22 +143,9 @@ def _menu_options() -> list[list]:
 
         [sg.Push(),
          _v_spacer((0, 350)),
-            sg.Button('<--',
-                      key=f'{const.GOTO_VIEW} -MENU-',
-                      border_width=12,
-                      size=(16, 1),
-                      button_color=(
-                          theme.TEXT_ACCENT, theme.BG_BASE),
-                      mouseover_colors=theme.BG_BASE,
-                      font=('System', 25)),
+            _btn_exit,
 
-            sg.Button('Guardar', size=(16, 1),
-                      key='-SAVE-',
-                      font=('System', 25),
-                      button_color=(theme.TEXT_ACCENT, theme.BG_BASE),
-                      pad=default_padding,
-                      mouseover_colors=theme.BG_BASE,
-                      border_width=12),
+            _btn_save,
             sg.Push(), ]]
 
     return config_layout
