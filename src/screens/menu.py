@@ -72,7 +72,7 @@ _btn_exit = sg.Button(auto_size_button=True,
                       border_width=12)
 
 
-def _menu_options() -> list[list]:
+def _menu_options() -> list[list[sg.Element]]:
     layout = [
         [_v_spacer((0, 24))],
         [_btn_start_game_],

@@ -4,4 +4,4 @@ __pycache__
 __pycache__.*
 test
 .vscode
-*.processed.csv
+processed_datasets/
