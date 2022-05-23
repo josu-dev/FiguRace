@@ -57,11 +57,11 @@ _btn_exit = sg.Button(auto_size_button=True,
 
 def _menu_options() -> list[list[sg.Element]]:
     layout = [
-        [csg.VerticalSpacer((0, 24), background_color=theme.BG_BASE)],
+        [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
         [_btn_start_game_],
-        [csg.VerticalSpacer((0, 24), background_color=theme.BG_BASE)],
-        [_btn_options, csg.HorizontalSpacer((40, 0), background_color=theme.BG_BASE), _btn_profile,
-         csg.HorizontalSpacer((40, 0), background_color=theme.BG_BASE), _btn_exit]
+        [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
+        [_btn_options, csg.horizontal_spacer((40, 0), background_color=theme.BG_BASE), _btn_profile,
+         csg.horizontal_spacer((40, 0), background_color=theme.BG_BASE), _btn_exit]
     ]
     return layout
 

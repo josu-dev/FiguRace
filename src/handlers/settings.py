@@ -11,6 +11,7 @@ class SettingsJSON(TypedDict):
     starting_page: str
     theme: str
     difficulty : str
+    default_user : str
 
 @dataclass
 class Settings:
@@ -19,6 +20,7 @@ class Settings:
     starting_page: str
     theme: str
     difficulty : str
+    default_user : str
 
 class SettingsController:
     def __init__(self, settings_path: str, difficulties_path: str):
