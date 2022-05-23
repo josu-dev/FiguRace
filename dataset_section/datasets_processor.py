@@ -94,3 +94,11 @@ with open(path_newfile, "w",encoding="utf-8",newline='') as NewFile:
         row = cols_remove_function(row,cols_remove)
         #print(type(row))
         csv_writer.writerow(row)
+
+
+
+##________________________________________________________________
+
+
+
+
