@@ -4,13 +4,16 @@ from src.handlers.theme import theme
 from src.handlers.layout import Screen
 from src.assets.menu import ic_profile, ic_exit, ic_config
 from src import csg
+from src import users_controller
+
+
 SCREEN_NAME = "-MENU-"
 _default_padding = 2
 _font = ('System', 32)
 
 
 def _title() -> sg.Text:
-    return sg.Text('F  I  G  U  R  A  C  E', size=(800, 1),
+    return sg.Text('F  I  G  U  R  A  C  E ', size=(800, 1),
                    background_color=theme.BG_BASE,
                    text_color='#EFEFEF',
                    key='-title-',
@@ -20,7 +23,7 @@ def _title() -> sg.Text:
 
 
 _btn_start_game_ = sg.Button('Iniciar Juego',
-                             key='-GAME-',
+                             key=f'{const.GOTO_VIEW} -GAME-',
                              size=(18, 1),
                              font=_font,
                              auto_size_button=True,
@@ -57,11 +60,11 @@ _btn_exit = sg.Button(auto_size_button=True,
 
 def _menu_options() -> list[list[sg.Element]]:
     layout = [
-        [csg.VerticalSpacer((0, 24), background_color=theme.BG_BASE)],
+        [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
         [_btn_start_game_],
-        [csg.VerticalSpacer((0, 24), background_color=theme.BG_BASE)],
-        [_btn_options, csg.HorizontalSpacer((40, 0), background_color=theme.BG_BASE), _btn_profile,
-         csg.HorizontalSpacer((40, 0), background_color=theme.BG_BASE), _btn_exit]
+        [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
+        [_btn_options, csg.horizontal_spacer((40, 0), background_color=theme.BG_BASE), _btn_profile,
+         csg.horizontal_spacer((40, 0), background_color=theme.BG_BASE), _btn_exit]
     ]
     return layout
 

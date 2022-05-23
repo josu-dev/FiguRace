@@ -20,7 +20,7 @@ _button_exit = sg.Button(
 )
 
 _menu_layout = [
-    [csg.VerticalSpacer((0, 16))],
+    [csg.vertical_spacer((0, 16))],
     [sg.Text('TAS JOGANDO RE PIOLA PA ', font='Sketch 72')],
     [_button_exit]
 ]
@@ -48,9 +48,10 @@ def reset(*args: Any):
     # It runs every time that window view moves to this screen
     pass
 
+
 _screen_config = {
-    'background_color':theme.BG_BASE,
-    'element_justification':'c',
+    'background_color': theme.BG_BASE,
+    'element_justification': 'c',
 }
 
 screen = Screen(
