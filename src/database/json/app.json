@@ -4,13 +4,15 @@
         "full_screen": true,
         "starting_page": "-MENU-",
         "theme": "Blue-Like",
-        "difficulty": "easy"
+        "difficulty": "easy",
+        "default_user": ""
     },
     "custom": {
         "title": "Figurace",
         "full_screen": true,
         "starting_page": "-MENU-",
         "theme": "Blue-Like",
-        "difficulty": "easy"
+        "difficulty": "easy",
+        "default_user": ""
     }
 }

@@ -86,9 +86,9 @@ def CenteredLayout(layout: FullLayout, **column_parameters: Any) -> sg.Column:
     return sg.Column(layout, **column_parameters)
 
 
-def HorizontalSpacer(padding: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
+def horizontal_spacer(padding: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
     return sg.Column([[]], size=padding, background_color=background_color)
 
 
-def VerticalSpacer(padding: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
+def vertical_spacer(padding: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
     return sg.Column([[]], size=padding, background_color=background_color)

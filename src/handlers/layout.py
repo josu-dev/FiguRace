@@ -35,7 +35,9 @@ class WindowLayoutController:
         key = key.rstrip('0123456789')
         self.layouts[self.actual_layout].turn_visivility()
         if key in self.layout_stack:
-            self.actual_layout = self.layout_stack.pop()
+            while self.layout_stack.pop() != key:
+                continue
+            self.actual_layout = key
         else:
             self.layout_stack.append(self.actual_layout)
             self.actual_layout = key
