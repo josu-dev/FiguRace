@@ -1,22 +1,12 @@
-import profile
 import PySimpleGUI as sg
 from src import constants as const
 from src.handlers.theme import theme
 from src.handlers.layout import Screen
-from src.screens.configuration import _h_spacer
 from src.assets.menu import ic_profile, ic_exit, ic_config
-
+from src import csg
 SCREEN_NAME = "-MENU-"
 _default_padding = 2
 _font = ('System', 32)
-
-
-def _h_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
-    return sg.Column([[]], size=padding, background_color=theme.BG_BASE)
-
-
-def _v_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
-    return sg.Column([[]], size=padding, background_color=theme.BG_BASE)
 
 
 def _title() -> sg.Text:
@@ -58,7 +48,7 @@ _btn_profile = sg.Button(image_data=ic_profile.source,
 _btn_exit = sg.Button(auto_size_button=True,
                       key=const.EXIT_APLICATION,
                       font=_font,
-                      button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
+                      button_color=theme.BG_BUTTON,
                       image_data=ic_exit.source,
                       pad=_default_padding,
                       mouseover_colors=theme.BG_BUTTON_HOVER,
@@ -67,11 +57,11 @@ _btn_exit = sg.Button(auto_size_button=True,
 
 def _menu_options() -> list[list[sg.Element]]:
     layout = [
-        [_v_spacer((0, 24))],
+        [csg.VerticalSpacer((0, 24), background_color=theme.BG_BASE)],
         [_btn_start_game_],
-        [_v_spacer((0, 24))],
-        [_btn_options, _h_spacer((40, 0)), _btn_profile,
-         _h_spacer((40, 0)), _btn_exit]
+        [csg.VerticalSpacer((0, 24), background_color=theme.BG_BASE)],
+        [_btn_options, csg.HorizontalSpacer((40, 0), background_color=theme.BG_BASE), _btn_profile,
+         csg.HorizontalSpacer((40, 0), background_color=theme.BG_BASE), _btn_exit]
     ]
     return layout
 
