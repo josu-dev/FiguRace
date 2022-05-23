@@ -84,8 +84,6 @@ class ThemeController:
         return [name for name in self._themes.keys()]
 
     def set_theme(self, name: str) -> None:
-        if name not in self._themes.keys():
-            raise Exception(f'{name} not is a valid theme')
         self._current_theme = name
         self._theme.swap(self._themes[name])
 
