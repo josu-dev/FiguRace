@@ -14,18 +14,18 @@ class Dataset:
         self._used: set[int] = set()
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._name
 
     @property
-    def header(self):
+    def header(self) -> list[str]:
         return self._header
 
-    def _random(self):
-        self._used.add(sample := randint(0, len(self._content)))
+    def _random(self) -> list[str]:
+        sample = randint(0, len(self._content))
         return self._content[sample]
 
-    def _random_unique(self):
+    def _random_unique(self) -> list[str]:
         while True:
             sample = randint(0, len(self._content))
             if sample not in self._used:
@@ -62,7 +62,7 @@ class Dataset:
 @dataclass
 class Card:
     hints: list[str]
-    answer: str
+    correct_answer: str
     bad_anwers: list[str]
 
 
@@ -79,7 +79,7 @@ class CardController:
         self._answers = self._dataset.apply(lambda line: line[-1])
 
     def reset(self) -> None:
-        if not self._dataset:
+        if getattr(self, '_dataset', None) is None:
             return
         self._dataset.reset()
 
@@ -93,6 +93,10 @@ class CardController:
     @property
     def current_type(self) -> str:
         return self._dataset.name
+    
+    @property
+    def characteristics(self) -> list[str]:
+        return self._dataset.header
 
     @property
     def new_card(self) -> Card:

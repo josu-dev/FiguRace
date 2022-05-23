@@ -3,12 +3,12 @@ from os import path
 from typing import Callable
 
 
-LineTransformFn = Callable[[list[str]], list[str]]
+RowTransformFn = Callable[[list[str]], list[str]]
 
 
 def transform_csv(
     source_path: str, result_path: str,
-    header_fn: LineTransformFn, content_fn: LineTransformFn,
+    header_fn: RowTransformFn, content_fn: RowTransformFn,
     source_value_delimiter: str = ',',
     contains_header: bool = True, remove_header: bool = False,
     remove_empty_lines: bool = True
@@ -23,14 +23,14 @@ def transform_csv(
             header = next(reader)
             if not remove_header:
                 writer.writerow(header_fn(header))
-        for line in reader:
-            if remove_empty_lines and line.count('') == len(line):
+        for row in reader:
+            if remove_empty_lines and row.count('') == len(row):
                 continue
-            transformed_line = content_fn(line)
-            writer.writerow(transformed_line)
+            transformed_row = content_fn(row)
+            writer.writerow(transformed_row)
 
 
-def list_resample_factory(index_sequence: list[int]) -> LineTransformFn:
+def row_resample_factory(index_sequence: list[int]) -> RowTransformFn:
     def resample(original: list[str]) -> list[str]:
         return [original[index] for index in index_sequence]
 
@@ -44,7 +44,7 @@ OUTPUT_PATH = path.join(BASE_PATH, 'processed_datasets')
 
 # Spotify dataset
 
-spotify_resample = list_resample_factory([2, 16, 3, 15, 5, 1])
+spotify_resample = row_resample_factory([2, 16, 3, 15, 5, 1])
 
 MUSICAL_ACRONYMS = ('EDM', 'DFW', 'UK', 'R&B', 'LGBTQ+')
 
@@ -66,7 +66,7 @@ def spotify_content(values: list[str]) -> list[str]:
 
 transform_csv(
     path.join(SRC_PATH, 'Spotify_2010-2019_Top_100.csv'),
-    path.join(OUTPUT_PATH, 'spotify.processed.csv'),
+    path.join(OUTPUT_PATH, 'spotify.csv'),
     spotify_resample,
     spotify_content
 )
@@ -74,7 +74,7 @@ transform_csv(
 
 # Lakes dataset
 
-lakes_resample = list_resample_factory([1, 2, 3, 4, 5, 0])
+lakes_resample = row_resample_factory([1, 2, 3, 4, 5, 0])
 
 
 def dms_to_dd(coord: str, n_decimals: int = 5) -> str:
@@ -87,8 +87,8 @@ def dms_to_dd(coord: str, n_decimals: int = 5) -> str:
 
 def lakes_content(values: list[str]) -> list[str]:
     new_values = lakes_resample(values)
-    for pos, val in enumerate(new_values):
-        if not val:
+    for pos, value in enumerate(new_values):
+        if not value:
             new_values[pos] = 'Desconocido'
     latitude, longitude = new_values[4].split()
     new_values[4] = dms_to_dd(latitude) + ' ' + dms_to_dd(longitude)
@@ -97,7 +97,7 @@ def lakes_content(values: list[str]) -> list[str]:
 
 transform_csv(
     path.join(SRC_PATH, 'Lagos Argentina - Hoja 1 (1).csv'),
-    path.join(OUTPUT_PATH, 'lakes.processed.csv'),
+    path.join(OUTPUT_PATH, 'lakes.csv'),
     lakes_resample,
     lakes_content
 )
@@ -105,7 +105,7 @@ transform_csv(
 
 # FIFA dataset
 
-fifa_resample = list_resample_factory([8, 2, 3, 5, 7, 1])
+fifa_resample = row_resample_factory([8, 2, 3, 5, 7, 1])
 
 POTENTIAL_TABLE = {
     90: 'Sobresaliente',
@@ -148,7 +148,7 @@ def fifa_content(values: list[str]) -> list[str]:
 
 transform_csv(
     path.join(SRC_PATH, 'FIFA-21 Complete.csv'),
-    path.join(OUTPUT_PATH, 'fifa.processed.csv'),
+    path.join(OUTPUT_PATH, 'fifa.csv'),
     fifa_resample,
     fifa_content,
     source_value_delimiter=';'

@@ -1,16 +1,14 @@
 from typing import Any
 import PySimpleGUI as sg
+
 from src import constants as const
+from src import csg
 
 from src.handlers.theme import theme
 from src.handlers.layout import Screen
 from src.handlers import observer
 
 SCREEN_NAME = '-BASE-SCREEN-'
-
-
-def _v_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
-    return sg.Column([[]], size=padding)
 
 
 _main_title = sg.Text('FIGURACE', size=(800, 1), text_color='#EFEFEF',
@@ -22,7 +20,7 @@ _button_exit = sg.Button(
 )
 
 _menu_layout = [
-    [_v_spacer((0, 16))],
+    [csg.VerticalSpacer((0, 16))],
     [sg.Text('TAS JOGANDO RE PIOLA PA ', font='Sketch 72')],
     [_button_exit]
 ]
@@ -70,7 +68,7 @@ def main() -> None:
     while True:
         event, values = window.read()
 
-        if event == sg.WIN_CLOSED or event.startswith(const.EXIT_APLICATION):
+        if event == None or event.startswith(const.EXIT_APLICATION):
             break
 
         values = values

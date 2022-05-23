@@ -3,7 +3,7 @@ from src import constants as const
 from src.handlers.layout import Screen
 from src.handlers import observer
 from src.assets.users import *
-from src.PyCustomGUI import elements as cg
+from src import csg
 from src.handlers import layout
 from src.handlers.theme import theme
 SCREEN_NAME = '-PROFILES-'
@@ -73,7 +73,7 @@ button_4 = sg.Button('Vacío',
                      pad=0
                      )
 
-buttons = cg.HorizontalList(justification='c',
+buttons = csg.HorizontalList(justification='c',
                             background_color=theme.BG_BASE,
                             element_justification='c').add(
     [[_discord_1], [button_1]],
@@ -95,7 +95,7 @@ _turn = sg.Button('<--',
 
 _screen_layout = [
     [_screen_main_title],
-    [cg.CenteredElement(buttons, background_color=theme.BG_BASE)],
+    [csg.CenteredElement(buttons, background_color=theme.BG_BASE)],
     [_turn],
 ]
 

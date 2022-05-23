@@ -1,2 +1,2 @@
 from .database import file
-from .PyCustomGUI import elements as cg
+from .components import custom_sg as csg
