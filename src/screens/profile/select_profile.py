@@ -15,26 +15,31 @@ _screen_main_title = sg.Text('SELECCIONAR PERFIL',
                              pad=0,
                              text_color=theme.TEXT_ACCENT)
 
-_discord_1 = sg.Image(data=discord_red.source,
+_user_1 = sg.Image(data=user_red.source,
                       k='1',
-                      size=(64, 64),
+                      size=(100, 100),
                       background_color=theme.BG_BASE,
-                      subsample=(discord_red.size//64))
-_discord_2 = sg.Image(data=discord_yellow.source,
+                      subsample=(user_red.size//100))
+_user_2 = sg.Image(data=user_yellow.source,
                       k='2',
-                      size=(64, 64),
+                      size=(100, 100),
                       background_color=theme.BG_BASE,
-                      subsample=(discord_yellow.size//64))
-_discord_3 = sg.Image(data=discord_green.source,
+                      subsample=(user_yellow.size//100))
+_user_3 = sg.Image(data=user_green.source,
                       k='3',
-                      size=(64, 64),
+                      size=(100, 100),
                       background_color=theme.BG_BASE,
-                      subsample=(discord_green.size//64))
-_discord_4 = sg.Image(data=discord_grey.source,
+                      subsample=(user_green.size//100))
+_user_4 = sg.Image(data=user_grey.source,
                       k='4',
-                      size=(64, 64),
+                      size=(100, 100),
                       background_color=theme.BG_BASE,
-                      subsample=(discord_grey.size//64))
+                      subsample=(user_grey.size//100))
+_user_5 = sg.Image(data=user_violet.source,
+                      k='4',
+                      size=(100, 100),
+                      background_color=theme.BG_BASE,
+                      subsample=(user_violet.size//100))
 
 button_1 = sg.Button('Pepe',
                      k='1',
@@ -72,17 +77,28 @@ button_4 = sg.Button('Vacío',
                      font=(theme.FONT_FAMILY, 22),
                      pad=0
                      )
+button_5 = sg.Button('Vacío',
+                     k='4',
+                     size=(10, 2),
+                     border_width=15,
+                     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
+                     mouseover_colors=theme.BG_BUTTON_HOVER,
+                     font=(theme.FONT_FAMILY, 22),
+                     pad=0
+                     )
 
 buttons = csg.HorizontalList(justification='c',
                             background_color=theme.BG_BASE,
                             element_justification='c').add(
-    [[_discord_1], [button_1]],
+    [[_user_1], [button_1]],
 ).add(
-    [[_discord_2], [button_2]]
+    [[_user_2], [button_2]]
 ).add(
-    [[_discord_3], [button_3]]
+    [[_user_3], [button_3]]
 ).add(
-    [[_discord_4], [button_4]]
+    [[_user_4], [button_4]]
+).add(
+    [[_user_5],[button_5]]
 ).pack()
 
 _turn = sg.Button('<--',
