@@ -96,8 +96,9 @@ class UsersController:
         return fn(self._users[nick])
 
     @property
-    def current_user(self) -> User:
-        return self._users[self._current_user]
+    def current_user(self) -> User | None:
+        user = self._users.get(self._current_user, None)
+        return user
 
     @current_user.setter
     def current_user(self, nick: str) -> None:
