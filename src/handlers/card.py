@@ -73,6 +73,7 @@ class CardController:
         self._answers: list[str]
 
     def _load_dataset(self, name: str) -> None:
+        print(name)
         raw_dataset = file.load_csv(PATHS_DATASETS[name])
         self._dataset = Dataset(name, raw_dataset)
         # This probably is unnecesary
@@ -93,7 +94,7 @@ class CardController:
     @property
     def current_type(self) -> str:
         return self._dataset.name
-    
+
     @property
     def characteristics(self) -> list[str]:
         return self._dataset.header

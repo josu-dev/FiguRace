@@ -28,10 +28,10 @@
         "caracteristics_shown": 1
     },
     "custom": {
-        "time_per_round": 60,
+        "time_per_round": 40,
         "rounds_per_game": 10,
-        "points_correct_answer": 10,
-        "points_bad_answer": 0,
-        "caracteristics_shown": 4
+        "points_correct_answer": 15,
+        "points_bad_answer": -5,
+        "caracteristics_shown": 2
     }
 }

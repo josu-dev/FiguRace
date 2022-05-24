@@ -4,7 +4,7 @@ from src.handlers.user import UsersController
 from src.handlers.settings import SettingsController
 from src.handlers.theme import ThemeController
 from src.handlers import observer
-
+from src.handlers import card
 
 
 settings_controller = SettingsController(
@@ -12,6 +12,7 @@ settings_controller = SettingsController(
 )
 settings = settings_controller.setting
 
+cards_controller = card.CardController()
 users_controller = UsersController(constants.PATH_USERS, settings.default_user)
 
 theme_controller = ThemeController(constants.PATH_THEME, settings.theme)
