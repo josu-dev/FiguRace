@@ -3,7 +3,7 @@ from src import constants as const
 from src.controllers import theme
 from src.handlers.layout import Screen
 from src import csg
-
+# from src.controllers import cards_controller as cards_ctr
 _font = ('System', 32)
 _default_padding = 2
 SCREEN_NAME = "-GAME-"
@@ -43,7 +43,7 @@ _btn_score = sg.Button('Score -->',
 def layout() -> list[list[sg.Element]]:
     layout = [
         [sg.VPush(background_color=theme.BG_BASE)],
-        [_btn_back, sg.Push(), sg.Text('PLACEHOLDER JUEGUITO'),
+        [_btn_back, sg.Push(), sg.Text(),
          sg.Push(), _btn_score],
     ]
     return layout
