@@ -55,7 +55,7 @@ _create_profile_layout = [
 ]
 
 _turn = sg.Button('<--',
-                  key=f'{const.GOTO_VIEW } -PROFILE-',
+                  key=f'{const.GOTO_VIEW } -SELECT-PROFILE-',
                   border_width=15,
                   size=(7, 0),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),

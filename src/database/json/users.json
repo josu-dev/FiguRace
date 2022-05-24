@@ -1,9 +1,9 @@
 {
     "josu": {
-        "nick": "josu",
+        "nick": "Josu",
         "age": 21,
         "gender": "male",
-        "prefered_color": "blue",
+        "prefered_color": "red",
         "scores": {
             "easy": [
                 9,
@@ -30,10 +30,40 @@
         }
     },
     "gallardo": {
-        "nick": "gallardo",
+        "nick": "Gallardo",
         "age": 19,
         "gender": "male",
         "prefered_color": "green",
+        "scores": {
+            "easy": [
+                0,
+                0,
+                0,
+                0,
+                9,
+                10,
+                67
+            ],
+            "normal": [
+                65
+            ],
+            "hard": [
+                10,
+                3
+            ],
+            "insane": [],
+            "custom": [
+                45,
+                100,
+                55
+            ]
+        }
+    },
+    "Pedro": {
+        "nick": "Pedro",
+        "age": 19,
+        "gender": "male",
+        "prefered_color": "yellow",
         "scores": {
             "easy": [
                 0,

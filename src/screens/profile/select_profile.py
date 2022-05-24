@@ -1,3 +1,4 @@
+from cgitb import grey
 from typing import Any
 import PySimpleGUI as sg
 from src import constants as const
@@ -11,8 +12,9 @@ from src.controllers import users_controller as users_ctr
 
 SCREEN_NAME = '-SELECT-PROFILE-'
 USER_NAME = '-USER-NAME-'
+USER_IMAGE = '-USER-IMAGE-'
 EVENT_CREATE_USER = '-CREATE-USER-'
-EVENT_DELETE_USER = '-CREATE-USER-'
+EVENT_DELETE_USER = '-DELETE-USER-'
 EVENT_MODIFY_USER = '-MODIFY-USER-'
 
 _screen_main_title = sg.Text('SELECCIONAR PERFIL', size=500,
@@ -57,29 +59,35 @@ def user_name(name: str, card_name: str) -> sg.Text:
                    font=(theme.FONT_FAMILY, 45),
                    pad=(5, 20))
 
+
 def create_user_button(visible: bool, card_name: str) -> sg.Button:
     key = f'{EVENT_CREATE_USER} {card_name}'
-    return sg.Button('Crear', key=key,
+    return sg.Button('Crear',
+                     key=key,
                      visible=visible,
                      size=(7, 0),
                      button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                      mouseover_colors=theme.BG_BUTTON_HOVER,
                      font=(theme.FONT_FAMILY, 20),
                      pad=20)
+
 
 def edit_user_button(visible: bool, card_name: str) -> sg.Button:
     key = f'{EVENT_MODIFY_USER} {card_name}'
-    return sg.Button('Editar', key=key,
+    return sg.Button('Editar',
+                     key=key,
                      visible=visible,
                      size=(7, 0),
                      button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                      mouseover_colors=theme.BG_BUTTON_HOVER,
                      font=(theme.FONT_FAMILY, 20),
                      pad=20)
+
 
 def remove_user_button(visible: bool, card_name: str) -> sg.Button:
     key = f'{EVENT_DELETE_USER} {card_name}'
-    return sg.Button('Eliminar', key=key,
+    return sg.Button('Eliminar',
+                     key=key,
                      visible=visible,
                      size=(7, 0),
                      button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
@@ -87,65 +95,93 @@ def remove_user_button(visible: bool, card_name: str) -> sg.Button:
                      font=(theme.FONT_FAMILY, 20),
                      pad=20)
 
+
+def select_user_image(color: str, card_name: str) -> sg.Image:
+    if color == 'yellow':
+        source = user_yellow.source
+    elif color == 'red':
+        source = user_red.source
+    elif color == 'green':
+        source = user_green.source
+    elif color == 'violet':
+        source = user_violet.source
+    else:    
+        source = user_grey.source
+    key = f'{USER_IMAGE} {card_name}'
+    return sg.Image(
+        key=key,
+        data=source,
+        size=(100, 100),
+        background_color=theme.BG_BASE,
+        subsample=(96//100)
+    )
 
 users_ctrards: dict[str, dict[str, sg.Button | sg.Text]] = dict()
 users_ctrards = {str(index): dict() for index in range(5)}
 
 _hlist_config = {
-    'background_color':theme.BG_BASE,
+    'background_color': theme.BG_BASE,
 }
 
 def create_user_cards() -> sg.Column:
-<<<<<<< HEAD
-    h_list = csg.HorizontalList(_hlist_config)
-    users_list = users_c.user_list
-=======
-    h_list = csg.HorizontalList()
+    h_list = csg.HorizontalList(
+        background_color=theme.BG_BASE,
+        element_justification='c',
+        vertical_alignment='center',
+        expand_y=True,
+        expand_x=True,)
     users_list = users_ctr.user_list
->>>>>>> f1e300caf450890bb51ea6eb958b10abd68d11a7
     for index in range(5):
         card_name = str(index)
         exist = index < len(users_list)
         if exist:
             name = users_list[index].nick
+            color_user = users_list[index].prefered_color
         else:
             name = 'Vacío'
+            color_user = 'grey'
+
+        user_image = select_user_image(color_user, card_name)
         name_text = user_name(name, card_name)
         create_button = create_user_button(not exist, card_name)
         edit_button = edit_user_button(exist, card_name)
-        remove_button = edit_user_button(exist, card_name)
+        remove_button = remove_user_button(exist, card_name)
 
+        users_ctrards[card_name]['image'] = user_image
         users_ctrards[card_name]['name'] = name_text
         users_ctrards[card_name]['create'] = create_button
         users_ctrards[card_name]['edit'] = edit_button
         users_ctrards[card_name]['remove'] = remove_button
 
         h_list.add([
+            [user_image],
             [name_text],
-            [create_button],
             [edit_button],
             [remove_button],
+            [create_button],
         ])
 
     return h_list.pack()
 
+
 _select_profile_layout = [
-    [(create_user_cards())]
+    [create_user_cards()]
 ]
 
-# def create_new_user(card_name : str) -> None:
-#     users_ctrards[card_name]['create'].update(visible=False)
-#     users_ctrards[card_name]['edit'].update(visible=True)
-#     users_ctrards[card_name]['remove'].update(visible=True)
-#     observer.post_event(const.GOTO_VIEW, '-CREATE-PROFILE-')
+def create_new_user(card_name) -> None:
+    users_ctrards[card_name]['edit'].update(visible=True)
+    users_ctrards[card_name]['remove'].update(visible=True)
+    users_ctrards[card_name]['create'].update(visible=False)
+    observer.post_event(const.GOTO_VIEW, '-CREATE-PROFILE-')
 
-# observer.subscribe(EVENT_CREATE_USER, create_new_user)
+observer.subscribe(EVENT_CREATE_USER, create_new_user)
 
-# def reset(*args: Any):
-#     users_list = users_ctr.user_list
-#     for index, name in enumerate(users_ctrards):
-#         exist = index < len(users_list)
-#         users_ctrards[name]['name'].update(visible=exist)
+
+def reset(*args: Any):
+    users_list = users_ctr.user_list
+    for index, name in enumerate(users_ctrards):
+        exist = index < len(users_list)
+        users_ctrards[name]['name'].update(visible=exist)
 
 
 def reset(*args: Any):
@@ -175,13 +211,11 @@ _screen_layout = [
     [_turn]
 ]
 
-
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
     pass
 
 # observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
-
 
 _screen_config = {
     'background_color': theme.BG_BASE
