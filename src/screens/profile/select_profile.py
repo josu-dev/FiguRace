@@ -3,12 +3,11 @@ import PySimpleGUI as sg
 from src import constants as const
 from src.handlers.layout import Screen
 from src.handlers import observer
-from src.screens.profile import create_profile
 from src.screens import menu
-from src.handlers.theme import theme
+from src.controllers import theme
 from src.assets.users import *
 from src import csg
-from src import users_controller as users_c
+from src.controllers import users_controller as users_ctr
 
 SCREEN_NAME = '-SELECT-PROFILE-'
 USER_NAME = '-USER-NAME-'
@@ -89,16 +88,21 @@ def remove_user_button(visible: bool, card_name: str) -> sg.Button:
                      pad=20)
 
 
-users_cards: dict[str, dict[str, sg.Button | sg.Text]] = dict()
-users_cards = {str(index): dict() for index in range(5)}
+users_ctrards: dict[str, dict[str, sg.Button | sg.Text]] = dict()
+users_ctrards = {str(index): dict() for index in range(5)}
 
 _hlist_config = {
     'background_color':theme.BG_BASE,
 }
 
 def create_user_cards() -> sg.Column:
+<<<<<<< HEAD
     h_list = csg.HorizontalList(_hlist_config)
     users_list = users_c.user_list
+=======
+    h_list = csg.HorizontalList()
+    users_list = users_ctr.user_list
+>>>>>>> f1e300caf450890bb51ea6eb958b10abd68d11a7
     for index in range(5):
         card_name = str(index)
         exist = index < len(users_list)
@@ -111,10 +115,10 @@ def create_user_cards() -> sg.Column:
         edit_button = edit_user_button(exist, card_name)
         remove_button = edit_user_button(exist, card_name)
 
-        users_cards[card_name]['name'] = name_text
-        users_cards[card_name]['create'] = create_button
-        users_cards[card_name]['edit'] = edit_button
-        users_cards[card_name]['remove'] = remove_button
+        users_ctrards[card_name]['name'] = name_text
+        users_ctrards[card_name]['create'] = create_button
+        users_ctrards[card_name]['edit'] = edit_button
+        users_ctrards[card_name]['remove'] = remove_button
 
         h_list.add([
             [name_text],
@@ -130,18 +134,18 @@ _select_profile_layout = [
 ]
 
 # def create_new_user(card_name : str) -> None:
-#     users_cards[card_name]['create'].update(visible=False)
-#     users_cards[card_name]['edit'].update(visible=True)
-#     users_cards[card_name]['remove'].update(visible=True)
+#     users_ctrards[card_name]['create'].update(visible=False)
+#     users_ctrards[card_name]['edit'].update(visible=True)
+#     users_ctrards[card_name]['remove'].update(visible=True)
 #     observer.post_event(const.GOTO_VIEW, '-CREATE-PROFILE-')
 
 # observer.subscribe(EVENT_CREATE_USER, create_new_user)
 
 # def reset(*args: Any):
-#     users_list = users_c.user_list
-#     for index, name in enumerate(users_cards):
+#     users_list = users_ctr.user_list
+#     for index, name in enumerate(users_ctrards):
 #         exist = index < len(users_list)
-#         users_cards[name]['name'].update(visible=exist)
+#         users_ctrards[name]['name'].update(visible=exist)
 
 
 def reset(*args: Any):
