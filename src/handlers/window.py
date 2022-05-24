@@ -14,6 +14,7 @@ def set_up(screens : list[Screen], title:str, initial_screen:str, fullscreen: bo
         layout_controller.register(screen)
 
     observer.subscribe(const.GOTO_VIEW, layout_controller.goto_layout)
+    observer.subscribe(const.GOTO_VIEW, layout_controller.goto_layout)
     window_layout = layout_controller.get_composed_layout()
 
     window = sg.Window(

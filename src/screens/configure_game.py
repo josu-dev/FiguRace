@@ -3,13 +3,13 @@ from src import constants as const
 from src.handlers.theme import theme
 from src.handlers.layout import Screen
 from src import csg
-from src import users_controller
+from src.controllers import users_controller as users_ctr
 
 SCREEN_NAME = '-CONFIGGAME-'
 
 
 def _get_users() -> tuple:
-    users = users_controller.user_list
+    users = users_ctr.user_list
     if users:
         return tuple(users)
     else:
@@ -17,7 +17,7 @@ def _get_users() -> tuple:
 
 
 def _is_empty() -> bool:
-    users = users_controller.user_list
+    users = users_ctr.user_list
     if users:
         return True
     else:
@@ -28,7 +28,7 @@ def _get_user() -> str:
     if _is_empty:
         return 'Sin usuarios'
     else:
-        return users_controller.current_user.nick,
+        return users_ctr.current_user.nick,
 
 
 def _title() -> sg.Text:

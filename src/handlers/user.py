@@ -3,21 +3,34 @@ from typing import Any, Callable, TypedDict
 from src import file
 
 
+RESULTS_LENGTH = 10
+
+
 class UserJSON(TypedDict):
     nick: str
     age: int
     gender: str
     prefered_color: str
-    scores: list[int]
+    scores: dict[str, list[int]]
+
+
+def default_scores() -> dict[str, list[int]]:
+    return {
+        'easy': [],
+        'normal': [],
+        'hard': [],
+        'insane': [],
+        'custom': []
+    }
 
 
 class User:
-    def __init__(self, nick: str, age: int, gender: str, prefered_color: str, scores: list[int] | None = None):
+    def __init__(self, nick: str, age: int, gender: str, prefered_color: str, scores: dict[str, list[int]] | None = None):
         self._nick = nick
         self._age = age
         self._gender = gender
         self._prefered_color = prefered_color
-        self._scores = [] if scores == None else scores
+        self._scores = default_scores() if scores is None else scores
 
     @property
     def nick(self) -> str:
@@ -44,24 +57,22 @@ class User:
         return self._prefered_color
 
     @property
-    def scores(self) -> list[int]:
+    def scores(self) -> dict[str, list[int]]:
         return self._scores
 
-    def update_score(self, lvl: int, value: int) -> None:
-        if lvl > len(self._scores):
-            self._scores.append(value)
-        else:
-            self._scores[lvl - 1] += value
+    def update_score(self, difficulty: str, value: int) -> None:
+        self._scores[difficulty].append(value)
+        if len(self._scores[difficulty]) > RESULTS_LENGTH:
+            self._scores[difficulty].pop(0)
 
-    def get_score(self, lvl: int) -> int:
-        if lvl > len(self._scores):
-            return 0
-        else:
-            return self._scores[lvl - 1]
+    def get_score(self, difficulty: str) -> list[int]:
+        return self._scores[difficulty]
 
     @property
-    def overall_score(self) -> int:
-        return sum(self._scores)
+    def sorted_scores(self) -> dict[str, list[int]]:
+        return {
+            difficulty: sorted(results) for difficulty, results in self._scores.items()
+        }
 
     def to_dict(self) -> UserJSON:
         return {
