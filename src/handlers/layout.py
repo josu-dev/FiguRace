@@ -2,6 +2,8 @@ from typing import Any, Callable
 
 import PySimpleGUI as sg
 
+from src import constants
+
 
 class Screen:
     def __init__(self, key: str, layout: list[list[sg.Element]], config: dict[str, Any], reset: Callable[..., None]):
@@ -34,7 +36,9 @@ class WindowLayoutController:
     def goto_layout(self, key: str) -> None:
         key = key.rstrip('0123456789')
         self.layouts[self.actual_layout].turn_visivility()
-        if key in self.layout_stack:
+        if key == constants.LAST_SCREEN:
+            self.actual_layout = self.layout_stack.pop()
+        elif key in self.layout_stack:
             while self.layout_stack.pop() != key:
                 continue
             self.actual_layout = key

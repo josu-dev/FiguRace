@@ -16,4 +16,20 @@ PATHS_DATASETS = {
 }
 
 GOTO_VIEW = '-GOTO-VIEW-'
+LAST_SCREEN = '-LAST-SCREEN-'
 EXIT_APLICATION = '-EXIT-APP-'
+
+DIFFICULTY_TO_ES = {
+    'easy': 'Fácil',
+    'normal': 'Intermedio',
+    'hard': 'Difícil',
+    'insane': 'Insano',
+    'custom':'Personalizada',
+}
+DIFFICULTY_TO_EN = {
+    'Fácil': 'easy',
+    'Intermedio': 'normal',
+    'Difícil': 'hard',
+    'Insano': 'insane',
+    'Personalizada': 'custom',
+}
