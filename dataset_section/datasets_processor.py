@@ -39,20 +39,15 @@ def separate_cols(cols_remove:list[int]):
             cols_remove.append(index_dato)
 
 
-cols_remove:list[int] = []  # Columnas que voy a eliminar [0, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14] 
-#cols_saves:list[int] = []   # Columnas que voy a guardar  [1, 2, 3, 5, 15, 16] 
+cols_remove:list[int] = []  # Columnas que voy a eliminar [0, 4, 6, 7, 8, 9, 10, 11, 12, 13, 14]  
 separate_cols(cols_remove)
 
-def cols_sorted(row:list[str],orden_list:list[int]):
-    for indice in range(0,len(row)):                   # [0, 1, 2, 3, 4, 5]
-        for indice2,dato in enumerate(orden_list):     # [1, 5, 2, 4, 3, 0]
-            if (indice == dato):    
-                #print(indice)  
-                row[indice2], row[indice] = row[indice], row[indice2]
+def cols_sorted(row:list[str],orden_list:list[int]): # [0, 1, 2, 3, 4, 5]
+    row_copia = row.copy()
+    print(row_copia)
+    for indice,dato in enumerate(orden_list):        # [1, 5, 2, 4, 3, 0]    
+        row[indice]= row_copia[dato]                       
     return row
-# artist, Top Genre, year released, bpm, top year, artist type  Lo que tenemos
-# Top Genre, artist, year released, bpm,top year, artist type  Lo que genera
-# Top Genre, top year, year released, top year, bpm, artist  # Lo que tendria que generar
 
 def upper_words(word:str):
     genders = word.split()
@@ -65,7 +60,6 @@ def upper_words(word:str):
     return word
 
 def cols_remove_function(row:list[str],cols_remove:list[int]):
-    # Elimino las columnas innecesarias
     for col_index in cols_remove:
         del (row[col_index])
     return row
