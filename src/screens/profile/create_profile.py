@@ -2,7 +2,7 @@ import PySimpleGUI as sg
 from src import constants as const
 from src.handlers.layout import Screen
 from src.handlers import observer
-from src.handlers.theme import theme
+from src.controllers import theme
 SCREEN_NAME = '-CREATE-PROFILE-'
 
 _screen_main_title = sg.Text('CREAR PERFIL',

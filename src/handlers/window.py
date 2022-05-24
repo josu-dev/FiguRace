@@ -1,9 +1,9 @@
 import PySimpleGUI as sg
 from src import constants as const
+from src.controllers import theme
 
 from .layout import Screen, WindowLayoutController
 from . import observer
-from .theme import theme
 
 
 layout_controller = WindowLayoutController()
