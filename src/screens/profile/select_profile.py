@@ -92,8 +92,12 @@ def remove_user_button(visible: bool, card_name: str) -> sg.Button:
 users_cards: dict[str, dict[str, sg.Button | sg.Text]] = dict()
 users_cards = {str(index): dict() for index in range(5)}
 
+_hlist_config = {
+    'background_color':theme.BG_BASE,
+}
+
 def create_user_cards() -> sg.Column:
-    h_list = csg.HorizontalList()
+    h_list = csg.HorizontalList(_hlist_config)
     users_list = users_c.user_list
     for index in range(5):
         card_name = str(index)
@@ -122,9 +126,8 @@ def create_user_cards() -> sg.Column:
     return h_list.pack()
 
 _select_profile_layout = [
-    [create_user_cards()]
+    [(create_user_cards())]
 ]
-
 
 # def create_new_user(card_name : str) -> None:
 #     users_cards[card_name]['create'].update(visible=False)
