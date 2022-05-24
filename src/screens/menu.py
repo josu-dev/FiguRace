@@ -41,7 +41,7 @@ _btn_options = sg.Button(image_data=ic_config.source,
                          mouseover_colors=theme.BG_BUTTON_HOVER,
                          border_width=12)
 _btn_profile = sg.Button(image_data=ic_profile.source,
-                         key=f'{const.GOTO_VIEW} -PROFILE-',
+                         key=f'{const.GOTO_VIEW} -SELECT-PROFILE-',
                          auto_size_button=True,
                          font=_font,
                          button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
