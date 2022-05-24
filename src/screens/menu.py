@@ -4,7 +4,7 @@ from src.handlers.theme import theme
 from src.handlers.layout import Screen
 from src.assets.menu import ic_profile, ic_exit, ic_config
 from src import csg
-from src import users_controller
+from src.controllers import settings_controller as settings_ctr
 
 
 SCREEN_NAME = "-MENU-"
@@ -19,7 +19,7 @@ def _title() -> sg.Text:
                    key='-title-',
                    font=('System', 86),
                    justification='center',
-                   pad=64,)
+                   pad=64)
 
 
 _btn_start_game_ = sg.Button('Iniciar Juego',

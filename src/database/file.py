@@ -21,7 +21,7 @@ def save_json(path: str, value: object, is_custom_class: bool = False, write_mod
         if is_custom_class:
             json.dump(value, file, default=lambda o: o.__dict__, indent=4)
         else:
-            json.dump(value, file)
+            json.dump(value, file, indent=4)
 
 
 def load_csv(path: str, char_delimiter: str = ',', encoding_format: str = 'utf-8') -> list[list[str]]:

@@ -1,22 +1,13 @@
 import PySimpleGUI as sg
 
 from src import constants as const
+from . import controllers as ctr
 
-from .handlers.settings import SettingsController
-from .handlers.user import UsersController
 from .handlers import observer
 from .handlers import window as win_controller
 from .screens import base_screen, menu, configuration, game, score
 from .screens.profile import profile, select_profile, create_profile
 
-
-sett_controller = SettingsController(
-    const.PATH_SETTINGS, const.PATH_DIFFICULTIES)
-
-users_controller = UsersController(const.PATH_USERS)
-
-observer.subscribe(const.EXIT_APLICATION, sett_controller.save)
-observer.subscribe(const.EXIT_APLICATION, users_controller.save)
 
 
 def main():
@@ -27,8 +18,8 @@ def main():
     ]
 
     window = win_controller.set_up(
-        screens, sett_controller.setting.title,
-        sett_controller.setting.starting_page, sett_controller.setting.full_screen
+        screens, ctr.settings.title,
+        ctr.settings.starting_page, ctr.settings.full_screen
     )
 
     while True:
