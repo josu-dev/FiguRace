@@ -1,12 +1,12 @@
 {
     "Blue-Like": {
         "BG_BASE": "#112B3C",
-        "BG_PRIMARY": "#112B3C",
-        "BG_SECONDARY": "#112B3C",
+        "BG_PRIMARY": "#1e4e6e",
+        "BG_SECONDARY": "#1879ba",
         "BG_BUTTON": "#6FC5FF",
         "BG_BUTTON_HOVER": "#5A9ECC",
-        "TEXT_ACCENT": "#EFEFEF",
-        "TEXT_PRIMARY": "#243F50",
+        "TEXT_ACCENT": "#F0F0F0",
+        "TEXT_PRIMARY": "#81B9DB",
         "TEXT_SECONDARY": "#243F50",
         "TEXT_BUTTON": "#243F50",
         "TEXT_BUTTON_HOVER": "#243F50",

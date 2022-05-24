@@ -1,4 +1,3 @@
-from cgitb import grey
 from typing import Any
 import PySimpleGUI as sg
 from src import constants as const
