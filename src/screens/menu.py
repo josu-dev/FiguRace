@@ -23,7 +23,7 @@ def _title() -> sg.Text:
 
 
 _btn_start_game_ = sg.Button('Iniciar Juego',
-                             key=f'{const.GOTO_VIEW} -GAME-',
+                             key=f'{const.GOTO_VIEW} -CONFIGGAME-',
                              size=(18, 1),
                              font=_font,
                              auto_size_button=True,
@@ -72,7 +72,7 @@ def _menu_options() -> list[list[sg.Element]]:
 # All the stuff inside your window.
 _screen_layout = [
     [_title(), ],
-    [sg.Column(_menu_options(), background_color=theme.BG_BASE,
+    [sg.Column(_menu_options(), background_color=theme.BG_BASE, expand_y=True,
                element_justification='c')],
 ]
 

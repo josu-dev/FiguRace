@@ -52,7 +52,15 @@ def _ranking() -> sg.Column:
         ])
     return ranks.pack()
 
-
+_btn_back = sg.Button('FINISH',
+                      auto_size_button=True,
+                      key=f'{const.GOTO_VIEW} -MENU-',
+                      font=_font,
+                      button_color=(theme.TEXT_PRIMARY,
+                                    theme.BG_BUTTON),
+                      pad=_default_padding,
+                      mouseover_colors=theme.BG_BUTTON_HOVER,
+                      border_width=12)
 # All the stuff inside your window.
 _screen_layout = [
     [_title()],

@@ -2,22 +2,10 @@ import PySimpleGUI as sg
 from src import constants as const
 from src.handlers.theme import theme
 from src.handlers.layout import Screen
-
+from src import csg
 
 SCREEN_NAME = "-CONFIGURATION-"
 default_padding = 16
-
-# Vertical Space
-
-
-def _v_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
-    return sg.Column([[]], size=padding, background_color=theme.BG_BASE)
-
-# Horizontal Space
-
-
-def _h_spacer(padding: tuple[int, int] = (0, 0)) -> sg.Column:
-    return sg.Column([[]], size=padding)
 
 
 def _title() -> sg.Text:
@@ -39,7 +27,6 @@ def _build_text(text, unit, combo, lines):
 
               combo, ]
     return result
-
 
     # TODO parameters to the other screens
     # TODO db.loadConfigurations(time_per_game,rounds_per_game,points_added,point_substracted,features_per_level)
@@ -115,7 +102,7 @@ _btn_save = sg.Button('Guardar', size=(16, 1),
 
 def _menu_options() -> list[list]:
     config_layout = [
-        [_h_spacer((50, 0)),
+        [csg.horizontal_spacer((50, 0), background_color=theme.BG_BASE),
          *_build_text('Tiempo de partida', 'Segundos:',
                       _cmb_time_per_game, 1),
 
@@ -125,7 +112,7 @@ def _menu_options() -> list[list]:
                       _cmb_features_per_level, 2)
          ],
 
-        [_h_spacer((50, 0)),
+        [csg.horizontal_spacer((50, 0), background_color=theme.BG_BASE),
          *_build_text('Rounds por juego', 'Cantidad: ',
                       _cmb_rounds_per_game, 1),
 
@@ -135,14 +122,14 @@ def _menu_options() -> list[list]:
                       _cmb_plus_points, 1),
 
          ],
-        [_h_spacer((50, 0)),
+        [csg.horizontal_spacer((50, 0), background_color=theme.BG_BASE),
             *_build_text('Puntos restados', 'Cantidad: ',
                          _cmb_sub_points, 1),
 
          sg.Push()],
 
         [sg.Push(),
-         _v_spacer((0, 350)),
+         csg.vertical_spacer((0, 350), background_color=theme.BG_BASE),
             _btn_exit,
 
             _btn_save,
