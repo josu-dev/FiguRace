@@ -2,11 +2,10 @@ import PySimpleGUI as sg
 
 from src import constants, csg, common
 
-from src.controllers import theme,cards_controller as cards_ctr, settings_controller, users_controller as users_ctr
+from src.controllers import theme, cards_controller as cards_ctr, settings_controller, users_controller as users_ctr
 from src.handlers import observer
 from src.handlers.card import Card
 from src.handlers.layout import Screen
-from src.screens.configure_game import layout
 
 difficulty_ctr = settings_controller.difficulty_controller
 
@@ -16,6 +15,7 @@ SELECT_OPTION = '-SELECT-OPTION-'
 NUMBER_ROUNDS = 10
 CONFIRM_SELECT = '-CONFIRM-SECLECT-'
 SKIP_CARD = '-SKIP-CARD-'
+END_GAME = '-END-GAME-'
 
 
 def create_button(text: str, key: str) -> sg.Button:
@@ -36,7 +36,7 @@ def create_option_button(text: str, key: str) -> sg.Button:
     return sg.Button(
         text,
         key=key,
-        font=(theme.FONT_FAMILY,24),
+        font=(theme.FONT_FAMILY, 24),
         button_color=(
             theme.TEXT_BUTTON,
             theme.BG_BUTTON
@@ -46,7 +46,8 @@ def create_option_button(text: str, key: str) -> sg.Button:
         expand_x=True
     )
 
-game_type : dict[str,sg.Text | sg.Image]= {}
+
+game_type: dict[str, sg.Text | sg.Image] = {}
 
 
 def create_game_type() -> sg.Column:
@@ -54,7 +55,7 @@ def create_game_type() -> sg.Column:
         constants.DATASET_TO_ES[cards_ctr.current_type],
         font=FONT
     )
-    game_type['icon'] = sg.Image('',size=(128,128))
+    game_type['icon'] = sg.Image('', size=(128, 128))
     layout = [
         [game_type['type']],
         [game_type['icon']]
@@ -69,17 +70,18 @@ def refresh_game_type() -> None:
     game_type['type'].update(constants.DATASET_TO_ES[cards_ctr.current_type])
     # refresh game icon
 
-round_state : dict[str,sg.Text] = {}
+
+round_state: dict[str, sg.Text] = {}
 
 
 def create_round_state() -> sg.Column:
     round_state['difficulty'] = sg.Text(
         constants.DIFFICULTY_TO_ES[difficulty_ctr.difficulty_name],
-        font= FONT,
+        font=FONT,
     )
     round_state['time'] = sg.Text(
         f'00:30',
-        font= FONT,
+        font=FONT,
     )
     layout = [
         [round_state['difficulty']],
@@ -94,7 +96,8 @@ def refresh_round_state() -> None:
     pass
 
 
-game_state : dict[str,sg.Text|list[sg.Text]] = {}
+game_state: dict[str, sg.Text | list[sg.Text]] = {}
+
 
 def create_game_state() -> sg.Column:
     game_state['user'] = sg.Text(
@@ -119,21 +122,24 @@ def create_game_state() -> sg.Column:
         element_justification='center'
     )
 
+
 def refresh_game_state() -> None:
     pass
 
 
-card : dict[str, sg.Text | sg.Button | Card | list[sg.Button]| list[list[sg.Text]]] = {}
+card: dict[str, sg.Text | sg.Button | Card |
+           list[sg.Button] | list[list[sg.Text]]] = {}
+
 
 def create_card() -> sg.Column:
     card['data'] = cards_ctr.new_card
     characteristics = cards_ctr.characteristics
     card['hints'] = [
-            [
-                sg.Text(characteristic),
-                sg.Text('no loaded')
-            ] for characteristic in characteristics
-        ]
+        [
+            sg.Text(characteristic),
+            sg.Text('no loaded')
+        ] for characteristic in characteristics
+    ]
     card['options'] = [
         create_option_button(
             f'Opcíon {i+1}',
@@ -144,8 +150,8 @@ def create_card() -> sg.Column:
         *[hint for hint in card['hints']],
         *[[button] for button in card['options']],
         [
-            create_button('Confirmar',f'{CONFIRM_SELECT}'),
-            create_button('Pasar',f'{SKIP_CARD}')
+            create_button('Confirmar', f'{CONFIRM_SELECT}'),
+            create_button('Pasar', f'{SKIP_CARD}')
         ]
     ]
     return sg.Column(
@@ -160,8 +166,8 @@ def refresh_card() -> None:
 def create_leave_button() -> sg.Button:
     return sg.Button(
         'Abandonar partida',
-        key= f'{constants.GOTO_VIEW} -SCORE-',
-        font=(theme.FONT_FAMILY,24),
+        key=f'{END_GAME}',
+        font=(theme.FONT_FAMILY, 24),
         button_color=(
             theme.TEXT_BUTTON,
             theme.BG_BUTTON
@@ -170,16 +176,25 @@ def create_leave_button() -> sg.Button:
         border_width=12,
     )
 
+def finish_game() -> None:
+
+    observer.post_event(constants.GOTO_VIEW, '-SCORE-')
+
+observer.subscribe(END_GAME, finish_game)
+
 screen_layout = [
     [common.screen_title('game', True)],
     [create_game_type(), create_round_state()],
-    [create_game_state(),create_card()],
+    [create_game_state(), create_card()],
     [create_leave_button()]
 ]
 
 
 def reset() -> None:
-    refresh_game_type()
+    # reset_game_type()
+    refresh_round_state()
+    # reset_game_state()
+    refresh_card()
 
 
 screen_config = {
