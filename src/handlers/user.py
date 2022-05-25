@@ -3,7 +3,7 @@ from typing import Any, Callable, TypedDict
 from src import file
 
 
-RESULTS_LENGTH = 10
+RESULTS_LENGTH = 20
 
 
 class UserJSON(TypedDict):

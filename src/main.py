@@ -4,7 +4,7 @@ from src import constants as const
 from . import controllers as ctr
 
 from .handlers import observer
-from .handlers import window as win_controller
+from .handlers import window as window_ctr
 from .screens import base_screen, menu, configuration, game, score, configure_game
 from .screens.profile import create_profile, select_profile
 
@@ -17,7 +17,7 @@ def main():
         menu.screen, configuration.screen, game.screen, score.screen
     ]
 
-    window = win_controller.set_up(
+    window = window_ctr.set_up(
         screens, ctr.settings.title,
         ctr.settings.starting_page, ctr.settings.full_screen
     )

@@ -1,4 +1,3 @@
-from cgitb import enable
 from random import shuffle
 import PySimpleGUI as sg
 from src import constants as const
@@ -119,7 +118,6 @@ def _build_text():
     return [_difficulty_info]
 
 
-print(tuple(cards_ctr.types) + ('Random',))
 _cmb_dataset = sg.Combo(tuple(cards_ctr.types) + ('Random',),
                         'Random',
                         background_color='#8DC3E4',

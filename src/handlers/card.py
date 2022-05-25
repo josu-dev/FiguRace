@@ -70,7 +70,7 @@ class CardController:
     def __init__(self):
         self._datasets = PATHS_DATASETS
         self._dataset = Dataset('default',[[''],['']])
-        self._answers: list[str]
+        self._answers = ['']
 
     def _load_dataset(self, name: str) -> None:
         print(name)
