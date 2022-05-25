@@ -69,6 +69,11 @@ def _menu_options() -> list[list[sg.Element]]:
     return layout
 
 
+def reset():
+    # Funcions
+    pass
+
+
 # All the stuff inside your window.
 _screen_layout = [
     [_title(), ],
@@ -80,11 +85,6 @@ _screen_config = {
     'element_justification': 'c',
     'background_color': theme.BG_BASE,
 }
-
-
-def reset():
-    # Funcions
-    pass
 
 
 screen = Screen(
