@@ -2,18 +2,17 @@ import PySimpleGUI as sg
 from src import constants as const
 from src.controllers import theme
 
-from .layout import Screen, WindowLayoutController
+from .layout import Screen, ScreenController
 from . import observer
 
 
-layout_controller = WindowLayoutController()
+layout_controller = ScreenController()
 
 
 def set_up(screens : list[Screen], title:str, initial_screen:str, fullscreen: bool=True) -> sg.Window:
     for screen in screens:
         layout_controller.register(screen)
 
-    observer.subscribe(const.GOTO_VIEW, layout_controller.goto_layout)
     observer.subscribe(const.GOTO_VIEW, layout_controller.goto_layout)
     window_layout = layout_controller.get_composed_layout()
 

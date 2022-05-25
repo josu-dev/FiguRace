@@ -62,4 +62,4 @@ class ThemeController:
 
     @property
     def theme_list(self):
-        return [name for name in self._themes.keys()]
+        return [name for name in self._themes]

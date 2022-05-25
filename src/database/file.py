@@ -6,6 +6,7 @@ from typing import Any
 
 
 JSON = Any
+CSV = list[list[str]]
 
 
 def load_json(path: str, encoding_format: str = 'utf-8') -> JSON:
@@ -24,10 +25,10 @@ def save_json(path: str, value: object, is_custom_class: bool = False, write_mod
             json.dump(value, file, indent=4)
 
 
-def load_csv(path: str, char_delimiter: str = ',', encoding_format: str = 'utf-8') -> list[list[str]]:
+def load_csv(path: str, delimiter_char: str = ',', encoding_format: str = 'utf-8') -> CSV:
     if not os.path.exists(path):
         raise Exception(f'No exist a file in: {path}')
 
     with open(path, mode='r', encoding=encoding_format) as file:
-        csv_reader = csv.reader(file, delimiter=char_delimiter)
+        csv_reader = csv.reader(file, delimiter=delimiter_char)
         return list(csv_reader)

@@ -15,10 +15,12 @@ PATHS_DATASETS = {
     'fifa': os.path.join(PATH_CSV, 'fifa.csv'),
 }
 
+
 GOTO_VIEW = '-GOTO-VIEW-'
 LAST_SCREEN = '-LAST-SCREEN-'
 EXIT_APLICATION = '-EXIT-APP-'
 USER_CHANGE = '-USER-CHANGE-'
+
 
 DIFFICULTY_TO_ES = {
     'easy': 'Fácil',

@@ -6,7 +6,7 @@ from src import constants
 
 
 class Screen:
-    def __init__(self, key: str, layout: list[list[sg.Element]], config: dict[str, Any], reset: Callable[..., None]):
+    def __init__(self, key: str, layout: list[list[Any]], config: dict[str, Any], reset: Callable[..., None]):
         config['key'] = key
         config['visible'] = False
         config['expand_x'] = True
@@ -23,10 +23,10 @@ class Screen:
         self.container.update(visible=self.is_visible)
 
     def reset(self) -> None:
-        self._reset(None)
+        self._reset()
 
 
-class WindowLayoutController:
+class ScreenController:
     def __init__(self):
         self.actual_layout: str = ''
         self.layout_stack: list[str] = []
