@@ -36,3 +36,13 @@ DIFFICULTY_TO_EN = {
     'Insano': 'insane',
     'Personalizada': 'custom',
 }
+DATASET_TO_ES = {
+    'fifa' : 'FIFA 21',
+    'spotify' : 'Spotify',
+    'lakes' : 'Lagos Argentina'
+}
+DATASET_TO_EN = {
+    'FIFA 21': 'fifa',
+    'Spotify': 'spotify',
+    'Lagos Argentina': 'lakes'
+}
