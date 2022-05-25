@@ -1,5 +1,5 @@
 {
-    "josu": {
+    "Josu": {
         "nick": "Josu",
         "age": 21,
         "gender": "male",
@@ -29,7 +29,7 @@
             ]
         }
     },
-    "gallardo": {
+    "Gallardo": {
         "nick": "Gallardo",
         "age": 19,
         "gender": "male",

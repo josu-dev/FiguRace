@@ -82,7 +82,7 @@ _screen_config = {
 }
 
 
-def reset(*args):
+def reset():
     # Funcions
     pass
 

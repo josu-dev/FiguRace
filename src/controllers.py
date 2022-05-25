@@ -19,5 +19,9 @@ theme = theme_controller.theme
 
 cards_controller = CardController()
 
+def update_user() -> None:
+    settings.default_user = users_controller.current_user.nick
+
+observer.subscribe(constants.EXIT_APLICATION, update_user)
 observer.subscribe(constants.EXIT_APLICATION, settings_controller.save)
 observer.subscribe(constants.EXIT_APLICATION, users_controller.save)

@@ -1,21 +1,30 @@
-from typing import Any
 import PySimpleGUI as sg
 
-from src import constants as const
-from src import csg
+from src import constants, csg, common
 
 from src.controllers import theme
-from src.handlers.layout import Screen
 from src.handlers import observer
+from src.handlers.layout import Screen
+
 
 SCREEN_NAME = '-BASE-SCREEN-'
+FONT = (theme.FONT_FAMILY, 24)
 
-
-_main_title = sg.Text('FIGURACE', size=(800, 1), text_color='#EFEFEF',
-                      key='-title-', font=('Sketch 3D', 82), justification='center', pad=64)
+def create_button(text: str, key: str) -> sg.Button:
+    return sg.Button(
+        text,
+        key=key,
+        font=FONT,
+        button_color=(
+            theme.TEXT_BUTTON,
+            theme.BG_BUTTON
+        ),
+        mouseover_colors=theme.BG_BUTTON_HOVER,
+        border_width=12,
+    )
 
 _button_exit = sg.Button(
-    'Exit', key=const.EXIT_APLICATION, size=(32, 1),
+    'Exit', key=constants.EXIT_APLICATION, size=(32, 1),
     font=('Sketch 3D', 20), border_width=12
 )
 
@@ -26,8 +35,8 @@ _menu_layout = [
 ]
 
 
-_screen_layout = [
-    [_main_title],
+screen_layout = [
+    [common.screen_title('base screen', True)],
     [sg.Column(_menu_layout)],
 ]
 
@@ -43,33 +52,33 @@ observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 # For example -MY-EVENT-NAME- some_data_here
 
 
-def reset(*args: Any):
+def reset() -> None:
     # This function resets de elements of the screen to defaults/configuration values
     # It runs every time that window view moves to this screen
     pass
 
 
-_screen_config = {
+screen_config = {
     'background_color': theme.BG_BASE,
-    'element_justification': 'c',
+    'element_justification': 'center',
 }
 
 screen = Screen(
     SCREEN_NAME,
-    _screen_layout,
-    _screen_config,
+    screen_layout,
+    screen_config,
     reset
 )
 
 
 def main() -> None:
-    # Comment screen variable assigment if this file will be runned directly
-    window = sg.Window(SCREEN_NAME, _screen_layout)
+    # Comment screen variable assignment if this file will be runned directly
+    window = sg.Window(SCREEN_NAME, screen_layout)
 
     while True:
         event, values = window.read()
 
-        if event == None or event.startswith(const.EXIT_APLICATION):
+        if event == None or event.startswith(constants.EXIT_APLICATION):
             break
 
         values = values

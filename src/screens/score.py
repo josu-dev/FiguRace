@@ -1,27 +1,40 @@
+from typing import Any
+
 import PySimpleGUI as sg
 
 from src import constants, csg, common
 
 from src.controllers import theme, users_controller as users_ctr
+from src.handlers import observer
 from src.handlers.layout import Screen
 from src.handlers.user import User
-from src.handlers import observer
 
-FONT = ('System', 32)
+FONT = (theme.FONT_FAMILY, 24)
 SCREEN_NAME = '-SCORE-'
 HISTORIAL_SIZE = 20
 
 
-def game_result() -> sg.Column:
+def create_summary() -> sg.Column:
 
     return sg.Column([[]])
 
+def refresh_summary() -> None:
+    pass
 
-def get_name_and_scores(user: User) -> tuple[str, dict[str, list[int]]]:
+
+rankings: dict[str, sg.Multiline] = {
+    'easy': Any,
+    'normal': Any,
+    'hard': Any,
+    'insane': Any,
+    'custom': Any
+}
+
+NameScores = tuple[str, dict[str, list[int]]]
+
+
+def get_name_and_scores(user: User) -> NameScores:
     return user.nick, user.sorted_scores
-
-
-rankings: dict[str, sg.Multiline] = dict()
 
 
 def rank_header(name: str) -> sg.Text:
@@ -41,7 +54,7 @@ def rank_content(scores: list[tuple[int, str]]) -> str:
     for i in range(HISTORIAL_SIZE):
         if i < len(scores):
             score, name = scores[i]
-            row = f' {i+1:>2} {score:>5} {name:^14} '
+            row = f' {i+1:>2}{score:>6}{name:^15} '
         else:
             row = '\n'
         content.append(row)
@@ -64,21 +77,29 @@ def create_rank(scores: str) -> sg.Multiline:
 
 
 def create_ranking() -> sg.Column:
-    difficulties = [
-        'easy', 'normal', 'hard', 'insane', 'custom'
-    ]
-    ranks = csg.HorizontalList(pad=0)
-    users: list[tuple[str, dict[str, list[int]]]
-                ] = users_ctr.users_transform(get_name_and_scores)
+    ranks = csg.HorizontalList(pad=(0, 0),background_color=theme.BG_SECONDARY)
+    users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
 
-    for diff in difficulties:
-        all_scores = [(score, nick)
-                      for nick, scores in users for score in scores[diff]]
+    for difficulty in rankings:
+        all_scores = [
+            (score, nick) for nick, scores in users for score in scores[difficulty]
+        ]
+        rankings[difficulty] = create_rank(rank_content(all_scores))
         ranks.add([
-            [rank_header(diff)],
-            [create_rank(rank_content(all_scores))]
+            [rank_header(difficulty)],
+            [rankings[difficulty]]
         ])
     return ranks.pack()
+
+
+def refresh_rankings() -> None:
+    users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
+
+    for difficulty in rankings:
+        all_scores = [
+            (score, nick) for nick, scores in users for score in scores[difficulty]
+        ]
+        rankings[difficulty].update(rank_content(all_scores))
 
 
 def create_button(text: str, key: str) -> sg.Button:
@@ -106,24 +127,23 @@ buttons = (
     ]).pack()
 )
 
-
-# All the stuff inside your window.
 screen_layout = [
     [common.screen_title('score', True)],
-    [game_result()],
+    [create_summary()],
     [create_ranking()],
+    [csg.vertical_spacer((0,32),background_color=theme.BG_BASE)],
     [buttons]
 ]
 
 screen_config = {
     'background_color': theme.BG_BASE,
-    'justification': 'center',
     'element_justification': 'center',
 }
 
 
 def reset():
-    pass
+    refresh_summary()
+    refresh_rankings()
 
 
 screen = Screen(
