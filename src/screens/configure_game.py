@@ -196,7 +196,7 @@ _screen_config = {
 }
 
 
-def reset(*args):
+def reset():
     _btn_goto_game.update(disabled=_check_user())
     _refresh_info()
     pass
