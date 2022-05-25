@@ -184,6 +184,12 @@ def _change_dataset():
     cards_ctr.set_type(dataset)
 
 
+def reset(*args):
+    _btn_goto_game.update(disabled=_check_user())
+    _refresh_info()
+    pass
+
+
 _configuration_layout = [
     [_title()],
     [sg.Column(layout(), background_color=theme.BG_BASE, expand_y=True,
@@ -194,12 +200,6 @@ _screen_config = {
     'background_color': theme.BG_BASE,
     'element_justification': 'c',
 }
-
-
-def reset(*args):
-    _btn_goto_game.update(disabled=_check_user())
-    _refresh_info()
-    pass
 
 
 observer.subscribe(

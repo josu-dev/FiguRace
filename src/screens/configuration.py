@@ -30,9 +30,6 @@ def _build_text(text, unit, combo, lines):
               combo, ]
     return result
 
-    # TODO parameters to the other screens
-    # TODO db.loadConfigurations(time_per_game,rounds_per_game,points_added,point_substracted,features_per_level)
-
 
 _cmb_time_per_game = sg.Combo(
     ('15', '30', '60', '90', '180', '300'),
