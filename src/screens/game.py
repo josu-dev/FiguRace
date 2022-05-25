@@ -1,76 +1,78 @@
 import PySimpleGUI as sg
-from src import constants as const
-from src.controllers import theme
+
+from src import constants, csg, common
+
+from src.controllers import theme,cards_controller as cards_ctr
+from src.handlers import observer
 from src.handlers.layout import Screen
-from src import csg
-from src.controllers import settings_controller as sett_ctr
-from src.controllers import users_controller as user_ctr
-# from src.controllers import cards_controller as cards_ctr
-_font = ('System', 32)
-_default_padding = 2
-SCREEN_NAME = "-GAME-"
-MAIN_BACK_COLOR = '#112B3C'
 
 
-def _title() -> sg.Text:
-    return sg.Text(' G A M E ', size=(800, 1),
-                   background_color=theme.BG_BASE,
-                   text_color='#EFEFEF',
-                   key='-title-',
-                   font=('System', 86),
-                   justification='center',
-                   pad=64,)
+SCREEN_NAME = '-GAME-'
+FONT = (theme.FONT_FAMILY, 48)
 
+def create_button(text: str, key: str) -> sg.Button:
+    return sg.Button(
+        text,
+        key=key,
+        font=FONT,
+        button_color=(
+            theme.TEXT_BUTTON,
+            theme.BG_BUTTON
+        ),
+        mouseover_colors=theme.BG_BUTTON_HOVER,
+        border_width=12,
+    )
 
-_btn_back = sg.Button('<-- Volver',
-                      auto_size_button=True,
-                      key=f'{const.GOTO_VIEW} -MENU-',
-                      font=_font,
-                      button_color=(theme.TEXT_BUTTON,
-                                    theme.BG_BUTTON),
-                      pad=_default_padding,
-                      mouseover_colors=theme.BG_BUTTON_HOVER,
-                      border_width=12)
-_btn_score = sg.Button('Score -->',
-                       auto_size_button=True,
-                       key=f'{const.GOTO_VIEW} -SCORE-',
-                       font=_font,
-                       button_color=(theme.TEXT_BUTTON,
-                                     theme.BG_BUTTON),
-                       pad=_default_padding,
-                       mouseover_colors=theme.BG_BUTTON_HOVER,
-                       border_width=12)
+game_type : dict[str,sg.Text | sg.Image]= {}
 
-
-def layout() -> list[list[sg.Element]]:
+def create_game_type() -> sg.Column:
+    game_type['type'] = sg.Text(
+        constants.DATASET_TO_ES[cards_ctr.current_type],
+        font=FONT
+    )
+    game_type['icon'] = sg.Image('',source=(128,128))
     layout = [
-        [sg.VPush(background_color=theme.BG_BASE)],
-        [_btn_back, sg.Push(), sg.Text(f'{sett_ctr.difficulty}'),
-         sg.Push(), _btn_score],
+        [game_type['type']],
+        [game_type['icon']]
     ]
-    return layout
+    return sg.Column(
+        layout,
+        background_color=theme.BG_SECONDARY
+    )
 
-
-# All the stuff inside your window.
-_screen_layout = [
-    [_title(), ],
-    [sg.Column(layout(), background_color=theme.BG_BASE, expand_x=True, expand_y=True,
-               element_justification='left')],
+screen_layout = [
+    [common.screen_title('game', True)],
+    # [create_game_type(), round_stats],
+    # [game_state, card],
+    # [leave]
 ]
 
-_screen_config = {
-    'background_color': theme.BG_BASE,
-}
 
-
-def reset(*args):
-    # Funcions
+def function_to_execute_on_event() -> None:
+    # This function calls updates on database, updates elements of ui, or do other stuff
     pass
 
 
+observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
+
+# If an element(normaly a button) needs to emit and event, the way it works is that the button key has the event name first and optional data
+# For example -MY-EVENT-NAME- some_data_here
+
+
+def reset() -> None:
+    # This function resets de elements of the screen to defaults/configuration values
+    # It runs every time that window view moves to this screen
+    pass
+
+
+screen_config = {
+    'background_color': theme.BG_BASE,
+    'element_justification': 'center',
+}
+
 screen = Screen(
     SCREEN_NAME,
-    _screen_layout,
-    _screen_config,
+    screen_layout,
+    screen_config,
     reset
 )
