@@ -3,6 +3,8 @@ from src import constants as const
 from src.controllers import theme
 from src.handlers.layout import Screen
 from src import csg
+from src.controllers import settings_controller as sett_ctr
+from src.controllers import users_controller as user_ctr
 # from src.controllers import cards_controller as cards_ctr
 _font = ('System', 32)
 _default_padding = 2
@@ -43,7 +45,7 @@ _btn_score = sg.Button('Score -->',
 def layout() -> list[list[sg.Element]]:
     layout = [
         [sg.VPush(background_color=theme.BG_BASE)],
-        [_btn_back, sg.Push(), sg.Text(),
+        [_btn_back, sg.Push(), sg.Text(f'{sett_ctr.difficulty}'),
          sg.Push(), _btn_score],
     ]
     return layout

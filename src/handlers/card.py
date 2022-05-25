@@ -73,7 +73,6 @@ class CardController:
         self._answers: list[str]
 
     def _load_dataset(self, name: str) -> None:
-        print(name)
         raw_dataset = file.load_csv(PATHS_DATASETS[name])
         self._dataset = Dataset(name, raw_dataset)
         # This probably is unnecesary
