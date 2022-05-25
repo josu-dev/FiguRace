@@ -73,7 +73,7 @@ _btn_goto_game = sg.Button('Empezar ! ',
                            key=f'{const.GOTO_VIEW} -GAME-',
                            font=('System', 32),
                            auto_size_button=True,
-                           button_color=(theme.TEXT_PRIMARY,
+                           button_color=(theme.TEXT_BUTTON,
                                          theme.BG_BUTTON),
                            pad=2,
                            mouseover_colors=theme.BG_BUTTON_HOVER,
@@ -82,9 +82,9 @@ _btn_goto_game = sg.Button('Empezar ! ',
 _btn_back = sg.Button('<--',
                       key=f'{const.GOTO_VIEW} -MENU-',
                       border_width=12,
-                      button_color=(
-                          theme.TEXT_PRIMARY, theme.BG_BUTTON),
-                      mouseover_colors=theme.BG_BASE,
+                      button_color=(theme.TEXT_BUTTON,
+                                    theme.BG_BUTTON),
+                      mouseover_colors=theme.BG_BUTTON_HOVER,
                       font=('System', 32))
 
 
