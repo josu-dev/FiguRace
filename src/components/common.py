@@ -11,7 +11,7 @@ from . import custom_sg as csg
 ImageFile = Any
 
 
-def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True) -> sg.Text:
+def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, padding: int = 24) -> sg.Text:
     if upper:
         title = title.upper()
     if spaced:
@@ -21,9 +21,9 @@ def screen_title(title: str, spaced: bool = False, alignment: str = 'center', up
         size=(len(title), 1),
         background_color=theme.BG_BASE,
         text_color=theme.TEXT_ACCENT,
-        font=(theme.FONT_FAMILY, 80),
+        font=(theme.FONT_FAMILY, 48),
         justification=alignment,
-        pad=32,
+        pad=padding,
         expand_x=True
     )
 
