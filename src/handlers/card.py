@@ -69,8 +69,8 @@ class Card:
 class CardController:
     def __init__(self):
         self._datasets = PATHS_DATASETS
-        self._dataset = Dataset('default',[[''],['']])
-        self._answers = ['']
+        default = list(self._datasets.keys())[0]
+        self._load_dataset(default)
 
     def _load_dataset(self, name: str) -> None:
         raw_dataset = file.load_csv(PATHS_DATASETS[name])
