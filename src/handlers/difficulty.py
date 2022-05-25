@@ -33,7 +33,8 @@ class DifficultyController:
     def __init__(self, difficulties_path: str, default_difficulty: str = 'easy'):
         self._file_path = difficulties_path
         self._current_difficulty = default_difficulty
-        raw_difficulties: dict[str, DifficultyJSON] = file.load_json(difficulties_path)
+        raw_difficulties: dict[str, DifficultyJSON] = file.load_json(
+            difficulties_path)
         self._difficulties = {
             name: Difficulty(**definition) for name, definition in raw_difficulties.items()
         }
@@ -61,9 +62,9 @@ class DifficultyController:
             #     self._difficulty.points_bad_answer = values['points_bad_answer']
             # if 'caracteristics_shown' in values:
             #     self._difficulty.caracteristics_shown = values['caracteristics_shown']
-            for key, value in values:
+            for key, value in values.items():
                 # this get is for testing in production if an argument recived is invalid could be an if with a continue too
-                getattr(self._difficulty,key)
+                getattr(self._difficulty, key)
                 setattr(self._difficulty, key, value)
             self._difficulties['custom'].swap(self._difficulty)
         else:

@@ -3,6 +3,8 @@ from src import constants as const
 from src.controllers import theme
 from src.handlers.layout import Screen
 from src import csg
+from src.handlers import observer
+from src.controllers import settings_controller as sett_ctr
 
 SCREEN_NAME = "-CONFIGURATION-"
 default_padding = 16
@@ -30,16 +32,11 @@ def _build_text(text, unit, combo, lines):
 
     # TODO parameters to the other screens
     # TODO db.loadConfigurations(time_per_game,rounds_per_game,points_added,point_substracted,features_per_level)
-_time_per_game = 60
-_rounds_per_game = 5
-_points_added = 10
-_points_substracted = 10
-_features_per_level = 3
 
 
 _cmb_time_per_game = sg.Combo(
     ('15', '30', '60', '90', '180', '300'),
-    _time_per_game,
+    sett_ctr.difficulty.time_per_round,
     background_color='#8DC3E4',
     text_color=theme.BG_BASE,
     font=('System', 24),
@@ -48,7 +45,7 @@ _cmb_time_per_game = sg.Combo(
     key='-TIME-',)
 
 _cmb_features_per_level = sg.Combo(('1', '2', '3', '4', '5'),
-                                   _features_per_level,
+                                   sett_ctr.difficulty.caracteristics_shown,
                                    background_color='#8DC3E4',
                                    text_color=theme.BG_BASE,
                                    font=('System', 24),
@@ -57,7 +54,7 @@ _cmb_features_per_level = sg.Combo(('1', '2', '3', '4', '5'),
                                    key='-CARXLEVEL-', )
 
 _cmb_rounds_per_game = sg.Combo(('3', '5', '8', '10', '20'),
-                                _rounds_per_game,
+                                sett_ctr.difficulty.rounds_per_game,
                                 background_color='#8DC3E4',
                                 text_color=theme.BG_BASE,
                                 font=('System', 24),
@@ -66,7 +63,7 @@ _cmb_rounds_per_game = sg.Combo(('3', '5', '8', '10', '20'),
                                 key='-QROUNDS-',)
 
 _cmb_plus_points = sg.Combo(('1', '5', '10', '25', '50'),
-                            _points_added,
+                            sett_ctr.difficulty.points_correct_answer,
                             background_color='#8DC3E4',
                             text_color=theme.BG_BASE,
                             font=('System', 24),
@@ -75,13 +72,14 @@ _cmb_plus_points = sg.Combo(('1', '5', '10', '25', '50'),
                             key='-+QXANSWER-',)
 
 _cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
-                           _points_substracted,
+                           sett_ctr.difficulty.points_bad_answer,
                            background_color='#8DC3E4',
                            font=('System', 24),
                            text_color=theme.BG_BASE,
                            readonly=True,
                            size=(5, 30),
                            key='--QXANSWER-',)
+
 _btn_exit = sg.Button('<--',
                       key=f'{const.GOTO_VIEW} -MENU-',
                       border_width=12,
@@ -92,7 +90,7 @@ _btn_exit = sg.Button('<--',
                       font=('System', 25))
 
 _btn_save = sg.Button('Guardar', size=(16, 1),
-                      key='-SAVE-',
+                      key='-SAVE-DIFF-CUSTOM-',
                       font=('System', 25),
                       button_color=(theme.TEXT_ACCENT, theme.BG_BASE),
                       pad=default_padding,
@@ -138,6 +136,22 @@ def _menu_options() -> list[list]:
     return config_layout
 
 
+def _save_settings():
+    changes = {
+        'time_per_round': int(_cmb_time_per_game.get()),
+        'rounds_per_game': int(_cmb_rounds_per_game.get()),
+        'points_correct_answer': int(_cmb_plus_points.get()),
+        'points_bad_answer':  int(_cmb_sub_points.get()),
+        'caracteristics_shown': int(_cmb_features_per_level.get())
+    }
+    sett_ctr.difficulty_controller.update_difficulty(
+        'custom', **changes)
+
+
+def _refresh():
+    sett_ctr.difficulty_controller.update_difficulty('custom')
+
+
 _configuration_layout = [
     [_title()],
     [sg.Column(_menu_options(), background_color=theme.BG_BASE, expand_x=True)],
@@ -150,10 +164,14 @@ _screen_config = {
 
 
 def reset(*args):
-    # Funcions
+    _refresh()
     pass
 
 
+observer.subscribe(
+    '-SAVE-DIFF-CUSTOM-',
+    _save_settings,
+)
 screen = Screen(
     SCREEN_NAME,
     _configuration_layout,

@@ -9,7 +9,6 @@ from src.handlers.user import User
 from src.controllers import settings_controller as sett_ctr
 from src.handlers import observer
 from src.controllers import cards_controller as cards_ctr
-
 SCREEN_NAME = '-CONFIGGAME-'
 
 
@@ -149,18 +148,9 @@ def layout() -> list[list[sg.Element]]:
     return layout
 
 
-_difficulties = {
-    'Fácil': 'easy',
-    'Intermedio': 'normal',
-    'Difícil': 'hard',
-    'Insano': 'insane',
-    'Personalizada': 'custom',
-}
-
-
-def _change_difficult():
+def _refresh_info():
     sett_ctr.difficulty_controller.update_difficulty(
-        _difficulties[_cmb_difficulty.get()])
+        const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     _difficulty_info.update(f"Tiempo por ronda : {sett_ctr.difficulty.time_per_round}\
             Q de Características : {sett_ctr.difficulty.caracteristics_shown}\
             Rounds por juego : {sett_ctr.difficulty.rounds_per_game}\
@@ -172,6 +162,12 @@ def _check_user():
     if(_cmb_profile.get() == 'Sin usuarios'):
         return True
     return False
+
+
+def _change_difficult():
+    sett_ctr.difficulty_controller.update_difficulty(
+        const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
+    _refresh_info()
 
 
 def _change_user():
@@ -202,6 +198,7 @@ _screen_config = {
 
 def reset(*args):
     _btn_goto_game.update(disabled=_check_user())
+    _refresh_info()
     pass
 
 
