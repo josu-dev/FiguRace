@@ -66,7 +66,10 @@ class DifficultyController:
                 # this get is for testing in production if an argument recived is invalid could be an if with a continue too
                 getattr(self._difficulty, key)
                 setattr(self._difficulty, key, value)
-            self._difficulties['custom'].swap(self._difficulty)
+            if len(values) > 0:
+                self._difficulties['custom'].swap(self._difficulty)
+            else:
+                self._difficulty.swap(self._difficulties['custom'])
         else:
             self._difficulty.swap(self._difficulties[name])
 
