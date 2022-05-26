@@ -4,6 +4,7 @@ from src.handlers.card import CardController
 from src.handlers.user import UsersController
 from src.handlers.settings import SettingsController
 from src.handlers.theme import ThemeController
+from src.handlers.run import RunController
 from src.handlers import observer
 
 
@@ -18,6 +19,8 @@ theme_controller = ThemeController(constants.PATH_THEME, settings.theme)
 theme = theme_controller.theme
 
 cards_controller = CardController()
+
+run_controller = RunController(cards_controller, settings_controller.difficulty_controller)
 
 def update_user() -> None:
     settings.default_user = users_controller.current_user.nick
