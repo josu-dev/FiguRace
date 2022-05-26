@@ -35,7 +35,6 @@ def data_process(path:str):
             all_header.append(next(csv_reader)) # El encabezado para comparar las columnas borradas
             all_datos.append(list(csv_reader))
     return all_header,all_datos
-
 all_header,all_datos = data_process(path)
 
 def create_order(orden_list:list[int],name_remove:list[str],header:list[str]):
