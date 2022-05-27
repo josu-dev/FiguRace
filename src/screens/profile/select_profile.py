@@ -125,10 +125,9 @@ _hlist_config = {
 }
 
 img = sg.Image(data=wall.source,
-              size=(wall.size,1080),
+              size=(1366,768),
               background_color=theme.BG_BASE,
-              subsample=(wall.size//768) )
-
+              subsample=(wall.size//1366) )
 
 def create_user_cards() -> sg.Column:
     h_list = csg.HorizontalList(
@@ -172,10 +171,9 @@ def create_user_cards() -> sg.Column:
 
 
 _select_profile_layout = [
-    [img]
-    #[create_user_cards()]
+    [img],
+    # [create_user_cards()]
 ]
-
 
 def create_new_user(card_name) -> None:
     users_ctrards[card_name]['edit'].update(visible=True)
