@@ -2,7 +2,7 @@
     "default": {
         "title": "Figurace",
         "full_screen": true,
-        "starting_page": "-MENU-",
+        "starting_page": "-SELECT-PROFILE-",
         "theme": "Blue-Like",
         "default_user": ""
     },

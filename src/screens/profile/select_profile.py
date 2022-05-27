@@ -1,4 +1,6 @@
+from cgitb import enable
 from typing import Any
+from xml.sax.handler import feature_external_ges
 import PySimpleGUI as sg
 from src import constants as const
 from src.handlers.layout import Screen
@@ -120,11 +122,6 @@ _hlist_config = {
     'background_color': theme.BG_BASE,
 }
 
-img = sg.Image(data=wall.source,
-               size=(1366, 768),
-               background_color=theme.BG_BASE,
-               subsample=(wall.size//1366))
-
 
 def create_user_cards() -> sg.Column:
     h_list = csg.HorizontalList(
@@ -186,49 +183,56 @@ def reset(*args: Any):
 
 def reset(*args: Any):
     pass
-# _profile_layout = [
-#     [
-#         sg.VPush(background_color = theme.BG_BASE)
-#     ],
-# ]
 
 
 _go = sg.Button('Confirmar', key=f'{const.GOTO_VIEW} {menu.SCREEN_NAME}',
-                  border_width=15,
-                  button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
-                  mouseover_colors=theme.BG_BUTTON_HOVER,
-                  font=(theme.FONT_FAMILY,theme.T1_SIZE),
-                  )
+                border_width=15,
+                button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
+                mouseover_colors=theme.BG_BUTTON_HOVER,
+                font=(theme.FONT_FAMILY, theme.T1_SIZE),
+                disabled=True
+                )
 
 _select_profile_layout = [
     [sg.Listbox(values=users_ctr.users_transform(lambda user: user.nick),
-                expand_x=True, 
+                default_values=users_ctr.user_list[0].nick,
+                expand_x=True,
                 expand_y=True,
                 background_color=theme.BG_BASE,
-                text_color= theme.TEXT_PRIMARY,
-                font=(theme.FONT_FAMILY,theme.H3_SIZE)
+                text_color=theme.TEXT_PRIMARY,
+                font=(theme.FONT_FAMILY, theme.H3_SIZE),
+                enable_events=True,
+                key='-ENABLE-'
                 )],
-    
 ]
+_buttons_layout = [
 
+]
 _screen_layout = [
     [common.screen_title('PERFILES', alignment='left')],
     [sg.Column(_select_profile_layout,
                background_color=theme.BG_BASE,
-               expand_x=True,
-               element_justification='left',
-               vertical_alignment='left',
                expand_y=True,
+               element_justification='left',
+               vertical_alignment='left'
                )],
-    [csg.CenteredElement(_go,background_color = theme.BG_BASE)]
+    [sg.Column(_buttons_layout,
+               background_color=theme.BG_BASE,
+               expand_y=True,
+               element_justification='right',
+               vertical_alignment='right'
+               )],
+    [csg.CenteredElement(_go,
+                         horizontal_only=True,
+                         background_color=theme.BG_BASE)]
 ]
 
-def function_to_execute_on_event() -> None:
-    # This function calls updates on database, updates elements of ui, or do other stuff
-    pass
 
-# observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
+def confirm():
+    _go.update(disabled=False)
 
+
+observer.subscribe('-ENABLE-', confirm)
 
 _screen_config = {
     'background_color': theme.BG_BASE,

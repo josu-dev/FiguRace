@@ -63,11 +63,18 @@ class VerticalList(ChainedElement):
         return sg.Column(self._container, **self._config)
 
 
-def CenteredElement(element: Element, **column_parameters: Any) -> sg.Column:
+def CenteredElement(element: Element, horizontal_only : bool = False,**column_parameters: Any) -> sg.Column:
     column_parameters['element_justification'] = 'center'
-    column_parameters['expand_y'] = True
+    column_parameters['expand_y'] = not horizontal_only
     column_parameters['expand_x'] = True
     background_color = column_parameters.get('background_color', None)
+    if horizontal_only:  
+        return sg.Column(
+            [   
+                [element]
+            ],
+            **column_parameters
+        )
     return sg.Column(
         [
             [sg.VPush(background_color)],
