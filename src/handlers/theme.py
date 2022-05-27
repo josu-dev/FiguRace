@@ -23,7 +23,7 @@ else:
     screen_factor = 0.2
 
 
-def aply_scale(value: int) -> int:
+def apply_scale(value: int) -> int:
     return round(value * screen_factor)
 
 
@@ -43,20 +43,20 @@ class Theme:
         self.TEXT_BUTTON = definition['F_C_BUTTON']
         self.TEXT_BUTTON_HOVER = definition['F_C_BUTTON_HOVER']
 
-        self.BD_ACCENT = aply_scale(definition['BD_ACCENT'])
-        self.BD_PRIMARY = aply_scale(definition['BD_PRIMARY'])
-        self.BD_SECONDARY = aply_scale(definition['BD_SECONDARY'])
-        self.BD_DELIMITER = aply_scale(definition['BD_DELIMITER'])
+        self.BD_ACCENT = apply_scale(definition['BD_ACCENT'])
+        self.BD_PRIMARY = apply_scale(definition['BD_PRIMARY'])
+        self.BD_SECONDARY = apply_scale(definition['BD_SECONDARY'])
+        self.BD_DELIMITER = apply_scale(definition['BD_DELIMITER'])
 
         self.FONT_FAMILY = definition['F_F_UI']
         self.FONT_FAMILY_TEXT = definition['F_F_CONTENT']
 
-        self.H1_SIZE = aply_scale(definition['F_SIZE_H1'])
-        self.H2_SIZE = aply_scale(definition['F_SIZE_H2'])
-        self.H3_SIZE = aply_scale(definition['F_SIZE_H3'])
-        self.T1_SIZE = aply_scale(definition['F_SIZE_T1'])
-        self.T2_SIZE = aply_scale(definition['F_SIZE_T2'])
-        self.T3_SIZE = aply_scale(definition['F_SIZE_T3'])
+        self.H1_SIZE = apply_scale(definition['F_SIZE_H1'])
+        self.H2_SIZE = apply_scale(definition['F_SIZE_H2'])
+        self.H3_SIZE = apply_scale(definition['F_SIZE_H3'])
+        self.T1_SIZE = apply_scale(definition['F_SIZE_T1'])
+        self.T2_SIZE = apply_scale(definition['F_SIZE_T2'])
+        self.T3_SIZE = apply_scale(definition['F_SIZE_T3'])
 
     @property
     def height(self):
@@ -86,4 +86,4 @@ class ThemeController:
         return [name for name in self._raw_themes]
     
     def scale(self, value : int) -> int:
-        return aply_scale(value)
+        return apply_scale(value)

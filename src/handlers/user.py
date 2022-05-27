@@ -7,6 +7,7 @@ from . import observer, difficulty
 RESULTS_LENGTH = 20
 DEFAULT_PREFERRED_DIFFICULTY = difficulty.DEFAULT_NORMAL
 
+
 class UserJSON(TypedDict):
     nick: str
     age: int
@@ -16,6 +17,7 @@ class UserJSON(TypedDict):
     custom_difficulty: difficulty.DifficultyJSON
     scores: dict[str, list[int]]
 
+
 def default_difficulty() -> difficulty.DifficultyJSON:
     return {
         'time_per_round': 50,
@@ -24,6 +26,7 @@ def default_difficulty() -> difficulty.DifficultyJSON:
         'points_bad_answer': -2,
         'characteristics_shown': 3
     }
+
 
 def default_scores() -> dict[str, list[int]]:
     return {
@@ -36,18 +39,18 @@ def default_scores() -> dict[str, list[int]]:
 
 
 class User:
-    def __init__(self, definition:UserJSON):
+    def __init__(self, definition: UserJSON):
         self._nick = definition['nick']
         self._age = definition['age']
         self._gender = definition['gender']
         self._preferred_color = definition['preferred_color']
         self._preferred_difficulty = definition.get(
-            'preferred_difficulty',DEFAULT_PREFERRED_DIFFICULTY
+            'preferred_difficulty', DEFAULT_PREFERRED_DIFFICULTY
         )
         self._custom_difficulty = difficulty.Difficulty(
-            **definition.get('custom_difficulty',default_difficulty())
+            **definition.get('custom_difficulty', default_difficulty())
         )
-        self._scores = definition.get('scores',default_scores())
+        self._scores = definition.get('scores', default_scores())
 
     @property
     def nick(self) -> str:
@@ -72,13 +75,13 @@ class User:
     @property
     def preferred_color(self) -> str:
         return self._preferred_color
-    
+
     @property
     def preferred_difficulty(self) -> str:
         return self._preferred_difficulty
 
     @preferred_difficulty.setter
-    def preferred_difficulty(self, type:str) -> None:
+    def preferred_difficulty(self, type: str) -> None:
         self._preferred_difficulty = type
 
     @property
@@ -131,8 +134,9 @@ class UsersController:
             nick: User(definition) for nick, definition in raw_users.items()
         }
         self._current_user: str = default_user
-        observer.subscribe(difficulty.UPDATE_DIFFICULTY_TYPE,self._update_user_difficulty)
-    
+        observer.subscribe(
+            difficulty.UPDATE_DIFFICULTY_TYPE, self._update_user_difficulty
+        )
 
     @property
     def user_list(self) -> list[User]:
@@ -157,7 +161,7 @@ class UsersController:
     def current_user(self, nick: str) -> None:
         self._current_user = nick
         observer.post_event(constants.USER_CHANGE, self.current_user)
-    
+
     def _update_user_difficulty(self, type: str) -> None:
         self.current_user.preferred_difficulty = type
 
