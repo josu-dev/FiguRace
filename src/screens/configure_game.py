@@ -94,7 +94,7 @@ _difficulty_info = sg.Multiline(f"Tiempo por ronda : {difficulty_ctr.difficulty.
                                 pad=((50, 0), (50, 0)))
 
 
-def build_text():
+def build_text() -> list:
     return [csg.horizontal_spacer(_padding,
                                   background_color=theme.BG_BASE),
             _difficulty_info]
@@ -112,7 +112,7 @@ def layout() -> list[list[sg.Element]]:
     return layout
 
 
-def refresh_info():
+def refresh_info() -> None:
     difficulty_ctr.set_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     _difficulty_info.update(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
@@ -122,13 +122,13 @@ def refresh_info():
             Puntos Restados : {difficulty_ctr.difficulty.points_bad_answer}")
 
 
-def change_difficult():
+def change_difficult() -> None:
     difficulty_ctr.set_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     refresh_info()
 
 
-def change_dataset():
+def change_dataset() -> None:
     dataset = _cmb_dataset.get()
     if dataset == 'Random':
         shuffled = cards_ctr.types

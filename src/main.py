@@ -7,7 +7,6 @@ from .screens import menu, configuration, game, score, configure_game
 from .screens.profile import create_profile, select_profile
 
 
-
 def main():
     screens = [
         select_profile.screen, create_profile.screen,
@@ -19,7 +18,6 @@ def main():
         screens, ctr.settings.title,
         ctr.settings.starting_page, ctr.settings.full_screen
     )
-
     while True:
         event, _ = window.read()
         if event is None or event.startswith(constants.EXIT_APLICATION):
