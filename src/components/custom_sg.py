@@ -64,7 +64,7 @@ class VerticalList(ChainedElement):
 
 
 def CenteredElement(element: Element, **column_parameters: Any) -> sg.Column:
-    column_parameters['justification'] = 'c'
+    column_parameters['element_justification'] = 'center'
     column_parameters['expand_y'] = True
     column_parameters['expand_x'] = True
     background_color = column_parameters.get('background_color', None)
@@ -79,7 +79,7 @@ def CenteredElement(element: Element, **column_parameters: Any) -> sg.Column:
 
 
 def CenteredLayout(layout: FullLayout, **column_parameters: Any) -> sg.Column:
-    column_parameters['justification'] = 'c'
+    column_parameters['element_justification'] = 'c'
     column_parameters['expand_y'] = True
     column_parameters['expand_x'] = True
 

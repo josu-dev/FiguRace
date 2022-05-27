@@ -3,10 +3,11 @@ from src import constants as const
 from src.handlers.layout import Screen
 from src.handlers import observer
 from src.controllers import theme
-SCREEN_NAME = '-CREATE-PROFILE-'
+from src.controllers import users_controller as uc
+SCREEN_NAME = '-EDITION-PROFILE-'
 
-_screen_main_title = sg.Text('CREAR PERFIL',
-                             size=theme.H2_SIZE,
+_screen_main_title = sg.Text('EDITAR PERFIL',
+                             size= theme.h ,
                              background_color=theme.BG_BASE,
                              font=(theme.FONT_FAMILY, 45),
                              pad=0,
@@ -18,12 +19,13 @@ _create_profile_layout = [
                 background_color=theme.BG_BASE,
                 font=(theme.FONT_FAMILY, 45), pad=(5, 35)
                 ),
-        sg.Input(size=(20, 15),
-                 do_not_clear=False,
-                 background_color=theme.BG_BASE,
-                 font=(theme.FONT_FAMILY, 30),
-                 text_color='white',
-                 )
+        sg.Input(default_text= uc.user,
+            size=(20, 15),
+            do_not_clear=False,
+            background_color=theme.BG_BASE,
+            font=(theme.FONT_FAMILY, 30),
+            text_color='white',
+        )
     ],
     [
         sg.Text('Edad', size=(4, 1),
@@ -47,7 +49,7 @@ _create_profile_layout = [
                  text_color=theme.BG_BASE)
     ],
     [
-        sg.Button('Guardar', key='-SAVE-',
+        sg.Button('Guardar', key=f'{const.GOTO_VIEW} -MENU-',
                   border_width=15, size=(15, 1),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                   mouseover_colors=theme.BG_BUTTON_HOVER,

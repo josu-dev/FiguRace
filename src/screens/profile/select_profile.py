@@ -6,22 +6,18 @@ from src.handlers import observer
 from src.screens import menu
 from src.controllers import theme
 from src.assets.users import *
-from src import csg
+from src import csg, common
 from src.controllers import users_controller as users_ctr
 from src.assets.wallpaper import image as wall
+
 
 SCREEN_NAME = '-SELECT-PROFILE-'
 USER_NAME = '-USER-NAME-'
 USER_IMAGE = '-USER-IMAGE-'
 EVENT_CREATE_USER = '-CREATE-USER-'
 EVENT_DELETE_USER = '-DELETE-USER-'
-EVENT_MODIFY_USER = '-MODIFY-USER-'
+EVENT_MODIFY_USER = '-EDITION-USER-'
 
-_screen_main_title = sg.Text('SELECCIONAR PERFIL', size=500,
-                             background_color=theme.BG_BASE,
-                             font=(theme.FONT_FAMILY, 45),
-                             text_color=theme.TEXT_ACCENT,
-                             pad=0)
 _user_red = sg.Image(data=user_red.source,
                      k='1',
                      size=(100, 100),
@@ -125,9 +121,10 @@ _hlist_config = {
 }
 
 img = sg.Image(data=wall.source,
-              size=(1366,768),
-              background_color=theme.BG_BASE,
-              subsample=(wall.size//1366) )
+               size=(1366, 768),
+               background_color=theme.BG_BASE,
+               subsample=(wall.size//1366))
+
 
 def create_user_cards() -> sg.Column:
     h_list = csg.HorizontalList(
@@ -170,11 +167,6 @@ def create_user_cards() -> sg.Column:
     return h_list.pack()
 
 
-_select_profile_layout = [
-    [img],
-    # [create_user_cards()]
-]
-
 def create_new_user(card_name) -> None:
     users_ctrards[card_name]['edit'].update(visible=True)
     users_ctrards[card_name]['remove'].update(visible=True)
@@ -201,24 +193,35 @@ def reset(*args: Any):
 # ]
 
 
-_turn = sg.Button('<--', key=f'{const.GOTO_VIEW} {menu.SCREEN_NAME}',
+_go = sg.Button('Confirmar', key=f'{const.GOTO_VIEW} {menu.SCREEN_NAME}',
                   border_width=15,
-                  size=(7, 0),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                   mouseover_colors=theme.BG_BUTTON_HOVER,
-                  font=(theme.FONT_FAMILY, 20), pad=20)
+                  font=(theme.FONT_FAMILY,theme.T1_SIZE),
+                  )
+
+_select_profile_layout = [
+    [sg.Listbox(values=users_ctr.users_transform(lambda user: user.nick),
+                expand_x=True, 
+                expand_y=True,
+                background_color=theme.BG_BASE,
+                text_color= theme.TEXT_PRIMARY,
+                font=(theme.FONT_FAMILY,theme.H3_SIZE)
+                )],
+    
+]
 
 _screen_layout = [
-    [_screen_main_title],
+    [common.screen_title('PERFILES', alignment='left')],
     [sg.Column(_select_profile_layout,
                background_color=theme.BG_BASE,
                expand_x=True,
-               element_justification='c',
-               vertical_alignment='center',
-               expand_y=True)],
-    [_turn]
+               element_justification='left',
+               vertical_alignment='left',
+               expand_y=True,
+               )],
+    [csg.CenteredElement(_go,background_color = theme.BG_BASE)]
 ]
-
 
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
@@ -228,7 +231,7 @@ def function_to_execute_on_event() -> None:
 
 
 _screen_config = {
-    'background_color': theme.BG_BASE
+    'background_color': theme.BG_BASE,
 }
 
 screen = Screen(

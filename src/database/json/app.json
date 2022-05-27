@@ -10,7 +10,7 @@
     "custom": {
         "title": "Figurace",
         "full_screen": true,
-        "starting_page": "-MENU-",
+        "starting_page": "-SELECT-PROFILE-",
         "theme": "Blue-Like",
         "difficulty": "custom",
         "default_user": "Josu"

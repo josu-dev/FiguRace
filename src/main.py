@@ -1,12 +1,9 @@
 from src import constants
 from . import controllers as ctr
-
 from .handlers import observer
 from .handlers import window as window_ctr
 from .screens import menu, configuration, game, score, configure_game
 from .screens.profile import create_profile, select_profile
-
-
 
 def main():
     screens = [
