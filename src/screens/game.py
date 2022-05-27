@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-from src import constants, csg, common
+from src import constants, common
 
 from src.controllers import theme, run_controller as run_ctr, users_controller as users_ctr
 from src.handlers import observer
@@ -49,7 +49,7 @@ game_type: dict[str, sg.Text | sg.Image] = {}
 def create_game_type() -> sg.Column:
     game_type['type'] = sg.Text(
         constants.DATASET_TO_ES[run_ctr.dataset_type],
-        font=(theme.FONT_FAMILY, theme.H2_SIZE)
+        font=(theme.FONT_FAMILY, theme.H2_SIZE),
     )
     game_type['icon'] = sg.Image('', size=(128, 128))
     layout = [

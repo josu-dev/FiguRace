@@ -5,7 +5,6 @@ import PySimpleGUI as sg
 from src import constants, csg, common
 
 from src.controllers import theme, users_controller as users_ctr
-from src.handlers import observer
 from src.handlers.layout import Screen
 from src.handlers.user import User
 
@@ -17,6 +16,7 @@ HISTORIAL_SIZE = 20
 def create_summary() -> sg.Column:
 
     return sg.Column([[]])
+
 
 def refresh_summary() -> None:
     pass
@@ -77,7 +77,7 @@ def create_rank(scores: str) -> sg.Multiline:
 
 
 def create_ranking() -> sg.Column:
-    ranks = csg.HorizontalList(pad=(0, 0),background_color=theme.BG_SECONDARY)
+    ranks = csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
     users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
 
     for difficulty in rankings:
@@ -131,7 +131,7 @@ screen_layout = [
     [common.screen_title('score', True)],
     [create_summary()],
     [create_ranking()],
-    [csg.vertical_spacer((0,32),background_color=theme.BG_BASE)],
+    [csg.vertical_spacer((0, 32), background_color=theme.BG_BASE)],
     [buttons]
 ]
 

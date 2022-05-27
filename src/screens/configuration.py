@@ -11,7 +11,7 @@ default_padding = 8
 _font = ('System', theme.H3_SIZE)
 
 
-def build_text(text, unit, combo, lines):
+def build_text(text, unit, combo, lines) -> list:
     result = [sg.Multiline(text,
                            disabled=True,
                            font=_font,
@@ -129,7 +129,7 @@ def menu_options() -> list[list]:
     return config_layout
 
 
-def save_settings():
+def save_settings() -> None:
     changes = {
         'time_per_round': int(_cmb_time_per_game.get()),
         'rounds_per_game': int(_cmb_rounds_per_game.get()),
