@@ -84,3 +84,6 @@ class ThemeController:
     @property
     def theme_list(self):
         return [name for name in self._raw_themes]
+    
+    def scale(self, value : int) -> int:
+        return aply_scale(value)
