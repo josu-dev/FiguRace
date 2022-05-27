@@ -5,9 +5,6 @@ from .card import Card, CardController
 from .difficulty import Difficulty, DifficultyController
 
 
-ROUNDS_QUANTITY = 10
-
-
 class Round:
     def __init__(self, card: Card, difficulty: Difficulty) -> None:
         self._settings = difficulty
@@ -58,10 +55,9 @@ class Round:
 
 
 class RunController:
-    ROUNDS_QUANTITY = ROUNDS_QUANTITY
-
     def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController):
         self._cards = cards_ctr
+        self._difficulty = difficulty_ctr.difficulty
         self._round = Round(self._cards.new_card, difficulty_ctr.difficulty)
         self._events: dict[str, list[Callable[..., None]]] = {
             'end_run': [],
@@ -84,6 +80,10 @@ class RunController:
         self._events[type].append(fn)
 
     @property
+    def max_rounds(self) -> int:
+        return self._difficulty.rounds_per_game
+
+    @property
     def hints(self) -> list[str]:
         return self._round.hints
 
@@ -92,7 +92,7 @@ class RunController:
         return self._round.options
 
     def _is_run_end(self) -> None:
-        if self._rounds == ROUNDS_QUANTITY:
+        if self._rounds == self._difficulty.rounds_per_game:
             self.end_run()
 
     def new_answer(self, option: str) -> None:
@@ -115,7 +115,7 @@ class RunController:
         self._is_run_end()
 
     def end_run(self) -> None:
-        for _ in range(ROUNDS_QUANTITY - len(self._scores)):
+        for _ in range(self._difficulty.rounds_per_game - len(self._scores)):
             self._scores.append(0)
         for fn in self._events['end_round']:
             fn()

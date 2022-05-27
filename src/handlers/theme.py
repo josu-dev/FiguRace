@@ -1,56 +1,77 @@
-from dataclasses import dataclass
-from typing import TypedDict
+from typing import Any
+
+import PySimpleGUI as sg
 
 from src import file
 
 
-class ThemeJSON(TypedDict):
-    BG_BASE: str
-    BG_PRIMARY: str
-    BG_SECONDARY: str
-    BG_BUTTON: str
-    BG_BUTTON_HOVER: str
+SCREEN_SIZE = sg.Window.get_screen_size()
 
-    TEXT_ACCENT: str
-    TEXT_PRIMARY: str
-    TEXT_SECONDARY: str
-    TEXT_BUTTON: str
-    TEXT_BUTTON_HOVER: str
+RESPONSIVE_TABLE = {
+    2160: 2.0,
+    1440: 1.3,
+    1080: 1.0,
+    720: 0.7,
+    480: 0.4
+}
 
-    BD_ACCENT: int
-    BD_PRIMARY: int
-    BD_SECONDARY: int
-    FONT_FAMILY: str
+for width in RESPONSIVE_TABLE:
+    if SCREEN_SIZE[1] >= width:
+        screen_factor = RESPONSIVE_TABLE[width]
+        break
+else:
+    screen_factor = 0.2
 
 
-@dataclass
+def aply_scale(value: int) -> int:
+    return round(value * screen_factor)
+
+
 class Theme:
-    BG_BASE: str
-    BG_PRIMARY: str
-    BG_SECONDARY: str
-    BG_BUTTON: str
-    BG_BUTTON_HOVER: str
+    def __init__(self, definition: dict[str, str | int]):
+        self.BG_BASE = definition['BG_BASE']
+        self.BG_PRIMARY = definition['BG_PRIMARY']
+        self.BG_SECONDARY = definition['BG_SECONDARY']
 
-    TEXT_ACCENT: str
-    TEXT_PRIMARY: str
-    TEXT_SECONDARY: str
-    TEXT_BUTTON: str
-    TEXT_BUTTON_HOVER: str
+        self.BG_BUTTON = definition['BG_BUTTON']
+        self.BG_BUTTON_HOVER = definition['BG_BUTTON_HOVER']
 
-    BD_ACCENT: int
-    BD_PRIMARY: int
-    BD_SECONDARY: int
-    FONT_FAMILY: str
+        self.TEXT_ACCENT = definition['F_C_ACCENT']
+        self.TEXT_PRIMARY = definition['F_C_PRIMARY']
+        self.TEXT_SECONDARY = definition['F_C_SECONDARY']
+
+        self.TEXT_BUTTON = definition['F_C_BUTTON']
+        self.TEXT_BUTTON_HOVER = definition['F_C_BUTTON_HOVER']
+
+        self.BD_ACCENT = aply_scale(definition['BD_ACCENT'])
+        self.BD_PRIMARY = aply_scale(definition['BD_PRIMARY'])
+        self.BD_SECONDARY = aply_scale(definition['BD_SECONDARY'])
+        self.BD_DELIMITER = aply_scale(definition['BD_DELIMITER'])
+
+        self.FONT_FAMILY = definition['F_F_UI']
+        self.FONT_FAMILY_TEXT = definition['F_F_CONTENT']
+
+        self.H1_SIZE = aply_scale(definition['F_SIZE_H1'])
+        self.H2_SIZE = aply_scale(definition['F_SIZE_H2'])
+        self.H3_SIZE = aply_scale(definition['F_SIZE_H3'])
+        self.T1_SIZE = aply_scale(definition['F_SIZE_T1'])
+        self.T2_SIZE = aply_scale(definition['F_SIZE_T2'])
+        self.T3_SIZE = aply_scale(definition['F_SIZE_T3'])
+
+    @property
+    def height(self):
+        return SCREEN_SIZE[0]
+
+    @property
+    def width(self):
+        return SCREEN_SIZE[1]
 
 
 class ThemeController:
     def __init__(self, themes_path: str, default_theme_name: str):
-        raw_themes: dict[str, ThemeJSON] = file.load_json(themes_path)
-        self._themes = {
-            name: Theme(**definition) for name, definition in raw_themes.items()
-        }
+        self._raw_themes: dict[str, Any] = file.load_json(themes_path)
         self._current_theme = default_theme_name
-        self._theme = self._themes[self._current_theme]
+        self._theme = Theme(self._raw_themes[self._current_theme])
 
     @property
     def theme(self):
@@ -62,4 +83,4 @@ class ThemeController:
 
     @property
     def theme_list(self):
-        return [name for name in self._themes]
+        return [name for name in self._raw_themes]
