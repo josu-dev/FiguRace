@@ -181,7 +181,6 @@ def finish_game() -> None:
 observer.subscribe(END_RUN, finish_game)
 
 screen_layout = [
-    [common.screen_title('game', True)],
     [create_game_type(), create_round_state()],
     [create_game_state(), create_card()],
     [create_leave_button()]

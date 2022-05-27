@@ -1,8 +1,10 @@
 from copy import copy
 from dataclasses import dataclass
-from typing import TypedDict
+from typing import Any, TypedDict
 
-from src import file
+from src import constants, file
+
+from . import observer
 
 
 class SettingsJSON(TypedDict):
@@ -34,10 +36,14 @@ class SettingsController:
         self._setting = self._settings['custom']
         self._reset_starting_page = self._setting.starting_page != self._settings[
             'default'].starting_page
+        observer.subscribe(constants.USER_CHANGE, self._set_default_user)
 
     @property
     def settings(self):
         return self._setting
+
+    def _set_default_user(self, user:Any) -> None:
+        self.settings.default_user = user.nick
 
     def set_starting_page(self, screen_name: str) -> None:
         self.settings.starting_page = screen_name
