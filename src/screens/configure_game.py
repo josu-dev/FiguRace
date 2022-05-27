@@ -3,36 +3,14 @@ import PySimpleGUI as sg
 from src import constants as const, csg, common
 from src.controllers import theme
 from src.handlers.layout import Screen
-from src.controllers import users_controller as users_ctr
-from src.handlers.user import User
 from src.controllers import difficulty_controller as difficulty_ctr
 from src.handlers import observer
 from src.controllers import cards_controller as cards_ctr
-SCREEN_NAME = '-CONFIGGAME-'
+SCREEN_NAME = '-CONFIG-GAME-'
 
 _text_font = ('System', int(theme.H3_SIZE))
 _h2_font = ('System', int(theme.H2_SIZE))
 _padding = int(theme.width / 4)
-
-
-def get_name(user: User) -> tuple[str]:
-    return user.nick
-
-
-def get_users() -> tuple:
-    users = users_ctr.user_list
-    if users:
-        return users_ctr.users_transform(get_name)
-    else:
-        return ('Sin Usuarios'),
-
-
-def get_user() -> str:
-    users = users_ctr.user_list
-    if users:
-        return users_ctr.current_user.nick
-    else:
-        return 'Sin usuarios'
 
 
 _cmb_difficulty = sg.Combo(('Fácil', 'Intermedio', 'Difícil', 'Insano', 'Personalizada'),
@@ -47,7 +25,7 @@ _cmb_difficulty = sg.Combo(('Fácil', 'Intermedio', 'Difícil', 'Insano', 'Perso
                            key='-CHANGE-DIFFICULT-')
 
 
-_cmb_dataset = sg.Combo(tuple(cards_ctr.types) + ('Random',),
+_cmb_dataset = sg.Combo(('Lagos Argentina', 'Spotify', 'FIFA 21', 'Random'),
                         'Random',
                         background_color='#8DC3E4',
                         pad=((50, 0), (50, 0)),
@@ -150,16 +128,14 @@ def change_difficult():
     refresh_info()
 
 
-def change_user():
-    pass
-
-
 def change_dataset():
     dataset = _cmb_dataset.get()
     if dataset == 'Random':
         shuffled = cards_ctr.types
         shuffle(shuffled)
         dataset = shuffled[0]
+    else:
+        dataset = const.DATASET_TO_EN[dataset]
     cards_ctr.set_type(dataset)
 
 

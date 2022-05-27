@@ -1,6 +1,6 @@
 import PySimpleGUI as sg
 
-from src import constants, csg, common
+from src import constants, common
 
 from src.controllers import theme, run_controller as run_ctr, users_controller as users_ctr
 from src.handlers import observer

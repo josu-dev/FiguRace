@@ -3,7 +3,6 @@ from src import constants as const, common, csg
 from src.controllers import theme
 from src.handlers.layout import Screen
 from src.assets.menu import ic_profile, ic_exit, ic_config
-from src.controllers import settings_controller as settings_ctr
 
 
 SCREEN_NAME = "-MENU-"
@@ -13,50 +12,42 @@ _scale = theme.scale(135)
 _icon_size = (_scale, _scale)
 
 
-_btn_start_game_ = sg.Button('Iniciar Juego',
-                             key=f'{const.GOTO_VIEW} -CONFIGGAME-',
-                             size=(18, 1),
-                             font=_font,
-                             auto_size_button=True,
-                             button_color=(theme.TEXT_BUTTON,
-                                           theme.BG_BUTTON),
-                             pad=_default_padding,
-                             mouseover_colors=theme.BG_BUTTON_HOVER,
-                             border_width=12)
-_btn_options = sg.Button(image_data=ic_config.source,
-                         image_size=_icon_size,
-                         key=f'{const.GOTO_VIEW} -CONFIGURATION-',
-                         font=_font,
-                         button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-                         pad=_default_padding,
-                         mouseover_colors=theme.BG_BUTTON_HOVER,
-                         border_width=12)
-_btn_profile = sg.Button(image_data=ic_profile.source,
-                         key=f'{const.GOTO_VIEW} -SELECT-PROFILE-',
-                         image_size=_icon_size,
-                         font=_font,
-                         button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-                         pad=_default_padding,
-                         mouseover_colors=theme.BG_BUTTON_HOVER,
-                         border_width=12)
-_btn_exit = sg.Button(auto_size_button=True,
-                      image_size=_icon_size,
-                      key=const.EXIT_APLICATION,
-                      font=_font,
-                      button_color=theme.BG_BUTTON,
-                      image_data=ic_exit.source,
-                      pad=_default_padding,
-                      mouseover_colors=theme.BG_BUTTON_HOVER,
-                      border_width=12)
-
-
 def _menu_options() -> list[list[sg.Element]]:
     layout = [
         [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
-        [_btn_start_game_],
+        [sg.Button('Iniciar Juego',
+                   key=f'{const.GOTO_VIEW} -CONFIG-GAME-',
+                   size=(18, 1),
+                   font=_font,
+                   auto_size_button=True,
+                   button_color=(theme.TEXT_BUTTON,
+                                 theme.BG_BUTTON),
+                   pad=_default_padding,
+                   mouseover_colors=theme.BG_BUTTON_HOVER,
+                   border_width=theme.BD_ACCENT)],
         [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
-        [_btn_options, csg.horizontal_spacer((40, 0), background_color=theme.BG_BASE), _btn_profile,
-         csg.horizontal_spacer((40, 0), background_color=theme.BG_BASE), _btn_exit]
+        [
+            common.image_button(
+                ic_config,
+                _icon_size,
+                border=theme.BD_ACCENT,
+                key=f'{const.GOTO_VIEW} -CONFIGURATION-'
+            ),
+            csg.horizontal_spacer(
+                (40, 0), background_color=theme.BG_BASE),
+            common.image_button(
+                ic_profile,
+                _icon_size,
+                border=theme.BD_ACCENT,
+                key=f'{const.GOTO_VIEW} -SELECT-PROFILE-'
+            ),
+            csg.horizontal_spacer((40, 0), background_color=theme.BG_BASE),
+            common.image_button(
+                ic_exit,
+                _icon_size,
+                border=theme.BD_ACCENT,
+                key=const.EXIT_APLICATION
+            )]
     ]
     return layout
 
