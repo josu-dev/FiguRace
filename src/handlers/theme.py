@@ -28,7 +28,7 @@ def aply_scale(value: int) -> int:
 
 
 class Theme:
-    def __init__(self, definition: dict[str, str | int]):
+    def __init__(self, definition: dict[str, Any]):
         self.BG_BASE = definition['BG_BASE']
         self.BG_PRIMARY = definition['BG_PRIMARY']
         self.BG_SECONDARY = definition['BG_SECONDARY']

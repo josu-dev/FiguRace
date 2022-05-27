@@ -11,7 +11,7 @@ from . import custom_sg as csg
 ImageFile = Any
 
 
-def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, padding: int = 24) -> sg.Text:
+def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, size:int = theme.H2_SIZE, padding : int = 0) -> sg.Text:
     if upper:
         title = title.upper()
     if spaced:
@@ -21,12 +21,22 @@ def screen_title(title: str, spaced: bool = False, alignment: str = 'center', up
         size=(len(title), 1),
         background_color=theme.BG_BASE,
         text_color=theme.TEXT_ACCENT,
-        font=(theme.FONT_FAMILY, 48),
+        font=(theme.FONT_FAMILY, size),
         justification=alignment,
-        pad=padding,
+        pad= padding if padding else (size//3)*2,
         expand_x=True
     )
 
+def navigation_button(text: str,screen_name:str, padding: int = 0) -> sg.Button:
+    return sg.Button(
+        text,
+        key=f'{constants.GOTO_VIEW} {screen_name}',
+        auto_size_button=True,
+        button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
+        pad=padding if padding else (theme.H3_SIZE//3)*2,
+        mouseover_colors=theme.BG_BUTTON_HOVER,
+        border_width=theme.BD_PRIMARY
+    )
 
 def goback_button(text: str = 'Volver', border: int = 8, padding: int = 0) -> sg.Button:
     return sg.Button(
@@ -34,7 +44,7 @@ def goback_button(text: str = 'Volver', border: int = 8, padding: int = 0) -> sg
         key=f'{constants.GOTO_VIEW} {constants.LAST_SCREEN}',
         auto_size_button=True,
         button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-        pad=padding,
+        pad=padding if padding else (theme.T1_SIZE//3)*2,
         mouseover_colors=theme.BG_BUTTON_HOVER,
         border_width=border
     )

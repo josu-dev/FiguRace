@@ -3,27 +3,27 @@ from dataclasses import dataclass
 from typing import TypedDict
 
 from src import file
-from .difficulty import DifficultyController
+
 
 class SettingsJSON(TypedDict):
-    title : str
+    title: str
     full_screen: bool
     starting_page: str
     theme: str
-    difficulty : str
-    default_user : str
+    default_user: str
+
 
 @dataclass
 class Settings:
-    title : str
+    title: str
     full_screen: bool
     starting_page: str
     theme: str
-    difficulty : str
-    default_user : str
+    default_user: str
+
 
 class SettingsController:
-    def __init__(self, settings_path: str, difficulties_path: str):
+    def __init__(self, settings_path: str):
         self._file_path = settings_path
         raw_settings: dict[str, SettingsJSON] = file.load_json(settings_path)
         self._settings = {
@@ -32,28 +32,24 @@ class SettingsController:
         if 'custom' not in self._settings:
             self._settings['custom'] = copy(self._settings['default'])
         self._setting = self._settings['custom']
-        self._difficulty_controller = DifficultyController(difficulties_path, self._setting.difficulty)
+        self._reset_starting_page = self._setting.starting_page != self._settings[
+            'default'].starting_page
 
     @property
-    def setting(self):
+    def settings(self):
         return self._setting
 
-    @property
-    def difficulty(self):
-        return self._difficulty_controller.difficulty
-
-    @property
-    def difficulty_controller(self):
-        return self._difficulty_controller
+    def set_starting_page(self, screen_name: str) -> None:
+        self.settings.starting_page = screen_name
 
     def _save_settings(self) -> None:
         file.save_json(
             self._file_path,
             self._settings,
-            is_custom_class = True
+            is_custom_class=True
         )
-        self._difficulty_controller.save()
 
     def save(self) -> None:
-        self._setting.difficulty = self._difficulty_controller.difficulty_name
+        if self._reset_starting_page:
+            self._setting.starting_page = self._settings['default'].starting_page
         self._save_settings()

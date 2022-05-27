@@ -5,7 +5,7 @@ from src.controllers import theme
 from src.handlers.layout import Screen
 from src.controllers import users_controller as users_ctr
 from src.handlers.user import User
-from src.controllers import settings_controller as sett_ctr
+from src.controllers import difficulty_controller as difficulty_ctr, settings_controller as settings_ctr
 from src.handlers import observer
 from src.controllers import cards_controller as cards_ctr
 SCREEN_NAME = '-CONFIGGAME-'
@@ -85,11 +85,11 @@ def header() -> list:
             ]
 
 
-_difficulty_info = sg.Multiline(f"Tiempo por ronda : {sett_ctr.difficulty.time_per_round}\
-            Q de Características : {sett_ctr.difficulty.caracteristics_shown}\
-            Rounds por juego : {sett_ctr.difficulty.rounds_per_game}\
-            Puntos añadidos : {sett_ctr.difficulty.points_correct_answer}\
-            Puntos Restados : {sett_ctr.difficulty.points_bad_answer}",
+_difficulty_info = sg.Multiline(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
+            Q de Características : {difficulty_ctr.difficulty.characteristics_shown}\
+            Rounds por juego : {difficulty_ctr.difficulty.rounds_per_game}\
+            Puntos añadidos : {difficulty_ctr.difficulty.points_correct_answer}\
+            Puntos Restados : {difficulty_ctr.difficulty.points_bad_answer}",
                                 auto_size_text=True,
                                 disabled=True,
                                 size=(20, 5),
@@ -138,13 +138,13 @@ def layout() -> list[list[sg.Element]]:
 
 
 def refresh_info():
-    sett_ctr.difficulty_controller.update_difficulty(
+    difficulty_ctr.update_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
-    _difficulty_info.update(f"Tiempo por ronda : {sett_ctr.difficulty.time_per_round}\
-            Q de Características : {sett_ctr.difficulty.caracteristics_shown}\
-            Rounds por juego : {sett_ctr.difficulty.rounds_per_game}\
-            Puntos añadidos : {sett_ctr.difficulty.points_correct_answer}\
-            Puntos Restados : {sett_ctr.difficulty.points_bad_answer}")
+    _difficulty_info.update(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
+            Q de Características : {difficulty_ctr.difficulty.characteristics_shown}\
+            Rounds por juego : {difficulty_ctr.difficulty.rounds_per_game}\
+            Puntos añadidos : {difficulty_ctr.difficulty.points_correct_answer}\
+            Puntos Restados : {difficulty_ctr.difficulty.points_bad_answer}")
 
 
 def check_user():
@@ -154,14 +154,14 @@ def check_user():
 
 
 def change_difficult():
-    sett_ctr.difficulty_controller.update_difficulty(
+    difficulty_ctr.update_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     refresh_info()
 
 
 def change_user():
     users_ctr.current_user = _cmb_profile.get()
-    sett_ctr.setting.default_user = _cmb_profile.get()
+    settings_ctr.settings.default_user = _cmb_profile.get()
 
 
 def change_dataset():

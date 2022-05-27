@@ -1,25 +1,14 @@
 import PySimpleGUI as sg
-from src import constants as const
+from src import constants as const, common, csg
 from src.controllers import theme
 from src.handlers.layout import Screen
 from src.assets.menu import ic_profile, ic_exit, ic_config
-from src import csg
 from src.controllers import settings_controller as settings_ctr
 
 
 SCREEN_NAME = "-MENU-"
 _default_padding = 2
 _font = ('System', 32)
-
-
-def _title() -> sg.Text:
-    return sg.Text('F  I  G  U  R  A  C  E ', size=(800, 1),
-                   background_color=theme.BG_BASE,
-                   text_color='#EFEFEF',
-                   key='-title-',
-                   font=('System', 86),
-                   justification='center',
-                   pad=64)
 
 
 _btn_start_game_ = sg.Button('Iniciar Juego',
@@ -76,7 +65,7 @@ def reset():
 
 # All the stuff inside your window.
 _screen_layout = [
-    [_title(), ],
+    [common.screen_title('f  i  g  u  r  a  c  e',size=theme.H1_SIZE)],
     [sg.Column(_menu_options(), background_color=theme.BG_BASE, expand_y=True,
                element_justification='c')],
 ]

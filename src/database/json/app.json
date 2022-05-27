@@ -4,7 +4,6 @@
         "full_screen": true,
         "starting_page": "-MENU-",
         "theme": "Blue-Like",
-        "difficulty": "easy",
         "default_user": ""
     },
     "custom": {
@@ -12,7 +11,6 @@
         "full_screen": true,
         "starting_page": "-MENU-",
         "theme": "Blue-Like",
-        "difficulty": "custom",
         "default_user": "Josu"
     }
 }

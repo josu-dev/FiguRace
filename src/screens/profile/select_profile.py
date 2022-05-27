@@ -143,7 +143,7 @@ def create_user_cards() -> sg.Column:
         exist = index < len(users_list)
         if exist:
             name = users_list[index].nick
-            color_user = users_list[index].prefered_color
+            color_user = users_list[index].preferred_color
         else:
             name = 'Vacío'
             color_user = 'grey'
