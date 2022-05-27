@@ -50,9 +50,11 @@ def goback_button(text: str = 'Volver', border: int = 8, padding: int = 0) -> sg
     )
 
 
-def image_button(image: ImageFile, key: str, border: int = 8, padding: int = 0) -> sg.Button:
+def image_button(image: ImageFile, size: tuple[int,int], key: str, border: int = theme.BD_PRIMARY, padding: int = 0) -> sg.Button:
     return sg.Button(
         key=key,
+        image_size=size,
+        image_subsample=(image.size//max(size)),
         image_data=image.source,
         auto_size_button=True,
         button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),

@@ -3,4 +3,8 @@
     "python.formatting.provider": "autopep8",
     "editor.formatOnSave": true,
     "editor.guides.highlightActiveIndentation": true,
+    "workbench.colorCustomizations": {
+        "editorIndentGuide.background": "#ffffff1f",
+        "editorIndentGuide.activeBackground": "#ffffffe0"
+    }
 }
