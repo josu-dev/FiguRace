@@ -137,16 +137,10 @@ def save_settings():
         'points_bad_answer':  int(_cmb_sub_points.get()),
         'characteristics_shown': int(_cmb_features_per_level.get())
     }
-    difficulty_ctr.update_difficulty(
-        'custom', **changes)
-
-
-def refresh():
-    difficulty_ctr.update_difficulty('custom')
+    difficulty_ctr.update_difficulty(**changes)
 
 
 def reset():
-    refresh()
     pass
 
 

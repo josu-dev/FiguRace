@@ -135,7 +135,7 @@ def layout() -> list[list[sg.Element]]:
 
 
 def refresh_info():
-    difficulty_ctr.update_difficulty(
+    difficulty_ctr.set_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     _difficulty_info.update(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
             Q de Características : {difficulty_ctr.difficulty.characteristics_shown}\
@@ -145,7 +145,7 @@ def refresh_info():
 
 
 def change_difficult():
-    difficulty_ctr.update_difficulty(
+    difficulty_ctr.set_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     refresh_info()
 

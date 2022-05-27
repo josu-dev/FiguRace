@@ -66,6 +66,9 @@ class Theme:
     def width(self):
         return SCREEN_SIZE[1]
 
+    def scale(self, value: int) -> int:
+        return aply_scale(value)
+
 
 class ThemeController:
     def __init__(self, themes_path: str, default_theme_name: str):
@@ -84,6 +87,3 @@ class ThemeController:
     @property
     def theme_list(self):
         return [name for name in self._raw_themes]
-    
-    def scale(self, value : int) -> int:
-        return aply_scale(value)

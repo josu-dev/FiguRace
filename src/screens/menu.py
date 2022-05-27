@@ -9,25 +9,13 @@ from src.controllers import settings_controller as settings_ctr
 SCREEN_NAME = "-MENU-"
 _default_padding = 2
 _font = ('System', theme.H2_SIZE)
+_scale = theme.scale(135)
+_icon_size = (_scale, _scale)
 
 
-<<<<<<< HEAD
-def _title() -> sg.Text:
-    return sg.Text('F  I  G  U  R  A  C  E ', size=(800, 1),
-                   background_color=theme.BG_BASE,
-                   text_color='#EFEFEF',
-                   key='-title-',
-                   font=('System', theme.H1_SIZE),
-                   justification='center',
-                   pad=64)
-
-
-=======
->>>>>>> 8ff97eeaf5d2c26edfc4c4d736c96a4642aa9f5f
 _btn_start_game_ = sg.Button('Iniciar Juego',
                              key=f'{const.GOTO_VIEW} -CONFIGGAME-',
                              size=(18, 1),
-                             image_size=(100, 100),
                              font=_font,
                              auto_size_button=True,
                              button_color=(theme.TEXT_BUTTON,
@@ -36,7 +24,7 @@ _btn_start_game_ = sg.Button('Iniciar Juego',
                              mouseover_colors=theme.BG_BUTTON_HOVER,
                              border_width=12)
 _btn_options = sg.Button(image_data=ic_config.source,
-                         image_size=(100, 100),
+                         image_size=_icon_size,
                          key=f'{const.GOTO_VIEW} -CONFIGURATION-',
                          font=_font,
                          button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
@@ -45,13 +33,14 @@ _btn_options = sg.Button(image_data=ic_config.source,
                          border_width=12)
 _btn_profile = sg.Button(image_data=ic_profile.source,
                          key=f'{const.GOTO_VIEW} -SELECT-PROFILE-',
-                         image_size=(100, 100),
+                         image_size=_icon_size,
                          font=_font,
                          button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
                          pad=_default_padding,
                          mouseover_colors=theme.BG_BUTTON_HOVER,
                          border_width=12)
 _btn_exit = sg.Button(auto_size_button=True,
+                      image_size=_icon_size,
                       key=const.EXIT_APLICATION,
                       font=_font,
                       button_color=theme.BG_BUTTON,
@@ -79,7 +68,7 @@ def reset():
 
 # All the stuff inside your window.
 _screen_layout = [
-    [common.screen_title('f  i  g  u  r  a  c  e',size=theme.H1_SIZE)],
+    [common.screen_title('f  i  g  u  r  a  c  e', size=theme.H1_SIZE)],
     [sg.Column(_menu_options(), background_color=theme.BG_BASE, expand_y=True,
                element_justification='c')],
 ]
