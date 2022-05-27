@@ -21,7 +21,7 @@ def screen_title(title: str, spaced: bool = False, alignment: str = 'center', up
         size=(len(title), 1),
         background_color=theme.BG_BASE,
         text_color=theme.TEXT_ACCENT,
-        font=(theme.FONT_FAMILY, 48),
+        font=(theme.FONT_FAMILY, theme.H2_SIZE),
         justification=alignment,
         pad=padding,
         expand_x=True

@@ -7,18 +7,17 @@ from src.handlers import observer
 from src.controllers import settings_controller as sett_ctr
 
 SCREEN_NAME = "-CONFIGURATION-"
-default_padding = 16
+default_padding = 4
 
 
 def build_text(text, unit, combo, lines):
     result = [sg.Multiline(text,
                            disabled=True,
-                           font=('System', 25),
+                           font=('System', 20),
                            size=(16, lines),
                            text_color=theme.TEXT_ACCENT,
                            no_scrollbar=True,
                            background_color=theme.BG_BASE,
-                           pad=default_padding,
                            border_width=12,
                            justification='center'),
               sg.Text(unit, background_color=theme.BG_BASE),
@@ -152,7 +151,7 @@ def reset():
 
 _configuration_layout = [
     [common.screen_title('Configuración', spaced=True,
-                         alignment='center', padding=64)],
+                         alignment='center')],
     [sg.Column(menu_options(), background_color=theme.BG_BASE, expand_x=True)],
 ]
 

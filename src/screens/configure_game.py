@@ -10,6 +10,10 @@ from src.handlers import observer
 from src.controllers import cards_controller as cards_ctr
 SCREEN_NAME = '-CONFIGGAME-'
 
+_text_font = ('System', int(theme.H3_SIZE))
+_h2_font = ('System', int(theme.H2_SIZE))
+_padding = int(theme.width / 4)
+
 
 def get_name(user: User) -> tuple[str]:
     return user.nick
@@ -34,32 +38,38 @@ def get_user() -> str:
 _cmb_difficulty = sg.Combo(('Fácil', 'Intermedio', 'Difícil', 'Insano', 'Personalizada'),
                            'Intermedio',
                            background_color='#8DC3E4',
-                           pad=(200, 50),
-                           font=('System', 24),
+                           font=_text_font,
                            text_color=theme.BG_BASE,
                            readonly=True,
                            size=(15, 30),
                            enable_events=True,
-                           key='-CHANGEDIFFICULT-')
+                           pad=((50, 0), (50, 0)),
+                           key='-CHANGE-DIFFICULT-')
 
-_cmb_profile = sg.Combo(get_users(),
-                        get_user(),
+
+_cmb_dataset = sg.Combo(tuple(cards_ctr.types) + ('Random',),
+                        'Random',
                         background_color='#8DC3E4',
-                        pad=(150, 50),
-                        font=('System', 24),
+                        pad=((50, 0), (50, 0)),
+                        font=_text_font,
                         text_color=theme.BG_BASE,
                         readonly=True,
+                        enable_events=True,
                         size=(15, 30),
-                        key=f'{const.USER_CHANGE} ')
+                        key='-CHANGE-DATA-')
 
 
 def combo_boxes() -> list:
-    return [_cmb_difficulty, sg.Push(background_color=theme.BG_BASE), _cmb_profile, csg.horizontal_spacer((100, 0), background_color=theme.BG_BASE)]
+    return [csg.horizontal_spacer(_padding, background_color=theme.BG_BASE),
+            _cmb_difficulty,
+            sg.Push(background_color=theme.BG_BASE),
+            _cmb_dataset,
+            csg.horizontal_spacer(_padding, background_color=theme.BG_BASE)]
 
 
 _btn_goto_game = sg.Button('Empezar ! ',
                            key=f'{const.GOTO_VIEW} -GAME-',
-                           font=('System', 32),
+                           font=_h2_font,
                            auto_size_button=True,
                            button_color=(theme.TEXT_BUTTON,
                                          theme.BG_BUTTON),
@@ -73,15 +83,19 @@ _btn_back = sg.Button('<--',
                       button_color=(theme.TEXT_BUTTON,
                                     theme.BG_BUTTON),
                       mouseover_colors=theme.BG_BUTTON_HOVER,
-                      font=('System', 32))
+                      font=_h2_font)
 
 
 def header() -> list:
-    return [sg.Text('ELEGIR DIFICULTAD', pad=(200, 0),
-                    background_color=theme.BG_BASE, font=('System', 24)),
+    return [csg.horizontal_spacer(_padding,
+                                  background_color=theme.BG_BASE),
+            sg.Text('ELEGIR DIFICULTAD', pad=((50, 0), (50, 0)),
+                    background_color=theme.BG_BASE, font=_text_font),
             sg.Push(background_color=theme.BG_BASE),
-            sg.Text('ELEGIR PERFIL', pad=(300, 0),
-                    background_color=theme.BG_BASE, font=('System', 24)),
+            sg.Text('ELEGIR DATASET', pad=((50, 0), (50, 0)),
+                    background_color=theme.BG_BASE, font=_text_font),
+            csg.horizontal_spacer(_padding,
+                                  background_color=theme.BG_BASE)
             ]
 
 
@@ -93,33 +107,19 @@ _difficulty_info = sg.Multiline(f"Tiempo por ronda : {sett_ctr.difficulty.time_p
                                 auto_size_text=True,
                                 disabled=True,
                                 size=(20, 5),
-                                font=('System', 20),
+                                font=_text_font,
                                 border_width=0,
                                 text_color=theme.TEXT_ACCENT,
                                 no_scrollbar=True,
                                 background_color=theme.BG_BASE,
                                 key='-DIFFCAR-',
-                                pad=((200, 10), (10, 10)),)
+                                pad=((50, 0), (50, 0)))
 
 
 def build_text():
-    return [_difficulty_info]
-
-
-_cmb_dataset = sg.Combo(tuple(cards_ctr.types) + ('Random',),
-                        'Random',
-                        background_color='#8DC3E4',
-                        pad=((0, 260), (10, 10)),
-                        font=('System', 24),
-                        text_color=theme.BG_BASE,
-                        readonly=True,
-                        enable_events=True,
-                        size=(15, 30),
-                        key='-CHANGE-DATA-')
-
-
-def select_dataset() -> sg.Combo:
-    return _cmb_dataset
+    return [csg.horizontal_spacer(_padding,
+                                  background_color=theme.BG_BASE),
+            _difficulty_info]
 
 
 def layout() -> list[list[sg.Element]]:
@@ -128,9 +128,6 @@ def layout() -> list[list[sg.Element]]:
         header(),
         combo_boxes(),
         build_text(),
-        [sg.Push(background_color=theme.BG_BASE), sg.Text('ELEGIR DATASET', pad=((0, 280), (10, 10)),
-                                                          background_color=theme.BG_BASE, font=('System', 24)), ],
-        [sg.Push(background_color=theme.BG_BASE), select_dataset(), ],
         [sg.VPush(background_color=theme.BG_BASE)],
         [_btn_back, sg.Push(background_color=theme.BG_BASE), _btn_goto_game],
     ]
@@ -147,21 +144,10 @@ def refresh_info():
             Puntos Restados : {sett_ctr.difficulty.points_bad_answer}")
 
 
-def check_user():
-    if(_cmb_profile.get() == 'Sin usuarios'):
-        return True
-    return False
-
-
 def change_difficult():
     sett_ctr.difficulty_controller.update_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     refresh_info()
-
-
-def change_user():
-    users_ctr.current_user = _cmb_profile.get()
-    sett_ctr.setting.default_user = _cmb_profile.get()
 
 
 def change_dataset():
@@ -174,13 +160,13 @@ def change_dataset():
 
 
 def reset():
-    _btn_goto_game.update(disabled=check_user())
     refresh_info()
     pass
 
 
 _configuration_layout = [
-    [common.screen_title('CONFIGURAR JUEGO', alignment='left')],
+    [common.screen_title('CONFIGURAR JUEGO',
+                         alignment='left', padding=int(theme.height/64))],
     [sg.Column(layout(), background_color=theme.BG_BASE, expand_y=True,
                expand_x=True, justification='right')],
 ]
@@ -192,13 +178,10 @@ _screen_config = {
 
 
 observer.subscribe(
-    '-CHANGEDIFFICULT-',
+    '-CHANGE-DIFFICULT-',
     change_difficult,
 )
-observer.subscribe(
-    const.USER_CHANGE,
-    change_user,
-)
+
 observer.subscribe(
     '-CHANGE-DATA-',
     change_dataset,
