@@ -2,14 +2,14 @@
     "default": {
         "title": "Figurace",
         "full_screen": true,
-        "starting_page": "-PRESENTATION-",
+        "starting_page": "-SELECT-PROFILE-",
         "theme": "Blue-Like",
         "default_user": ""
     },
     "custom": {
         "title": "Figurace",
         "full_screen": true,
-        "starting_page": "-PRESENTATION-",
+        "starting_page": "-SELECT-PROFILE-",
         "theme": "Blue-Like",
         "default_user": "Josu"
     }
