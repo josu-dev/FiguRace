@@ -62,7 +62,7 @@ def create_game_type() -> sg.Column:
     )
 
 
-def refresh_game_type() -> None:
+def reset_game_type() -> None:
     game_type['type'].update(constants.DATASET_TO_ES[run_ctr.dataset_type])
     # refresh game icon
 
@@ -119,7 +119,7 @@ def create_game_state() -> sg.Column:
     )
 
 
-def refresh_game_state() -> None:
+def reset_game_state() -> None:
     pass
 
 
@@ -188,9 +188,9 @@ screen_layout = [
 
 
 def reset() -> None:
-    # reset_game_type()
+    reset_game_type()
     refresh_round_state()
-    # reset_game_state()
+    reset_game_state()
     refresh_card()
 
 
