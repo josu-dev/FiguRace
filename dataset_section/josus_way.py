@@ -49,6 +49,13 @@ spotify_resample = row_resample_factory([2, 16, 3, 15, 5, 1])
 MUSICAL_ACRONYMS = ('EDM', 'DFW', 'UK', 'R&B', 'LGBTQ+')
 
 
+def spotify_header(row:list[str]) -> list[str]:
+    return [
+        'Top genero', 'Tipo artista', 'Año lanzamiento',
+        'Mejor año', 'BPM', 'Artista'
+    ]
+
+
 def restyle_gender(word: str) -> str:
     if word.upper() in MUSICAL_ACRONYMS:
         word = word.upper()
@@ -57,8 +64,8 @@ def restyle_gender(word: str) -> str:
     return word
 
 
-def spotify_content(values: list[str]) -> list[str]:
-    new_values = spotify_resample(values)
+def spotify_content(row: list[str]) -> list[str]:
+    new_values = spotify_resample(row)
     gender_words = new_values[0].split()
     new_values[0] = ' '.join([restyle_gender(word) for word in gender_words])
     return new_values
@@ -67,7 +74,7 @@ def spotify_content(values: list[str]) -> list[str]:
 transform_csv(
     path.join(SRC_PATH, 'Spotify_2010-2019_Top_100.csv'),
     path.join(OUTPUT_PATH, 'spotify.csv'),
-    spotify_resample,
+    spotify_header,
     spotify_content
 )
 
@@ -85,8 +92,8 @@ def dms_to_dd(coord: str, n_decimals: int = 5) -> str:
     return str(round(dd, n_decimals)) + '°'
 
 
-def lakes_content(values: list[str]) -> list[str]:
-    new_values = lakes_resample(values)
+def lakes_content(row: list[str]) -> list[str]:
+    new_values = lakes_resample(row)
     for pos, value in enumerate(new_values):
         if not value:
             new_values[pos] = 'Desconocido'
@@ -96,7 +103,7 @@ def lakes_content(values: list[str]) -> list[str]:
 
 
 transform_csv(
-    path.join(SRC_PATH, 'Lagos Argentina - Hoja 1 (1).csv'),
+    path.join(SRC_PATH, 'Lagos_Argentina - Hoja_1.csv'),
     path.join(OUTPUT_PATH, 'lakes.csv'),
     lakes_resample,
     lakes_content
@@ -133,6 +140,13 @@ POSITION_TABLE = {
 }
 
 
+def fifa_header(row:list[str]) -> list[str]:
+    return [
+        'Equipo', 'Nacionalidad', 'Posición',
+        'Edad', 'Potencial', 'Nombre'
+    ]
+
+
 def fifa_content(values: list[str]) -> list[str]:
     new_values = fifa_resample(values)
     potential = int(new_values[4])
@@ -147,9 +161,9 @@ def fifa_content(values: list[str]) -> list[str]:
 
 
 transform_csv(
-    path.join(SRC_PATH, 'FIFA-21 Complete.csv'),
+    path.join(SRC_PATH, 'FIFA-21_Complete.csv'),
     path.join(OUTPUT_PATH, 'fifa.csv'),
-    fifa_resample,
+    fifa_header,
     fifa_content,
     source_value_delimiter=';'
 )

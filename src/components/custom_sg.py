@@ -4,7 +4,7 @@ from typing import Any
 import PySimpleGUI as sg
 
 
-Element = sg.Element | sg.Column | sg.Text | sg.Button | sg.Input | sg.Multiline | sg.Frame | sg.Combo | sg.Listbox
+Element = Any
 LayoutRow = list[Element]
 FullLayout = list[LayoutRow]
 
@@ -93,9 +93,9 @@ def CenteredLayout(layout: FullLayout, **column_parameters: Any) -> sg.Column:
     return sg.Column(layout, **column_parameters)
 
 
-def horizontal_spacer(padding: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
-    return sg.Column([[]], size=padding, background_color=background_color)
+def horizontal_spacer(size: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
+    return sg.Column([[]], size=size, background_color=background_color)
 
 
-def vertical_spacer(padding: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
-    return sg.Column([[]], size=padding, background_color=background_color)
+def vertical_spacer(size: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
+    return sg.Column([[]], size=size, background_color=background_color)
