@@ -5,10 +5,7 @@ from .handlers import window as window_ctr
 from .screens import menu, configuration, game, score, configure_game
 from .screens.profile import create_profile, select_profile,edit_profile
 
-<<<<<<< HEAD
-=======
 
->>>>>>> 7c1d171fd5b029d919232949f9082a5beaa17220
 def main():
     screens = [
         select_profile.screen, create_profile.screen,edit_profile.screen,
