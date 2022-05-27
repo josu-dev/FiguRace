@@ -10,7 +10,7 @@
 - Los botones del “Menú de inicio del juego” deben permitir mostrar las otras pantallas.
 - Todas las pantallas deberán tener un botón “Volver/ Salir/Abandonar” que regresa al “Menú de inicio del juego”.
 
-[ ] La pantalla “Menú de inicio del juego” deberá cargar el listado de jugadores en base a los jugadores que se vayan creando en “Pantalla de creación/edición de perfil” y permitir elegir con qué perfil se quiere jugar.
+[X] La pantalla “Menú de inicio del juego” deberá cargar el listado de jugadores en base a los jugadores que se vayan creando en “Pantalla de creación/edición de perfil” y permitir elegir con qué perfil se quiere jugar.
 
 [ ] La “Pantalla de juego” deberá mostrar (detalles en Anexo I - (b) Pantalla de juego):
 
@@ -22,7 +22,7 @@
 
 [ ] La pantalla de creación/edición de perfil deberá almacenar/cargar los datos en/desde un archivo JSON (detalles en Anexo I - (c) Pantalla de creación/edición de perfil).
     
-[ ] La “Pantalla de configuración” deberá almacenar/cargar los datos desde un archivo JSON. Se requiere la configuración de al menos 3 niveles (detalles en Anexo I - (e) Pantalla de configuración).
+[X] La “Pantalla de configuración” deberá almacenar/cargar los datos desde un archivo JSON. Se requiere la configuración de al menos 3 niveles (detalles en Anexo I - (e) Pantalla de configuración).
 
 [ ] Se deberán implementar las funcionalidades de las “Pantalla de configuración” y creación/edición de perfil.
 

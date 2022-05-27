@@ -4,21 +4,21 @@ from src.controllers import theme
 from src.handlers.layout import Screen
 from src import csg, common
 from src.handlers import observer
-from src.controllers import settings_controller as sett_ctr
+from src.controllers import difficulty_controller as difficulty_ctr
 
 SCREEN_NAME = "-CONFIGURATION-"
-default_padding = 16
+default_padding = 8
+_font = ('System', theme.H3_SIZE)
 
 
 def build_text(text, unit, combo, lines):
     result = [sg.Multiline(text,
                            disabled=True,
-                           font=('System', 25),
+                           font=_font,
                            size=(16, lines),
                            text_color=theme.TEXT_ACCENT,
                            no_scrollbar=True,
                            background_color=theme.BG_BASE,
-                           pad=default_padding,
                            border_width=12,
                            justification='center'),
               sg.Text(unit, background_color=theme.BG_BASE),
@@ -29,45 +29,45 @@ def build_text(text, unit, combo, lines):
 
 _cmb_time_per_game = sg.Combo(
     ('15', '30', '60', '90', '180', '300'),
-    sett_ctr.difficulty.time_per_round,
+    difficulty_ctr.difficulty.time_per_round,
     background_color='#8DC3E4',
     text_color=theme.BG_BASE,
-    font=('System', 24),
+    font=_font,
     size=(5, 40),
     readonly=True,
     key='-TIME-',)
 
 _cmb_features_per_level = sg.Combo(('1', '2', '3', '4', '5'),
-                                   sett_ctr.difficulty.caracteristics_shown,
+                                   difficulty_ctr.difficulty.characteristics_shown,
                                    background_color='#8DC3E4',
                                    text_color=theme.BG_BASE,
-                                   font=('System', 24),
+                                   font=_font,
                                    readonly=True,
                                    size=(5, 30),
                                    key='-CARXLEVEL-', )
 
 _cmb_rounds_per_game = sg.Combo(('3', '5', '8', '10', '20'),
-                                sett_ctr.difficulty.rounds_per_game,
+                                difficulty_ctr.difficulty.rounds_per_game,
                                 background_color='#8DC3E4',
                                 text_color=theme.BG_BASE,
-                                font=('System', 24),
+                                font=_font,
                                 readonly=True,
                                 size=(5, 24),
                                 key='-QROUNDS-',)
 
 _cmb_plus_points = sg.Combo(('1', '5', '10', '25', '50'),
-                            sett_ctr.difficulty.points_correct_answer,
+                            difficulty_ctr.difficulty.points_correct_answer,
                             background_color='#8DC3E4',
                             text_color=theme.BG_BASE,
-                            font=('System', 24),
+                            font=_font,
                             readonly=True,
                             size=(5, 24),
                             key='-+QXANSWER-',)
 
 _cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
-                           sett_ctr.difficulty.points_bad_answer,
+                           difficulty_ctr.difficulty.points_bad_answer,
                            background_color='#8DC3E4',
-                           font=('System', 24),
+                           font=_font,
                            text_color=theme.BG_BASE,
                            readonly=True,
                            size=(5, 30),
@@ -80,11 +80,11 @@ _btn_exit = sg.Button('<--',
                       button_color=(
                           theme.TEXT_ACCENT, theme.BG_BASE),
                       mouseover_colors=theme.BG_BASE,
-                      font=('System', 25))
+                      font=_font)
 
 _btn_save = sg.Button('Guardar', size=(16, 1),
                       key='-SAVE-DIFF-CUSTOM-',
-                      font=('System', 25),
+                      font=_font,
                       button_color=(theme.TEXT_ACCENT, theme.BG_BASE),
                       pad=default_padding,
                       mouseover_colors=theme.BG_BASE,
@@ -135,24 +135,20 @@ def save_settings():
         'rounds_per_game': int(_cmb_rounds_per_game.get()),
         'points_correct_answer': int(_cmb_plus_points.get()),
         'points_bad_answer':  int(_cmb_sub_points.get()),
-        'caracteristics_shown': int(_cmb_features_per_level.get())
+        'characteristics_shown': int(_cmb_features_per_level.get())
     }
-    sett_ctr.difficulty_controller.update_difficulty(
-        'custom', **changes)
-
-
-def refresh():
-    sett_ctr.difficulty_controller.update_difficulty('custom')
+    difficulty_ctr.update_difficulty(**changes)
 
 
 def reset():
-    refresh()
     pass
 
 
 _configuration_layout = [
     [common.screen_title('Configuración', spaced=True,
-                         alignment='center', padding=64)],
+                         alignment='center')],
+    [csg.vertical_spacer((0, int(theme.height/12)),
+                         background_color=theme.BG_BASE)],
     [sg.Column(menu_options(), background_color=theme.BG_BASE, expand_x=True)],
 ]
 

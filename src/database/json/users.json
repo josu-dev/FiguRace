@@ -3,7 +3,15 @@
         "nick": "Josu",
         "age": 21,
         "gender": "male",
-        "prefered_color": "red",
+        "preferred_color": "red",
+        "preferred_difficulty": "hard",
+        "custom_difficulty": {
+            "time_per_round": 50,
+            "rounds_per_game": 10,
+            "points_correct_answer": 12,
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
+        },
         "scores": {
             "easy": [
                 9,
@@ -33,7 +41,15 @@
         "nick": "Gallardo",
         "age": 19,
         "gender": "male",
-        "prefered_color": "green",
+        "preferred_color": "green",
+        "preferred_difficulty": "normal",
+        "custom_difficulty": {
+            "time_per_round": 50,
+            "rounds_per_game": 10,
+            "points_correct_answer": 12,
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
+        },
         "scores": {
             "easy": [
                 0,
@@ -63,29 +79,30 @@
         "nick": "Pedro",
         "age": 19,
         "gender": "male",
-        "prefered_color": "yellow",
+        "preferred_color": "yellow",
+        "preferred_difficulty": "normal",
+        "custom_difficulty": {
+            "time_per_round": 50,
+            "rounds_per_game": 10,
+            "points_correct_answer": 12,
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
+        },
         "scores": {
             "easy": [
-                0,
-                0,
-                0,
-                0,
-                9,
-                10,
                 67
             ],
             "normal": [
-                65
+                33
             ],
             "hard": [
-                10,
-                3
+                10
             ],
-            "insane": [],
+            "insane": [
+                0
+            ],
             "custom": [
-                45,
-                100,
-                55
+                100
             ]
         }
     }
