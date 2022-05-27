@@ -8,6 +8,7 @@ from src.controllers import theme
 from src.assets.users import *
 from src import csg
 from src.controllers import users_controller as users_ctr
+from src.assets.wallpaper import image as wall
 
 SCREEN_NAME = '-SELECT-PROFILE-'
 USER_NAME = '-USER-NAME-'
@@ -104,7 +105,7 @@ def select_user_image(color: str, card_name: str) -> sg.Image:
         source = user_green.source
     elif color == 'violet':
         source = user_violet.source
-    else:    
+    else:
         source = user_grey.source
     key = f'{USER_IMAGE} {card_name}'
     return sg.Image(
@@ -115,12 +116,19 @@ def select_user_image(color: str, card_name: str) -> sg.Image:
         subsample=(96//100)
     )
 
+
 users_ctrards: dict[str, dict[str, sg.Button | sg.Text]] = dict()
 users_ctrards = {str(index): dict() for index in range(5)}
 
 _hlist_config = {
     'background_color': theme.BG_BASE,
 }
+
+img = sg.Image(data=wall.source,
+              size=(wall.size,1080),
+              background_color=theme.BG_BASE,
+              subsample=(wall.size//768) )
+
 
 def create_user_cards() -> sg.Column:
     h_list = csg.HorizontalList(
@@ -164,14 +172,17 @@ def create_user_cards() -> sg.Column:
 
 
 _select_profile_layout = [
-    [create_user_cards()]
+    [img]
+    #[create_user_cards()]
 ]
+
 
 def create_new_user(card_name) -> None:
     users_ctrards[card_name]['edit'].update(visible=True)
     users_ctrards[card_name]['remove'].update(visible=True)
     users_ctrards[card_name]['create'].update(visible=False)
     observer.post_event(const.GOTO_VIEW, '-CREATE-PROFILE-')
+
 
 observer.subscribe(EVENT_CREATE_USER, create_new_user)
 
@@ -210,11 +221,13 @@ _screen_layout = [
     [_turn]
 ]
 
+
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
     pass
 
 # observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
+
 
 _screen_config = {
     'background_color': theme.BG_BASE
