@@ -18,6 +18,10 @@ def main():
         ctr.settings.starting_page, ctr.settings.full_screen
     )
 
+    # Uncomment to see aplication events
+    # for key, val in observer.subscribers.items():
+    #     print(key, ':', [fn.__name__ for fn in val])
+    
     while True:
         event, _ = window.read()
         if event is None or event.startswith(constants.EXIT_APLICATION):
