@@ -93,7 +93,7 @@ def function_to_execute_on_event() -> None:
 # observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 
 
-def reset(*args):
+def reset():
     # Funcions
     pass
 
