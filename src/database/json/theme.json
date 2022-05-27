@@ -18,9 +18,9 @@
         "F_SIZE_T2": 16,
         "F_SIZE_T3": 8,
 
-        "BD_ACCENT": 12,
-        "BD_PRIMARY": 8,
-        "BD_SECONDARY": 4,
+        "BD_ACCENT": 16,
+        "BD_PRIMARY": 11,
+        "BD_SECONDARY": 5,
         "BD_DELIMITER": 1,
 
         "BG_BUTTON": "#6FC5FF",

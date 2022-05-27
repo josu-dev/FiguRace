@@ -1,4 +1,5 @@
 from cgitb import enable
+from pickle import FALSE
 from typing import Any
 from xml.sax.handler import feature_external_ges
 import PySimpleGUI as sg
@@ -14,225 +15,153 @@ from src.assets.wallpaper import image as wall
 
 
 SCREEN_NAME = '-SELECT-PROFILE-'
-USER_NAME = '-USER-NAME-'
-USER_IMAGE = '-USER-IMAGE-'
-EVENT_CREATE_USER = '-CREATE-USER-'
-EVENT_DELETE_USER = '-DELETE-USER-'
-EVENT_MODIFY_USER = '-EDITION-USER-'
+EVENT_CREATE_PROFILE = '-CREATE-PROFILE-'
+EVENT_REMOVE_PROFILE = '-REMOVE-PROFILE-'
+EVENT_EDIT_PROFILE = '-EDIT-PROFILE-'
+EVENT_SAVE_PROFILE = '-SAVE-PROFILE-'
 
-_user_red = sg.Image(data=user_red.source,
-                     k='1',
-                     size=(100, 100),
-                     background_color=theme.BG_BASE,
-                     subsample=(user_red.size//100))
-_user_yellow = sg.Image(data=user_yellow.source,
-                        k='2',
-                        size=(100, 100),
+_confirm_button = sg.Button('-<-Jugar->-',
+                            key=f'{const.GOTO_VIEW} {menu.SCREEN_NAME}',
+                            border_width=theme.BD_ACCENT,
+                            button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
+                            mouseover_colors=theme.BG_BUTTON_HOVER,
+                            font=(theme.FONT_FAMILY, theme.T1_SIZE),
+                            disabled=True
+                            )
+
+_current_user = sg.Text('Seleccionado:',
+                        # background_color='RED',
                         background_color=theme.BG_BASE,
-                        subsample=(user_yellow.size//100))
-_user_green = sg.Image(data=user_green.source,
-                       k='3',
-                       size=(100, 100),
-                       background_color=theme.BG_BASE,
-                       subsample=(user_green.size//100))
-_user_grey = sg.Image(data=user_grey.source,
-                      k='4',
-                      size=(100, 100),
-                      background_color=theme.BG_BASE,
-                      subsample=(user_grey.size//100))
-_user_violet = sg.Image(data=user_violet.source,
-                        k='4',
-                        size=(100, 100),
+                        font=(theme.FONT_FAMILY, theme.H3_SIZE),
+                        size=(24, 1)
+                        )
+
+_user_list = sg.Listbox(values=users_ctr.users_transform(lambda user: user.nick),
+                        expand_y=True,
+                        size=(25, 0),
+                        # background_color='RED',
                         background_color=theme.BG_BASE,
-                        subsample=(user_violet.size//100))
-
-
-def user_name(name: str, card_name: str) -> sg.Text:
-    if name == '':
-        name = 'Vacío'
-    key = f'{USER_NAME} {card_name}'
-    return sg.Text(name,
-                   key=key,
-                   background_color=theme.BG_BASE,
-                   font=(theme.FONT_FAMILY, 45),
-                   pad=(5, 20))
-
-
-def create_user_button(visible: bool, card_name: str) -> sg.Button:
-    key = f'{EVENT_CREATE_USER} {card_name}'
-    return sg.Button('Crear',
-                     key=key,
-                     visible=visible,
-                     size=(7, 0),
-                     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
-                     mouseover_colors=theme.BG_BUTTON_HOVER,
-                     font=(theme.FONT_FAMILY, 20),
-                     pad=20)
-
-
-def edit_user_button(visible: bool, card_name: str) -> sg.Button:
-    key = f'{EVENT_MODIFY_USER} {card_name}'
-    return sg.Button('Editar',
-                     key=key,
-                     visible=visible,
-                     size=(7, 0),
-                     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
-                     mouseover_colors=theme.BG_BUTTON_HOVER,
-                     font=(theme.FONT_FAMILY, 20),
-                     pad=20)
-
-
-def remove_user_button(visible: bool, card_name: str) -> sg.Button:
-    key = f'{EVENT_DELETE_USER} {card_name}'
-    return sg.Button('Eliminar',
-                     key=key,
-                     visible=visible,
-                     size=(7, 0),
-                     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
-                     mouseover_colors=theme.BG_BUTTON_HOVER,
-                     font=(theme.FONT_FAMILY, 20),
-                     pad=20)
-
-
-def select_user_image(color: str, card_name: str) -> sg.Image:
-    if color == 'yellow':
-        source = user_yellow.source
-    elif color == 'red':
-        source = user_red.source
-    elif color == 'green':
-        source = user_green.source
-    elif color == 'violet':
-        source = user_violet.source
-    else:
-        source = user_grey.source
-    key = f'{USER_IMAGE} {card_name}'
-    return sg.Image(
-        key=key,
-        data=source,
-        size=(100, 100),
-        background_color=theme.BG_BASE,
-        subsample=(96//100)
-    )
-
-
-users_ctrards: dict[str, dict[str, sg.Button | sg.Text]] = dict()
-users_ctrards = {str(index): dict() for index in range(5)}
-
-_hlist_config = {
-    'background_color': theme.BG_BASE,
-}
-
-
-def create_user_cards() -> sg.Column:
-    h_list = csg.HorizontalList(
-        background_color=theme.BG_BASE,
-        element_justification='c',
-        vertical_alignment='center',
-        expand_y=True,
-        expand_x=True,)
-    users_list = users_ctr.user_list
-    for index in range(5):
-        card_name = str(index)
-        exist = index < len(users_list)
-        if exist:
-            name = users_list[index].nick
-            color_user = users_list[index].preferred_color
-        else:
-            name = 'Vacío'
-            color_user = 'grey'
-
-        user_image = select_user_image(color_user, card_name)
-        name_text = user_name(name, card_name)
-        create_button = create_user_button(not exist, card_name)
-        edit_button = edit_user_button(exist, card_name)
-        remove_button = remove_user_button(exist, card_name)
-
-        users_ctrards[card_name]['image'] = user_image
-        users_ctrards[card_name]['name'] = name_text
-        users_ctrards[card_name]['create'] = create_button
-        users_ctrards[card_name]['edit'] = edit_button
-        users_ctrards[card_name]['remove'] = remove_button
-
-        h_list.add([
-            [user_image],
-            [name_text],
-            [edit_button],
-            [remove_button],
-            [create_button],
-        ])
-
-    return h_list.pack()
-
-
-def create_new_user(card_name) -> None:
-    users_ctrards[card_name]['edit'].update(visible=True)
-    users_ctrards[card_name]['remove'].update(visible=True)
-    users_ctrards[card_name]['create'].update(visible=False)
-    observer.post_event(const.GOTO_VIEW, '-CREATE-PROFILE-')
-
-
-observer.subscribe(EVENT_CREATE_USER, create_new_user)
-
-
-def reset(*args: Any):
-    users_list = users_ctr.user_list
-    for index, name in enumerate(users_ctrards):
-        exist = index < len(users_list)
-        users_ctrards[name]['name'].update(visible=exist)
-
-
-def reset(*args: Any):
-    pass
-
-
-_go = sg.Button('Confirmar', key=f'{const.GOTO_VIEW} {menu.SCREEN_NAME}',
-                border_width=15,
-                button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
-                mouseover_colors=theme.BG_BUTTON_HOVER,
-                font=(theme.FONT_FAMILY, theme.T1_SIZE),
-                disabled=True
-                )
+                        no_scrollbar=True,
+                        highlight_background_color=theme.BG_PRIMARY,
+                        text_color=theme.TEXT_PRIMARY,
+                        highlight_text_color=theme.TEXT_PRIMARY,
+                        sbar_width=theme.BD_ACCENT,
+                        font=(theme.FONT_FAMILY, theme.H3_SIZE),
+                        enable_events=True,
+                        key='-ENABLE-'
+                        )
 
 _select_profile_layout = [
-    [sg.Listbox(values=users_ctr.users_transform(lambda user: user.nick),
-                default_values=users_ctr.user_list[0].nick,
-                expand_x=True,
-                expand_y=True,
-                background_color=theme.BG_BASE,
-                text_color=theme.TEXT_PRIMARY,
-                font=(theme.FONT_FAMILY, theme.H3_SIZE),
-                enable_events=True,
-                key='-ENABLE-'
-                )],
+    [_user_list],
+    [_current_user]
 ]
-_buttons_layout = [
 
+_add_user_button = sg.Button('Añadir',
+                             key=EVENT_SAVE_PROFILE,
+                             button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
+                             mouseover_colors=theme.BG_BUTTON_HOVER,
+                             font=(theme.FONT_FAMILY, theme.T1_SIZE),
+                             pad=theme.scale(40),
+                             disabled=True)
+
+_create_layout = [
+    [
+        sg.Text('    ! Nuevo perfil !',
+                background_color=theme.BG_BASE,
+                font=(theme.FONT_FAMILY, theme.H2_SIZE),
+                pad=theme.scale(10)
+                )
+    ],
+    [
+        sg.Text('Nick',
+                size=(6, 1),
+                background_color=theme.BG_BASE,
+                font=(theme.FONT_FAMILY, theme.H2_SIZE),
+                pad=theme.scale(25)
+                ),
+        sg.Input(size=(20, 1),
+                 background_color=theme.BG_BASE,
+                 font=(theme.FONT_FAMILY, theme.H2_SIZE),
+                 text_color=theme.TEXT_ACCENT,
+                 border_width=theme.BD_PRIMARY
+                 )
+    ],
+    [
+        sg.Text('Edad',
+                size=(6, 1),
+                background_color=theme.BG_BASE,
+                font=(theme.FONT_FAMILY, theme.H2_SIZE),
+                pad=theme.scale(25)
+                ),
+        sg.Input(size=(20, 1),
+                 background_color=theme.BG_BASE,
+                 font=(theme.FONT_FAMILY, theme.H2_SIZE),
+                 text_color=theme.TEXT_ACCENT,
+                 border_width=theme.BD_PRIMARY
+                 )
+    ],
+    [
+        sg.Text('Género', size=(6, 1),
+                background_color=theme.BG_BASE,
+                font=(theme.FONT_FAMILY, theme.H2_SIZE),
+                pad=theme.scale(25)),
+
+        sg.Input(size=(20, 1),
+                 background_color=theme.BG_BASE,
+                 font=(theme.FONT_FAMILY, theme.H2_SIZE),
+                 text_color=theme.TEXT_ACCENT,
+                 border_width=theme.BD_PRIMARY
+                 )
+    ],
+    [
+        _add_user_button
+    ],
 ]
+
+
 _screen_layout = [
-    [common.screen_title('PERFILES', alignment='left')],
-    [sg.Column(_select_profile_layout,
-               background_color=theme.BG_BASE,
-               expand_y=True,
-               element_justification='left',
-               vertical_alignment='left'
-               )],
-    [sg.Column(_buttons_layout,
-               background_color=theme.BG_BASE,
-               expand_y=True,
-               element_justification='right',
-               vertical_alignment='right'
-               )],
-    [csg.CenteredElement(_go,
-                         horizontal_only=True,
-                         background_color=theme.BG_BASE)]
+    [
+        common.screen_title('Seleccionar perfiles', alignment='center')
+    ],
+
+    [
+        sg.Column(_select_profile_layout,
+                  background_color=theme.BG_BASE,
+                  element_justification='center',
+                  justification='left',
+                  expand_y=True,
+                  expand_x=True,
+                  pad=theme.scale(10)
+                  ),
+        sg.Column(_create_layout,
+                  background_color=theme.BG_BASE,
+                  element_justification='center',
+                  justification='rigth',
+                  pad=theme.scale(10)
+                  #   expand_y=True,
+                  #   expand_x=True,
+                  )
+    ],
+    [
+        csg.CenteredElement(_confirm_button,
+                            horizontal_only=True,
+                            background_color=theme.BG_BASE
+                            )
+    ]
 ]
 
 
 def confirm():
-    _go.update(disabled=False)
+    _confirm_button.update(disabled=False)
+    _current_user.update(f'Selecionado: {_user_list.get()[0]}',font=(theme.FONT_FAMILY,theme.H3_SIZE))
 
 
 observer.subscribe('-ENABLE-', confirm)
+
+
+def reset(*args):
+    pass
+
 
 _screen_config = {
     'background_color': theme.BG_BASE,
