@@ -13,7 +13,6 @@ ALL_NAMES_REMOVE = [NAMES_REMOVE_SPOTIFY,NAMES_REMOVE_LAGOS,NAMES_REMOVE_FIFA21]
 
 NAMES_DATASETS = ["Spotify_2010-2019_Top_100.csv","Lagos_Argentina - Hoja_1.csv","FIFA-21_Complete.csv"]
 
-
 path = os.path.dirname(os.path.realpath("."))
 
 #def all_path_function():
