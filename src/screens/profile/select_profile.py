@@ -1,16 +1,11 @@
-from cgitb import enable
-from pickle import FALSE
-from typing import Any
-from xml.sax.handler import feature_external_ges
 import PySimpleGUI as sg
-from src import constants as const
-from src.handlers.layout import Screen
+
+from src import constants as const, csg, common
+
+from src.controllers import theme, users_controller as users_ctr
 from src.handlers import observer
-from src.screens import menu
-from src.controllers import theme
+from src.handlers.layout import Screen
 from src.assets.users import *
-from src import csg, common
-from src.controllers import users_controller as users_ctr
 
 SCREEN_NAME = '-SELECT-PROFILE-'
 EVENT_CREATE_PROFILE = '-CREATE-PROFILE-'
@@ -19,7 +14,7 @@ EVENT_EDIT_PROFILE = '-EDIT-PROFILE-'
 EVENT_SAVE_PROFILE = '-SAVE-PROFILE-'
 
 _confirm_button = sg.Button('-<-Jugar->-',
-                            key=f'{const.GOTO_VIEW} {menu.SCREEN_NAME}',
+                            key=f'{const.GOTO_VIEW} -MENU-',
                             border_width=theme.BD_ACCENT,
                             button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                             mouseover_colors=theme.BG_BUTTON_HOVER,

@@ -1,9 +1,11 @@
 import PySimpleGUI as sg
+
 from src import constants as const
-from src.handlers.layout import Screen
+
+from src.controllers import theme, users_controller as user_ctr
 from src.handlers import observer
-from src.controllers import theme
-from src.controllers import users_controller as user_ctr
+from src.handlers.layout import Screen
+
 SCREEN_NAME = '-EDIT-PROFILE-'
 
 _screen_main_title = sg.Text('EDITAR PERFIL',

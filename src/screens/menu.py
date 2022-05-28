@@ -1,5 +1,7 @@
 import PySimpleGUI as sg
+
 from src import constants as const, common, csg
+
 from src.controllers import theme
 from src.handlers.layout import Screen
 from src.assets.menu import ic_profile, ic_exit, ic_config
@@ -16,7 +18,7 @@ def _menu_options() -> list[list[sg.Element]]:
     layout = [
         [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
         [sg.Button('Iniciar Juego',
-                   key=f'{const.GOTO_VIEW} -CONFIG-GAME-',
+                   key=f'{const.GOTO_VIEW} -CONFIGURE-GAME-',
                    size=(18, 1),
                    font=_font,
                    auto_size_button=True,

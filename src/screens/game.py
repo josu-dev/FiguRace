@@ -162,23 +162,25 @@ def create_card() -> sg.Column:
     )
 
 
+observer.subscribe(SKIP_CARD, run_ctr.end_round)
+
 def reset_card() -> None:
     card['data'] = run_ctr.options
     characteristics = run_ctr.hints_types
-    card['hints'] = [
-        [
-            sg.Text(characteristic),
-            sg.Text('no loaded')
-        ] for characteristic in characteristics
-    ]
-    card['options'] = [
-        create_option_button(
-            f'{text.capitalize()}',
-            f'{SELECT_OPTION} {i}'
-        ) for i, text in enumerate(card['data'])
-    ]
+    hints = run_ctr.hints
+    
+    for i, row in enumerate(card['hints']):
+        row[0].update(characteristics[i])
+        if i< len(hints):
+            row[1].update(hints[i])
+        else:
+            row[1].update('')
+    
+    for option, content in zip(card['options'],card['data']):
+        option.update(content)
 
-
+run_ctr.registry_event('win_round', reset_card)
+run_ctr.registry_event('loose_round', reset_card)
 
 def create_leave_button() -> sg.Button:
     return sg.Button(
@@ -199,7 +201,14 @@ def finish_game() -> None:
     observer.post_event(constants.GOTO_VIEW, '-SCORE-')
 
 
-observer.subscribe(END_RUN, finish_game)
+run_ctr.registry_event('end_run', finish_game)
+
+
+def force_end_game() -> None:
+    run_ctr.end_run()
+
+
+observer.subscribe(END_RUN, force_end_game)
 
 screen_layout = [
     [create_game_type(), create_round_state()],

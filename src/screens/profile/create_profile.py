@@ -1,8 +1,11 @@
 import PySimpleGUI as sg
+
 from src import constants as const
-from src.handlers.layout import Screen
-from src.handlers import observer
+
 from src.controllers import theme
+from src.handlers import observer
+from src.handlers.layout import Screen
+
 SCREEN_NAME = '-CREATE-PROFILE-'
 SAVE_PROFILE = '-SAVE-PROFILE-'
 

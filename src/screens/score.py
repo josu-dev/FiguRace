@@ -123,7 +123,7 @@ buttons = (
     ).add([
         create_button('MENU', f'{constants.GOTO_VIEW} -MENU-'),
         create_button('VOLVER A JUGAR', f'{constants.GOTO_VIEW} -GAME-'),
-        create_button('NUEVO JUEGO', f'{constants.GOTO_VIEW} -CONFIGGAME-')
+        create_button('NUEVO JUEGO', f'{constants.GOTO_VIEW} -CONFIGURE-GAME-')
     ]).pack()
 )
 

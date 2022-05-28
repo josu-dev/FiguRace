@@ -87,7 +87,7 @@ class RunController:
         self._round.reset(self._cards.new_card)
 
     def registry_event(self, type: str, fn: ResponseFn) -> None:
-        self._events[type].append(fn)
+        self._events[type].append(fn) # ignore all
 
 
     @property

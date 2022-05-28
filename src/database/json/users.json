@@ -4,7 +4,7 @@
         "age": 21,
         "gender": "male",
         "preferred_color": "red",
-        "preferred_difficulty": "normal",
+        "preferred_difficulty": "hard",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,

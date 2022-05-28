@@ -1,10 +1,10 @@
 import PySimpleGUI as sg
-from src import constants as const
-from src.controllers import theme
-from src.handlers.layout import Screen
-from src import csg, common
+
+from src import constants as const, csg, common
+
+from src.controllers import theme, difficulty_controller as difficulty_ctr
 from src.handlers import observer
-from src.controllers import difficulty_controller as difficulty_ctr
+from src.handlers.layout import Screen
 
 SCREEN_NAME = "-CONFIGURATION-"
 default_padding = 8
