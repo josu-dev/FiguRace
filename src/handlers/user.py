@@ -141,6 +141,11 @@ class UsersController:
 
     def add(self, nick:str, age: int, gender: str, preferred_color:str='#000000'):
         self._users[nick] = new_user(nick, age, gender, preferred_color)
+    
+    def remove(self, nick:str):
+        if self._current_user == nick:
+            self.current_user = 'undefined'
+        self._users.pop(nick,None)
 
     @property
     def user_list(self) -> list[User]:

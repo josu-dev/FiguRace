@@ -88,6 +88,11 @@ def create_round_state() -> sg.Column:
     )
 
 
+def reset_round_state() -> None:
+    round_state['difficulty'].update(constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
+    round_state['time'].update(run_ctr.time)
+
+
 def refresh_round_state() -> None:
     pass
 
@@ -120,7 +125,9 @@ def create_game_state() -> sg.Column:
 
 
 def reset_game_state() -> None:
-    pass
+    game_state['user'].update(users_ctr.current_user.nick)
+    for i, round in enumerate(game_state['rounds']):
+        round.update(f' {i+1:<2} - ')
 
 
 card: dict[str, sg.Text | sg.Button | list[str] |
@@ -155,8 +162,22 @@ def create_card() -> sg.Column:
     )
 
 
-def refresh_card() -> None:
-    pass
+def reset_card() -> None:
+    card['data'] = run_ctr.options
+    characteristics = run_ctr.hints_types
+    card['hints'] = [
+        [
+            sg.Text(characteristic),
+            sg.Text('no loaded')
+        ] for characteristic in characteristics
+    ]
+    card['options'] = [
+        create_option_button(
+            f'{text.capitalize()}',
+            f'{SELECT_OPTION} {i}'
+        ) for i, text in enumerate(card['data'])
+    ]
+
 
 
 def create_leave_button() -> sg.Button:
@@ -188,10 +209,11 @@ screen_layout = [
 
 
 def reset() -> None:
+    run_ctr.reset()
     reset_game_type()
-    refresh_round_state()
+    reset_round_state()
     reset_game_state()
-    refresh_card()
+    reset_card()
 
 
 screen_config = {
