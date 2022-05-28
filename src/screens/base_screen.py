@@ -8,36 +8,32 @@ from src.handlers.layout import Screen
 
 
 SCREEN_NAME = '-BASE-SCREEN-'
-FONT = (theme.FONT_FAMILY, 24)
+
 
 def create_button(text: str, key: str) -> sg.Button:
     return sg.Button(
         text,
         key=key,
-        font=FONT,
+        font=(theme.FONT_FAMILY, theme.H3_SIZE),
         button_color=(
             theme.TEXT_BUTTON,
             theme.BG_BUTTON
         ),
         mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=12,
+        border_width=theme.BD_PRIMARY,
     )
 
-_button_exit = sg.Button(
-    'Exit', key=constants.EXIT_APLICATION, size=(32, 1),
-    font=('Sketch 3D', 20), border_width=12
-)
 
-_menu_layout = [
-    [csg.vertical_spacer((0, 16))],
-    [sg.Text('TAS JOGANDO RE PIOLA PA ', font='Sketch 72')],
-    [_button_exit]
+content_layout = [
+    [csg.vertical_spacer((0, theme.scale(64)))],
+    [sg.Text('TAS JOGANDO RE PIOLA PA ', font=theme.FONT_FAMILY)],
+    [create_button('Exit', constants.EXIT_APLICATION)]
 ]
 
 
 screen_layout = [
     [common.screen_title('base screen', True)],
-    [sg.Column(_menu_layout)],
+    [sg.Column(content_layout)],
 ]
 
 

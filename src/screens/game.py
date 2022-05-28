@@ -1,3 +1,5 @@
+from typing import TypedDict
+
 import PySimpleGUI as sg
 
 from src import constants, common
@@ -9,9 +11,25 @@ from src.handlers.layout import Screen
 
 SCREEN_NAME = '-GAME-'
 SELECT_OPTION = '-SELECT-OPTION-'
-CONFIRM_SELECT = '-CONFIRM-SECLECT-'
+CONFIRM_SELECTED = '-CONFIRM-SELECT-'
 SKIP_CARD = '-SKIP-CARD-'
 END_RUN = '-END-RUN-'
+
+
+class CardState(TypedDict):
+    type: sg.Text
+    data: list[str]
+    hints: list[list[sg.Text]]
+    options: list[sg.Button]
+    selected: int
+    confirm_button: sg.Button
+
+
+class RunState(TypedDict):
+    difficulty: sg.Text
+    time: sg.Text
+    user: sg.Text
+    rounds: list[sg.Text]
 
 
 def create_button(text: str, key: str) -> sg.Button:
@@ -43,79 +61,35 @@ def create_option_button(text: str, key: str) -> sg.Button:
     )
 
 
-game_type: dict[str, sg.Text | sg.Image] = {}
+run_state: RunState = {}
 
 
-def create_game_type() -> sg.Column:
-    game_type['type'] = sg.Text(
-        constants.DATASET_TO_ES[run_ctr.dataset_type],
-        font=(theme.FONT_FAMILY, theme.H2_SIZE),
-    )
-    game_type['icon'] = sg.Image('', size=(128, 128))
-    layout = [
-        [game_type['type']],
-        [game_type['icon']]
-    ]
-    return sg.Column(
-        layout,
-        background_color=theme.BG_SECONDARY
-    )
-
-
-def reset_game_type() -> None:
-    game_type['type'].update(constants.DATASET_TO_ES[run_ctr.dataset_type])
-    # refresh game icon
-
-
-round_state: dict[str, sg.Text] = {}
-
-
-def create_round_state() -> sg.Column:
-    round_state['difficulty'] = sg.Text(
+def create_run_state() -> sg.Column:
+    run_state['difficulty'] = sg.Text(
         constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty],
         font=(theme.FONT_FAMILY, theme.H3_SIZE),
     )
-    round_state['time'] = sg.Text(
+    run_state['time'] = sg.Text(
         f'00:30',
         font=(theme.FONT_FAMILY, theme.T1_SIZE),
     )
-    layout = [
-        [round_state['difficulty']],
-        [round_state['time']]
-    ]
-    return sg.Column(
-        layout
-    )
-
-
-def reset_round_state() -> None:
-    round_state['difficulty'].update(constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
-    round_state['time'].update(run_ctr.time)
-
-
-def refresh_round_state() -> None:
-    pass
-
-
-game_state: dict[str, sg.Text | list[sg.Text]] = {}
-
-
-def create_game_state() -> sg.Column:
-    game_state['user'] = sg.Text(
+    run_state['user'] = sg.Text(
         users_ctr.current_user.nick,
         font=(theme.FONT_FAMILY, 24),
         size=24,
         justification='center'
     )
-    game_state['rounds'] = [
+    run_state['rounds'] = [
         sg.Text(
             f' {i+1:<2} - ',
             font=(theme.FONT_FAMILY, 16)
         ) for i in range(run_ctr.max_rounds)
     ]
     layout = [
-        [game_state['user']],
-        *[[stat] for stat in game_state['rounds']]
+        [run_state['difficulty']],
+        [run_state['time']],
+        [run_state['user']],
+        *[[stat] for stat in run_state['rounds']]
     ]
     return sg.Column(
         layout,
@@ -124,17 +98,34 @@ def create_game_state() -> sg.Column:
     )
 
 
-def reset_game_state() -> None:
-    game_state['user'].update(users_ctr.current_user.nick)
-    for i, round in enumerate(game_state['rounds']):
+def refresh_timer() -> None:
+    run_state['time'].update(run_ctr.time)
+
+
+def reset_run_state() -> None:
+    run_state['difficulty'].update(
+        constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
+    refresh_timer()
+    run_state['user'].update(users_ctr.current_user.nick)
+    for i, round in enumerate(run_state['rounds']):
         round.update(f' {i+1:<2} - ')
 
 
-card: dict[str, sg.Text | sg.Button | list[str] |
-           list[sg.Button] | list[list[sg.Text]]] = {}
+def refresh_run_state() -> None:
+    score = run_ctr.score
+    for i, round in enumerate(run_state['rounds']):
+        points = score[i] if i < len(score) else ''
+        round.update(f' {i+1:<2} - {points}')
+
+
+card: CardState = {}
 
 
 def create_card() -> sg.Column:
+    card['type'] = sg.Text(
+        constants.DATASET_TO_ES[run_ctr.dataset_type],
+        font=(theme.FONT_FAMILY, theme.H2_SIZE),
+    )
     card['data'] = run_ctr.options
     characteristics = run_ctr.hints_types
     card['hints'] = [
@@ -149,11 +140,14 @@ def create_card() -> sg.Column:
             f'{SELECT_OPTION} {i}'
         ) for i, text in enumerate(card['data'])
     ]
+    card['selected'] = -1
+    card['confirm_button'] = create_button('Confirmar', f'{CONFIRM_SELECTED}')
     layout = [
+        [card['type']],
         *[hint for hint in card['hints']],
         *[[button] for button in card['options']],
         [
-            create_button('Confirmar', f'{CONFIRM_SELECT}'),
+            card['confirm_button'],
             create_button('Pasar', f'{SKIP_CARD}')
         ]
     ]
@@ -162,25 +156,68 @@ def create_card() -> sg.Column:
     )
 
 
-observer.subscribe(SKIP_CARD, run_ctr.end_round)
-
-def reset_card() -> None:
-    card['data'] = run_ctr.options
-    characteristics = run_ctr.hints_types
+def refresh_card() -> None:
     hints = run_ctr.hints
-    
+
     for i, row in enumerate(card['hints']):
-        row[0].update(characteristics[i])
-        if i< len(hints):
+        if i < len(hints):
             row[1].update(hints[i])
         else:
             row[1].update('')
-    
-    for option, content in zip(card['options'],card['data']):
-        option.update(content)
 
-run_ctr.registry_event('win_round', reset_card)
-run_ctr.registry_event('loose_round', reset_card)
+
+run_ctr.registry_event('bad_option', refresh_card)
+
+
+def current_answer(index: str) -> None:
+    if card['selected'] >= 0:
+        card['options'][card['selected']].update(button_color=theme.BG_BUTTON)
+    card['selected'] = int(index)
+    card['options'][card['selected']].update(button_color='red')
+    card['confirm_button'].update(disabled=False)
+
+
+observer.subscribe(SELECT_OPTION, current_answer)
+
+
+def new_answer() -> None:
+    card['confirm_button'].update(disabled=True)
+    card['options'][card['selected']].update(disabled=True)
+    run_ctr.new_answer(card['data'][card['selected']])
+
+
+observer.subscribe(CONFIRM_SELECTED, new_answer)
+observer.subscribe(SKIP_CARD, run_ctr.end_round)
+
+
+def reset_card() -> None:
+    card['type'].update(constants.DATASET_TO_ES[run_ctr.dataset_type])
+    card['data'] = run_ctr.options
+    characteristics = run_ctr.hints_types
+    hints = run_ctr.hints
+
+    for i, row in enumerate(card['hints']):
+        row[0].update(characteristics[i])
+        if i < len(hints):
+            row[1].update(hints[i])
+        else:
+            row[1].update('')
+
+    for option, content in zip(card['options'], card['data']):
+        option.update(content, disabled=False, button_color=theme.BG_BUTTON)
+
+    card['selected'] = -1
+    card['confirm_button'].update(disabled=True)
+
+
+def end_round() -> None:
+    refresh_run_state()
+    reset_card()
+
+
+run_ctr.registry_event('win_round', end_round)
+run_ctr.registry_event('loose_round', end_round)
+
 
 def create_leave_button() -> sg.Button:
     return sg.Button(
@@ -211,17 +248,14 @@ def force_end_game() -> None:
 observer.subscribe(END_RUN, force_end_game)
 
 screen_layout = [
-    [create_game_type(), create_round_state()],
-    [create_game_state(), create_card()],
+    [create_run_state(), create_card()],
     [create_leave_button()]
 ]
 
 
 def reset() -> None:
     run_ctr.reset()
-    reset_game_type()
-    reset_round_state()
-    reset_game_state()
+    reset_run_state()
     reset_card()
 
 

@@ -23,7 +23,8 @@ class Round:
     def reset(self, card: Card) -> None:
         self._card = card
         self._tryes = 0
-        self._max_tryes = len(card.hints) - self._settings.characteristics_shown
+        self._max_tryes = len(card.hints) - \
+            self._settings.characteristics_shown
         self._hints_quantity = self._settings.characteristics_shown
         self._hints = self._card.hints[0:self._hints_quantity]
         self._score = 0
@@ -78,25 +79,30 @@ class RunController:
         self.reset()
 
     def reset(self) -> None:
-        self._rounds = 0
+        self._rounds = -1
         self._scores: list[int] = []
+        self._new_round()
 
     def _new_round(self) -> None:
-        self._scores.append(self._round.score)
+        if self._rounds > -1:
+            self._scores.append(self._round.score)
         self._rounds += 1
         self._round.reset(self._cards.new_card)
 
     def registry_event(self, type: str, fn: ResponseFn) -> None:
-        self._events[type].append(fn) # ignore all
-
+        self._events[type].append(fn)
 
     @property
     def dataset_type(self) -> str:
         return self._cards.current_type
-    
+
     @property
     def max_rounds(self) -> int:
         return self._difficulty.rounds_per_game
+
+    @property
+    def score(self) -> list[int]:
+        return self._scores
 
     @property
     def hints_types(self) -> list[str]:
