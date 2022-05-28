@@ -12,7 +12,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
 
 
-<details> 
+<details open> 
 
   <summary><h3 ><img src="https://media.giphy.com/media/cj87CxfRtrUifF3Ryk/giphy.gif" height="38" /> Como ejecutar Figurace</a>
  <img style="transform:scaleX(-1);" src="https://media.giphy.com/media/cj87CxfRtrUifF3Ryk/giphy.gif" height="38" /></h1></summary>
