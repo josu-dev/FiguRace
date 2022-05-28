@@ -1,7 +1,7 @@
 import PySimpleGUI as sg
 from src import constants as const
 from src.controllers import theme
-
+from src.assets import app_icon
 from .layout import Screen, ScreenController
 from . import observer
 
@@ -9,7 +9,7 @@ from . import observer
 layout_controller = ScreenController()
 
 
-def set_up(screens : list[Screen], title:str, initial_screen:str, fullscreen: bool=True) -> sg.Window:
+def set_up(screens: list[Screen], title: str, initial_screen: str, fullscreen: bool = True) -> sg.Window:
     for screen in screens:
         layout_controller.register(screen)
 
@@ -19,6 +19,7 @@ def set_up(screens : list[Screen], title:str, initial_screen:str, fullscreen: bo
     window = sg.Window(
         title,
         window_layout,
+        icon=app_icon.source,
         finalize=True,
         element_justification='c',
         resizable=True,

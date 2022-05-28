@@ -19,7 +19,7 @@ def _menu_options() -> list[list[sg.Element]]:
         [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
         [sg.Button('Iniciar Juego',
                    key=f'{const.GOTO_VIEW} -CONFIGURE-GAME-',
-                   size=(18, 1),
+                   size=(16, 1),
                    font=_font,
                    auto_size_button=True,
                    button_color=(theme.TEXT_BUTTON,
