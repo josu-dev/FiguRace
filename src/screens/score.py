@@ -14,7 +14,6 @@ HISTORIAL_SIZE = 20
 
 
 def create_summary() -> sg.Column:
-
     return sg.Column([[]])
 
 
@@ -32,10 +31,8 @@ rankings: dict[str, sg.Multiline] = {
 
 NameScores = tuple[str, dict[str, list[int]]]
 
-
 def get_name_and_scores(user: User) -> NameScores:
     return user.nick, user.sorted_scores
-
 
 def rank_header(name: str) -> sg.Text:
     return sg.Text(

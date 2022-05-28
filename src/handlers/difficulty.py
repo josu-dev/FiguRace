@@ -90,7 +90,7 @@ class DifficultyController:
         return {name: copy(definition) for name, definition in self._difficulties.items()}
 
     def _new_user(self, user:Any) -> None:
-        self._difficulties['custom'] = user.custom_difficulty
+        self._difficulties['custom'] = user.preferred_difficulty
         self.set_difficulty(user.preferred_difficulty)
 
     def _save_difficulties(self) -> None:
