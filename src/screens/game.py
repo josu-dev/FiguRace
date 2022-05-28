@@ -62,7 +62,7 @@ def create_game_type() -> sg.Column:
     )
 
 
-def refresh_game_type() -> None:
+def reset_game_type() -> None:
     game_type['type'].update(constants.DATASET_TO_ES[run_ctr.dataset_type])
     # refresh game icon
 
@@ -86,6 +86,11 @@ def create_round_state() -> sg.Column:
     return sg.Column(
         layout
     )
+
+
+def reset_round_state() -> None:
+    round_state['difficulty'].update(constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
+    round_state['time'].update(run_ctr.time)
 
 
 def refresh_round_state() -> None:
@@ -119,8 +124,10 @@ def create_game_state() -> sg.Column:
     )
 
 
-def refresh_game_state() -> None:
-    pass
+def reset_game_state() -> None:
+    game_state['user'].update(users_ctr.current_user.nick)
+    for i, round in enumerate(game_state['rounds']):
+        round.update(f' {i+1:<2} - ')
 
 
 card: dict[str, sg.Text | sg.Button | list[str] |
@@ -155,9 +162,25 @@ def create_card() -> sg.Column:
     )
 
 
-def refresh_card() -> None:
-    pass
+observer.subscribe(SKIP_CARD, run_ctr.end_round)
 
+def reset_card() -> None:
+    card['data'] = run_ctr.options
+    characteristics = run_ctr.hints_types
+    hints = run_ctr.hints
+    
+    for i, row in enumerate(card['hints']):
+        row[0].update(characteristics[i])
+        if i< len(hints):
+            row[1].update(hints[i])
+        else:
+            row[1].update('')
+    
+    for option, content in zip(card['options'],card['data']):
+        option.update(content)
+
+run_ctr.registry_event('win_round', reset_card)
+run_ctr.registry_event('loose_round', reset_card)
 
 def create_leave_button() -> sg.Button:
     return sg.Button(
@@ -178,10 +201,16 @@ def finish_game() -> None:
     observer.post_event(constants.GOTO_VIEW, '-SCORE-')
 
 
-observer.subscribe(END_RUN, finish_game)
+run_ctr.registry_event('end_run', finish_game)
+
+
+def force_end_game() -> None:
+    run_ctr.end_run()
+
+
+observer.subscribe(END_RUN, force_end_game)
 
 screen_layout = [
-    [common.screen_title('game', True)],
     [create_game_type(), create_round_state()],
     [create_game_state(), create_card()],
     [create_leave_button()]
@@ -189,10 +218,11 @@ screen_layout = [
 
 
 def reset() -> None:
-    # reset_game_type()
-    refresh_round_state()
-    # reset_game_state()
-    refresh_card()
+    run_ctr.reset()
+    reset_game_type()
+    reset_round_state()
+    reset_game_state()
+    reset_card()
 
 
 screen_config = {

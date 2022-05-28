@@ -1,13 +1,15 @@
 import PySimpleGUI as sg
+
 from src import constants as const
-from src.handlers.layout import Screen
+
+from src.controllers import theme, users_controller as user_ctr
 from src.handlers import observer
-from src.controllers import theme
-from src.controllers import users_controller as uc
-SCREEN_NAME = '-EDITION-PROFILE-'
+from src.handlers.layout import Screen
+
+SCREEN_NAME = '-EDIT-PROFILE-'
 
 _screen_main_title = sg.Text('EDITAR PERFIL',
-                             size= theme.h ,
+                             size= theme.H1_SIZE ,
                              background_color=theme.BG_BASE,
                              font=(theme.FONT_FAMILY, 45),
                              pad=0,
@@ -15,24 +17,10 @@ _screen_main_title = sg.Text('EDITAR PERFIL',
 
 _create_profile_layout = [
     [
-        sg.Text('Nick', size=(4, 1),
-                background_color=theme.BG_BASE,
-                font=(theme.FONT_FAMILY, 45), pad=(5, 35)
-                ),
-        sg.Input(default_text= uc.user,
-            size=(20, 15),
-            do_not_clear=False,
-            background_color=theme.BG_BASE,
-            font=(theme.FONT_FAMILY, 30),
-            text_color='white',
-        )
-    ],
-    [
         sg.Text('Edad', size=(4, 1),
                 background_color=theme.BG_BASE,
                 font=(theme.FONT_FAMILY, 45), pad=(5, 35)),
         sg.Input(size=(20, 10),
-                 do_not_clear=False,
                  background_color=theme.BG_BASE,
                  font=('System', 30),
                  text_color='white')
@@ -50,7 +38,8 @@ _create_profile_layout = [
     ],
     [
         sg.Button('Guardar', key=f'{const.GOTO_VIEW} -MENU-',
-                  border_width=15, size=(15, 1),
+                  border_width=15, 
+                  size=(15, 1),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                   mouseover_colors=theme.BG_BUTTON_HOVER,
                   font=(theme.FONT_FAMILY, 20),

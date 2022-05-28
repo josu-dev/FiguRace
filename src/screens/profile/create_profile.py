@@ -1,9 +1,13 @@
 import PySimpleGUI as sg
+
 from src import constants as const
-from src.handlers.layout import Screen
-from src.handlers import observer
+
 from src.controllers import theme
+from src.handlers import observer
+from src.handlers.layout import Screen
+
 SCREEN_NAME = '-CREATE-PROFILE-'
+SAVE_PROFILE = '-SAVE-PROFILE-'
 
 _screen_main_title = sg.Text('CREAR PERFIL',
                              size=theme.H2_SIZE,
@@ -19,7 +23,6 @@ _create_profile_layout = [
                 font=(theme.FONT_FAMILY, 45), pad=(5, 35)
                 ),
         sg.Input(size=(20, 15),
-                 do_not_clear=False,
                  background_color=theme.BG_BASE,
                  font=(theme.FONT_FAMILY, 30),
                  text_color='white',
@@ -30,7 +33,6 @@ _create_profile_layout = [
                 background_color=theme.BG_BASE,
                 font=(theme.FONT_FAMILY, 45), pad=(5, 35)),
         sg.Input(size=(20, 10),
-                 do_not_clear=False,
                  background_color=theme.BG_BASE,
                  font=('System', 30),
                  text_color='white')
@@ -47,14 +49,17 @@ _create_profile_layout = [
                  text_color=theme.BG_BASE)
     ],
     [
-        sg.Button('Guardar', key='-SAVE-',
+        sg.Button('Guardar',
+                  key=F'{SAVE_PROFILE}',
                   border_width=15, size=(15, 1),
                   button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                   mouseover_colors=theme.BG_BUTTON_HOVER,
-                  font=(theme.FONT_FAMILY, 20),
-                  pad=(10, 5))
+                  font=(theme.FONT_FAMILY, theme.T1_SIZE),
+                  disabled=True
+                  )
     ]
 ]
+
 
 _turn = sg.Button('<--',
                   key=f'{const.GOTO_VIEW } -MENU-',

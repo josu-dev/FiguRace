@@ -5,6 +5,7 @@ from . import observer, difficulty
 
 
 RESULTS_LENGTH = 20
+DEFAULT_PREFERRED_COLOR = '#000000'
 DEFAULT_PREFERRED_DIFFICULTY = difficulty.DEFAULT_NORMAL
 
 
@@ -114,13 +115,13 @@ class User:
         }
 
 
-def default_user() -> User:
+def new_user(nick: str, age: int, gender: str, preferred_color:str=DEFAULT_PREFERRED_COLOR) -> User:
     return User({
-        'nick': 'default',
-        'age': 0,
-        'gender': 'undefined',
-        'preferred_color': 'undefined',
-        'preferred_difficulty': 'undefined',
+        'nick': nick,
+        'age': age,
+        'gender': gender,
+        'preferred_color': preferred_color,
+        'preferred_difficulty': DEFAULT_PREFERRED_DIFFICULTY,
         'custom_difficulty': default_difficulty(),
         'scores': default_scores()
     })
@@ -135,8 +136,16 @@ class UsersController:
         }
         self._current_user: str = default_user
         observer.subscribe(
-            difficulty.UPDATE_DIFFICULTY_TYPE, self._update_user_difficulty
+            difficulty.UPDATE_DIFFICULTY_TYPE, self._set_user_difficulty
         )
+
+    def add(self, nick:str, age: int, gender: str, preferred_color:str='#000000'):
+        self._users[nick] = new_user(nick, age, gender, preferred_color)
+    
+    def remove(self, nick:str):
+        if self._current_user == nick:
+            self.current_user = 'undefined'
+        self._users.pop(nick,None)
 
     @property
     def user_list(self) -> list[User]:
@@ -154,7 +163,7 @@ class UsersController:
     @property
     def current_user(self) -> User:
         return self._users.get(
-            self._current_user, default_user()
+            self._current_user, new_user('undefined',0,'undefined')
         )
 
     @current_user.setter
@@ -162,7 +171,7 @@ class UsersController:
         self._current_user = nick
         observer.post_event(constants.USER_CHANGE, self.current_user)
 
-    def _update_user_difficulty(self, type: str) -> None:
+    def _set_user_difficulty(self, type: str) -> None:
         self.current_user.preferred_difficulty = type
 
     def _save_users(self) -> None:

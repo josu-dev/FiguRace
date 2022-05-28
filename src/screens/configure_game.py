@@ -1,12 +1,14 @@
 from random import shuffle
+
 import PySimpleGUI as sg
+
 from src import constants as const, csg, common
-from src.controllers import theme
-from src.handlers.layout import Screen
-from src.controllers import difficulty_controller as difficulty_ctr
+
+from src.controllers import theme, cards_controller as cards_ctr, difficulty_controller as difficulty_ctr
 from src.handlers import observer
-from src.controllers import cards_controller as cards_ctr
-SCREEN_NAME = '-CONFIG-GAME-'
+from src.handlers.layout import Screen
+
+SCREEN_NAME = '-CONFIGURE-GAME-'
 
 _text_font = ('System', int(theme.H3_SIZE))
 _h2_font = ('System', int(theme.H2_SIZE))
