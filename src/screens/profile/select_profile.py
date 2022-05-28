@@ -11,7 +11,6 @@ from src.controllers import theme
 from src.assets.users import *
 from src import csg, common
 from src.controllers import users_controller as users_ctr
-from src.assets.wallpaper import image as wall
 
 
 SCREEN_NAME = '-SELECT-PROFILE-'

@@ -110,6 +110,11 @@ class RunController:
     def options(self) -> list[str]:
         return self._round.options
 
+    # Implement timer on round
+    @property
+    def time(self) -> str:
+        return str(self._difficulty.time_per_round) + ':00'
+
     def _is_run_end(self) -> None:
         if self._rounds == self.max_rounds:
             self.end_run()
