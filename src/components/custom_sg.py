@@ -86,16 +86,16 @@ def CenteredElement(element: Element, horizontal_only : bool = False,**column_pa
 
 
 def CenteredLayout(layout: FullLayout, **column_parameters: Any) -> sg.Column:
-    column_parameters['element_justification'] = 'c'
+    column_parameters['element_justification'] = 'center'
     column_parameters['expand_y'] = True
     column_parameters['expand_x'] = True
 
     return sg.Column(layout, **column_parameters)
 
 
-def horizontal_spacer(size: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
-    return sg.Column([[]], size=size, background_color=background_color)
+def horizontal_spacer(width: int, background_color: str | None = None) -> sg.Column:
+    return sg.Column([[]], size=(width,0), background_color=background_color)
 
 
-def vertical_spacer(size: tuple[int, int] = (0, 0), background_color: str | None = None) -> sg.Column:
-    return sg.Column([[]], size=size, background_color=background_color)
+def vertical_spacer(height: int, background_color: str | None = None) -> sg.Column:
+    return sg.Column([[]], size=(0, height), background_color=background_color)

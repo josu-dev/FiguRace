@@ -1,5 +1,4 @@
 from src import constants
-
 from src.handlers import observer
 from src.handlers.card import CardController
 from src.handlers.difficulty import DifficultyController

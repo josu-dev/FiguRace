@@ -1,12 +1,13 @@
 from typing import Any, Callable, TypedDict
 
 from src import constants, file
+
 from . import observer, difficulty
 
 
 RESULTS_LENGTH = 20
 DEFAULT_PREFERRED_COLOR = '#000000'
-DEFAULT_PREFERRED_DIFFICULTY = difficulty.DEFAULT_NORMAL
+DEFAULT_PREFERRED_DIFFICULTY = difficulty.DEFAULT_TYPE
 
 
 class UserJSON(TypedDict):
@@ -17,16 +18,6 @@ class UserJSON(TypedDict):
     preferred_difficulty: str
     custom_difficulty: difficulty.DifficultyJSON
     scores: dict[str, list[int]]
-
-
-def default_difficulty() -> difficulty.DifficultyJSON:
-    return {
-        'time_per_round': 50,
-        'rounds_per_game': 10,
-        'points_correct_answer': 12,
-        'points_bad_answer': -2,
-        'characteristics_shown': 3
-    }
 
 
 def default_scores() -> dict[str, list[int]]:
@@ -49,7 +40,7 @@ class User:
             'preferred_difficulty', DEFAULT_PREFERRED_DIFFICULTY
         )
         self._custom_difficulty = difficulty.Difficulty(
-            **definition.get('custom_difficulty', default_difficulty())
+            **definition.get('custom_difficulty', difficulty.default())
         )
         self._scores = definition.get('scores', default_scores())
 
@@ -86,9 +77,19 @@ class User:
         self._preferred_difficulty = type
 
     @property
+    def custom_difficulty(self) -> difficulty.Difficulty:
+        return self._custom_difficulty
+
+    @property
     def scores(self) -> dict[str, list[int]]:
         return self._scores
 
+    @property
+    def sorted_scores(self) -> dict[str, list[int]]:
+        return {
+            difficulty: sorted(results) for difficulty, results in self._scores.items()
+        }
+    
     def update_score(self, difficulty: str, value: int) -> None:
         self._scores[difficulty].append(value)
         if len(self._scores[difficulty]) > RESULTS_LENGTH:
@@ -96,12 +97,6 @@ class User:
 
     def get_score(self, difficulty: str) -> list[int]:
         return self._scores[difficulty]
-
-    @property
-    def sorted_scores(self) -> dict[str, list[int]]:
-        return {
-            difficulty: sorted(results) for difficulty, results in self._scores.items()
-        }
 
     def to_json(self) -> UserJSON:
         return {
@@ -122,7 +117,7 @@ def new_user(nick: str, age: int, gender: str, preferred_color:str=DEFAULT_PREFE
         'gender': gender,
         'preferred_color': preferred_color,
         'preferred_difficulty': DEFAULT_PREFERRED_DIFFICULTY,
-        'custom_difficulty': default_difficulty(),
+        'custom_difficulty': difficulty.default(),
         'scores': default_scores()
     })
 

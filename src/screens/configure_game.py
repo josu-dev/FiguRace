@@ -104,7 +104,7 @@ def build_text() -> list:
 
 def layout() -> list[list[sg.Element]]:
     layout = [
-        [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
+        [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         header(),
         combo_boxes(),
         build_text(),

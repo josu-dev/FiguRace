@@ -25,8 +25,8 @@ def create_button(text: str, key: str) -> sg.Button:
 
 
 content_layout = [
-    [csg.vertical_spacer((0, theme.scale(64)))],
-    [sg.Text('TAS JOGANDO RE PIOLA PA ', font=theme.FONT_FAMILY)],
+    [sg.Text('This is for squema example', font=theme.FONT_FAMILY)],
+    [csg.vertical_spacer(theme.scale(64))],
     [create_button('Exit', constants.EXIT_APLICATION)]
 ]
 

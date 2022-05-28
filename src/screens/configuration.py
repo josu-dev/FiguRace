@@ -64,7 +64,7 @@ _cmb_plus_points = sg.Combo(('1', '5', '10', '25', '50'),
                             size=(5, 24),
                             key='-+QXANSWER-',)
 
-_cmb_sub_points = sg.Combo(('1', '5', '10', '25', '50'),
+_cmb_sub_points = sg.Combo(('-1', '-5', '-10', '-25', '-50'),
                            difficulty_ctr.difficulty.points_bad_answer,
                            background_color='#8DC3E4',
                            font=_font,
@@ -93,7 +93,7 @@ _btn_save = sg.Button('Guardar', size=(16, 1),
 
 def menu_options() -> list[list]:
     config_layout = [
-        [csg.horizontal_spacer((50, 0), background_color=theme.BG_BASE),
+        [csg.horizontal_spacer(theme.scale(50), background_color=theme.BG_BASE),
          *build_text('Tiempo de partida', 'Segundos:',
                      _cmb_time_per_game, 1),
 
@@ -103,7 +103,7 @@ def menu_options() -> list[list]:
                      _cmb_features_per_level, 2)
          ],
 
-        [csg.horizontal_spacer((50, 0), background_color=theme.BG_BASE),
+        [csg.horizontal_spacer(theme.scale(50), background_color=theme.BG_BASE),
          *build_text('Rounds por juego', 'Cantidad: ',
                      _cmb_rounds_per_game, 1),
 
@@ -113,14 +113,14 @@ def menu_options() -> list[list]:
                      _cmb_plus_points, 1),
 
          ],
-        [csg.horizontal_spacer((50, 0), background_color=theme.BG_BASE),
+        [csg.horizontal_spacer(theme.scale(50), background_color=theme.BG_BASE),
             *build_text('Puntos restados', 'Cantidad: ',
                         _cmb_sub_points, 1),
 
          sg.Push()],
 
         [sg.Push(),
-         csg.vertical_spacer((0, 350), background_color=theme.BG_BASE),
+         csg.vertical_spacer(theme.scale(350), background_color=theme.BG_BASE),
             _btn_exit,
 
             _btn_save,
@@ -147,7 +147,7 @@ def reset():
 _configuration_layout = [
     [common.screen_title('Configuración', spaced=True,
                          alignment='center')],
-    [csg.vertical_spacer((0, int(theme.height/12)),
+    [csg.vertical_spacer(int(theme.height/12),
                          background_color=theme.BG_BASE)],
     [sg.Column(menu_options(), background_color=theme.BG_BASE, expand_x=True)],
 ]

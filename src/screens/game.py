@@ -2,8 +2,7 @@ from typing import TypedDict
 
 import PySimpleGUI as sg
 
-from src import constants, common
-
+from src import constants, common, csg
 from src.controllers import theme, run_controller as run_ctr, users_controller as users_ctr
 from src.handlers import observer
 from src.handlers.layout import Screen
@@ -11,7 +10,7 @@ from src.handlers.layout import Screen
 
 SCREEN_NAME = '-GAME-'
 SELECT_OPTION = '-SELECT-OPTION-'
-CONFIRM_SELECTED = '-CONFIRM-SELECT-'
+CONFIRM_SELECTED_OPTION = '-CONFIRM-SELECTED-OPTION-'
 SKIP_CARD = '-SKIP-CARD-'
 END_RUN = '-END-RUN-'
 
@@ -46,21 +45,6 @@ def create_button(text: str, key: str) -> sg.Button:
     )
 
 
-def create_option_button(text: str, key: str) -> sg.Button:
-    return sg.Button(
-        text,
-        key=key,
-        font=(theme.FONT_FAMILY, theme.T1_SIZE),
-        button_color=(
-            theme.TEXT_BUTTON,
-            theme.BG_BUTTON
-        ),
-        mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=theme.BD_SECONDARY,
-        expand_x=True
-    )
-
-
 run_state: RunState = {}
 
 
@@ -75,14 +59,14 @@ def create_run_state() -> sg.Column:
     )
     run_state['user'] = sg.Text(
         users_ctr.current_user.nick,
-        font=(theme.FONT_FAMILY, 24),
+        font=(theme.FONT_FAMILY, theme.T1_SIZE),
         size=24,
         justification='center'
     )
     run_state['rounds'] = [
         sg.Text(
             f' {i+1:<2} - ',
-            font=(theme.FONT_FAMILY, 16)
+            font=(theme.FONT_FAMILY, theme.T2_SIZE)
         ) for i in range(run_ctr.max_rounds)
     ]
     layout = [
@@ -118,6 +102,21 @@ def refresh_run_state() -> None:
         round.update(f' {i+1:<2} - {points}')
 
 
+def create_option_button(text: str, key: str) -> sg.Button:
+    return sg.Button(
+        text,
+        key=key,
+        font=(theme.FONT_FAMILY, theme.scale(20)),
+        button_color=(
+            theme.TEXT_BUTTON,
+            theme.BG_BUTTON
+        ),
+        mouseover_colors=theme.BG_BUTTON_HOVER,
+        border_width=theme.BD_SECONDARY,
+        expand_x=True
+    )
+
+
 card: CardState = {}
 
 
@@ -130,8 +129,14 @@ def create_card() -> sg.Column:
     characteristics = run_ctr.hints_types
     card['hints'] = [
         [
-            sg.Text(characteristic),
-            sg.Text('no loaded')
+            sg.Text(
+                characteristic,
+                font=(theme.FONT_FAMILY, theme.T1_SIZE)
+            ),
+            sg.Text(
+                'no loaded',
+                font=(theme.FONT_FAMILY, theme.T1_SIZE)
+            ),
         ] for characteristic in characteristics
     ]
     card['options'] = [
@@ -141,7 +146,7 @@ def create_card() -> sg.Column:
         ) for i, text in enumerate(card['data'])
     ]
     card['selected'] = -1
-    card['confirm_button'] = create_button('Confirmar', f'{CONFIRM_SELECTED}')
+    card['confirm_button'] = create_button('Confirmar', f'{CONFIRM_SELECTED_OPTION}')
     layout = [
         [card['type']],
         *[hint for hint in card['hints']],
@@ -186,8 +191,7 @@ def new_answer() -> None:
     run_ctr.new_answer(card['data'][card['selected']])
 
 
-observer.subscribe(CONFIRM_SELECTED, new_answer)
-observer.subscribe(SKIP_CARD, run_ctr.end_round)
+observer.subscribe(CONFIRM_SELECTED_OPTION, new_answer)
 
 
 def reset_card() -> None:
@@ -197,7 +201,7 @@ def reset_card() -> None:
     hints = run_ctr.hints
 
     for i, row in enumerate(card['hints']):
-        row[0].update(characteristics[i])
+        row[0].update(f'{characteristics[i]}: ')
         if i < len(hints):
             row[1].update(hints[i])
         else:
@@ -234,11 +238,22 @@ def create_leave_button() -> sg.Button:
 
 
 def finish_game() -> None:
-
+    total_score = sum(run_ctr.score)
+    users_ctr.current_user.update_score(
+        users_ctr.current_user.preferred_difficulty, total_score
+    )
     observer.post_event(constants.GOTO_VIEW, '-SCORE-')
 
 
 run_ctr.registry_event('end_run', finish_game)
+
+
+def force_end_round() -> None:
+    run_ctr.end_round()
+    end_round()
+
+
+observer.subscribe(SKIP_CARD, force_end_round)
 
 
 def force_end_game() -> None:
@@ -248,8 +263,21 @@ def force_end_game() -> None:
 observer.subscribe(END_RUN, force_end_game)
 
 screen_layout = [
-    [create_run_state(), create_card()],
-    [create_leave_button()]
+    [sg.VPush(theme.BG_BASE)],
+    [
+        csg.CenteredElement(
+            create_run_state(),
+            background_color=theme.BG_BASE
+        ),
+        # csg.CenteredElement(
+        #     create_card(),
+        #     background_color=theme.BG_BASE
+        # ),
+        create_card(),
+        sg.Push(theme.BG_BASE)
+    ],
+    [create_leave_button()],
+    [sg.VPush(theme.BG_BASE)]
 ]
 
 

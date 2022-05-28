@@ -16,7 +16,7 @@ _icon_size = (_scale, _scale)
 
 def _menu_options() -> list[list[sg.Element]]:
     layout = [
-        [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
+        [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [sg.Button('Iniciar Juego',
                    key=f'{const.GOTO_VIEW} -CONFIGURE-GAME-',
                    size=(16, 1),
@@ -27,7 +27,7 @@ def _menu_options() -> list[list[sg.Element]]:
                    pad=_default_padding,
                    mouseover_colors=theme.BG_BUTTON_HOVER,
                    border_width=theme.BD_ACCENT)],
-        [csg.vertical_spacer((0, 24), background_color=theme.BG_BASE)],
+        [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [
             common.image_button(
                 ic_config,
@@ -36,14 +36,14 @@ def _menu_options() -> list[list[sg.Element]]:
                 key=f'{const.GOTO_VIEW} -CONFIGURATION-'
             ),
             csg.horizontal_spacer(
-                (40, 0), background_color=theme.BG_BASE),
+                theme.scale(40), background_color=theme.BG_BASE),
             common.image_button(
                 ic_profile,
                 _icon_size,
                 border=theme.BD_ACCENT,
                 key=f'{const.GOTO_VIEW} -SELECT-PROFILE-'
             ),
-            csg.horizontal_spacer((40, 0), background_color=theme.BG_BASE),
+            csg.horizontal_spacer(theme.scale(40), background_color=theme.BG_BASE),
             common.image_button(
                 ic_exit,
                 _icon_size,

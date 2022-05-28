@@ -1,9 +1,11 @@
 import PySimpleGUI as sg
+
 from src import constants as const
 from src.controllers import theme
 from src.assets import app_icon
-from .layout import Screen, ScreenController
+
 from . import observer
+from .layout import Screen, ScreenController
 
 
 layout_controller = ScreenController()

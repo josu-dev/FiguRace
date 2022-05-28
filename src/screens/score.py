@@ -3,7 +3,6 @@ from typing import Any
 import PySimpleGUI as sg
 
 from src import constants, csg, common
-
 from src.controllers import theme, users_controller as users_ctr
 from src.handlers.layout import Screen
 from src.handlers.user import User
@@ -31,8 +30,10 @@ rankings: dict[str, sg.Multiline] = {
 
 NameScores = tuple[str, dict[str, list[int]]]
 
+
 def get_name_and_scores(user: User) -> NameScores:
     return user.nick, user.sorted_scores
+
 
 def rank_header(name: str) -> sg.Text:
     return sg.Text(
@@ -40,7 +41,7 @@ def rank_header(name: str) -> sg.Text:
         size=(16, 1),
         background_color=theme.BG_PRIMARY,
         text_color=theme.TEXT_ACCENT,
-        font=('System', theme.T1_SIZE),
+        font=(theme.FONT_FAMILY_TEXT, theme.T1_SIZE),
         justification='center',
     )
 
@@ -63,7 +64,7 @@ def create_rank(scores: str) -> sg.Multiline:
         scores,
         size=(1, 20),
         disabled=True,
-        font=('Consolas', theme.T2_SIZE),
+        font=(theme.FONT_FAMILY_TEXT, theme.T2_SIZE),
         justification='center',
         no_scrollbar=True,
         text_color=theme.TEXT_ACCENT,
@@ -99,37 +100,43 @@ def refresh_rankings() -> None:
         rankings[difficulty].update(rank_content(all_scores))
 
 
-def create_button(text: str, key: str) -> sg.Button:
+def navigation_button(text: str, key: str) -> sg.Button:
     return sg.Button(
         text,
         key=key,
-        font=('System', theme.H3_SIZE),
+        font=(theme.FONT_FAMILY, theme.T1_SIZE),
         button_color=(
             theme.TEXT_BUTTON,
             theme.BG_BUTTON
         ),
         mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=theme.BD_PRIMARY,
+        border_width=theme.BD_SECONDARY,
     )
 
 
-buttons = (
-    csg.HorizontalList(
-        background_color=theme.BG_BASE,
-        element_justification='center'
-    ).add([
-        create_button('MENU', f'{constants.GOTO_VIEW} -MENU-'),
-        create_button('VOLVER A JUGAR', f'{constants.GOTO_VIEW} -GAME-'),
-        create_button('NUEVO JUEGO', f'{constants.GOTO_VIEW} -CONFIGURE-GAME-')
-    ]).pack()
-)
+def create_nav_buttons() -> sg.Column:
+    return (
+        csg.HorizontalList(
+            background_color=theme.BG_BASE,
+            element_justification='center'
+        )
+        .add([
+            navigation_button('MENU', f'{constants.GOTO_VIEW} -MENU-'),
+            navigation_button('VOLVER A JUGAR',
+                              f'{constants.GOTO_VIEW} -GAME-'),
+            navigation_button(
+                'NUEVO JUEGO', f'{constants.GOTO_VIEW} -CONFIGURE-GAME-')
+        ])
+        .pack()
+    )
+
 
 screen_layout = [
     [common.screen_title('score', True)],
     [create_summary()],
     [create_ranking()],
-    [csg.vertical_spacer((0, 32), background_color=theme.BG_BASE)],
-    [buttons]
+    [csg.vertical_spacer(theme.scale(32), background_color=theme.BG_BASE)],
+    [create_nav_buttons()]
 ]
 
 screen_config = {

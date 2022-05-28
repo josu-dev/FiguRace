@@ -7,7 +7,7 @@ from src import constants, file
 from . import observer
 
 
-DEFAULT_NORMAL = 'normal'
+DEFAULT_TYPE = 'normal'
 UPDATE_DIFFICULTY_TYPE = '-UPDATE-DIFFICULTY-TYPE-'
 
 
@@ -17,6 +17,16 @@ class DifficultyJSON(TypedDict):
     points_correct_answer: int
     points_bad_answer: int
     characteristics_shown: int
+
+
+def default() -> DifficultyJSON:
+    return {
+        'time_per_round': 50,
+        'rounds_per_game': 10,
+        'points_correct_answer': 12,
+        'points_bad_answer': -2,
+        'characteristics_shown': 3
+    }
 
 
 @dataclass
@@ -45,7 +55,7 @@ class Difficulty:
 
 
 class DifficultyController:
-    def __init__(self, difficulties_path: str ,difficulty: str = DEFAULT_NORMAL):
+    def __init__(self, difficulties_path: str ,difficulty: str = DEFAULT_TYPE):
         self._file_path = difficulties_path
         self._current_difficulty = difficulty
         raw_difficulties: dict[str, DifficultyJSON] = file.load_json(
@@ -90,7 +100,7 @@ class DifficultyController:
         return {name: copy(definition) for name, definition in self._difficulties.items()}
 
     def _new_user(self, user:Any) -> None:
-        self._difficulties['custom'] = user.preferred_difficulty
+        self._difficulties['custom'] = user.custom_difficulty
         self.set_difficulty(user.preferred_difficulty)
 
     def _save_difficulties(self) -> None:

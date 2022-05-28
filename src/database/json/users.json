@@ -61,7 +61,8 @@
                 67
             ],
             "normal": [
-                65
+                65,
+                0
             ],
             "hard": [
                 10,
@@ -83,26 +84,82 @@
         "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
-            "rounds_per_game": 10,
+            "rounds_per_game": 20,
             "points_correct_answer": 12,
-            "points_bad_answer": -2,
+            "points_bad_answer": -5,
             "characteristics_shown": 3
         },
         "scores": {
             "easy": [
-                67
+                67,
+                0
             ],
             "normal": [
-                33
+                33,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
             ],
             "hard": [
-                10
+                10,
+                0
             ],
             "insane": [
                 0
             ],
             "custom": [
+                100,
+                10
+            ]
+        }
+    },
+    "Test": {
+        "nick": "Test",
+        "age": 9,
+        "gender": "Helicoptero",
+        "preferred_color": "#000000",
+        "preferred_difficulty": "normal",
+        "custom_difficulty": {
+            "time_per_round": 300,
+            "rounds_per_game": 3,
+            "points_correct_answer": 50,
+            "points_bad_answer": 1,
+            "characteristics_shown": 5
+        },
+        "scores": {
+            "easy": [
+                20,
+                0,
+                40,
+                0,
                 100
+            ],
+            "normal": [
+                0,
+                0,
+                0,
+                84,
+                0,
+                0,
+                0
+            ],
+            "hard": [],
+            "insane": [
+                0,
+                0
+            ],
+            "custom": [
+                152,
+                0
             ]
         }
     }
