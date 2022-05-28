@@ -8,13 +8,12 @@ from src.controllers import theme, users_controller as users_ctr
 from src.handlers.layout import Screen
 from src.handlers.user import User
 
-FONT = (theme.FONT_FAMILY, 24)
+
 SCREEN_NAME = '-SCORE-'
 HISTORIAL_SIZE = 20
 
 
 def create_summary() -> sg.Column:
-
     return sg.Column([[]])
 
 
@@ -32,10 +31,8 @@ rankings: dict[str, sg.Multiline] = {
 
 NameScores = tuple[str, dict[str, list[int]]]
 
-
 def get_name_and_scores(user: User) -> NameScores:
     return user.nick, user.sorted_scores
-
 
 def rank_header(name: str) -> sg.Text:
     return sg.Text(
@@ -43,7 +40,7 @@ def rank_header(name: str) -> sg.Text:
         size=(16, 1),
         background_color=theme.BG_PRIMARY,
         text_color=theme.TEXT_ACCENT,
-        font=('System', 26),
+        font=('System', theme.T1_SIZE),
         justification='center',
     )
 
@@ -66,7 +63,7 @@ def create_rank(scores: str) -> sg.Multiline:
         scores,
         size=(1, 20),
         disabled=True,
-        font=('Consolas', 16),
+        font=('Consolas', theme.T2_SIZE),
         justification='center',
         no_scrollbar=True,
         text_color=theme.TEXT_ACCENT,
@@ -106,13 +103,13 @@ def create_button(text: str, key: str) -> sg.Button:
     return sg.Button(
         text,
         key=key,
-        font=FONT,
+        font=('System', theme.H3_SIZE),
         button_color=(
             theme.TEXT_BUTTON,
             theme.BG_BUTTON
         ),
         mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=12,
+        border_width=theme.BD_PRIMARY,
     )
 
 

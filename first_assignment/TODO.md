@@ -12,7 +12,7 @@
 
 [X] La pantalla “Menú de inicio del juego” deberá cargar el listado de jugadores en base a los jugadores que se vayan creando en “Pantalla de creación/edición de perfil” y permitir elegir con qué perfil se quiere jugar.
 
-[ ] La “Pantalla de juego” deberá mostrar (detalles en Anexo I - (b) Pantalla de juego):
+[X] La “Pantalla de juego” deberá mostrar (detalles en Anexo I - (b) Pantalla de juego):
 
 - Una tarjeta con la información para una de las filas de uno de los datasets.
 - Dicha información corresponde a una serie de características asociadas al elemento a adivinar.
