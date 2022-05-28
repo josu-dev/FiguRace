@@ -57,3 +57,9 @@ Para poder ejecutar el juego solo hay que hacer dos cosas:
 
 
 ### Extras
+
+## Integrantes
+
+[@Fabian-Martinez1](https://github.com/Fabian-Martinez1) | [@J-Josu](https://github.com/J-Josu) | [@Lucas-Andres-GF](https://github.com/Lucas-Andres-GF) | [@KinnaGt](https://github.com/KinnaGt)
+--- | --- | --- | ---
+![@Fabian-Martinez1](https://avatars.githubusercontent.com/Fabian-Martinez1?s=150&v=0) | ![@J-Josu](https://avatars.githubusercontent.com/J-Josu?s=150&v=1) | ![@Lucas-Andres-GF](https://avatars.githubusercontent.com/Lucas-Andres-GF?s=150&v=1) | ![@KinnaGt](https://avatars.githubusercontent.com/KinnaGt?s=150&v=1)
