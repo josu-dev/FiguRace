@@ -5,7 +5,7 @@ import PySimpleGUI as sg
 from src import constants, common, csg
 from src.controllers import theme, run_controller as run_ctr, users_controller as users_ctr
 from src.handlers import observer
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-GAME-'

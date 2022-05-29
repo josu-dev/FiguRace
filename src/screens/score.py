@@ -4,7 +4,7 @@ import PySimpleGUI as sg
 
 from src import constants, csg, common
 from src.controllers import theme, users_controller as users_ctr
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
 from src.handlers.user import User
 
 

@@ -28,38 +28,39 @@ class Screen:
 
 class ScreenController:
     def __init__(self):
-        self.actual_layout: str = ''
-        self.layout_stack: list[str] = []
-        self.layouts: dict[str, Screen] = {}
-        self.composed_layout: list[sg.Element] = []
+        self._actual_layout: str = ''
+        self._layout_stack: list[str] = []
+        self._layouts: dict[str, Screen] = {}
+        self._composed_layout: list[sg.Element] = []
 
     def goto_layout(self, key: str) -> None:
         key = key.rstrip('0123456789')
-        self.layouts[self.actual_layout].turn_visivility()
+        self._layouts[self._actual_layout].turn_visivility()
         if key == constants.LAST_SCREEN:
-            self.actual_layout = self.layout_stack.pop()
-        elif key in self.layout_stack:
-            while self.layout_stack.pop() != key:
+            self._actual_layout = self._layout_stack.pop()
+        elif key in self._layout_stack:
+            while self._layout_stack.pop() != key:
                 continue
-            self.actual_layout = key
+            self._actual_layout = key
         else:
-            self.layout_stack.append(self.actual_layout)
-            self.actual_layout = key
+            self._layout_stack.append(self._actual_layout)
+            self._actual_layout = key
 
-        self.layouts[self.actual_layout].turn_visivility()
+        self._layouts[self._actual_layout].turn_visivility()
 
     def register(self, screen: Screen) -> None:
-        if screen.key in self.layouts:
+        if screen.key in self._layouts:
             raise Exception(
                 f'Already registered a layout with key {screen.key}')
-        self.layouts[screen.key] = screen
-        self.composed_layout.append(screen.container)
+        self._layouts[screen.key] = screen
+        self._composed_layout.append(screen.container)
 
-    def get_composed_layout(self) -> list[list[sg.Element]]:
-        return [self.composed_layout]
+    @property
+    def composed_layout(self) -> list[list[sg.Element]]:
+        return [self._composed_layout]
 
     def init(self, key: str) -> None:
-        if key not in self.layouts:
-            raise Exception(f'{key} isnt a registered at composed layouts')
-        self.actual_layout = key
-        self.layouts[key].turn_visivility()
+        if key not in self._layouts:
+            raise Exception(f'{key} isnt a registered at composed _layouts')
+        self._actual_layout = key
+        self._layouts[key].turn_visivility()

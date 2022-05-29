@@ -2,15 +2,15 @@
     "default": {
         "title": "Figurace",
         "full_screen": true,
-        "starting_page": "-START-SCREEN-",
+        "starting_page": "-SELECT-PROFILE-",
         "theme": "Blue-Like",
         "default_user": ""
     },
     "custom": {
         "title": "Figurace",
         "full_screen": true,
-        "starting_page": "-START-SCREEN-",
+        "starting_page": "-SELECT-PROFILE-",
         "theme": "Blue-Like",
-        "default_user": "Gallardo"
+        "default_user": "Test"
     }
 }
