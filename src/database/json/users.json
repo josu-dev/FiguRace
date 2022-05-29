@@ -63,6 +63,12 @@
             "normal": [
                 65,
                 0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 0
             ],
             "hard": [
@@ -82,7 +88,7 @@
         "age": 19,
         "gender": "male",
         "preferred_color": "yellow",
-        "preferred_difficulty": "insane",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
@@ -93,7 +99,8 @@
         "scores": {
             "easy": [
                 67,
-                0
+                0,
+                40
             ],
             "normal": [
                 0,
@@ -156,7 +163,11 @@
                 0,
                 0,
                 0,
-                84,
+                0,
+                0,
+                0,
+                0,
+                0,
                 0,
                 0,
                 0,
