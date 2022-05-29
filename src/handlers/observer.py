@@ -1,5 +1,6 @@
 from typing import Any, Callable
 
+
 subscribers: dict[str, list[Callable[..., Any]]] = dict()
 
 
@@ -7,6 +8,15 @@ def subscribe(event_type: str, function: Callable[..., Any]) -> None:
     if event_type not in subscribers:
         subscribers[event_type] = []
     subscribers[event_type].append(function)
+
+
+def unsubscribe(event_type: str, function: Callable[..., Any]) -> None:
+    if event_type not in subscribers:
+        return
+    try:
+        subscribers[event_type].remove(function)
+    except ValueError:
+        pass
 
 
 def post_event(event_type: str, data: Any = None) -> None:
@@ -17,3 +27,8 @@ def post_event(event_type: str, data: Any = None) -> None:
             function(data)
         else:
             function()
+
+def remove_event(event_type: str) -> None:
+    if event_type not in subscribers:
+        return
+    subscribers.pop(event_type)
