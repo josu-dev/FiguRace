@@ -1,10 +1,10 @@
 {
     "Josu": {
         "nick": "Josu",
-        "age": 21,
-        "gender": "male",
+        "age": "21",
+        "gender": "Helic\u00f3ptero andino",
         "preferred_color": "red",
-        "preferred_difficulty": "normal",
+        "preferred_difficulty": "custom",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
@@ -39,8 +39,8 @@
     },
     "Gallardo": {
         "nick": "Gallardo",
-        "age": 19,
-        "gender": "male",
+        "age": "23",
+        "gender": "2",
         "preferred_color": "green",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
@@ -85,8 +85,8 @@
     },
     "Pedro": {
         "nick": "Pedro",
-        "age": 19,
-        "gender": "male",
+        "age": "64",
+        "gender": "MALE",
         "preferred_color": "yellow",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
