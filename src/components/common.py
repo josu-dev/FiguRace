@@ -28,7 +28,7 @@ def screen_title(title: str, spaced: bool = False, alignment: str = 'center', up
     )
 
 
-def navigation_button(text: str, screen_name: str, font_size: int = theme.H4_SIZE, padding: tuple[int, int] = (0,0)) -> sg.Button:
+def navigation_button(text: str, screen_name: str, font_size: int = theme.H4_SIZE, padding: tuple[int, int] = (0, 0)) -> sg.Button:
     return sg.Button(
         text,
         key=f'{constants.GOTO_VIEW} {screen_name}',
@@ -43,16 +43,8 @@ def navigation_button(text: str, screen_name: str, font_size: int = theme.H4_SIZ
     )
 
 
-def goback_button(text: str = 'Volver', border: int = 8, padding: int = 0) -> sg.Button:
-    return sg.Button(
-        text,
-        key=f'{constants.GOTO_VIEW} {constants.LAST_SCREEN}',
-        auto_size_button=True,
-        button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-        pad=padding if padding else (theme.T1_SIZE//3)*2,
-        mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=border
-    )
+def goback_button(text: str, font_size: int = theme.H4_SIZE, padding: tuple[int, int] = (0, 0)) -> sg.Button:
+    return navigation_button(text, constants.LAST_SCREEN, font_size, padding)
 
 
 def image_button(image: ImageFile, size: tuple[int, int], key: str, border: int = theme.BD_PRIMARY, padding: int = 0) -> sg.Button:

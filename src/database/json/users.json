@@ -44,11 +44,11 @@
         "preferred_color": "green",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
-            "time_per_round": 50,
-            "rounds_per_game": 10,
+            "time_per_round": 15,
+            "rounds_per_game": 3,
             "points_correct_answer": 12,
-            "points_bad_answer": -2,
-            "characteristics_shown": 3
+            "points_bad_answer": -1,
+            "characteristics_shown": 1
         },
         "scores": {
             "easy": [
@@ -62,6 +62,7 @@
             ],
             "normal": [
                 65,
+                0,
                 0,
                 0
             ],
@@ -82,12 +83,12 @@
         "age": 19,
         "gender": "male",
         "preferred_color": "yellow",
-        "preferred_difficulty": "insane",
+        "preferred_difficulty": "custom",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
             "points_correct_answer": 12,
-            "points_bad_answer": -25,
+            "points_bad_answer": -2,
             "characteristics_shown": 3
         },
         "scores": {
@@ -179,6 +180,30 @@
                 152,
                 0
             ]
+        }
+    },
+    "alkjhdaskld": {
+        "nick": "alkjhdaskld",
+        "age": 12,
+        "gender": "asdasd",
+        "preferred_color": "#000000",
+        "preferred_difficulty": "easy",
+        "custom_difficulty": {
+            "time_per_round": 50,
+            "rounds_per_game": 10,
+            "points_correct_answer": 12,
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
+        },
+        "scores": {
+            "easy": [],
+            "normal": [
+                0,
+                0
+            ],
+            "hard": [],
+            "insane": [],
+            "custom": []
         }
     }
 }
