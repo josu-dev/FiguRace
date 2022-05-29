@@ -98,7 +98,7 @@ def CenteredLayout(layout: FullLayout, horizontal_only : bool = False,**column_p
     return sg.Column(
         [
             [sg.VPush(background_color)],
-            [sg.Column(layout,background_color=background_color)],
+            *layout,
             [sg.VPush(background_color)]
         ],
         **column_parameters

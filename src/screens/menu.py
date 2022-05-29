@@ -32,19 +32,19 @@ def menu_options() -> sg.Column:
         [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [
             common.image_button(
-                ic_setting,
+                ic_profile,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_VIEW} -CONFIGURATION-'
+                key=f'{const.GOTO_VIEW} -SELECT-PROFILE-'
             ),
             csg.horizontal_spacer(
                 theme.scale(16), background_color=theme.BG_BASE
             ),
             common.image_button(
-                ic_profile,
+                ic_setting,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_VIEW} -SELECT-PROFILE-'
+                key=f'{const.GOTO_VIEW} -CONFIGURATION-'
             ),
             csg.horizontal_spacer(
                 theme.scale(16), background_color=theme.BG_BASE

@@ -9,7 +9,7 @@ from src.handlers.screen import Screen
 SCREEN_NAME = '-BASE-SCREEN-'
 
 
-def create_button(text: str, key: str) -> sg.Button:
+def create_custom_element(text: str, key: str) -> sg.Button:
     return sg.Button(
         text,
         key=key,
@@ -26,9 +26,10 @@ def create_button(text: str, key: str) -> sg.Button:
 content_layout = [
     [sg.Text('This is for squema example', font=theme.FONT_FAMILY)],
     [csg.vertical_spacer(theme.scale(64))],
-    [create_button('Exit', constants.EXIT_APLICATION)]
+    [create_custom_element('My element', constants.EXIT_APLICATION)],
+    [csg.vertical_spacer(theme.scale(64))],
+    [common.navigation_button('Exit', constants.EXIT_APLICATION)]
 ]
-
 
 screen_layout = [
     [common.screen_title('base screen', True)],
