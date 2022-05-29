@@ -7,7 +7,7 @@ from src import file
 
 SCREEN_SIZE = sg.Window.get_screen_size()
 
-RESPONSIVE_TABLE = {
+HEIGHT_FACTOR_TABLE = {
     2160: 2.0,
     1440: 1.3,
     1080: 1.0,
@@ -15,9 +15,9 @@ RESPONSIVE_TABLE = {
     480: 0.4
 }
 
-for width in RESPONSIVE_TABLE:
-    if SCREEN_SIZE[1] >= width:
-        screen_factor = RESPONSIVE_TABLE[width]
+for height in HEIGHT_FACTOR_TABLE:
+    if SCREEN_SIZE[1] >= height:
+        screen_factor = HEIGHT_FACTOR_TABLE[height]
         break
 else:
     screen_factor = 0.2
@@ -61,11 +61,11 @@ class Theme:
 
     @property
     def height(self):
-        return SCREEN_SIZE[0]
+        return SCREEN_SIZE[1]
 
     @property
     def width(self):
-        return SCREEN_SIZE[1]
+        return SCREEN_SIZE[0]
 
     def scale(self, value: int) -> int:
         return apply_scale(value)

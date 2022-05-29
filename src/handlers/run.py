@@ -80,16 +80,33 @@ class RunController:
     def reset(self) -> None:
         self._rounds = -1
         self._scores: list[int] = []
+        self._stats = {
+            'total_points': 0,
+            'total_rounds': 0,
+            'rounds_complete': 0,
+            'rounds_skiped': 0,
+            'rounds_winned': 0,
+            'rounds_loosed': 0,
+            'total_time': 0,
+            'average_time': 0,
+            'total_tryes': 0
+        }
         self._new_round()
+        
 
     def _new_round(self) -> None:
         if self._rounds > -1:
             self._scores.append(self._round.score)
         self._rounds += 1
         self._round.reset(self._cards.new_card)
+        self._stats['total_rounds'] += 1
 
     def registry_event(self, type: str, fn: ResponseFn) -> None:
         self._events[type].append(fn)
+
+    @property
+    def stats(self) -> dict[str,int]:
+        return self._stats
 
     @property
     def dataset_type(self) -> str:
@@ -125,12 +142,15 @@ class RunController:
             self.end_run()
 
     def new_answer(self, option: str) -> None:
+        self._stats['total_tryes'] += 1
         if self._round.win(option):
             self._new_round()
+            self._stats['rounds_winned'] += 1
             for fn in self._events['win_round']:
                 fn()
         elif self._round.loose:
             self._new_round()
+            self._stats['rounds_loosed'] += 1
             for fn in self._events['loose_round']:
                 fn()
         else:
@@ -139,11 +159,14 @@ class RunController:
         self._is_run_end()
 
     def end_round(self) -> None:
+        self._stats['rounds_skiped'] += 1
         self._round.end()
         self._new_round()
         self._is_run_end()
 
     def end_run(self) -> None:
+        self._stats['total_points'] = sum(self._scores)
+        self._stats['total_rounds'] = self.max_rounds
         for _ in range(self.max_rounds - len(self._scores)):
             self._scores.append(0)
         for fn in self._events['end_run']:

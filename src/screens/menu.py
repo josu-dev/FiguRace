@@ -1,12 +1,11 @@
-from email.mime import image
 import PySimpleGUI as sg
 
 from src import constants as const, common, csg
 from src.controllers import theme
 from src.handlers.screen import Screen
 from src.assets.menu import ic_profile, ic_setting, ic_score
-
 from src.assets import title
+
 
 SCREEN_NAME = "-MENU-"
 _default_padding = 2
@@ -32,15 +31,6 @@ def menu_options() -> sg.Column:
         [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [
             common.image_button(
-                ic_setting,
-                ICON_BUTTON_SIZE,
-                border=theme.BD_ACCENT,
-                key=f'{const.GOTO_VIEW} -CONFIGURATION-'
-            ),
-            csg.horizontal_spacer(
-                theme.scale(16), background_color=theme.BG_BASE
-            ),
-            common.image_button(
                 ic_profile,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
@@ -50,10 +40,19 @@ def menu_options() -> sg.Column:
                 theme.scale(16), background_color=theme.BG_BASE
             ),
             common.image_button(
+                ic_setting,
+                ICON_BUTTON_SIZE,
+                border=theme.BD_ACCENT,
+                key=f'{const.GOTO_VIEW} -CONFIGURATION-'
+            ),
+            csg.horizontal_spacer(
+                theme.scale(16), background_color=theme.BG_BASE
+            ),
+            common.image_button(
                 ic_score,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_VIEW} -SCORE-'
+                key=f'{const.GOTO_VIEW} -RANKING-'
             )
         ],
         [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
@@ -87,7 +86,7 @@ screen_layout = [
     # [common.screen_title('f  i  g  u  r  a  c  e', size=theme.H1_SIZE)],
     [sg.Image(
         data=title.source,
-        size=(theme.scale(1080),theme.scale(128)),
+        size=(theme.scale(1080), theme.scale(128)),
         subsample=title.size//theme.scale(800),
         background_color=theme.BG_BASE,
         pad=theme.scale(48)

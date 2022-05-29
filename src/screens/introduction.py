@@ -2,12 +2,13 @@ import PySimpleGUI as sg
 
 from src import constants, csg
 from src.controllers import theme
-from src.handlers import observer
 from src.handlers.screen import Screen
 from src.assets import icon, title_name
 
+
 SCREEN_NAME = '-INTRODUCTION-'
 SECONDS = 5
+
 
 _icon = sg.Image(
         key='-ICON-',
