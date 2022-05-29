@@ -132,7 +132,7 @@ def reset():
 
 _configuration_layout = [
     [common.screen_title('CONFIGURAR JUEGO',
-                         alignment='left', padding=int(theme.height/64))],
+                         alignment='left', padding=theme.height//64)],
     [sg.Column(layout(), background_color=theme.BG_BASE, expand_y=True,
                expand_x=True, justification='right')],
 ]

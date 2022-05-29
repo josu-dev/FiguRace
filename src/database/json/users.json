@@ -83,7 +83,7 @@
         "age": 19,
         "gender": "male",
         "preferred_color": "yellow",
-        "preferred_difficulty": "custom",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
@@ -137,7 +137,7 @@
         "age": 9,
         "gender": "Helicoptero",
         "preferred_color": "#000000",
-        "preferred_difficulty": "normal",
+        "preferred_difficulty": "easy",
         "custom_difficulty": {
             "time_per_round": 300,
             "rounds_per_game": 3,
@@ -151,7 +151,9 @@
                 0,
                 40,
                 0,
-                100
+                100,
+                30,
+                10
             ],
             "normal": [
                 0,
