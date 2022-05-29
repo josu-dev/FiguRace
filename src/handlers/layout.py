@@ -18,9 +18,9 @@ class Screen:
 
     def turn_visivility(self) -> None:
         self.is_visible = not self.is_visible
+        self.container.update(visible=self.is_visible)
         if self.is_visible:
             self.reset()
-        self.container.update(visible=self.is_visible)
 
     def reset(self) -> None:
         self._reset()
