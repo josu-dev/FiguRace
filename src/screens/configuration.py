@@ -73,22 +73,14 @@ _cmb_sub_points = sg.Combo(('-1', '-5', '-10', '-25', '-50'),
                            size=(5, 30),
                            key='--QXANSWER-',)
 
-_btn_exit = sg.Button('<--',
-                      key=f'{const.GOTO_VIEW} -MENU-',
-                      border_width=12,
-                      size=(16, 1),
-                      button_color=(
-                          theme.TEXT_ACCENT, theme.BG_BASE),
-                      mouseover_colors=theme.BG_BASE,
-                      font=_font)
 
 _btn_save = sg.Button('Guardar', size=(16, 1),
                       key='-SAVE-DIFF-CUSTOM-',
                       font=_font,
-                      button_color=(theme.TEXT_ACCENT, theme.BG_BASE),
+                      button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                       pad=default_padding,
-                      mouseover_colors=theme.BG_BASE,
-                      border_width=12)
+                      mouseover_colors=theme.BG_BUTTON_HOVER,
+                      border_width=theme.BD_PRIMARY)
 
 
 def menu_options() -> list[list]:
@@ -121,7 +113,7 @@ def menu_options() -> list[list]:
 
         [sg.Push(),
          csg.vertical_spacer(theme.scale(350), background_color=theme.BG_BASE),
-            _btn_exit,
+            common.navigation_button('<--', screen_name='-MENU-'),
 
             _btn_save,
             sg.Push(), ]]
@@ -147,7 +139,7 @@ def reset():
 _configuration_layout = [
     [common.screen_title('Configuración', spaced=True,
                          alignment='center')],
-    [csg.vertical_spacer(int(theme.height/12),
+    [csg.vertical_spacer(theme.height//12,
                          background_color=theme.BG_BASE)],
     [sg.Column(menu_options(), background_color=theme.BG_BASE, expand_x=True)],
 ]
