@@ -82,7 +82,7 @@
         "age": 19,
         "gender": "male",
         "preferred_color": "yellow",
-        "preferred_difficulty": "normal",
+        "preferred_difficulty": "insane",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
@@ -122,6 +122,7 @@
                 0
             ],
             "insane": [
+                0,
                 0
             ],
             "custom": [
@@ -156,6 +157,8 @@
                 0,
                 0,
                 84,
+                0,
+                0,
                 0,
                 0,
                 0,

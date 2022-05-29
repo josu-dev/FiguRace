@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 from src import constants as const
 from src.controllers import theme, users_controller as user_ctr
 from src.handlers import observer
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-EDIT-PROFILE-'

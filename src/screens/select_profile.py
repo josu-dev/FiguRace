@@ -3,7 +3,7 @@ import PySimpleGUI as sg
 from src import constants as const, csg, common
 from src.controllers import theme, users_controller as users_ctr
 from src.handlers import observer
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-SELECT-PROFILE-'

@@ -5,7 +5,7 @@ import PySimpleGUI as sg
 from src import constants as const, csg, common
 from src.controllers import theme, cards_controller as cards_ctr, difficulty_controller as difficulty_ctr
 from src.handlers import observer
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-CONFIGURE-GAME-'

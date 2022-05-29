@@ -4,7 +4,7 @@ import PySimpleGUI as sg
 
 from src import constants, csg, common
 from src.controllers import theme, users_controller as users_ctr
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
 from src.handlers.user import User
 
 
@@ -94,7 +94,7 @@ def refresh_rankings() -> None:
 
 screen_layout = [
     [sg.VPush(theme.BG_BASE)],
-    [common.screen_title('score', True)],
+    [common.screen_title('ranking', True)],
     [create_ranking()],
     [csg.vertical_spacer(theme.scale(32), background_color=theme.BG_BASE)],
     [sg.VPush(theme.BG_BASE)],

@@ -1,17 +1,12 @@
-import asyncio
-from operator import imod
-import time
-from tkinter import Scale
-from typing import final
 import PySimpleGUI as sg
-from src.controllers import theme
-from src.assets import icon, black,title_name
-from src.handlers.layout import Screen
-from src import csg
-from src.handlers import observer
-from src import constants
 
-SCREEN_NAME = '-START-SCREEN-'
+from src import constants, csg
+from src.controllers import theme
+from src.handlers import observer
+from src.handlers.screen import Screen
+from src.assets import icon, title_name
+
+SCREEN_NAME = '-INTRODUCTION-'
 SECONDS = 5
 
 _icon = sg.Image(
