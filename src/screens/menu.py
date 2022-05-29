@@ -1,3 +1,4 @@
+from email.mime import image
 import PySimpleGUI as sg
 
 from src import constants as const, common, csg
@@ -5,6 +6,7 @@ from src.controllers import theme
 from src.handlers.layout import Screen
 from src.assets.menu import ic_profile, ic_setting, ic_score
 
+from src.assets import title
 
 SCREEN_NAME = "-MENU-"
 _default_padding = 2
@@ -82,7 +84,14 @@ def reset():
 
 screen_layout = [
     [sg.VPush(theme.BG_BASE)],
-    [common.screen_title('f  i  g  u  r  a  c  e', size=theme.H1_SIZE)],
+    # [common.screen_title('f  i  g  u  r  a  c  e', size=theme.H1_SIZE)],
+    [sg.Image(
+        data=title.source,
+        size=(theme.scale(1080),theme.scale(128)),
+        subsample=title.size//theme.scale(800),
+        background_color=theme.BG_BASE,
+        pad=theme.scale(48)
+    )],
     [menu_options()],
     [sg.VPush(theme.BG_BASE)],
 ]
