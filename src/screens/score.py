@@ -12,14 +12,6 @@ SCREEN_NAME = '-SCORE-'
 HISTORIAL_SIZE = 20
 
 
-def create_summary() -> sg.Column:
-    return sg.Column([[]])
-
-
-def refresh_summary() -> None:
-    pass
-
-
 rankings: dict[str, sg.Multiline] = {
     'easy': Any,
     'normal': Any,
@@ -100,43 +92,18 @@ def refresh_rankings() -> None:
         rankings[difficulty].update(rank_content(all_scores))
 
 
-def navigation_button(text: str, key: str) -> sg.Button:
-    return sg.Button(
-        text,
-        key=key,
-        font=(theme.FONT_FAMILY, theme.T1_SIZE),
-        button_color=(
-            theme.TEXT_BUTTON,
-            theme.BG_BUTTON
-        ),
-        mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=theme.BD_SECONDARY,
-    )
-
-
-def create_nav_buttons() -> sg.Column:
-    return (
-        csg.HorizontalList(
-            background_color=theme.BG_BASE,
-            element_justification='center'
-        )
-        .add([
-            navigation_button('MENU', f'{constants.GOTO_VIEW} -MENU-'),
-            navigation_button('VOLVER A JUGAR',
-                              f'{constants.GOTO_VIEW} -GAME-'),
-            navigation_button(
-                'NUEVO JUEGO', f'{constants.GOTO_VIEW} -CONFIGURE-GAME-')
-        ])
-        .pack()
-    )
-
-
 screen_layout = [
+    [sg.VPush(theme.BG_BASE)],
     [common.screen_title('score', True)],
-    [create_summary()],
     [create_ranking()],
     [csg.vertical_spacer(theme.scale(32), background_color=theme.BG_BASE)],
-    [create_nav_buttons()]
+    [sg.VPush(theme.BG_BASE)],
+    [
+        common.navigation_button(
+            'Menu Principal', '-MENU-', padding=(theme.scale(64), theme.scale(64))
+        ),
+        sg.Push(theme.BG_BASE)
+    ],
 ]
 
 screen_config = {
@@ -146,7 +113,6 @@ screen_config = {
 
 
 def reset():
-    refresh_summary()
     refresh_rankings()
 
 

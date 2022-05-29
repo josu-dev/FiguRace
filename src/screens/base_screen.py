@@ -1,7 +1,6 @@
 import PySimpleGUI as sg
 
 from src import constants, csg, common
-
 from src.controllers import theme
 from src.handlers import observer
 from src.handlers.layout import Screen

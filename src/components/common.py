@@ -11,7 +11,7 @@ from . import custom_sg as csg
 ImageFile = Any
 
 
-def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, size:int = theme.H2_SIZE, padding : int = 0) -> sg.Text:
+def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, size: int = theme.H2_SIZE, padding: int = 0) -> sg.Text:
     if upper:
         title = title.upper()
     if spaced:
@@ -23,20 +23,25 @@ def screen_title(title: str, spaced: bool = False, alignment: str = 'center', up
         text_color=theme.TEXT_ACCENT,
         font=(theme.FONT_FAMILY, size),
         justification=alignment,
-        pad= padding if padding else (size//3)*2,
+        pad=padding if padding else (size//3)*2,
         expand_x=True
     )
 
-def navigation_button(text: str,screen_name:str, padding: int = 0) -> sg.Button:
+
+def navigation_button(text: str, screen_name: str, font_size: int = theme.H4_SIZE, padding: tuple[int, int] = (0,0)) -> sg.Button:
     return sg.Button(
         text,
         key=f'{constants.GOTO_VIEW} {screen_name}',
-        auto_size_button=True,
-        button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-        pad=padding if padding else (theme.H3_SIZE//3)*2,
+        font=(theme.FONT_FAMILY, font_size),
+        button_color=(
+            theme.TEXT_BUTTON,
+            theme.BG_BUTTON
+        ),
         mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=theme.BD_PRIMARY
+        border_width=theme.BD_PRIMARY,
+        pad=padding
     )
+
 
 def goback_button(text: str = 'Volver', border: int = 8, padding: int = 0) -> sg.Button:
     return sg.Button(
@@ -50,7 +55,7 @@ def goback_button(text: str = 'Volver', border: int = 8, padding: int = 0) -> sg
     )
 
 
-def image_button(image: ImageFile, size: tuple[int,int], key: str, border: int = theme.BD_PRIMARY, padding: int = 0) -> sg.Button:
+def image_button(image: ImageFile, size: tuple[int, int], key: str, border: int = theme.BD_PRIMARY, padding: int = 0) -> sg.Button:
     return sg.Button(
         key=key,
         image_size=size,

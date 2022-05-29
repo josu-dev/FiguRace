@@ -1,11 +1,10 @@
 import PySimpleGUI as sg
 
 from src import constants as const, csg, common
-
 from src.controllers import theme, users_controller as users_ctr
 from src.handlers import observer
 from src.handlers.layout import Screen
-from src.assets.users import *
+
 
 SCREEN_NAME = '-SELECT-PROFILE-'
 EVENT_CREATE_PROFILE = '-CREATE-PROFILE-'
@@ -13,6 +12,7 @@ EVENT_REMOVE_PROFILE = '-REMOVE-PROFILE-'
 EVENT_EDIT_PROFILE = '-EDIT-PROFILE-'
 EVENT_ADD_PROFILE = '-ADD-PROFILE-'
 LOAD_USER_FIELD = '-LOAD-FIELD-'
+
 
 _play_button = sg.Button('-<-Jugar->-',
                             key=f'{const.GOTO_VIEW} -MENU-',
@@ -37,7 +37,6 @@ _user_list = sg.Listbox(values=users_ctr.users_transform(lambda user: user.nick)
                         highlight_background_color=theme.BG_PRIMARY,
                         text_color=theme.TEXT_PRIMARY,
                         highlight_text_color=theme.TEXT_PRIMARY,
-                        sbar_width=theme.BD_ACCENT,
                         font=(theme.FONT_FAMILY, theme.H3_SIZE),
                         enable_events=True,
                         key='-ENABLE-',
@@ -223,10 +222,11 @@ def reset_select_user ():
     _current_user.update('Seleccionado: ')
 
 def save_data():
-    users_ctr.add(_input_nick.get(),
-                  int(_input_age.get()),
-                  _input_gender.get()
-                  )
+    users_ctr.add(
+        _input_nick.get(),
+        int(_input_age.get()),
+        _input_gender.get()
+    )
     reset_formulary()
     update_user_list()
 

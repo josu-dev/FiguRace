@@ -1,11 +1,11 @@
-from src import constants
-from src.handlers import observer
-from src.handlers.card import CardController
-from src.handlers.difficulty import DifficultyController
-from src.handlers.user import UsersController
-from src.handlers.setting import SettingsController
-from src.handlers.theme import ThemeController
-from src.handlers.run import RunController
+from . import constants
+from .handlers import observer
+from .handlers.card import CardController
+from .handlers.difficulty import DifficultyController
+from .handlers.user import UsersController
+from .handlers.setting import SettingsController
+from .handlers.theme import ThemeController
+from .handlers.run import RunController
 
 
 settings_controller = SettingsController(constants.PATH_SETTINGS)

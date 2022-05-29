@@ -242,7 +242,7 @@ def finish_game() -> None:
     users_ctr.current_user.update_score(
         users_ctr.current_user.preferred_difficulty, total_score
     )
-    observer.post_event(constants.GOTO_VIEW, '-SCORE-')
+    observer.post_event(constants.GOTO_VIEW, '-RESULT-')
 
 
 run_ctr.registry_event('end_run', finish_game)

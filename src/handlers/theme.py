@@ -54,6 +54,7 @@ class Theme:
         self.H1_SIZE = apply_scale(definition['F_SIZE_H1'])
         self.H2_SIZE = apply_scale(definition['F_SIZE_H2'])
         self.H3_SIZE = apply_scale(definition['F_SIZE_H3'])
+        self.H4_SIZE = apply_scale(definition['F_SIZE_H4'])
         self.T1_SIZE = apply_scale(definition['F_SIZE_T1'])
         self.T2_SIZE = apply_scale(definition['F_SIZE_T2'])
         self.T3_SIZE = apply_scale(definition['F_SIZE_T3'])
