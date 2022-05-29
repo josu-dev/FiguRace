@@ -197,7 +197,7 @@
         "age": 12,
         "gender": "asdasd",
         "preferred_color": "#000000",
-        "preferred_difficulty": "easy",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
@@ -208,6 +208,7 @@
         "scores": {
             "easy": [],
             "normal": [
+                0,
                 0,
                 0
             ],

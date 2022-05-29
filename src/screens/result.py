@@ -1,5 +1,3 @@
-from typing import Any
-
 import PySimpleGUI as sg
 
 from src import csg, common
@@ -10,17 +8,7 @@ from src.handlers.screen import Screen
 SCREEN_NAME = '-RESULT-'
 FIELD_MAX_CHARACTERS = 32
 
-summary: dict[str, sg.Text] = {
-    'total_points': Any,
-    'total_rounds': Any,
-    'rounds_complete': Any,
-    'rounds_skiped': Any,
-    'rounds_winned': Any,
-    'rounds_loosed': Any,
-    'total_time': Any,
-    'average_time': Any,
-    'total_tryes': Any
-}
+summary: dict[str, sg.Text] = {}
 
 
 def create_stat_type(text: str, width: int | None = None) -> sg.Text:

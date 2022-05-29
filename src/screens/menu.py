@@ -53,7 +53,7 @@ def menu_options() -> sg.Column:
                 ic_score,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_VIEW} -SCORE-'
+                key=f'{const.GOTO_VIEW} -RANKING-'
             )
         ],
         [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
