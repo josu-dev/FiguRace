@@ -43,8 +43,8 @@ _user_list = sg.Listbox(values=users_ctr.users_transform(lambda user: user.nick)
                         )
 
 _select_profile_layout = [
-    [_user_list],
-    [_current_user]
+    [_current_user],
+    [_user_list]
 ]
 
 
@@ -52,7 +52,6 @@ screen_layout = [
     [
         common.screen_title('Seleccionar perfiles', alignment='center')
     ],
-
     [
         sg.Column(_select_profile_layout,
                   background_color=theme.BG_BASE,
@@ -60,15 +59,7 @@ screen_layout = [
                   justification='left',
                   expand_y=True,
                   expand_x=True,
-                  pad=theme.scale(10)
-                  ),
-        sg.Column([[sg.Text('Rehacer')], [common.navigation_button('Crear','-CREATE-USER-')]],
-                  background_color=theme.BG_BASE,
-                  element_justification='center',
-                  justification='rigth',
-                  pad=theme.scale(10)
-                  #   expand_y=True,
-                  #   expand_x=True,
+                  pad=theme.scale(40)
                   )
     ],
     [
@@ -76,7 +67,10 @@ screen_layout = [
             _play_button,
             horizontal_only=True,
             background_color=theme.BG_BASE
-        ),
+        )
+    ],
+    [
+        common.navigation_button('Crear', '-CREATE-USER-',)
     ]
 ]
 
@@ -107,6 +101,7 @@ def reset():
 
 screen_config = {
     'background_color': theme.BG_BASE,
+    'element_justification': 'rigth'
 }
 
 screen = Screen(
