@@ -32,7 +32,8 @@ _black = sg.Button(
                   border_width=0,
                   image_data=icon.source,
                   image_size=(theme.scale(300),theme.scale(300)),
-                  image_subsample=(icon.size // theme.scale(300))
+                  image_subsample=(icon.size // theme.scale(300)),
+                  mouseover_colors='black'
                   )
 
 screen_layout = [
