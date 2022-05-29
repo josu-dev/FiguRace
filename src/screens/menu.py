@@ -1,12 +1,11 @@
-from email.mime import image
 import PySimpleGUI as sg
 
 from src import constants as const, common, csg
 from src.controllers import theme
 from src.handlers.screen import Screen
 from src.assets.menu import ic_profile, ic_setting, ic_score
-
 from src.assets import title
+
 
 SCREEN_NAME = "-MENU-"
 _default_padding = 2

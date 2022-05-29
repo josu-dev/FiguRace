@@ -144,13 +144,13 @@
         "age": 9,
         "gender": "Helicoptero",
         "preferred_color": "#000000",
-        "preferred_difficulty": "normal",
+        "preferred_difficulty": "custom",
         "custom_difficulty": {
-            "time_per_round": 300,
-            "rounds_per_game": 3,
-            "points_correct_answer": 50,
-            "points_bad_answer": 1,
-            "characteristics_shown": 5
+            "time_per_round": 50,
+            "rounds_per_game": 10,
+            "points_correct_answer": 12,
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
         },
         "scores": {
             "easy": [
@@ -213,6 +213,7 @@
         "scores": {
             "easy": [],
             "normal": [
+                0,
                 0,
                 0,
                 0,
