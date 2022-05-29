@@ -3,7 +3,7 @@
 
 ## Primer entrega
 
-[ ] Implementación de un Jupyter Notebook que permita convertir los datasets originales con datos del juego (por ejemplo características de formaciones geológicas) en archivos CSV que alimentarán al juego con las opciones para las tarjetas. Ver Anexo II donde se detallan las modificaciones necesarias para cada uno.
+[X] Implementación de un Jupyter Notebook que permita convertir los datasets originales con datos del juego (por ejemplo características de formaciones geológicas) en archivos CSV que alimentarán al juego con las opciones para las tarjetas. Ver Anexo II donde se detallan las modificaciones necesarias para cada uno.
 
 [X] El resto de las pantallas deberán tener la funcionalidad mínima para permitir navegar entre ellas:
 
@@ -20,11 +20,11 @@
 
 [X] Implementación de la interfaz de todas las pantallas. A modo prototipo todas las ventanas deberán tener los widgets (botones, campos de texto, gráficos, etc…) necesarios para la realización del trabajo (pantallas descritas en el Anexo I).
 
-[ ] La pantalla de creación/edición de perfil deberá almacenar/cargar los datos en/desde un archivo JSON (detalles en Anexo I - (c) Pantalla de creación/edición de perfil).
+[X] La pantalla de creación/edición de perfil deberá almacenar/cargar los datos en/desde un archivo JSON (detalles en Anexo I - (c) Pantalla de creación/edición de perfil).
     
 [X] La “Pantalla de configuración” deberá almacenar/cargar los datos desde un archivo JSON. Se requiere la configuración de al menos 3 niveles (detalles en Anexo I - (e) Pantalla de configuración).
 
-[ ] Se deberán implementar las funcionalidades de las “Pantalla de configuración” y creación/edición de perfil.
+[X] Se deberán implementar las funcionalidades de las “Pantalla de configuración” y creación/edición de perfil.
 
 <br>
 
