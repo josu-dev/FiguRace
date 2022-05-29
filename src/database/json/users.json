@@ -143,7 +143,7 @@
         "age": 9,
         "gender": "Helicoptero",
         "preferred_color": "#000000",
-        "preferred_difficulty": "easy",
+        "preferred_difficulty": "custom",
         "custom_difficulty": {
             "time_per_round": 300,
             "rounds_per_game": 3,
@@ -159,7 +159,8 @@
                 0,
                 100,
                 30,
-                10
+                10,
+                0
             ],
             "normal": [
                 0,
@@ -190,6 +191,7 @@
             ],
             "custom": [
                 152,
+                0,
                 0
             ]
         }
@@ -199,7 +201,7 @@
         "age": 12,
         "gender": "asdasd",
         "preferred_color": "#000000",
-        "preferred_difficulty": "easy",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
