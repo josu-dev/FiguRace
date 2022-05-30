@@ -27,6 +27,8 @@
         "BG_BUTTON": "#6FC5FF",
         "BG_BUTTON_HOVER": "#5A9ECC",
         "F_C_BUTTON": "#243F50",
-        "F_C_BUTTON_HOVER": "#37576B"
+        "F_C_BUTTON_HOVER": "#37576B",
+
+        "BG_POPUP": "#178EBC"
     }
 }

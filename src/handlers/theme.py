@@ -33,6 +33,8 @@ class Theme:
         self.BG_PRIMARY = definition['BG_PRIMARY']
         self.BG_SECONDARY = definition['BG_SECONDARY']
 
+        self.BG_POPUP = definition['BG_POPUP']
+        
         self.BG_BUTTON = definition['BG_BUTTON']
         self.BG_BUTTON_HOVER = definition['BG_BUTTON_HOVER']
 
