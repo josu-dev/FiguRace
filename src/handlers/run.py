@@ -23,7 +23,7 @@ class Round:
     def reset(self, card: Card) -> None:
         self._card = card
         self._tryes = 0
-        self._max_tryes = len(card.hints)
+        self._max_tryes = len(card.hints) -1
         self._hints_quantity = self._settings.characteristics_shown
         self._hints = self._card.hints[0:self._hints_quantity]
         self._score = 0

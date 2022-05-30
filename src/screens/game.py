@@ -52,21 +52,25 @@ def create_run_state() -> sg.Column:
     run_state['difficulty'] = sg.Text(
         constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty],
         font=(theme.FONT_FAMILY, theme.H3_SIZE),
+        background_color=theme.BG_SECONDARY
     )
     run_state['time'] = sg.Text(
         f'00:30',
         font=(theme.FONT_FAMILY, theme.T1_SIZE),
+        background_color=theme.BG_SECONDARY
     )
     run_state['user'] = sg.Text(
         users_ctr.current_user.nick,
         font=(theme.FONT_FAMILY, theme.T1_SIZE),
+        background_color=theme.BG_SECONDARY,
         size=24,
         justification='center'
     )
     run_state['rounds'] = [
         sg.Text(
             f' {i+1:<2} - ',
-            font=(theme.FONT_FAMILY, theme.T2_SIZE)
+            font=(theme.FONT_FAMILY, theme.T2_SIZE),
+            background_color=theme.BG_SECONDARY
         ) for i in range(run_ctr.max_rounds)
     ]
     layout = [
@@ -107,10 +111,10 @@ def create_option_button(text: str, key: str) -> sg.Button:
         text,
         key=key,
         font=(theme.FONT_FAMILY, theme.scale(20)),
-        button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON),
+        button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
         mouseover_colors=theme.BG_BUTTON_HOVER,
         border_width=theme.BD_SECONDARY,
-        disabled_button_color=(theme.TEXT_PRIMARY,theme.BG_ERROR_SOFT),
+        disabled_button_color=(theme.TEXT_PRIMARY, theme.BG_ERROR_SOFT),
         expand_x=True
     )
 
@@ -122,6 +126,8 @@ def create_card() -> sg.Column:
     card['type'] = sg.Text(
         constants.DATASET_TO_ES[run_ctr.dataset_type],
         font=(theme.FONT_FAMILY, theme.H2_SIZE),
+        text_color=theme.TEXT_ACCENT,
+        background_color=theme.BG_BASE
     )
     card['data'] = run_ctr.options
     characteristics = run_ctr.hints_types
@@ -129,11 +135,15 @@ def create_card() -> sg.Column:
         [
             sg.Text(
                 characteristic,
-                font=(theme.FONT_FAMILY, theme.T1_SIZE)
+                font=(theme.FONT_FAMILY, theme.T1_SIZE),
+                text_color=theme.TEXT_PRIMARY,
+                background_color=theme.BG_BASE
             ),
             sg.Text(
                 'no loaded',
-                font=(theme.FONT_FAMILY, theme.T1_SIZE)
+                font=(theme.FONT_FAMILY, theme.T1_SIZE),
+                text_color=theme.TEXT_PRIMARY,
+                background_color=theme.BG_BASE
             ),
         ] for characteristic in characteristics
     ]
@@ -144,18 +154,22 @@ def create_card() -> sg.Column:
         ) for i, text in enumerate(card['data'])
     ]
     card['selected'] = -1
-    card['confirm_button'] = create_button('Confirmar', f'{CONFIRM_SELECTED_OPTION}')
+    card['confirm_button'] = create_button(
+        'Confirmar', f'{CONFIRM_SELECTED_OPTION}')
     layout = [
         [card['type']],
         *[hint for hint in card['hints']],
         *[[button] for button in card['options']],
+        [csg.vertical_spacer(theme.scale(16),background_color=theme.BG_BASE)],
         [
             card['confirm_button'],
+            sg.Push(theme.BG_BASE),
             create_button('Pasar', f'{SKIP_CARD}')
         ]
     ]
     return sg.Column(
-        layout
+        layout,
+        background_color=theme.BG_BASE
     )
 
 
@@ -174,18 +188,23 @@ run_ctr.registry_event('bad_option', refresh_card)
 
 def current_answer(index: str) -> None:
     if card['selected'] >= 0:
-        card['options'][card['selected']].update(button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON))
+        card['options'][card['selected']].update(
+            button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON))
     card['selected'] = int(index)
-    card['options'][card['selected']].update(button_color=(theme.TEXT_BUTTON,theme.BG_SECONDARY))
-    card['confirm_button'].update(disabled=False, button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON))
+    card['options'][card['selected']].update(
+        button_color=(theme.TEXT_BUTTON, theme.BG_SECONDARY))
+    card['confirm_button'].update(
+        disabled=False, button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON))
 
 
 observer.subscribe(SELECT_OPTION, current_answer)
 
 
 def new_answer() -> None:
-    card['confirm_button'].update(disabled=True,button_color=(theme.TEXT_BUTTON_DISABLED,theme.BG_BUTTON_DISABLED))
-    card['options'][card['selected']].update(disabled=True,button_color=(theme.TEXT_PRIMARY,theme.BG_ERROR_SOFT))
+    card['confirm_button'].update(disabled=True, button_color=(
+        theme.TEXT_BUTTON_DISABLED, theme.BG_BUTTON_DISABLED))
+    card['options'][card['selected']].update(
+        disabled=True, button_color=(theme.TEXT_PRIMARY, theme.BG_ERROR_SOFT))
     run_ctr.new_answer(card['data'][card['selected']])
     card['selected'] = -1
 
@@ -207,10 +226,12 @@ def reset_card() -> None:
             row[1].update('')
 
     for option, content in zip(card['options'], card['data']):
-        option.update(content, disabled=False, button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON))
+        option.update(content, disabled=False, button_color=(
+            theme.TEXT_BUTTON, theme.BG_BUTTON))
 
     card['selected'] = -1
-    card['confirm_button'].update(disabled=True,button_color=(theme.TEXT_BUTTON_DISABLED,theme.BG_BUTTON_DISABLED))
+    card['confirm_button'].update(disabled=True, button_color=(
+        theme.TEXT_BUTTON_DISABLED, theme.BG_BUTTON_DISABLED))
 
 
 def end_round() -> None:
@@ -222,17 +243,15 @@ run_ctr.registry_event('win_round', end_round)
 run_ctr.registry_event('loose_round', end_round)
 
 
-def create_leave_button() -> sg.Button:
+def create_leave_button()-> sg.Button:
     return sg.Button(
         'Abandonar partida',
         key=f'{END_RUN}',
-        font=(theme.FONT_FAMILY, 24),
-        button_color=(
-            theme.TEXT_BUTTON,
-            theme.BG_BUTTON
-        ),
+        font=(theme.FONT_FAMILY, theme.T1_SIZE),
+        button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON),
         mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=12,
+        border_width=theme.BD_PRIMARY,
+        pad=(0,0)
     )
 
 
@@ -268,10 +287,6 @@ screen_layout = [
             create_run_state(),
             background_color=theme.BG_BASE
         ),
-        # csg.CenteredElement(
-        #     create_card(),
-        #     background_color=theme.BG_BASE
-        # ),
         create_card(),
         sg.Push(theme.BG_BASE)
     ],
@@ -279,17 +294,17 @@ screen_layout = [
     [sg.VPush(theme.BG_BASE)]
 ]
 
+screen_config = {
+    'background_color': theme.BG_BASE,
+    'element_justification': 'center',
+}
+
 
 def reset() -> None:
     run_ctr.reset()
     reset_run_state()
     reset_card()
 
-
-screen_config = {
-    'background_color': theme.BG_BASE,
-    'element_justification': 'center',
-}
 
 screen = Screen(
     SCREEN_NAME,

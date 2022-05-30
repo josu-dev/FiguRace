@@ -27,6 +27,17 @@
                 0,
                 0,
                 0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                32,
+                -8,
+                0,
+                0,
+                0,
                 0
             ],
             "hard": [
@@ -50,7 +61,7 @@
         "age": "23",
         "gender": "2",
         "preferred_color": "green",
-        "preferred_difficulty": "insane",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 15,
             "rounds_per_game": 3,
@@ -70,6 +81,7 @@
             ],
             "normal": [
                 65,
+                0,
                 0,
                 0,
                 0,
@@ -128,9 +140,9 @@
                 0,
                 0,
                 0,
-                0,
                 38,
                 18,
+                0,
                 0,
                 0
             ],
@@ -189,9 +201,9 @@
                 0,
                 0,
                 0,
-                0,
-                0,
                 10,
+                0,
+                0,
                 0,
                 0
             ],
