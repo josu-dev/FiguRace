@@ -107,12 +107,10 @@ def create_option_button(text: str, key: str) -> sg.Button:
         text,
         key=key,
         font=(theme.FONT_FAMILY, theme.scale(20)),
-        button_color=(
-            theme.TEXT_BUTTON,
-            theme.BG_BUTTON
-        ),
+        button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON),
         mouseover_colors=theme.BG_BUTTON_HOVER,
         border_width=theme.BD_SECONDARY,
+        disabled_button_color=(theme.TEXT_PRIMARY,theme.BG_ERROR_SOFT),
         expand_x=True
     )
 
@@ -176,19 +174,20 @@ run_ctr.registry_event('bad_option', refresh_card)
 
 def current_answer(index: str) -> None:
     if card['selected'] >= 0:
-        card['options'][card['selected']].update(button_color=theme.BG_BUTTON)
+        card['options'][card['selected']].update(button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON))
     card['selected'] = int(index)
-    card['options'][card['selected']].update(button_color='red')
-    card['confirm_button'].update(disabled=False)
+    card['options'][card['selected']].update(button_color=(theme.TEXT_BUTTON,theme.BG_SECONDARY))
+    card['confirm_button'].update(disabled=False, button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON))
 
 
 observer.subscribe(SELECT_OPTION, current_answer)
 
 
 def new_answer() -> None:
-    card['confirm_button'].update(disabled=True)
-    card['options'][card['selected']].update(disabled=True)
+    card['confirm_button'].update(disabled=True,button_color=(theme.TEXT_BUTTON_DISABLED,theme.BG_BUTTON_DISABLED))
+    card['options'][card['selected']].update(disabled=True,button_color=(theme.TEXT_PRIMARY,theme.BG_ERROR_SOFT))
     run_ctr.new_answer(card['data'][card['selected']])
+    card['selected'] = -1
 
 
 observer.subscribe(CONFIRM_SELECTED_OPTION, new_answer)
@@ -208,10 +207,10 @@ def reset_card() -> None:
             row[1].update('')
 
     for option, content in zip(card['options'], card['data']):
-        option.update(content, disabled=False, button_color=theme.BG_BUTTON)
+        option.update(content, disabled=False, button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON))
 
     card['selected'] = -1
-    card['confirm_button'].update(disabled=True)
+    card['confirm_button'].update(disabled=True,button_color=(theme.TEXT_BUTTON_DISABLED,theme.BG_BUTTON_DISABLED))
 
 
 def end_round() -> None:

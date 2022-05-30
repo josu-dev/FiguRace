@@ -65,14 +65,14 @@ class VerticalList(ChainedElement):
         return sg.Column(self._container, **self._config)
 
 
-def CenteredElement(element: Element, horizontal_only : bool = False,**column_parameters: Any) -> sg.Column:
+def CenteredElement(element: Element, horizontal_only: bool = False, **column_parameters: Any) -> sg.Column:
     column_parameters['element_justification'] = 'center'
     column_parameters['expand_y'] = not horizontal_only
     column_parameters['expand_x'] = True
     background_color = column_parameters.get('background_color', None)
-    if horizontal_only:  
+    if horizontal_only:
         return sg.Column(
-            [   
+            [
                 [element]
             ],
             **column_parameters
@@ -87,12 +87,12 @@ def CenteredElement(element: Element, horizontal_only : bool = False,**column_pa
     )
 
 
-def CenteredLayout(layout: FullLayout, horizontal_only : bool = False,**column_parameters: Any) -> sg.Column:
+def CenteredLayout(layout: FullLayout, horizontal_only: bool = False, **column_parameters: Any) -> sg.Column:
     column_parameters['element_justification'] = 'center'
     column_parameters['expand_y'] = not horizontal_only
     column_parameters['expand_x'] = True
     background_color = column_parameters.get('background_color', None)
-    if horizontal_only:  
+    if horizontal_only:
         return sg.Column(
             layout,
             **column_parameters
@@ -108,32 +108,27 @@ def CenteredLayout(layout: FullLayout, horizontal_only : bool = False,**column_p
 
 
 def horizontal_spacer(width: int, background_color: str | None = None) -> sg.Column:
-    return sg.Column([[]], size=(width,0), background_color=background_color)
+    return sg.Column([[]], size=(width, 0), background_color=background_color)
 
 
 def vertical_spacer(height: int, background_color: str | None = None) -> sg.Column:
     return sg.Column([[]], size=(0, height), background_color=background_color)
 
 
-def custom_popup(
-    layout:list[list[Any]], close_keys: list[str],
-    background_color :str | None= None
-) -> str:
+def custom_popup(layout: FullLayout, close_keys: list[str], background_color: str | None = None, duration: int | None= None) -> str:
     window = sg.Window(
-        '',
-        layout, 
-        background_color=background_color,
-        no_titlebar=True,
-        keep_on_top=True,
-        finalize=True,
-        margins=(0,0),
-        resizable=False, 
-        modal=True
+        '', layout, background_color=background_color,
+        no_titlebar=True, keep_on_top=True, finalize=True,
+        margins=(0, 0), resizable=False, modal=True
     )
+    
     while True:
-        event, _ = window.read()
-        if event is None or event in close_keys:
-            window.close()
-            if event is None:
-                event = constants.EXIT_APLICATION
-            return event
+        event, _ = window.read(timeout=duration, timeout_key='-TIME-OUT-')
+        if event is None or event == '-TIME-OUT-':
+            event = constants.EXIT_APLICATION
+            break
+        if event in close_keys:
+            break
+
+    window.close()
+    return event

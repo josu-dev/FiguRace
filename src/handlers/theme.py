@@ -36,6 +36,7 @@ class Theme:
         self.BG_POPUP = definition['BG_POPUP']
         
         self.BG_BUTTON = definition['BG_BUTTON']
+        self.BG_BUTTON_DISABLED = definition['BG_BUTTON_DISABLED']
         self.BG_BUTTON_HOVER = definition['BG_BUTTON_HOVER']
 
         self.TEXT_ACCENT = definition['F_C_ACCENT']
@@ -43,6 +44,7 @@ class Theme:
         self.TEXT_SECONDARY = definition['F_C_SECONDARY']
 
         self.TEXT_BUTTON = definition['F_C_BUTTON']
+        self.TEXT_BUTTON_DISABLED = definition['F_C_BUTTON_DISABLED']
         self.TEXT_BUTTON_HOVER = definition['F_C_BUTTON_HOVER']
 
         self.BD_ACCENT = apply_scale(definition['BD_ACCENT'])
@@ -60,6 +62,10 @@ class Theme:
         self.T1_SIZE = apply_scale(definition['F_SIZE_T1'])
         self.T2_SIZE = apply_scale(definition['F_SIZE_T2'])
         self.T3_SIZE = apply_scale(definition['F_SIZE_T3'])
+
+        self.BG_ERROR_ACCENT = definition['ERROR_BG_ACCENT']
+        self.BG_ERROR_NORMAL = definition['ERROR_BG_NORMAL']
+        self.BG_ERROR_SOFT = definition['ERROR_BG_SOFT']
 
     @property
     def height(self):
