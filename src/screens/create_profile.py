@@ -8,7 +8,7 @@ from src.handlers import observer
 from src.handlers.screen import Screen
 
 
-SCREEN_NAME = '-CREATE-USER-'
+SCREEN_NAME = '-CREATE-PROFILE-'
 LOAD_USER_FIELD = '-LOAD-USER-FIELD-'
 EVENT_ADD_PROFILE = '-ADD-PROFILE-'
 
@@ -171,7 +171,7 @@ observer.subscribe(EVENT_ADD_PROFILE, create_user)
 
 
 screen_layout = [
-    [common.screen_title('crear usuario', True)],
+    [common.screen_title('crear perfil', True)],
     [create_formulary()],
     [common.goback_button('Menu Selección', padding=(theme.scale(64),)*2)],
 ]

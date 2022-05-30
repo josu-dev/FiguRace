@@ -72,7 +72,7 @@ _button_layout = [
     [
         common.navigation_button(
             'Crear',
-            '-CREATE-USER-',
+            '-CREATE-PROFILE-',
             border=theme.BD_ACCENT,
             padding=(theme.scale(30),)*2,
         )
