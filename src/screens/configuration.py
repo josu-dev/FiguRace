@@ -128,7 +128,7 @@ _btn_edit = sg.Button(
     key='-EDIT-USER-',
     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
     mouseover_colors=theme.BG_BUTTON_HOVER,
-    font=_font,
+    font=(theme.FONT_FAMILY,theme.T1_SIZE),
     border_width=theme.BD_ACCENT
 )
 
@@ -137,10 +137,10 @@ def header() -> list:
     return [
         csg.horizontal_spacer(_padding,
                               background_color=theme.BG_BASE),
-        sg.Text('DIFICULTAD PERSONALIZADA', pad=((50, 0), (50, 0)),
+        sg.Text('DIFICULTAD PERSONALIZADA', pad=((50, 0), (20, 0)),
                 background_color=theme.BG_BASE, font=('System', theme.H3_SIZE)),
         sg.Push(background_color=theme.BG_BASE),
-        sg.Text('EDITAR USUARIO', pad=((50, 0), (50, 0)),
+        sg.Text('EDITAR USUARIO', pad=((50, 0), (20, 0)),
                 background_color=theme.BG_BASE, font=('System', theme.H3_SIZE)),
         csg.horizontal_spacer(_padding,
                               background_color=theme.BG_BASE)

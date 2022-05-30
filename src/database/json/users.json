@@ -42,7 +42,7 @@
         "age": "23",
         "gender": "2",
         "preferred_color": "green",
-        "preferred_difficulty": "normal",
+        "preferred_difficulty": "insane",
         "custom_difficulty": {
             "time_per_round": 15,
             "rounds_per_game": 3,
@@ -75,7 +75,9 @@
                 10,
                 3
             ],
-            "insane": [],
+            "insane": [
+                20
+            ],
             "custom": [
                 45,
                 100,
@@ -144,7 +146,7 @@
         "age": 9,
         "gender": "Helicoptero",
         "preferred_color": "#000000",
-        "preferred_difficulty": "normal",
+        "preferred_difficulty": "custom",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
