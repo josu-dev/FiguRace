@@ -122,7 +122,7 @@ def custom_popup(
     window = sg.Window(
         '', layout, background_color=background_color,
         no_titlebar=True, keep_on_top=True, finalize=True,
-        margins=(0,0), resizable=False
+        margins=(0,0), resizable=False, modal=True
     )
     while True:
         event, _ = window.read()
