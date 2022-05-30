@@ -1,3 +1,4 @@
+from os import remove
 import PySimpleGUI as sg
 
 from src import constants as const, csg, common
@@ -20,7 +21,8 @@ _play_button = sg.Button('-<-Jugar->-',
                          button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                          mouseover_colors=theme.BG_BUTTON_HOVER,
                          font=(theme.FONT_FAMILY, theme.T1_SIZE),
-                         disabled=True
+                         disabled=True,
+                         pad=(theme.scale(100), 10)
                          )
 
 _current_user = sg.Text('Seleccionado:',
@@ -42,12 +44,47 @@ _user_list = sg.Listbox(values=users_ctr.users_transform(lambda user: user.nick)
                         key='-ENABLE-',
                         )
 
+_remove_button = sg.Button(
+    button_text='Eliminar',
+    key='-REMOVE-PROFILE-',
+    border_width=theme.BD_ACCENT,
+    button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
+    mouseover_colors=theme.BG_BUTTON_HOVER,
+    font=(theme.FONT_FAMILY, theme.T1_SIZE),
+    disabled=True,
+    pad=theme.scale(30),
+    enable_events=True
+)
+
+
 _select_profile_layout = [
     [_current_user],
     [_user_list]
 ]
 
+_edit_button = common.navigation_button(
+    'Editar',
+    '-CONFIGURATION-',
+    border=theme.BD_ACCENT,
+    padding=(theme.scale(30),)*2
+)
 
+_button_layout = [
+    [
+        _remove_button,
+        _edit_button, 
+        common.navigation_button(
+            'Crear',
+            '-CREATE-USER-',
+            border=theme.BD_ACCENT,
+            padding=(theme.scale(30),)*2,
+        )
+    ]
+]
+
+_play_layout = [
+    [_play_button]
+]
 screen_layout = [
     [
         common.screen_title('Seleccionar perfiles', alignment='center')
@@ -62,21 +99,26 @@ screen_layout = [
                   pad=theme.scale(40)
                   )
     ],
-    [
-        csg.CenteredElement(
-            _play_button,
-            horizontal_only=True,
-            background_color=theme.BG_BASE
-        )
-    ],
-    [
-        common.navigation_button('Crear', '-CREATE-USER-',)
+    [sg.Column(
+        _play_layout,
+        justification='center',
+        expand_x=True,
+        element_justification='rigth',
+        background_color=theme.BG_BASE
+    ),
+        sg.Column(
+            _button_layout,
+        justification='center',
+        element_justification='rigth',
+        background_color=theme.BG_BASE)
     ]
 ]
 
 
 def confirm():
     _play_button.update(disabled=False)
+    _remove_button.update(disabled=False)
+    _edit_button.update(disabled=False)
     _current_user.update(f'Selecionado: {_user_list.get()[0]}', font=(
         theme.FONT_FAMILY, theme.H3_SIZE))
     users_ctr.current_user = _user_list.get()[0]
@@ -91,13 +133,24 @@ def update_user_list():
 
 def reset_select_user():
     _play_button.update(disabled=True)
+    _remove_button.update(disabled=True)
+    _edit_button.update(disabled=True)
     _current_user.update('Seleccionado: ')
 
 
 def reset():
     update_user_list()
     reset_select_user()
+    print('hola')
 
+
+def remove():
+    users_ctr.remove(_user_list.get()[0])
+    print('chau')
+    reset()
+
+
+observer.subscribe('-REMOVE-PROFILE-', remove)
 
 screen_config = {
     'background_color': theme.BG_BASE,

@@ -196,53 +196,5 @@
                 0
             ]
         }
-    },
-    "alkjhdaskld": {
-        "nick": "alkjhdaskld",
-        "age": 12,
-        "gender": "asdasd",
-        "preferred_color": "#000000",
-        "preferred_difficulty": "normal",
-        "custom_difficulty": {
-            "time_per_round": 50,
-            "rounds_per_game": 10,
-            "points_correct_answer": 12,
-            "points_bad_answer": -2,
-            "characteristics_shown": 3
-        },
-        "scores": {
-            "easy": [],
-            "normal": [
-                0,
-                0,
-                0,
-                0,
-                0
-            ],
-            "hard": [],
-            "insane": [],
-            "custom": []
-        }
-    },
-    "dsdd": {
-        "nick": "dsdd",
-        "age": 45,
-        "gender": "7666",
-        "preferred_color": "#000000",
-        "preferred_difficulty": "custom",
-        "custom_difficulty": {
-            "time_per_round": 50,
-            "rounds_per_game": 10,
-            "points_correct_answer": 12,
-            "points_bad_answer": -2,
-            "characteristics_shown": 3
-        },
-        "scores": {
-            "easy": [],
-            "normal": [],
-            "hard": [],
-            "insane": [],
-            "custom": []
-        }
     }
 }
