@@ -56,18 +56,17 @@ _remove_button = sg.Button(
     enable_events=True
 )
 
-
-_select_profile_layout = [
-    [_current_user],
-    [_user_list]
-]
-
 _edit_button = common.navigation_button(
     'Editar',
     '-CONFIGURATION-',
     border=theme.BD_ACCENT,
     padding=(theme.scale(30),)*2
 )
+
+_select_profile_layout = [
+    [_current_user],
+    [_user_list]
+]
 
 _button_layout = [
     [
@@ -90,6 +89,7 @@ _button_layout = [
 _play_layout = [
     [_play_button]
 ]
+
 screen_layout = [
     [
         common.screen_title('Seleccionar perfiles', alignment='center')
@@ -155,8 +155,26 @@ def reset():
     reset_select_user()
 
 
+def _new_popup_layout():
+    return [
+        [sg.Text('¿Deseas eliminar este usuario?', background_color=theme.BG_POPUP, text_color=theme.BG_BASE,
+                 font=(theme.FONT_FAMILY, theme.T2_SIZE))
+         ],
+        [
+            sg.Button(button_text='Cancelar', k='-CANCEL-',
+                      border_width=theme.BD_SECONDARY, pad=theme.scale(20)),
+            sg.Push(background_color=theme.BG_POPUP),
+            sg.Button(button_text='Aceptar', k='-OK-',
+                      border_width=theme.BD_SECONDARY, pad=theme.scale(20)),
+        ]
+    ]
+
+
 def remove():
-    users_ctr.remove(_user_list.get()[0])
+    _popup = csg.custom_popup(_new_popup_layout(), close_keys=[
+                              '-OK-', '-CANCEL-'], background_color=theme.BG_POPUP)
+    if _popup == '-OK-':
+        users_ctr.remove(_user_list.get()[0])
     reset()
 
 
@@ -164,7 +182,7 @@ observer.subscribe('-REMOVE-PROFILE-', remove)
 
 screen_config = {
     'background_color': theme.BG_BASE,
-    'element_justification': 'rigth'
+    'element_justification': 'center'
 }
 
 screen = Screen(
