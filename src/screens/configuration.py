@@ -206,7 +206,7 @@ def menu_options() -> list[list]:
         textv_spacer(),
 
         [csg.vertical_spacer(theme.scale(350), background_color=theme.BG_BASE),
-            common.navigation_button('<--', screen_name='-MENU-'),
+            common.goback_button('<--'),
             csg.horizontal_spacer(theme.scale(
                 200), background_color=theme.BG_BASE),
          _btn_save, ]
