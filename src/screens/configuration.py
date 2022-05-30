@@ -148,7 +148,7 @@ def header() -> list:
 
 
 def textv_spacer() -> list:
-    return [csg.vertical_spacer(theme.height//64, background_color=theme.BG_BASE)]
+    return [csg.vertical_spacer(theme.height//92, background_color=theme.BG_BASE)]
 
 
 def texth_spacer() -> list:
@@ -191,7 +191,6 @@ def menu_options() -> list[list]:
          _input_gender],
         textv_spacer(),
 
-        [csg.vertical_spacer(theme.scale(12), background_color=theme.BG_BASE)],
         [*build_text('Puntos añadidos ', 'Cantidad:  ',
                      _cmb_plus_points),
          texth_spacer(),
@@ -201,12 +200,10 @@ def menu_options() -> list[list]:
          csg.horizontal_spacer(theme.scale(80), background_color=theme.BG_BASE)],
         textv_spacer(),
 
-        [csg.vertical_spacer(theme.scale(12), background_color=theme.BG_BASE)],
         build_text('Puntos restados', 'Cantidad:  ', _cmb_sub_points),
         textv_spacer(),
 
-        [csg.vertical_spacer(theme.scale(350), background_color=theme.BG_BASE),
-            common.goback_button('<--'),
+        [common.goback_button('<--'),
             csg.horizontal_spacer(theme.scale(
                 200), background_color=theme.BG_BASE),
          _btn_save, ]

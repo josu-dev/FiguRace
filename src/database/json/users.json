@@ -144,7 +144,7 @@
         "age": 9,
         "gender": "Helicoptero",
         "preferred_color": "#000000",
-        "preferred_difficulty": "custom",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,

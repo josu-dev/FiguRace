@@ -141,12 +141,10 @@ def reset_select_user():
 def reset():
     update_user_list()
     reset_select_user()
-    print('hola')
 
 
 def remove():
     users_ctr.remove(_user_list.get()[0])
-    print('chau')
     reset()
 
 
