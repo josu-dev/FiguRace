@@ -22,7 +22,7 @@ _play_button = sg.Button('-<-Jugar->-',
                          mouseover_colors=theme.BG_BUTTON_HOVER,
                          font=(theme.FONT_FAMILY, theme.T1_SIZE),
                          disabled=True,
-                         pad=(theme.scale(100), 10)
+                         pad=(theme.scale(100), theme.scale(50))
                          )
 
 _current_user = sg.Text('Seleccionado:',
@@ -71,15 +71,20 @@ _edit_button = common.navigation_button(
 
 _button_layout = [
     [
-        _remove_button,
-        _edit_button, 
         common.navigation_button(
             'Crear',
             '-CREATE-USER-',
             border=theme.BD_ACCENT,
             padding=(theme.scale(30),)*2,
         )
+    ],
+    [
+        _edit_button
+    ],
+    [
+        _remove_button
     ]
+
 ]
 
 _play_layout = [
@@ -90,28 +95,35 @@ screen_layout = [
         common.screen_title('Seleccionar perfiles', alignment='center')
     ],
     [
+        csg.horizontal_spacer(width=theme.scale(
+            500),
+            background_color=theme.BG_BASE
+        ),
         sg.Column(_select_profile_layout,
                   background_color=theme.BG_BASE,
                   element_justification='center',
                   justification='left',
                   expand_y=True,
-                  expand_x=True,
                   pad=theme.scale(40)
-                  )
+                  ),
+        csg.horizontal_spacer(width=theme.scale(
+            200),
+            background_color=theme.BG_BASE
+        ),
+        sg.Column(
+            _button_layout,
+            justification='center',
+            element_justification='center',
+            background_color=theme.BG_BASE)
     ],
     [sg.Column(
         _play_layout,
         justification='center',
         expand_x=True,
-        element_justification='rigth',
+        element_justification='center',
         background_color=theme.BG_BASE
-    ),
-        sg.Column(
-            _button_layout,
-        justification='center',
-        element_justification='rigth',
-        background_color=theme.BG_BASE)
-    ]
+    )
+    ],
 ]
 
 
@@ -141,12 +153,10 @@ def reset_select_user():
 def reset():
     update_user_list()
     reset_select_user()
-    print('hola')
 
 
 def remove():
     users_ctr.remove(_user_list.get()[0])
-    print('chau')
     reset()
 
 
