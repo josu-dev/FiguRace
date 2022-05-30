@@ -11,6 +11,6 @@
         "full_screen": true,
         "starting_page": "-SELECT-PROFILE-",
         "theme": "Blue-Like",
-        "default_user": "Pedro"
+        "default_user": "undefined"
     }
 }

@@ -1,3 +1,5 @@
+from typing import Callable
+
 import PySimpleGUI as sg
 
 from src import csg, common
@@ -9,7 +11,6 @@ from src.handlers.screen import Screen
 SCREEN_NAME = '-CREATE-USER-'
 LOAD_USER_FIELD = '-LOAD-USER-FIELD-'
 EVENT_ADD_PROFILE = '-ADD-PROFILE-'
-FIELD_TYPE_LIST = ['nick', 'age', 'gender']
 
 
 def create_input(key: str) -> sg.Input:
@@ -24,10 +25,47 @@ def create_input(key: str) -> sg.Input:
     )
 
 
-inputs: dict[str, list[sg.Input | bool]] = {}
+def validate_nick(input: sg.Input) -> bool:
+    nick = input.get()
+    if nick == '' or nick in users_ctr.users_transform(lambda user: user.nick):
+        input.update(background_color=theme.BG_ERROR_NORMAL)
+        return False
+    input.update(background_color=theme.BG_BASE)
+    return True
 
-for type in FIELD_TYPE_LIST:
-    inputs[type] = [create_input(type), False]
+
+def validate_age(input: sg.Input) -> bool:
+    age = input.get()
+    try:
+        age = int(age)
+        if age <= 0 or age > 100:
+            raise ValueError
+    except ValueError:
+        input.update(background_color=theme.BG_ERROR_NORMAL)
+        return False
+    input.update(background_color=theme.BG_BASE)
+    return True
+
+
+def validate_gender(input: sg.Input) -> bool:
+    gender = input.get()
+    if gender == '' or len(gender) < 4:
+        input.update(background_color=theme.BG_ERROR_NORMAL)
+        return False
+    input.update(background_color=theme.BG_BASE)
+    return True
+
+
+FIELDS_LIST = [
+    ('nick', validate_nick),
+    ('age', validate_age),
+    ('gender', validate_gender),
+]
+
+inputs: dict[str, list[sg.Input | bool | Callable[[sg.Input], bool]]] = {}
+
+for type, validation_fn in FIELDS_LIST:
+    inputs[type] = [create_input(type), False, validation_fn]
 
 create_button = sg.Button(
     'Crear',
@@ -39,6 +77,20 @@ create_button = sg.Button(
     key=EVENT_ADD_PROFILE,
     border_width=theme.BD_ACCENT
 )
+
+
+def disable_create_button() -> None:
+    create_button.update(
+        disabled=True,
+        button_color=(theme.TEXT_BUTTON_DISABLED, theme.BG_BUTTON_DISABLED)
+    )
+
+
+def enable_create_button() -> None:
+    create_button.update(
+        disabled=False,
+        button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON)
+    )
 
 
 def create_formulary() -> sg.Column:
@@ -87,55 +139,20 @@ def create_formulary() -> sg.Column:
 
 def reset_formulary() -> None:
     for value in inputs.values():
-        value[0].update('')
+        value[0].update('', background_color=theme.BG_BASE)
         value[1] = False
-    create_button.update(disabled=True)
-
-
-def validate_nick():
-    nick = inputs['nick'][0].get()
-    if nick == '' or nick in users_ctr.users_transform(lambda user: user.nick):
-        inputs['nick'][0].update(background_color='red')
-        return False
-    inputs['nick'][0].update(background_color=theme.BG_BASE)
-    return True
-
-
-def validate_age():
-    age = inputs['age'][0].get()
-    try:
-        age = int(age)
-        if age <= 0 or age > 100:
-            raise ValueError
-    except ValueError:
-        inputs['age'][0].update(background_color='Red')
-        return False
-    inputs['age'][0].update(background_color=theme.BG_BASE)
-    return True
-
-
-def validate_gender():
-    gender = inputs['gender'][0].get()
-    if gender == '' or len(gender) < 4:
-        inputs['gender'][0].update(background_color='red')
-        return False
-    inputs['gender'][0].update(background_color=theme.BG_BASE)
-    return True
+    disable_create_button()
 
 
 def validate_inputs(key: str):
-    if key == 'nick':
-        inputs['nick'][1] = validate_nick()
-    elif key == 'age':
-        inputs['age'][1] = validate_age()
-    elif key == 'gender':
-        inputs['gender'][1] = validate_gender()
+    inputs[key][1] = inputs[key][2](inputs[key][0])
 
-    for _, valid in inputs.values():
+    for _, valid, _ in inputs.values():
         if not valid:
+            disable_create_button()
             break
     else:
-        create_button.update(disabled=False)
+        enable_create_button()
 
 
 observer.subscribe(LOAD_USER_FIELD, validate_inputs)
@@ -159,14 +176,14 @@ screen_layout = [
     [common.goback_button('Menu Selección', padding=(theme.scale(64),)*2)],
 ]
 
+screen_config = {
+    'background_color': theme.BG_BASE,
+}
+
 
 def reset() -> None:
     reset_formulary()
 
-
-screen_config = {
-    'background_color': theme.BG_BASE,
-}
 
 screen = Screen(
     SCREEN_NAME,

@@ -31,11 +31,6 @@ content_layout = [
     [common.navigation_button('Exit', constants.EXIT_APLICATION)]
 ]
 
-screen_layout = [
-    [common.screen_title('base screen', True)],
-    [sg.Column(content_layout)],
-]
-
 
 def function_to_execute_on_event() -> None:
     # This function calls updates on database, updates elements of ui, or do other stuff
@@ -48,16 +43,22 @@ observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 # For example -MY-EVENT-NAME- some_data_here
 
 
-def reset() -> None:
-    # This function resets de elements of the screen to defaults/configuration values
-    # It runs every time that window view moves to this screen
-    pass
-
+screen_layout = [
+    [common.screen_title('base screen', True)],
+    [sg.Column(content_layout)],
+]
 
 screen_config = {
     'background_color': theme.BG_BASE,
     'element_justification': 'center',
 }
+
+
+def reset() -> None:
+    # This function resets de elements of the screen to defaults/configuration values
+    # It runs every time that window view moves to this screen
+    pass
+
 
 screen = Screen(
     SCREEN_NAME,
@@ -65,21 +66,3 @@ screen = Screen(
     screen_config,
     reset
 )
-
-
-def main() -> None:
-    # Comment screen variable assignment if this file will be runned directly
-    window = sg.Window(SCREEN_NAME, screen_layout)
-
-    while True:
-        event, values = window.read()
-
-        if event == None or event.startswith(constants.EXIT_APLICATION):
-            break
-
-        values = values
-    window.close()
-
-
-if __name__ == '__main__':
-    main()

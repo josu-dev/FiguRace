@@ -178,16 +178,16 @@ def current_answer(index: str) -> None:
     if card['selected'] >= 0:
         card['options'][card['selected']].update(button_color=theme.BG_BUTTON)
     card['selected'] = int(index)
-    card['options'][card['selected']].update(button_color='red')
-    card['confirm_button'].update(disabled=False)
+    card['options'][card['selected']].update(button_color=theme.BG_PRIMARY)
+    card['confirm_button'].update(disabled=False, button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON))
 
 
 observer.subscribe(SELECT_OPTION, current_answer)
 
 
 def new_answer() -> None:
-    card['confirm_button'].update(disabled=True)
-    card['options'][card['selected']].update(disabled=True)
+    card['confirm_button'].update(disabled=True,button_color=(theme.TEXT_BUTTON_DISABLED,theme.BG_BUTTON_DISABLED))
+    card['options'][card['selected']].update(disabled=True,button_color=(theme.TEXT_BUTTON_DISABLED,theme.BG_BUTTON_DISABLED))
     run_ctr.new_answer(card['data'][card['selected']])
 
 

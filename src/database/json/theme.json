@@ -25,8 +25,14 @@
         "BD_DELIMITER": 1,
 
         "BG_BUTTON": "#6FC5FF",
+        "BG_BUTTON_DISABLED": "#ADCFE6",
         "BG_BUTTON_HOVER": "#5A9ECC",
         "F_C_BUTTON": "#243F50",
-        "F_C_BUTTON_HOVER": "#37576B"
+        "F_C_BUTTON_DISABLED": "#4F616C",
+        "F_C_BUTTON_HOVER": "#37576B",
+
+        "ERROR_BG_ACCENT" : "#EF190C",
+        "ERROR_BG_NORMAL" : "#E42A1F",
+        "ERROR_BG_SOFT" : "#CD4840"
     }
 }
