@@ -2,12 +2,13 @@ import PySimpleGUI as sg
 
 from src import constants, csg
 from src.controllers import theme
-from src.handlers import observer
 from src.handlers.screen import Screen
 from src.assets import icon, title_name
 
+
 SCREEN_NAME = '-INTRODUCTION-'
 SECONDS = 5
+
 
 _icon = sg.Image(
         key='-ICON-',
@@ -27,7 +28,8 @@ _black = sg.Button(
                   border_width=0,
                   image_data=icon.source,
                   image_size=(theme.scale(300),theme.scale(300)),
-                  image_subsample=(icon.size // theme.scale(300))
+                  image_subsample=(icon.size // theme.scale(300)),
+                  mouseover_colors='black'
                   )
 
 screen_layout = [

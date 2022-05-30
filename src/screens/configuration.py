@@ -1,7 +1,6 @@
-from turtle import back
 import PySimpleGUI as sg
 
-from src import constants as const, csg, common
+from src import csg, common
 from src.controllers import theme, difficulty_controller as difficulty_ctr, users_controller as user_ctr
 from src.handlers import observer
 from src.handlers.screen import Screen
@@ -129,7 +128,7 @@ _btn_edit = sg.Button(
     key='-EDIT-USER-',
     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
     mouseover_colors=theme.BG_BUTTON_HOVER,
-    font=_font,
+    font=(theme.FONT_FAMILY,theme.T1_SIZE),
     border_width=theme.BD_ACCENT
 )
 
@@ -138,10 +137,10 @@ def header() -> list:
     return [
         csg.horizontal_spacer(_padding,
                               background_color=theme.BG_BASE),
-        sg.Text('DIFICULTAD PERSONALIZADA', pad=((50, 0), (50, 0)),
+        sg.Text('DIFICULTAD PERSONALIZADA', pad=((50, 0), (20, 0)),
                 background_color=theme.BG_BASE, font=('System', theme.H3_SIZE)),
         sg.Push(background_color=theme.BG_BASE),
-        sg.Text('EDITAR USUARIO', pad=((50, 0), (50, 0)),
+        sg.Text('EDITAR USUARIO', pad=((50, 0), (20, 0)),
                 background_color=theme.BG_BASE, font=('System', theme.H3_SIZE)),
         csg.horizontal_spacer(_padding,
                               background_color=theme.BG_BASE)
@@ -149,7 +148,7 @@ def header() -> list:
 
 
 def textv_spacer() -> list:
-    return [csg.vertical_spacer(theme.height//64, background_color=theme.BG_BASE)]
+    return [csg.vertical_spacer(theme.height//92, background_color=theme.BG_BASE)]
 
 
 def texth_spacer() -> list:
@@ -192,7 +191,6 @@ def menu_options() -> list[list]:
          _input_gender],
         textv_spacer(),
 
-        [csg.vertical_spacer(theme.scale(12), background_color=theme.BG_BASE)],
         [*build_text('Puntos añadidos ', 'Cantidad:  ',
                      _cmb_plus_points),
          texth_spacer(),
@@ -202,12 +200,10 @@ def menu_options() -> list[list]:
          csg.horizontal_spacer(theme.scale(80), background_color=theme.BG_BASE)],
         textv_spacer(),
 
-        [csg.vertical_spacer(theme.scale(12), background_color=theme.BG_BASE)],
         build_text('Puntos restados', 'Cantidad:  ', _cmb_sub_points),
         textv_spacer(),
 
-        [csg.vertical_spacer(theme.scale(350), background_color=theme.BG_BASE),
-            common.navigation_button('<--', screen_name='-MENU-'),
+        [common.goback_button('<--'),
             csg.horizontal_spacer(theme.scale(
                 200), background_color=theme.BG_BASE),
          _btn_save, ]

@@ -8,7 +8,7 @@ from src.handlers.screen import Screen
 from src.handlers.user import User
 
 
-SCREEN_NAME = '-SCORE-'
+SCREEN_NAME = '-RANKING-'
 HISTORIAL_SIZE = 20
 
 

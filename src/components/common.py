@@ -28,17 +28,15 @@ def screen_title(title: str, spaced: bool = False, alignment: str = 'center', up
     )
 
 
-def navigation_button(text: str, screen_name: str, font_size: int = theme.H4_SIZE, padding: tuple[int, int] = (0, 0)) -> sg.Button:
+def navigation_button(text: str, screen_name: str, font_size: int = theme.T1_SIZE, padding: tuple[int, int] = (0,0),
+border: int = theme.BD_PRIMARY)-> sg.Button:
     return sg.Button(
         text,
         key=f'{constants.GOTO_VIEW} {screen_name}',
         font=(theme.FONT_FAMILY, font_size),
-        button_color=(
-            theme.TEXT_BUTTON,
-            theme.BG_BUTTON
-        ),
+        button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON),
         mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=theme.BD_PRIMARY,
+        border_width=border,
         pad=padding
     )
 

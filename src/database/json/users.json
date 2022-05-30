@@ -128,7 +128,8 @@
             ],
             "hard": [
                 10,
-                0
+                0,
+                40
             ],
             "insane": [
                 0,
@@ -147,11 +148,11 @@
         "preferred_color": "#000000",
         "preferred_difficulty": "custom",
         "custom_difficulty": {
-            "time_per_round": 300,
-            "rounds_per_game": 3,
-            "points_correct_answer": 50,
-            "points_bad_answer": 1,
-            "characteristics_shown": 5
+            "time_per_round": 50,
+            "rounds_per_game": 10,
+            "points_correct_answer": 12,
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
         },
         "scores": {
             "easy": [
@@ -196,30 +197,6 @@
                 0,
                 0
             ]
-        }
-    },
-    "alkjhdaskld": {
-        "nick": "alkjhdaskld",
-        "age": 12,
-        "gender": "asdasd",
-        "preferred_color": "#000000",
-        "preferred_difficulty": "normal",
-        "custom_difficulty": {
-            "time_per_round": 50,
-            "rounds_per_game": 10,
-            "points_correct_answer": 12,
-            "points_bad_answer": -2,
-            "characteristics_shown": 3
-        },
-        "scores": {
-            "easy": [],
-            "normal": [
-                0,
-                0
-            ],
-            "hard": [],
-            "insane": [],
-            "custom": []
         }
     }
 }
