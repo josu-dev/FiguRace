@@ -132,7 +132,6 @@ def validate_inputs(key: str):
         inputs['gender'][1] = validate_gender()
 
     for _, valid in inputs.values():
-        print(valid)
         if not valid:
             break
     else:
