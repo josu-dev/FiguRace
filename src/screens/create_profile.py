@@ -49,7 +49,7 @@ def validate_age(input: sg.Input) -> bool:
 
 def validate_gender(input: sg.Input) -> bool:
     gender = input.get()
-    if gender == '' or len(gender) < 4:
+    if gender == '':
         input.update(background_color=theme.BG_ERROR_NORMAL)
         return False
     input.update(background_color=theme.BG_BASE)

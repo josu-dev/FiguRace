@@ -59,3 +59,4 @@ Para poder ejecutar el juego solo hay que hacer dos cosas:
 ### Extras
 
 
+Fuente de los iconos: [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/icons-notification.html)

@@ -28,6 +28,7 @@ class RunState(TypedDict):
     difficulty: sg.Text
     time: sg.Text
     user: sg.Text
+    points: sg.Text
     rounds: list[sg.Text]
 
 
@@ -66,10 +67,17 @@ def create_run_state() -> sg.Column:
         size=24,
         justification='center'
     )
+    run_state['points'] = sg.Text(
+        'puntos',
+        font=(theme.FONT_FAMILY, theme.T1_SIZE),
+        background_color=theme.BG_SECONDARY,
+        size=24,
+        justification='center'
+    )
     run_state['rounds'] = [
         sg.Text(
-            f' {i+1:<2} - ',
-            font=(theme.FONT_FAMILY, theme.T2_SIZE),
+            f' {i+1:<2}.  ',
+            font=(theme.FONT_FAMILY_TEXT, theme.T2_SIZE),
             background_color=theme.BG_SECONDARY
         ) for i in range(run_ctr.max_rounds)
     ]
@@ -77,6 +85,7 @@ def create_run_state() -> sg.Column:
         [run_state['difficulty']],
         [run_state['time']],
         [run_state['user']],
+        [run_state['points']],
         *[[stat] for stat in run_state['rounds']]
     ]
     return sg.Column(
@@ -95,15 +104,17 @@ def reset_run_state() -> None:
         constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
     refresh_timer()
     run_state['user'].update(users_ctr.current_user.nick)
+    run_state['points'].update('0 puntos')
     for i, round in enumerate(run_state['rounds']):
-        round.update(f' {i+1:<2} - ')
+        round.update(f' {i+1:<2}. {"":>3}')
 
 
 def refresh_run_state() -> None:
     score = run_ctr.score
+    run_state['points'].update(f'{sum(score)} puntos')
     for i, round in enumerate(run_state['rounds']):
         points = score[i] if i < len(score) else ''
-        round.update(f' {i+1:<2} - {points}')
+        round.update(f' {i+1:<2}. {points:>3}')
 
 
 def create_option_button(text: str, key: str) -> sg.Button:
