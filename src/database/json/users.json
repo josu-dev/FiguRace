@@ -4,7 +4,7 @@
         "age": "21",
         "gender": "Helic\u00f3ptero andino",
         "preferred_color": "red",
-        "preferred_difficulty": "custom",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
@@ -19,7 +19,15 @@
                 67
             ],
             "normal": [
-                65
+                65,
+                82,
+                14,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
             ],
             "hard": [
                 10,
@@ -121,8 +129,8 @@
                 0,
                 0,
                 0,
-                0,
-                0,
+                38,
+                18,
                 0,
                 0
             ],
@@ -146,7 +154,7 @@
         "age": 9,
         "gender": "Helicoptero",
         "preferred_color": "#000000",
-        "preferred_difficulty": "custom",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
@@ -183,8 +191,8 @@
                 0,
                 0,
                 0,
-                0,
                 10,
+                0,
                 0
             ],
             "hard": [],

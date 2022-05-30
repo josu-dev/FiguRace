@@ -123,8 +123,8 @@ def custom_popup(layout: FullLayout, close_keys: list[str], background_color: st
     )
     
     while True:
-        event, _ = window.read(timeout=duration)
-        if event is None or event == sg.EVENT_TIMEOUT:
+        event, _ = window.read(timeout=duration, timeout_key='-TIME-OUT-')
+        if event is None or event == '-TIME-OUT-':
             event = constants.EXIT_APLICATION
             break
         if event in close_keys:

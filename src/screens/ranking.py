@@ -93,10 +93,9 @@ def refresh_rankings() -> None:
 
 
 screen_layout = [
-    [sg.VPush(theme.BG_BASE)],
     [common.screen_title('ranking', True)],
+    [sg.VPush(theme.BG_BASE)],
     [create_ranking()],
-    [csg.vertical_spacer(theme.scale(32), background_color=theme.BG_BASE)],
     [sg.VPush(theme.BG_BASE)],
     [
         common.navigation_button(

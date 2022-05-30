@@ -50,10 +50,12 @@ def create_summary() -> sg.Column:
     return sg.Column(
         [[
             sg.Column(left_layout, background_color=theme.BG_PRIMARY),
-            csg.horizontal_spacer(theme.scale(32), background_color=theme.BG_SECONDARY),
+            csg.horizontal_spacer(
+                theme.scale(32), background_color=theme.BG_SECONDARY
+            ),
             sg.Column(right_layout, background_color=theme.BG_PRIMARY),
         ]],
-        background_color=theme.BG_SECONDARY
+        background_color=theme.BG_SECONDARY,
     )
 
 
@@ -67,7 +69,8 @@ def create_nav_buttons() -> sg.Column:
     buttons = [
         common.navigation_button('Menu Principal', '-MENU-', padding=padding),
         common.navigation_button('Volver a Jugar', '-GAME-', padding=padding),
-        common.navigation_button('Nuevo Juego', '-CONFIGURE-GAME-', padding=padding),
+        common.navigation_button(
+            'Nuevo Juego', '-CONFIGURE-GAME-', padding=padding),
     ]
     return sg.Column(
         [buttons],
@@ -78,10 +81,11 @@ def create_nav_buttons() -> sg.Column:
 
 screen_layout = [
     [common.screen_title('resultado', True)],
-    [csg.vertical_spacer(theme.scale(32), background_color=theme.BG_BASE)],
+    [sg.VPush(theme.BG_BASE)],
     [create_summary()],
-    [csg.vertical_spacer(theme.scale(32), background_color=theme.BG_BASE)],
-    [create_nav_buttons()]
+    [sg.VPush(theme.BG_BASE)],
+    [create_nav_buttons()],
+    [csg.vertical_spacer(theme.scale(96), background_color=theme.BG_BASE)],
 ]
 
 screen_config = {
