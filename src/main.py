@@ -1,3 +1,6 @@
+"""
+    Initialize the execution of the program and configure everything necessary.
+"""
 from . import controllers as ctr
 from .assets import app_icon
 from .handlers.window import WindowController
@@ -5,6 +8,10 @@ from .screens import create_profile, introduction, menu, configuration, game, ra
 
 
 def main():
+    """
+        Register the screens of the app.
+        Initializes the Window Controller and setup all for the visualization of the windows on the app.
+    """
     screens = [
         introduction.screen,
         select_profile.screen, create_profile.screen,

@@ -1,3 +1,6 @@
+"""
+Constants of all the program.
+"""
 import os
 
 
@@ -39,9 +42,9 @@ DIFFICULTY_TO_EN = {
     'Personalizada': 'custom',
 }
 DATASET_TO_ES = {
-    'fifa' : 'FIFA 21',
-    'spotify' : 'Spotify',
-    'lakes' : 'Lagos Argentina'
+    'fifa': 'FIFA 21',
+    'spotify': 'Spotify',
+    'lakes': 'Lagos Argentina'
 }
 DATASET_TO_EN = {
     'FIFA 21': 'fifa',
