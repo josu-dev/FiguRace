@@ -2,7 +2,7 @@ from typing import TypedDict
 
 import PySimpleGUI as sg
 
-from src import constants, common, csg
+from src import constants, csg
 from src.controllers import theme, run_controller as run_ctr, users_controller as users_ctr
 from src.handlers import observer
 from src.handlers.screen import Screen

@@ -56,7 +56,7 @@ Para poder ejecutar el juego solo hay que hacer dos cosas:
 <br>
 
 
-### Fuentes
+### Otras fuentes
 
 - [Imagenes README](https://pixabay.com/es/)
 
