@@ -157,23 +157,38 @@ def reset():
 
 def _new_popup_layout():
     return [
-        [sg.Text('¿Deseas eliminar este usuario?', background_color=theme.BG_POPUP, text_color=theme.BG_BASE,
-                 font=(theme.FONT_FAMILY, theme.T2_SIZE))
-         ],
         [
-            sg.Button(button_text='Cancelar', k='-CANCEL-',
-                      border_width=theme.BD_SECONDARY, pad=theme.scale(20)),
+            sg.Text(
+                '¿Deseas eliminar este usuario?', background_color=theme.BG_POPUP,
+                text_color=theme.BG_BASE,
+                font=(theme.FONT_FAMILY, theme.T1_SIZE)
+            )
+        ],
+        [
+            sg.Button(
+                button_text='Cancelar', k='-CANCEL-',
+                font=(theme.FONT_FAMILY,theme.T2_SIZE),
+                border_width=theme.BD_SECONDARY, pad=theme.scale(20),
+                button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON)
+            ),
             sg.Push(background_color=theme.BG_POPUP),
-            sg.Button(button_text='Aceptar', k='-OK-',
-                      border_width=theme.BD_SECONDARY, pad=theme.scale(20)),
+            sg.Button(
+                button_text='Aceptar', k='-OK-',
+                font=(theme.FONT_FAMILY,theme.T2_SIZE),
+                border_width=theme.BD_SECONDARY, pad=theme.scale(20),
+                button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON)
+            ),
         ]
     ]
 
 
 def remove():
-    _popup = csg.custom_popup(_new_popup_layout(), close_keys=[
-                              '-OK-', '-CANCEL-'], background_color=theme.BG_POPUP)
-    if _popup == '-OK-':
+    response = csg.custom_popup(
+        _new_popup_layout(),
+        close_keys=['-OK-', '-CANCEL-'],
+        background_color=theme.BG_POPUP
+    )
+    if response == '-OK-':
         users_ctr.remove(_user_list.get()[0])
     reset()
 

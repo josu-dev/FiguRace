@@ -164,85 +164,28 @@
             ]
         }
     },
-    "Test": {
-        "nick": "Test",
-        "age": 9,
-        "gender": "Helicoptero",
+    "Test31": {
+        "nick": "Test31",
+        "age": 1,
+        "gender": "No Binarie",
         "preferred_color": "#000000",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
-            "time_per_round": 50,
+            "time_per_round": 30,
             "rounds_per_game": 10,
-            "points_correct_answer": 12,
-            "points_bad_answer": -2,
-            "characteristics_shown": 3
-        },
-        "scores": {
-            "easy": [
-                20,
-                0,
-                40,
-                0,
-                100,
-                30,
-                10,
-                0
-            ],
-            "normal": [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                10,
-                0,
-                0,
-                0,
-                0
-            ],
-            "hard": [],
-            "insane": [
-                0,
-                0
-            ],
-            "custom": [
-                152,
-                0,
-                0
-            ]
-        }
-    },
-    "Texas": {
-        "nick": "Texas",
-        "age": 14,
-        "gender": "MACHO ALFA",
-        "preferred_color": "#000000",
-        "preferred_difficulty": "insane",
-        "custom_difficulty": {
-            "time_per_round": 50,
-            "rounds_per_game": 10,
-            "points_correct_answer": 12,
-            "points_bad_answer": -2,
-            "characteristics_shown": 3
+            "points_correct_answer": 50,
+            "points_bad_answer": -1,
+            "characteristics_shown": 5
         },
         "scores": {
             "easy": [],
             "normal": [],
             "hard": [],
-            "insane": [
-                0
-            ],
-            "custom": []
+            "insane": [],
+            "custom": [
+                0,
+                381
+            ]
         }
     }
 }

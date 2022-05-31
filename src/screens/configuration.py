@@ -213,7 +213,7 @@ def config_layout() -> list[list[Any]]:
         [csg.vertical_spacer(
             theme.height//16, background_color=theme.BG_BASE)],
 
-        [*build_text('Tiempo de partida', 'Segundos:',
+        [*build_text('Tiempo por ronda', 'Segundos:',
                      _cmb_time_per_game),
          texth_spacer(),
          text_input('Nick'),
@@ -227,7 +227,7 @@ def config_layout() -> list[list[Any]]:
          _input_age],
         textv_spacer(),
 
-        [*build_text('Rounds por juego', 'Cantidad:  ',
+        [*build_text('Rondas por juego', 'Cantidad:  ',
                      _cmb_rounds_per_game),
          texth_spacer(),
          text_input('Género'),

@@ -144,7 +144,6 @@ class RunController:
     
 
     def _update_time(self) -> None:
-        print(self._time)
         self._time -= 1
         if self._time < 0:
             self._force_loose()
