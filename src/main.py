@@ -10,7 +10,8 @@ from .screens import create_profile, introduction, menu, configuration, game, ra
 def main():
     """
         Register the screens of the app.
-        Initializes the Window Controller and setup all for the visualization of the windows on the app.
+        Initializes the Window Controller and setup all for the visualization of the app.
+        Runs the aplication loop.
     """
     screens = [
         introduction.screen,

@@ -1,6 +1,6 @@
 """
     Controllers consumed on the app that manage all the informations of the
-    difficulty,users,settings,theme,datasets, game run .
+    difficulty, users, settings, theme, datasets, game run.
 """
 from . import constants
 from .handlers import observer
