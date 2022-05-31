@@ -1,8 +1,8 @@
 {
     "Josu": {
         "nick": "Josu",
-        "age": "21",
-        "gender": "Helic\u00f3ptero andino",
+        "age": "69",
+        "gender": "Helic\u00f3ptero Austriaco",
         "preferred_color": "red",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
@@ -28,7 +28,6 @@
                 0,
                 0,
                 0,
-                0,
                 4,
                 32,
                 -8,
@@ -38,7 +37,8 @@
                 0,
                 36,
                 60,
-                54
+                54,
+                0
             ],
             "hard": [
                 10,
@@ -218,6 +218,29 @@
                 0,
                 0
             ]
+        }
+    },
+    "Texas": {
+        "nick": "Texas",
+        "age": 14,
+        "gender": "MACHO ALFA",
+        "preferred_color": "#000000",
+        "preferred_difficulty": "insane",
+        "custom_difficulty": {
+            "time_per_round": 50,
+            "rounds_per_game": 10,
+            "points_correct_answer": 12,
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
+        },
+        "scores": {
+            "easy": [],
+            "normal": [],
+            "hard": [],
+            "insane": [
+                0
+            ],
+            "custom": []
         }
     }
 }
