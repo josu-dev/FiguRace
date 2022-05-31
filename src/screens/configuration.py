@@ -1,3 +1,6 @@
+"""
+Configuration Screen 
+"""
 from typing import Any
 import PySimpleGUI as sg
 
@@ -13,6 +16,19 @@ _padding = theme.width // 8
 
 
 def build_text(text: str, unit: str, combo: sg.Combo) -> list[Any]:
+    """Build a Text with his Combo editable .
+
+    Put the text and the combo spaced correctly and specify the unit that operate the combo.
+
+    Args:
+        text : the description of the combo editable 
+        unit : unit that operate the combo
+        combo : combo displayed on screen
+
+    Returns:
+        A list of elements with the arguments structured.
+
+    """
     result = [
         csg.horizontal_spacer(theme.width//16,
                               background_color=theme.BG_BASE),
@@ -135,6 +151,11 @@ _btn_edit = sg.Button(
 
 
 def header() -> list[Any]:
+    """Header that specifies the columns info.
+
+    Returns:
+        A row of elements that specifies the configurations columns used on the screen.
+    """
     return [
         csg.horizontal_spacer(_padding,
                               background_color=theme.BG_BASE),
@@ -149,14 +170,29 @@ def header() -> list[Any]:
 
 
 def textv_spacer() -> list[Any]:
+    """Generic vertical Spacer
+    Returns: 
+        a list with a vertical spacer proportionally to the screen size
+    """
     return [csg.vertical_spacer(theme.height//92, background_color=theme.BG_BASE)]
 
 
 def texth_spacer() -> sg.Column:
+    """Generic horizontal Spacer
+    Returns: 
+        a list with a horizontal spacer proportionally to the screen size
+    """
     return csg.horizontal_spacer(theme.width//6, background_color=theme.BG_BASE)
 
 
 def text_input(text: str) -> sg.Text:
+    """Text specifying  the input needed
+
+    Args:
+        text : text displayed for specified  the input
+    Returns: 
+        the argument with the theme applied as a sg.Text.
+    """
     return sg.Text(text,
                    size=(6, 1),
                    background_color=theme.BG_BASE,
@@ -165,7 +201,13 @@ def text_input(text: str) -> sg.Text:
                    )
 
 
-def menu_options() -> list[list[Any]]:
+def config_layout() -> list[list[Any]]:
+    """Generate layout
+    Structured menu options on a function that return the layout needed to display on window.
+
+    Returns:
+        Layout used on the screen
+    """
     config_layout = [
         header(),
         [csg.vertical_spacer(
@@ -214,6 +256,12 @@ def menu_options() -> list[list[Any]]:
 
 
 def validate_age() -> bool:
+    """ 
+        Validate if the age writen on the input_age is between 0 and 100
+
+        Returns: 
+            If the age is correctly writen on the input
+    """
     age = _input_age.get()
     try:
         age = int(age)
@@ -227,6 +275,12 @@ def validate_age() -> bool:
 
 
 def validate_gender():
+    """
+        Validate if the gender writen on the _input_gender its not empty
+
+        Returns:
+            If the gender is correctly writen on the input
+    """
     gender = _input_gender.get()
     if gender == '':
         _input_gender.update(background_color='red')
@@ -236,11 +290,18 @@ def validate_gender():
 
 
 def validate_all() -> None:
+    """
+        Validate all inputs are put correctly
+    """
     result = validate_gender() + validate_age()
     _btn_edit.update(disabled=result != 2)
 
 
 def save_settings() -> None:
+    """ Save the custom difficulty configuration put on the combos
+
+    Check all the combos and with the help of the controllers update on the JSON the custom difficulty.
+    """
     changes = {
         'time_per_round': int(_cmb_time_per_game.get()),
         'rounds_per_game': int(_cmb_rounds_per_game.get()),
@@ -252,18 +313,25 @@ def save_settings() -> None:
 
 
 def update_user() -> None:
-    user_ctr.current_user.age = _input_age.get()
+    """Updates the user with the information put in the inputs widgets.
+
+    """
+    user_ctr.current_user.age = int(_input_age.get())
     user_ctr.current_user.gender = _input_gender.get()
     pass
 
 
 def refresh_inputs() -> None:
+    """Puts in the inputs widgets the information of the current user 
+
+    """
     _input_nick.update(value=user_ctr.current_user.nick)
-    _input_age.update(value=user_ctr.current_user.age)
+    _input_age.update(value=str(user_ctr.current_user.age))
     _input_gender.update(value=user_ctr.current_user.gender)
 
 
 def reset():
+    """Refresh information for the current user"""
     refresh_inputs()
     pass
 
@@ -271,7 +339,7 @@ def reset():
 _configuration_layout = [
     [common.screen_title('Configuración', spaced=True,
                          alignment='center')],
-    [sg.Column(menu_options(), background_color=theme.BG_BASE, expand_x=True)],
+    [sg.Column(config_layout(), background_color=theme.BG_BASE, expand_x=True)],
 
 
 ]

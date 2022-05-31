@@ -1,3 +1,4 @@
+"""Menu Screen of the app"""
 import PySimpleGUI as sg
 
 from src import constants as const, common, csg
@@ -14,6 +15,10 @@ TEXT_BUTTON_FONT = (theme.FONT_FAMILY, theme.H3_SIZE)
 
 
 def menu_options() -> sg.Column:
+    """The layout with the options proportioned by the menu screen.
+    Returns:
+        A column correctly structured for use on the window.
+    """
     layout = [
         [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [sg.Button(

@@ -1,3 +1,6 @@
+"""
+Screen PreGame
+"""
 from random import shuffle
 from typing import Any
 
@@ -41,6 +44,11 @@ _cmb_dataset = sg.Combo(('Lagos Argentina', 'Spotify', 'FIFA 21', 'Random'),
 
 
 def combo_boxes() -> list[Any]:
+    """Generates a row with the combo boxes for the layout.
+
+        Returns: 
+            A row/list of elements correctly structured for the layout
+    """
     return [csg.horizontal_spacer(_padding, background_color=theme.BG_BASE),
             _cmb_difficulty,
             sg.Push(background_color=theme.BG_BASE),
@@ -49,6 +57,12 @@ def combo_boxes() -> list[Any]:
 
 
 def header() -> list[Any]:
+    """Header of the layout.
+    Header that specify the configuration that correspond to the respective columns
+
+    Returns:
+        A list of elements correctly structured to use like a header of the columns
+    """
     return [csg.horizontal_spacer(_padding,
                                   background_color=theme.BG_BASE),
             sg.Text('ELEGIR DIFICULTAD', pad=((50, 0), (50, 0)),
@@ -79,12 +93,23 @@ _difficulty_info = sg.Multiline(f"Tiempo por ronda : {difficulty_ctr.difficulty.
 
 
 def build_text() -> list[Any]:
+    """Creates the text with the current difficulty settings selected.
+
+    Returns:
+        The current difficulty information correctly placed on the layout.
+    """
     return [csg.horizontal_spacer(_padding,
                                   background_color=theme.BG_BASE),
             _difficulty_info]
 
 
 def layout() -> list[list[Any]]:
+    """Layout of the configure game screen
+
+    Returns:
+        A list with all the elements used on the layout.
+
+    """
     layout = [
         [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         header(),
@@ -100,6 +125,8 @@ def layout() -> list[list[Any]]:
 
 
 def refresh_info() -> None:
+    """Refresh the information displayed on screen of the current difficulty.
+    """
     difficulty_ctr.set_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     _difficulty_info.update(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
@@ -110,12 +137,16 @@ def refresh_info() -> None:
 
 
 def change_difficult() -> None:
+    """Change the difficulty to the one selected in the difficulty combo box.
+    """
     difficulty_ctr.set_difficulty(
         const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     refresh_info()
 
 
 def change_dataset() -> None:
+    """Change the dataset to the one selected in the dataset combo box.
+    """
     dataset = _cmb_dataset.get()
     if dataset == 'Random':
         shuffled = cards_ctr.types
@@ -127,6 +158,7 @@ def change_dataset() -> None:
 
 
 def reset() -> None:
+    """Updates the information when entered to the screen"""
     refresh_info()
     pass
 
