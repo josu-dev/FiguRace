@@ -12,6 +12,13 @@ summary: dict[str, sg.Text] = {}
 
 
 def create_stat_type(text: str, width: int | None = None) -> sg.Text:
+    """ Create a description field for a stat.
+    Args:
+        text: the description of the field
+        width: the length required for the field.
+    Returns:
+        A descriptive text with the theme applied
+    """
     return sg.Text(
         text,
         size=(width, 1),
@@ -23,6 +30,13 @@ def create_stat_type(text: str, width: int | None = None) -> sg.Text:
 
 
 def create_stat_field(name: str, key: str) -> sg.Column:
+    """Create a stat field with his description and score.
+    Args: 
+        name : descriptive field
+        key : key on the summary of the score.
+    Returns: 
+        A column with the stat and the score obtained.
+    """
     width = FIELD_MAX_CHARACTERS - len(name)
     summary[key] = create_stat_type(' ', width)
     return sg.Column(
@@ -32,6 +46,11 @@ def create_stat_field(name: str, key: str) -> sg.Column:
 
 
 def create_summary() -> sg.Column:
+    """Create the summary of the scores obtained for each field.
+
+    Returns:
+        Two columns with the information of the score obtained by the player. 
+    """
     left_layout = [
         [create_stat_field('Total rondas:', 'total_rounds')],
         [create_stat_field('Rondas completadas:', 'rounds_complete')],
@@ -60,11 +79,17 @@ def create_summary() -> sg.Column:
 
 
 def refresh_summary() -> None:
+    """Updates the information put on the summary
+    """
     for key, value in run_ctr.stats.items():
         summary[key].update(str(value))
 
 
 def create_nav_buttons() -> sg.Column:
+    """Generate the buttons to navigate to other screens.
+    Returns : 
+        A column with the buttons neccesaries and the theme applied correctly.
+    """
     padding = (theme.scale(16), theme.scale(16))
     buttons = [
         common.navigation_button('Menu Principal', '-MENU-', padding=padding),
@@ -95,6 +120,8 @@ screen_config = {
 
 
 def reset():
+    """Updates the information put in the summary when the screen is entered.
+    """
     refresh_summary()
 
 
