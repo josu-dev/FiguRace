@@ -4,7 +4,7 @@
         "age": "69",
         "gender": "Helic\u00f3ptero Austriaco",
         "preferred_color": "red",
-        "preferred_difficulty": "normal",
+        "preferred_difficulty": "insane",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 10,
@@ -16,10 +16,10 @@
             "easy": [
                 9,
                 10,
-                67
+                67,
+                0
             ],
             "normal": [
-                0,
                 0,
                 0,
                 0,
@@ -38,6 +38,7 @@
                 54,
                 0,
                 0,
+                0,
                 0
             ],
             "hard": [
@@ -45,6 +46,7 @@
                 3
             ],
             "insane": [
+                0,
                 0,
                 0,
                 0,

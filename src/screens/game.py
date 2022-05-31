@@ -267,6 +267,7 @@ def create_leave_button()-> sg.Button:
 
 
 def finish_game() -> None:
+    observer.unsubscribe(constants.TIME_OUT, refresh_timer)
     total_score = sum(run_ctr.score)
     users_ctr.current_user.update_score(
         users_ctr.current_user.preferred_difficulty, total_score
@@ -315,6 +316,7 @@ def reset() -> None:
     run_ctr.reset()
     reset_run_state()
     reset_card()
+    observer.subscribe(constants.TIME_OUT, refresh_timer)
 
 
 screen = Screen(

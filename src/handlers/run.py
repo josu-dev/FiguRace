@@ -1,6 +1,9 @@
 from typing import Callable, TypedDict
 from random import shuffle
 
+from src import constants
+
+from . import observer
 from .card import Card, CardController
 from .difficulty import Difficulty, DifficultyController
 
@@ -75,7 +78,6 @@ class RunController:
             'loose_round': [],
             'bad_option': []
         }
-        self.reset()
 
     def reset(self) -> None:
         self._rounds = -1
@@ -92,6 +94,8 @@ class RunController:
             'total_tryes': 0
         }
         self._new_round()
+        observer.subscribe(constants.TIME_OUT, self._update_time)
+        observer.post_event(constants.UPDATE_TIMEOUT, 1)
         
 
     def _new_round(self) -> None:
@@ -100,6 +104,7 @@ class RunController:
         self._rounds += 1
         self._round.reset(self._cards.new_card)
         self._stats['total_rounds'] += 1
+        self._time = self._difficulty.time_per_round
 
     def registry_event(self, type: str, fn: ResponseFn) -> None:
         self._events[type].append(fn)
@@ -135,11 +140,25 @@ class RunController:
     # Implement timer on round
     @property
     def time(self) -> str:
-        return str(self._difficulty.time_per_round) + ':00'
+        return str(self._time) + ':00'
+    
+
+    def _update_time(self) -> None:
+        print(self._time)
+        self._time -= 1
+        if self._time < 0:
+            self._force_loose()
+
 
     def _is_run_end(self) -> None:
         if self._rounds == self.max_rounds:
             self.end_run()
+    
+    def _force_loose(self) -> None:
+        self._new_round()
+        self._stats['rounds_loosed'] += 1
+        for fn in self._events['loose_round']:
+            fn()
 
     def new_answer(self, option: str) -> None:
         self._stats['total_tryes'] += 1
@@ -149,10 +168,7 @@ class RunController:
             for fn in self._events['win_round']:
                 fn()
         elif self._round.loose:
-            self._new_round()
-            self._stats['rounds_loosed'] += 1
-            for fn in self._events['loose_round']:
-                fn()
+            self._force_loose()
         else:
             for fn in self._events['bad_option']:
                 fn()
@@ -165,6 +181,8 @@ class RunController:
         self._is_run_end()
 
     def end_run(self) -> None:
+        observer.post_event(constants.UPDATE_TIMEOUT, None)
+        observer.unsubscribe(constants.TIME_OUT,self._update_time)
         self._stats['total_points'] = sum(self._scores)
         self._stats['total_rounds'] = self.max_rounds
         for _ in range(self.max_rounds - len(self._scores)):
