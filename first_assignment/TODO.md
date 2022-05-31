@@ -21,7 +21,7 @@
 [X] Implementación de la interfaz de todas las pantallas. A modo prototipo todas las ventanas deberán tener los widgets (botones, campos de texto, gráficos, etc…) necesarios para la realización del trabajo (pantallas descritas en el Anexo I).
 
 [X] La pantalla de creación/edición de perfil deberá almacenar/cargar los datos en/desde un archivo JSON (detalles en Anexo I - (c) Pantalla de creación/edición de perfil).
-    
+
 [X] La “Pantalla de configuración” deberá almacenar/cargar los datos desde un archivo JSON. Se requiere la configuración de al menos 3 niveles (detalles en Anexo I - (e) Pantalla de configuración).
 
 [X] Se deberán implementar las funcionalidades de las “Pantalla de configuración” y creación/edición de perfil.

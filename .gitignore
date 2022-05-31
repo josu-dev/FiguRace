@@ -2,6 +2,5 @@
 test.*.py
 __pycache__
 __pycache__.*
-test
 .vscode
 processed_datasets/
