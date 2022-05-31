@@ -4,6 +4,8 @@ import PySimpleGUI as sg
 
 from src import constants
 
+from . import observer
+
 
 class Screen:
     def __init__(self, key: str, layout: list[list[Any]], config: dict[str, Any], reset: Callable[..., None]):
@@ -11,6 +13,7 @@ class Screen:
         config['visible'] = False
         config['expand_x'] = True
         config['expand_y'] = True
+        config['pad'] = 0
         self.key = key
         self.is_visible = False
         self.container = sg.Column(layout, **config)
@@ -32,6 +35,7 @@ class ScreenController:
         self._layout_stack: list[str] = []
         self._layouts: dict[str, Screen] = {}
         self._composed_layout: list[sg.Element] = []
+        observer.subscribe(constants.GOTO_VIEW, self.goto_layout)
 
     def goto_layout(self, key: str) -> None:
         key = key.rstrip('0123456789')
@@ -61,6 +65,6 @@ class ScreenController:
 
     def init(self, key: str) -> None:
         if key not in self._layouts:
-            raise Exception(f'{key} isnt a registered at composed _layouts')
+            raise Exception(f'{key} wasn\'t registered')
         self._actual_layout = key
         self._layouts[key].turn_visivility()
