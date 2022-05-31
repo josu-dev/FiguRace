@@ -1,3 +1,7 @@
+"""
+    Introduction and 1st Screen of the App.
+"""
+
 import PySimpleGUI as sg
 
 from src import constants, csg
