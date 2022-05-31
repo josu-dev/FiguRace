@@ -1,4 +1,5 @@
 from random import shuffle
+from typing import Any
 
 import PySimpleGUI as sg
 
@@ -39,7 +40,7 @@ _cmb_dataset = sg.Combo(('Lagos Argentina', 'Spotify', 'FIFA 21', 'Random'),
                         key='-CHANGE-DATA-')
 
 
-def combo_boxes() -> list:
+def combo_boxes() -> list[Any]:
     return [csg.horizontal_spacer(_padding, background_color=theme.BG_BASE),
             _cmb_difficulty,
             sg.Push(background_color=theme.BG_BASE),
@@ -47,7 +48,7 @@ def combo_boxes() -> list:
             csg.horizontal_spacer(_padding, background_color=theme.BG_BASE)]
 
 
-def header() -> list:
+def header() -> list[Any]:
     return [csg.horizontal_spacer(_padding,
                                   background_color=theme.BG_BASE),
             sg.Text('ELEGIR DIFICULTAD', pad=((50, 0), (50, 0)),
@@ -77,13 +78,13 @@ _difficulty_info = sg.Multiline(f"Tiempo por ronda : {difficulty_ctr.difficulty.
                                 pad=((50, 0), (50, 0)))
 
 
-def build_text() -> list:
+def build_text() -> list[Any]:
     return [csg.horizontal_spacer(_padding,
                                   background_color=theme.BG_BASE),
             _difficulty_info]
 
 
-def layout() -> list[list[sg.Element]]:
+def layout() -> list[list[Any]]:
     layout = [
         [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         header(),
@@ -125,7 +126,7 @@ def change_dataset() -> None:
     cards_ctr.set_type(dataset)
 
 
-def reset():
+def reset() -> None:
     refresh_info()
     pass
 

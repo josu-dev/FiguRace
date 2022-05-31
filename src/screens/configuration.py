@@ -1,3 +1,4 @@
+from typing import Any
 import PySimpleGUI as sg
 
 from src import csg, common
@@ -11,7 +12,7 @@ _font = (theme.FONT_FAMILY_TEXT, theme.T1_SIZE)
 _padding = theme.width // 8
 
 
-def build_text(text, unit, combo) -> list:
+def build_text(text: str, unit: str, combo: sg.Combo) -> list[Any]:
     result = [
         csg.horizontal_spacer(theme.width//16,
                               background_color=theme.BG_BASE),
@@ -128,12 +129,12 @@ _btn_edit = sg.Button(
     key='-EDIT-USER-',
     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
     mouseover_colors=theme.BG_BUTTON_HOVER,
-    font=(theme.FONT_FAMILY,theme.T1_SIZE),
+    font=(theme.FONT_FAMILY, theme.T1_SIZE),
     border_width=theme.BD_ACCENT
 )
 
 
-def header() -> list:
+def header() -> list[Any]:
     return [
         csg.horizontal_spacer(_padding,
                               background_color=theme.BG_BASE),
@@ -147,11 +148,11 @@ def header() -> list:
     ]
 
 
-def textv_spacer() -> list:
+def textv_spacer() -> list[Any]:
     return [csg.vertical_spacer(theme.height//92, background_color=theme.BG_BASE)]
 
 
-def texth_spacer() -> list:
+def texth_spacer() -> sg.Column:
     return csg.horizontal_spacer(theme.width//6, background_color=theme.BG_BASE)
 
 
@@ -164,7 +165,7 @@ def text_input(text: str) -> sg.Text:
                    )
 
 
-def menu_options() -> list[list]:
+def menu_options() -> list[list[Any]]:
     config_layout = [
         header(),
         [csg.vertical_spacer(
@@ -212,7 +213,7 @@ def menu_options() -> list[list]:
     return config_layout
 
 
-def validate_age():
+def validate_age() -> bool:
     age = _input_age.get()
     try:
         age = int(age)

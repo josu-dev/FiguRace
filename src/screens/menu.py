@@ -83,7 +83,6 @@ def reset():
 
 screen_layout = [
     [sg.VPush(theme.BG_BASE)],
-    # [common.screen_title('f  i  g  u  r  a  c  e', size=theme.H1_SIZE)],
     [sg.Image(
         data=title.source,
         size=(theme.scale(1080), theme.scale(128)),
