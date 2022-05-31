@@ -13,6 +13,18 @@ ImageFile = Any
 
 
 def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, size: int = theme.H2_SIZE, padding: int = 0) -> sg.Text:
+    """Generic screen title used on most screen.
+
+    Args:
+        title: String to display on screen generally the screen name
+        spaced: whether the letters are spaced or close together , default is false
+        alignment: default =  center
+        upper: if is uper or lower case
+        size: size of the font, default is H2
+        padding: amount of padding
+    Returns: 
+        A sg.Text structured to use like a title.
+    """
     if upper:
         title = title.upper()
     if spaced:
@@ -33,6 +45,14 @@ def navigation_button(
     text: str, screen_name: str, font_size: int = theme.T1_SIZE,
     padding: tuple[int, int] = (0, 0), border: int = theme.BD_PRIMARY
 ) -> sg.Button:
+    """Create a generic navigation button
+    Args:
+        text: text displayed on the button
+        screen_name: screen name to go
+        font_size: default is T1
+        padding: amount of padding default is 0,0
+        border: size of border default is primary.
+    """
     return sg.Button(
         text,
         key=f'{constants.GOTO_VIEW} {screen_name}',
@@ -45,10 +65,32 @@ def navigation_button(
 
 
 def goback_button(text: str, font_size: int = theme.H4_SIZE, padding: tuple[int, int] = (0, 0)) -> sg.Button:
+    """Create the generic back button.
+    This buttons allows you back to the last screen.
+    Args:
+        text: text displayed on the button
+        font_size: default is H4
+        padding: default is (0,0)
+    Returns 
+        A button with the style, theme and function applied
+
+    """
     return navigation_button(text, constants.LAST_SCREEN, font_size, padding)
 
 
 def image_button(image: ImageFile, size: tuple[int, int], key: str, border: int = theme.BD_PRIMARY, padding: int = 0) -> sg.Button:
+    """Create generic Image Button
+    Args:
+        image: image displayed on the button.
+        size: size of the button
+        key: key to refer the button
+        border: border size, default: BD_PRIMARY.
+        padding: amount of padding , default: 0
+    Returns: 
+        A Image button with the style  theme applied
+
+
+    """
     return sg.Button(
         key=key,
         image_size=size,
