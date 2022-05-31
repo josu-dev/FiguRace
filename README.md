@@ -51,12 +51,9 @@ Para poder ejecutar el juego solo hay que hacer dos cosas:
 <img src = "https://user-images.githubusercontent.com/55964635/170844079-de18c35d-138a-4c24-af09-c74086ffcab8.jpg" width = "150" height = "150" alt = "ejemplo" align = "center" /> | <img src = "https://user-images.githubusercontent.com/55964635/170844002-7aa0ba0d-7b8b-4c2c-adfa-2adec352e59c.jpg" width = "150" height = "150" alt = "ejemplo" align = "center" /> | <img src = "https://user-images.githubusercontent.com/55964635/170844054-57c7460d-62d0-4cc1-988e-32232ef88e15.jpg" width = "150" height = "150" alt = "ejemplo" align = "center" /> 
 
 
-<br>
-
 
 
 
 ### Extras
 
-
-Fuente de los iconos: [Android Asset Studio](https://romannurik.github.io/AndroidAssetStudio/icons-notification.html)
+[Imagenes](https://pixabay.com/es/)
