@@ -1,3 +1,5 @@
+"""Contains helper functions to work with files
+"""
 import csv
 import json
 import os

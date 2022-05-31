@@ -1,3 +1,6 @@
+"""Wrappers of sg elements
+    Collection of wrapper classes/functions around sg elements to add facility when creating layouts
+"""
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -41,7 +44,7 @@ class HorizontalList(ChainedElement):
         self._container.append(element)
         return self
 
-    def pack(self):
+    def pack(self) -> sg.Column:
         return sg.Column([self._container], **self._config)
 
 
@@ -61,7 +64,7 @@ class VerticalList(ChainedElement):
         self._container.append(element)
         return self
 
-    def pack(self):
+    def pack(self) -> sg.Column:
         return sg.Column(self._container, **self._config)
 
 
@@ -121,9 +124,11 @@ def custom_popup(layout: FullLayout, close_keys: list[str], background_color: st
         no_titlebar=True, keep_on_top=True, finalize=True,
         margins=(0, 0), resizable=False, modal=True
     )
+
+    timeout = duration * 1000 if duration else None
     
     while True:
-        event, _ = window.read(timeout=duration, timeout_key='-TIME-OUT-')
+        event, _ = window.read(timeout=timeout, timeout_key='-TIME-OUT-')
         if event is None or event == '-TIME-OUT-':
             event = constants.EXIT_APLICATION
             break

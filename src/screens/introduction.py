@@ -36,7 +36,7 @@ screen_layout = [
 ]
 
 screen_config = {
-    'background_color': 'Black',
+    'background_color': BACKGROUND_COLOR,
     'element_justification': 'center',
 }
 

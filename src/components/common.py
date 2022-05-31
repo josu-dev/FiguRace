@@ -1,11 +1,12 @@
+"""Styled sg elements
+    Collection of helper functions to style sg elements that are common between screens
+"""
 from typing import Any
 
 import PySimpleGUI as sg
 
 from src import constants
 from src.controllers import theme
-
-from . import custom_sg as csg
 
 
 ImageFile = Any
