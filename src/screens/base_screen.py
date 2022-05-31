@@ -1,16 +1,15 @@
 import PySimpleGUI as sg
 
 from src import constants, csg, common
-
 from src.controllers import theme
 from src.handlers import observer
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-BASE-SCREEN-'
 
 
-def create_button(text: str, key: str) -> sg.Button:
+def create_custom_element(text: str, key: str) -> sg.Button:
     return sg.Button(
         text,
         key=key,
@@ -27,13 +26,9 @@ def create_button(text: str, key: str) -> sg.Button:
 content_layout = [
     [sg.Text('This is for squema example', font=theme.FONT_FAMILY)],
     [csg.vertical_spacer(theme.scale(64))],
-    [create_button('Exit', constants.EXIT_APLICATION)]
-]
-
-
-screen_layout = [
-    [common.screen_title('base screen', True)],
-    [sg.Column(content_layout)],
+    [create_custom_element('My element', constants.EXIT_APLICATION)],
+    [csg.vertical_spacer(theme.scale(64))],
+    [common.navigation_button('Exit', constants.EXIT_APLICATION)]
 ]
 
 
@@ -48,16 +43,22 @@ observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 # For example -MY-EVENT-NAME- some_data_here
 
 
-def reset() -> None:
-    # This function resets de elements of the screen to defaults/configuration values
-    # It runs every time that window view moves to this screen
-    pass
-
+screen_layout = [
+    [common.screen_title('base screen', True)],
+    [sg.Column(content_layout)],
+]
 
 screen_config = {
     'background_color': theme.BG_BASE,
     'element_justification': 'center',
 }
+
+
+def reset() -> None:
+    # This function resets de elements of the screen to defaults/configuration values
+    # It runs every time that window view moves to this screen
+    pass
+
 
 screen = Screen(
     SCREEN_NAME,
@@ -65,21 +66,3 @@ screen = Screen(
     screen_config,
     reset
 )
-
-
-def main() -> None:
-    # Comment screen variable assignment if this file will be runned directly
-    window = sg.Window(SCREEN_NAME, screen_layout)
-
-    while True:
-        event, values = window.read()
-
-        if event == None or event.startswith(constants.EXIT_APLICATION):
-            break
-
-        values = values
-    window.close()
-
-
-if __name__ == '__main__':
-    main()

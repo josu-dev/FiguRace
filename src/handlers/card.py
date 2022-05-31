@@ -22,12 +22,12 @@ class Dataset:
         return self._header
 
     def _random(self) -> list[str]:
-        sample = randint(0, len(self._content))
+        sample = randint(0, len(self._content) -1)
         return self._content[sample]
 
     def _random_unique(self) -> list[str]:
         while True:
-            sample = randint(0, len(self._content))
+            sample = randint(0, len(self._content) -1)
             if sample not in self._used:
                 self._used.add(sample)
                 break

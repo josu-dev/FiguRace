@@ -1,22 +1,22 @@
 import PySimpleGUI as sg
 
-from src import constants as const
+from src import constants
 from src.controllers import theme
 from src.assets import app_icon
 
 from . import observer
-from .layout import Screen, ScreenController
+from .screen import Screen, ScreenController
 
 
-layout_controller = ScreenController()
+screen_controller = ScreenController()
 
 
 def set_up(screens: list[Screen], title: str, initial_screen: str, fullscreen: bool = True) -> sg.Window:
     for screen in screens:
-        layout_controller.register(screen)
+        screen_controller.register(screen)
 
-    observer.subscribe(const.GOTO_VIEW, layout_controller.goto_layout)
-    window_layout = layout_controller.get_composed_layout()
+    observer.subscribe(constants.GOTO_VIEW, screen_controller.goto_layout)
+    window_layout = screen_controller.composed_layout
 
     window = sg.Window(
         title,
@@ -32,5 +32,5 @@ def set_up(screens: list[Screen], title: str, initial_screen: str, fullscreen: b
     if fullscreen:
         window.maximize()
 
-    layout_controller.init(initial_screen)
+    screen_controller.init(initial_screen)
     return window

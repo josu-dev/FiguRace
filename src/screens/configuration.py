@@ -1,132 +1,242 @@
 import PySimpleGUI as sg
 
-from src import constants as const, csg, common
-
-from src.controllers import theme, difficulty_controller as difficulty_ctr
+from src import csg, common
+from src.controllers import theme, difficulty_controller as difficulty_ctr, users_controller as user_ctr
 from src.handlers import observer
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
 
 SCREEN_NAME = "-CONFIGURATION-"
 default_padding = 8
-_font = ('System', theme.H3_SIZE)
+_font = (theme.FONT_FAMILY_TEXT, theme.T1_SIZE)
+_padding = theme.width // 8
 
 
-def build_text(text, unit, combo, lines) -> list:
-    result = [sg.Multiline(text,
-                           disabled=True,
-                           font=_font,
-                           size=(16, lines),
-                           text_color=theme.TEXT_ACCENT,
-                           no_scrollbar=True,
-                           background_color=theme.BG_BASE,
-                           border_width=12,
-                           justification='center'),
-              sg.Text(unit, background_color=theme.BG_BASE),
-
-              combo, ]
+def build_text(text, unit, combo) -> list:
+    result = [
+        csg.horizontal_spacer(theme.width//16,
+                              background_color=theme.BG_BASE),
+        sg.Multiline(text,
+                     disabled=True,
+                     justification='left',
+                     size=(25, 1),
+                     font=_font,
+                     text_color=theme.TEXT_ACCENT,
+                     no_scrollbar=True,
+                     background_color=theme.BG_BASE,
+                     border_width=0,),
+        csg.horizontal_spacer(theme.width//16,
+                              background_color=theme.BG_BASE),
+        sg.Text(unit, background_color=theme.BG_BASE),
+        combo, ]
     return result
 
 
 _cmb_time_per_game = sg.Combo(
     ('15', '30', '60', '90', '180', '300'),
     difficulty_ctr.difficulty.time_per_round,
-    background_color='#8DC3E4',
+    background_color=theme.BG_BUTTON,
     text_color=theme.BG_BASE,
     font=_font,
-    size=(5, 40),
+    size=(3, 1),
     readonly=True,
     key='-TIME-',)
 
-_cmb_features_per_level = sg.Combo(('1', '2', '3', '4', '5'),
-                                   difficulty_ctr.difficulty.characteristics_shown,
-                                   background_color='#8DC3E4',
-                                   text_color=theme.BG_BASE,
-                                   font=_font,
-                                   readonly=True,
-                                   size=(5, 30),
-                                   key='-CARXLEVEL-', )
+_cmb_features_per_level = sg.Combo(
+    ('1', '2', '3', '4', '5'),
+    difficulty_ctr.difficulty.characteristics_shown,
+    background_color=theme.BG_BUTTON,
+    text_color=theme.BG_BASE,
+    font=_font,
+    readonly=True,
+    size=(3, 1),
+    key='-CARXLEVEL-')
 
-_cmb_rounds_per_game = sg.Combo(('3', '5', '8', '10', '20'),
-                                difficulty_ctr.difficulty.rounds_per_game,
-                                background_color='#8DC3E4',
-                                text_color=theme.BG_BASE,
-                                font=_font,
-                                readonly=True,
-                                size=(5, 24),
-                                key='-QROUNDS-',)
+_cmb_rounds_per_game = sg.Combo(
+    ('3', '5', '8', '10', '20'),
+    difficulty_ctr.difficulty.rounds_per_game,
+    background_color=theme.BG_BUTTON,
+    text_color=theme.BG_BASE,
+    font=_font,
+    readonly=True,
+    size=(3, 1),
+    key='-QROUNDS-')
 
-_cmb_plus_points = sg.Combo(('1', '5', '10', '25', '50'),
-                            difficulty_ctr.difficulty.points_correct_answer,
-                            background_color='#8DC3E4',
-                            text_color=theme.BG_BASE,
-                            font=_font,
-                            readonly=True,
-                            size=(5, 24),
-                            key='-+QXANSWER-',)
+_cmb_plus_points = sg.Combo(
+    ('1', '5', '10', '25', '50'),
+    difficulty_ctr.difficulty.points_correct_answer,
+    background_color=theme.BG_BUTTON,
+    text_color=theme.BG_BASE,
+    font=_font,
+    readonly=True,
+    size=(3, 1),
+    key='-+QXANSWER-')
 
-_cmb_sub_points = sg.Combo(('-1', '-5', '-10', '-25', '-50'),
-                           difficulty_ctr.difficulty.points_bad_answer,
-                           background_color='#8DC3E4',
+_cmb_sub_points = sg.Combo(
+    ('-1', '-5', '-10', '-25', '-50'),
+    difficulty_ctr.difficulty.points_bad_answer,
+    background_color=theme.BG_BUTTON,
+    font=_font,
+    text_color=theme.BG_BASE,
+    readonly=True,
+    size=(3, 1),
+    key='--QXANSWER-')
+
+_btn_save = sg.Button(
+    'Guardar Dificultad', size=(16, 1),
+    key='-SAVE-DIFF-CUSTOM-',
+    font=('System', theme.H3_SIZE),
+    button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
+    pad=default_padding,
+    mouseover_colors=theme.BG_BUTTON_HOVER,
+    border_width=theme.BD_PRIMARY)
+
+
+_input_nick = sg.Multiline(user_ctr.current_user.nick,
+                           size=(20, 1),
+                           disabled=True,
+                           no_scrollbar=True,
+                           background_color=theme.BG_BASE,
                            font=_font,
-                           text_color=theme.BG_BASE,
-                           readonly=True,
-                           size=(5, 30),
-                           key='--QXANSWER-',)
+                           text_color=theme.TEXT_ACCENT,
+                           border_width=theme.BD_PRIMARY,
+                           enable_events=True
+                           )
 
-_btn_exit = sg.Button('<--',
-                      key=f'{const.GOTO_VIEW} -MENU-',
-                      border_width=12,
-                      size=(16, 1),
-                      button_color=(
-                          theme.TEXT_ACCENT, theme.BG_BASE),
-                      mouseover_colors=theme.BG_BASE,
-                      font=_font)
-
-_btn_save = sg.Button('Guardar', size=(16, 1),
-                      key='-SAVE-DIFF-CUSTOM-',
+_input_age = sg.Input(default_text=user_ctr.current_user.age,
+                      size=(20, 1),
+                      background_color=theme.BG_BASE,
                       font=_font,
-                      button_color=(theme.TEXT_ACCENT, theme.BG_BASE),
-                      pad=default_padding,
-                      mouseover_colors=theme.BG_BASE,
-                      border_width=12)
+                      text_color=theme.TEXT_ACCENT,
+                      border_width=theme.BD_PRIMARY,
+                      key='-AGE-',
+                      enable_events=True
+                      )
+
+_input_gender = sg.Input(default_text=user_ctr.current_user.gender,
+                         size=(20, 1),
+                         background_color=theme.BG_BASE,
+                         font=_font,
+                         text_color=theme.TEXT_ACCENT,
+                         border_width=theme.BD_PRIMARY,
+                         key='-GENDER-',
+                         enable_events=True
+                         )
+
+
+_btn_edit = sg.Button(
+    'Actualizar Usuario',
+    key='-EDIT-USER-',
+    button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
+    mouseover_colors=theme.BG_BUTTON_HOVER,
+    font=(theme.FONT_FAMILY,theme.T1_SIZE),
+    border_width=theme.BD_ACCENT
+)
+
+
+def header() -> list:
+    return [
+        csg.horizontal_spacer(_padding,
+                              background_color=theme.BG_BASE),
+        sg.Text('DIFICULTAD PERSONALIZADA', pad=((50, 0), (20, 0)),
+                background_color=theme.BG_BASE, font=('System', theme.H3_SIZE)),
+        sg.Push(background_color=theme.BG_BASE),
+        sg.Text('EDITAR USUARIO', pad=((50, 0), (20, 0)),
+                background_color=theme.BG_BASE, font=('System', theme.H3_SIZE)),
+        csg.horizontal_spacer(_padding,
+                              background_color=theme.BG_BASE)
+    ]
+
+
+def textv_spacer() -> list:
+    return [csg.vertical_spacer(theme.height//92, background_color=theme.BG_BASE)]
+
+
+def texth_spacer() -> list:
+    return csg.horizontal_spacer(theme.width//6, background_color=theme.BG_BASE)
+
+
+def text_input(text: str) -> sg.Text:
+    return sg.Text(text,
+                   size=(6, 1),
+                   background_color=theme.BG_BASE,
+                   font=_font,
+                   pad=theme.scale(25)
+                   )
 
 
 def menu_options() -> list[list]:
     config_layout = [
-        [csg.horizontal_spacer(theme.scale(50), background_color=theme.BG_BASE),
-         *build_text('Tiempo de partida', 'Segundos:',
-                     _cmb_time_per_game, 1),
+        header(),
+        [csg.vertical_spacer(
+            theme.height//16, background_color=theme.BG_BASE)],
 
-         sg.Push(),
+        [*build_text('Tiempo de partida', 'Segundos:',
+                     _cmb_time_per_game),
+         texth_spacer(),
+         text_input('Nick'),
+         _input_nick],
+        textv_spacer(),
 
-         *build_text('  Caracteristicas \n  por nivel', 'Cantidad: ',
-                     _cmb_features_per_level, 2)
-         ],
+        [*build_text('Características por nivel',
+                     'Cantidad:  ', _cmb_features_per_level,),
+         texth_spacer(),
+         text_input('Edad'),
+         _input_age],
+        textv_spacer(),
 
-        [csg.horizontal_spacer(theme.scale(50), background_color=theme.BG_BASE),
-         *build_text('Rounds por juego', 'Cantidad: ',
-                     _cmb_rounds_per_game, 1),
+        [*build_text('Rounds por juego', 'Cantidad:  ',
+                     _cmb_rounds_per_game),
+         texth_spacer(),
+         text_input('Género'),
+         _input_gender],
+        textv_spacer(),
 
-         sg.Push(),
+        [*build_text('Puntos añadidos ', 'Cantidad:  ',
+                     _cmb_plus_points),
+         texth_spacer(),
+         csg.horizontal_spacer(theme.scale(
+             100), background_color=theme.BG_BASE),
+         _btn_edit,
+         csg.horizontal_spacer(theme.scale(80), background_color=theme.BG_BASE)],
+        textv_spacer(),
 
-         *build_text('Puntos añadidos', 'Cantidad: ',
-                     _cmb_plus_points, 1),
+        build_text('Puntos restados', 'Cantidad:  ', _cmb_sub_points),
+        textv_spacer(),
 
-         ],
-        [csg.horizontal_spacer(theme.scale(50), background_color=theme.BG_BASE),
-            *build_text('Puntos restados', 'Cantidad: ',
-                        _cmb_sub_points, 1),
-
-         sg.Push()],
-
-        [sg.Push(),
-         csg.vertical_spacer(theme.scale(350), background_color=theme.BG_BASE),
-            _btn_exit,
-
-            _btn_save,
-            sg.Push(), ]]
+        [common.goback_button('<--'),
+            csg.horizontal_spacer(theme.scale(
+                200), background_color=theme.BG_BASE),
+         _btn_save, ]
+    ]
 
     return config_layout
+
+
+def validate_age():
+    age = _input_age.get()
+    try:
+        age = int(age)
+        if age <= 0 or age > 100:
+            raise ValueError
+    except ValueError:
+        _input_age.update(background_color='Red')
+        return False
+    _input_age.update(background_color=theme.BG_BASE,)
+    return True
+
+
+def validate_gender():
+    gender = _input_gender.get()
+    if gender == '':
+        _input_gender.update(background_color='red')
+        return False
+    _input_gender.update(background_color=theme.BG_BASE,)
+    return True
+
+
+def validate_all() -> None:
+    result = validate_gender() + validate_age()
+    _btn_edit.update(disabled=result != 2)
 
 
 def save_settings() -> None:
@@ -140,16 +250,29 @@ def save_settings() -> None:
     difficulty_ctr.update_difficulty(**changes)
 
 
+def update_user() -> None:
+    user_ctr.current_user.age = _input_age.get()
+    user_ctr.current_user.gender = _input_gender.get()
+    pass
+
+
+def refresh_inputs() -> None:
+    _input_nick.update(value=user_ctr.current_user.nick)
+    _input_age.update(value=user_ctr.current_user.age)
+    _input_gender.update(value=user_ctr.current_user.gender)
+
+
 def reset():
+    refresh_inputs()
     pass
 
 
 _configuration_layout = [
     [common.screen_title('Configuración', spaced=True,
                          alignment='center')],
-    [csg.vertical_spacer(int(theme.height/12),
-                         background_color=theme.BG_BASE)],
     [sg.Column(menu_options(), background_color=theme.BG_BASE, expand_x=True)],
+
+
 ]
 
 _screen_config = {
@@ -157,7 +280,18 @@ _screen_config = {
     'element_justification': 'c'
 }
 
-
+observer.subscribe(
+    '-AGE-',
+    validate_all
+)
+observer.subscribe(
+    '-GENDER-',
+    validate_all
+)
+observer.subscribe(
+    '-EDIT-USER-',
+    update_user
+)
 observer.subscribe(
     '-SAVE-DIFF-CUSTOM-',
     save_settings,

@@ -3,16 +3,16 @@ from random import shuffle
 import PySimpleGUI as sg
 
 from src import constants as const, csg, common
-
 from src.controllers import theme, cards_controller as cards_ctr, difficulty_controller as difficulty_ctr
 from src.handlers import observer
-from src.handlers.layout import Screen
+from src.handlers.screen import Screen
+
 
 SCREEN_NAME = '-CONFIGURE-GAME-'
 
-_text_font = ('System', int(theme.H3_SIZE))
-_h2_font = ('System', int(theme.H2_SIZE))
-_padding = int(theme.width / 4)
+
+_text_font = ('System', theme.H3_SIZE)
+_padding = theme.width // 4
 
 
 _cmb_difficulty = sg.Combo(('Fácil', 'Intermedio', 'Difícil', 'Insano', 'Personalizada'),
@@ -45,25 +45,6 @@ def combo_boxes() -> list:
             sg.Push(background_color=theme.BG_BASE),
             _cmb_dataset,
             csg.horizontal_spacer(_padding, background_color=theme.BG_BASE)]
-
-
-_btn_goto_game = sg.Button('Empezar ! ',
-                           key=f'{const.GOTO_VIEW} -GAME-',
-                           font=_h2_font,
-                           auto_size_button=True,
-                           button_color=(theme.TEXT_BUTTON,
-                                         theme.BG_BUTTON),
-                           pad=2,
-                           mouseover_colors=theme.BG_BUTTON_HOVER,
-                           border_width=12)
-
-_btn_back = sg.Button('<--',
-                      key=f'{const.GOTO_VIEW} -MENU-',
-                      border_width=12,
-                      button_color=(theme.TEXT_BUTTON,
-                                    theme.BG_BUTTON),
-                      mouseover_colors=theme.BG_BUTTON_HOVER,
-                      font=_h2_font)
 
 
 def header() -> list:
@@ -109,7 +90,10 @@ def layout() -> list[list[sg.Element]]:
         combo_boxes(),
         build_text(),
         [sg.VPush(background_color=theme.BG_BASE)],
-        [_btn_back, sg.Push(background_color=theme.BG_BASE), _btn_goto_game],
+        [common.goback_button('<--'),
+         sg.Push(background_color=theme.BG_BASE), common.navigation_button(
+             'Empezar !', screen_name='-GAME-')
+         ],
     ]
     return layout
 
@@ -148,7 +132,7 @@ def reset():
 
 _configuration_layout = [
     [common.screen_title('CONFIGURAR JUEGO',
-                         alignment='left', padding=int(theme.height/64))],
+                         alignment='left', padding=theme.height//64)],
     [sg.Column(layout(), background_color=theme.BG_BASE, expand_y=True,
                expand_x=True, justification='right')],
 ]

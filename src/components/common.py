@@ -11,7 +11,7 @@ from . import custom_sg as csg
 ImageFile = Any
 
 
-def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, size:int = theme.H2_SIZE, padding : int = 0) -> sg.Text:
+def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, size: int = theme.H2_SIZE, padding: int = 0) -> sg.Text:
     if upper:
         title = title.upper()
     if spaced:
@@ -23,34 +23,31 @@ def screen_title(title: str, spaced: bool = False, alignment: str = 'center', up
         text_color=theme.TEXT_ACCENT,
         font=(theme.FONT_FAMILY, size),
         justification=alignment,
-        pad= padding if padding else (size//3)*2,
+        pad=padding if padding else (size//3)*2,
         expand_x=True
     )
 
-def navigation_button(text: str,screen_name:str, padding: int = 0) -> sg.Button:
+
+def navigation_button(
+    text: str, screen_name: str, font_size: int = theme.T1_SIZE,
+    padding: tuple[int, int] = (0, 0), border: int = theme.BD_PRIMARY
+) -> sg.Button:
     return sg.Button(
         text,
         key=f'{constants.GOTO_VIEW} {screen_name}',
-        auto_size_button=True,
-        button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-        pad=padding if padding else (theme.H3_SIZE//3)*2,
+        font=(theme.FONT_FAMILY, font_size),
+        button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
         mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=theme.BD_PRIMARY
-    )
-
-def goback_button(text: str = 'Volver', border: int = 8, padding: int = 0) -> sg.Button:
-    return sg.Button(
-        text,
-        key=f'{constants.GOTO_VIEW} {constants.LAST_SCREEN}',
-        auto_size_button=True,
-        button_color=(theme.TEXT_PRIMARY, theme.BG_BUTTON),
-        pad=padding if padding else (theme.T1_SIZE//3)*2,
-        mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=border
+        border_width=border,
+        pad=padding
     )
 
 
-def image_button(image: ImageFile, size: tuple[int,int], key: str, border: int = theme.BD_PRIMARY, padding: int = 0) -> sg.Button:
+def goback_button(text: str, font_size: int = theme.H4_SIZE, padding: tuple[int, int] = (0, 0)) -> sg.Button:
+    return navigation_button(text, constants.LAST_SCREEN, font_size, padding)
+
+
+def image_button(image: ImageFile, size: tuple[int, int], key: str, border: int = theme.BD_PRIMARY, padding: int = 0) -> sg.Button:
     return sg.Button(
         key=key,
         image_size=size,

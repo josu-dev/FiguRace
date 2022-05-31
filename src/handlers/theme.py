@@ -7,7 +7,7 @@ from src import file
 
 SCREEN_SIZE = sg.Window.get_screen_size()
 
-RESPONSIVE_TABLE = {
+HEIGHT_FACTOR_TABLE = {
     2160: 2.0,
     1440: 1.3,
     1080: 1.0,
@@ -15,9 +15,9 @@ RESPONSIVE_TABLE = {
     480: 0.4
 }
 
-for width in RESPONSIVE_TABLE:
-    if SCREEN_SIZE[1] >= width:
-        screen_factor = RESPONSIVE_TABLE[width]
+for height in HEIGHT_FACTOR_TABLE:
+    if SCREEN_SIZE[1] >= height:
+        screen_factor = HEIGHT_FACTOR_TABLE[height]
         break
 else:
     screen_factor = 0.2
@@ -33,7 +33,10 @@ class Theme:
         self.BG_PRIMARY = definition['BG_PRIMARY']
         self.BG_SECONDARY = definition['BG_SECONDARY']
 
+        self.BG_POPUP = definition['BG_POPUP']
+        
         self.BG_BUTTON = definition['BG_BUTTON']
+        self.BG_BUTTON_DISABLED = definition['BG_BUTTON_DISABLED']
         self.BG_BUTTON_HOVER = definition['BG_BUTTON_HOVER']
 
         self.TEXT_ACCENT = definition['F_C_ACCENT']
@@ -41,6 +44,7 @@ class Theme:
         self.TEXT_SECONDARY = definition['F_C_SECONDARY']
 
         self.TEXT_BUTTON = definition['F_C_BUTTON']
+        self.TEXT_BUTTON_DISABLED = definition['F_C_BUTTON_DISABLED']
         self.TEXT_BUTTON_HOVER = definition['F_C_BUTTON_HOVER']
 
         self.BD_ACCENT = apply_scale(definition['BD_ACCENT'])
@@ -54,17 +58,22 @@ class Theme:
         self.H1_SIZE = apply_scale(definition['F_SIZE_H1'])
         self.H2_SIZE = apply_scale(definition['F_SIZE_H2'])
         self.H3_SIZE = apply_scale(definition['F_SIZE_H3'])
+        self.H4_SIZE = apply_scale(definition['F_SIZE_H4'])
         self.T1_SIZE = apply_scale(definition['F_SIZE_T1'])
         self.T2_SIZE = apply_scale(definition['F_SIZE_T2'])
         self.T3_SIZE = apply_scale(definition['F_SIZE_T3'])
 
+        self.BG_ERROR_ACCENT = definition['ERROR_BG_ACCENT']
+        self.BG_ERROR_NORMAL = definition['ERROR_BG_NORMAL']
+        self.BG_ERROR_SOFT = definition['ERROR_BG_SOFT']
+
     @property
     def height(self):
-        return SCREEN_SIZE[0]
+        return SCREEN_SIZE[1]
 
     @property
     def width(self):
-        return SCREEN_SIZE[1]
+        return SCREEN_SIZE[0]
 
     def scale(self, value: int) -> int:
         return apply_scale(value)

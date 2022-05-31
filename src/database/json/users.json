@@ -1,8 +1,8 @@
 {
     "Josu": {
         "nick": "Josu",
-        "age": 21,
-        "gender": "male",
+        "age": "21",
+        "gender": "Helic\u00f3ptero andino",
         "preferred_color": "red",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
@@ -19,7 +19,26 @@
                 67
             ],
             "normal": [
-                65
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                4,
+                32,
+                -8,
+                0,
+                0,
+                0,
+                0,
+                36,
+                60,
+                54
             ],
             "hard": [
                 10,
@@ -39,16 +58,16 @@
     },
     "Gallardo": {
         "nick": "Gallardo",
-        "age": 19,
-        "gender": "male",
+        "age": "23",
+        "gender": "2",
         "preferred_color": "green",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
-            "time_per_round": 50,
-            "rounds_per_game": 10,
+            "time_per_round": 15,
+            "rounds_per_game": 3,
             "points_correct_answer": 12,
-            "points_bad_answer": -2,
-            "characteristics_shown": 3
+            "points_bad_answer": -1,
+            "characteristics_shown": 1
         },
         "scores": {
             "easy": [
@@ -62,13 +81,24 @@
             ],
             "normal": [
                 65,
-                0
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                6
             ],
             "hard": [
                 10,
                 3
             ],
-            "insane": [],
+            "insane": [
+                20
+            ],
             "custom": [
                 45,
                 100,
@@ -78,24 +108,24 @@
     },
     "Pedro": {
         "nick": "Pedro",
-        "age": 19,
-        "gender": "male",
+        "age": "64",
+        "gender": "MALE",
         "preferred_color": "yellow",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
-            "rounds_per_game": 20,
+            "rounds_per_game": 10,
             "points_correct_answer": 12,
-            "points_bad_answer": -5,
+            "points_bad_answer": -2,
             "characteristics_shown": 3
         },
         "scores": {
             "easy": [
                 67,
-                0
+                0,
+                40
             ],
             "normal": [
-                33,
                 0,
                 0,
                 0,
@@ -105,15 +135,25 @@
                 0,
                 0,
                 0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                38,
+                18,
                 0,
                 0,
                 0
             ],
             "hard": [
                 10,
-                0
+                0,
+                40
             ],
             "insane": [
+                0,
                 0
             ],
             "custom": [
@@ -129,11 +169,11 @@
         "preferred_color": "#000000",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
-            "time_per_round": 300,
-            "rounds_per_game": 3,
-            "points_correct_answer": 50,
-            "points_bad_answer": 1,
-            "characteristics_shown": 5
+            "time_per_round": 50,
+            "rounds_per_game": 10,
+            "points_correct_answer": 12,
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
         },
         "scores": {
             "easy": [
@@ -141,13 +181,29 @@
                 0,
                 40,
                 0,
-                100
+                100,
+                30,
+                10,
+                0
             ],
             "normal": [
                 0,
                 0,
                 0,
-                84,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                10,
+                0,
                 0,
                 0,
                 0
@@ -159,6 +215,7 @@
             ],
             "custom": [
                 152,
+                0,
                 0
             ]
         }
