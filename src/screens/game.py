@@ -13,6 +13,7 @@ SELECT_OPTION = '-SELECT-OPTION-'
 CONFIRM_SELECTED_OPTION = '-CONFIRM-SELECTED-OPTION-'
 SKIP_CARD = '-SKIP-CARD-'
 END_RUN = '-END-RUN-'
+ROUNDS_TABLE_SIZE = 20
 
 
 class CardState(TypedDict):
@@ -29,7 +30,7 @@ class RunState(TypedDict):
     time: sg.Text
     user: sg.Text
     points: sg.Text
-    rounds: list[sg.Text]
+    rounds: sg.Multiline
 
 
 def create_button(text: str, key: str) -> sg.Button:
@@ -74,19 +75,25 @@ def create_run_state() -> sg.Column:
         size=24,
         justification='center'
     )
-    run_state['rounds'] = [
-        sg.Text(
-            f' {i+1:<2}.  ',
-            font=(theme.FONT_FAMILY_TEXT, theme.T2_SIZE),
-            background_color=theme.BG_SECONDARY
-        ) for i in range(run_ctr.max_rounds)
-    ]
+    run_state['rounds'] = sg.Multiline(
+        '\n'.join([f' {i+1:<2}. {"":>3}' for i in range(ROUNDS_TABLE_SIZE)]),
+        font=(theme.FONT_FAMILY_TEXT, theme.T2_SIZE),
+        text_color=theme.TEXT_PRIMARY,
+        background_color=theme.BG_SECONDARY,
+        size=(10, ROUNDS_TABLE_SIZE),
+        no_scrollbar=True,
+        rstrip=False,
+        disabled=True,
+        border_width=0
+    )
     layout = [
+        [csg.vertical_spacer(theme.scale(24), theme.BG_SECONDARY)],
         [run_state['difficulty']],
         [run_state['time']],
         [run_state['user']],
         [run_state['points']],
-        *[[stat] for stat in run_state['rounds']]
+        [run_state['rounds']],
+        [csg.vertical_spacer(theme.scale(16), theme.BG_SECONDARY)],
     ]
     return sg.Column(
         layout,
@@ -104,17 +111,20 @@ def reset_run_state() -> None:
         constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
     refresh_timer()
     run_state['user'].update(users_ctr.current_user.nick)
-    run_state['points'].update('0 puntos')
-    for i, round in enumerate(run_state['rounds']):
-        round.update(f' {i+1:<2}. {"":>3}')
+    run_state['points'].update(' 0 puntos')
+    run_state['rounds'].update(
+        '\n'.join([f' {i+1:<2}. {"":>3}' for i in range(run_ctr.max_rounds)])
+    )
 
 
 def refresh_run_state() -> None:
     score = run_ctr.score
     run_state['points'].update(f'{sum(score)} puntos')
-    for i, round in enumerate(run_state['rounds']):
-        points = score[i] if i < len(score) else ''
-        round.update(f' {i+1:<2}. {points:>3}')
+    scores = [
+        f' {i+1:<2}. {score[i] if i < len(score) else "":>3}'
+        for i in range(run_ctr.max_rounds)
+    ]
+    run_state['rounds'].update('\n'.join(scores))
 
 
 def create_option_button(text: str, key: str) -> sg.Button:
@@ -171,7 +181,7 @@ def create_card() -> sg.Column:
         [card['type']],
         *[hint for hint in card['hints']],
         *[[button] for button in card['options']],
-        [csg.vertical_spacer(theme.scale(16),background_color=theme.BG_BASE)],
+        [csg.vertical_spacer(theme.scale(16), background_color=theme.BG_BASE)],
         [
             card['confirm_button'],
             sg.Push(theme.BG_BASE),
@@ -254,15 +264,15 @@ run_ctr.registry_event('win_round', end_round)
 run_ctr.registry_event('loose_round', end_round)
 
 
-def create_leave_button()-> sg.Button:
+def create_leave_button() -> sg.Button:
     return sg.Button(
         'Abandonar partida',
         key=f'{END_RUN}',
         font=(theme.FONT_FAMILY, theme.T1_SIZE),
-        button_color=(theme.TEXT_BUTTON,theme.BG_BUTTON),
+        button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
         mouseover_colors=theme.BG_BUTTON_HOVER,
         border_width=theme.BD_PRIMARY,
-        pad=(0,0)
+        pad=(0, 0)
     )
 
 

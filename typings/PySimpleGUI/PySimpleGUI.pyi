@@ -520,7 +520,7 @@ class Combo(Element):
         Changes some of the se"""
         ...
     
-    def get(self): # -> str | None:
+    def get(self) -> str:
         """
         Returns the current (r"""
         ...

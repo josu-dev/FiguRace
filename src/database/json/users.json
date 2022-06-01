@@ -6,26 +6,21 @@
         "preferred_color": "red",
         "preferred_difficulty": "custom",
         "custom_difficulty": {
-            "time_per_round": 300,
-            "rounds_per_game": 8,
+            "time_per_round": 50,
+            "rounds_per_game": 20,
             "points_correct_answer": 12,
             "points_bad_answer": -2,
-            "characteristics_shown": 2
+            "characteristics_shown": 3
         },
         "scores": {
             "easy": [
                 9,
                 10,
                 67,
+                0,
                 0
             ],
             "normal": [
-                0,
-                0,
-                0,
-                0,
-                0,
-                4,
                 32,
                 -8,
                 0,
@@ -39,7 +34,13 @@
                 0,
                 0,
                 0,
-                36
+                36,
+                0,
+                0,
+                0,
+                0,
+                0,
+                18
             ],
             "hard": [
                 10,
@@ -50,11 +51,19 @@
                 0,
                 0,
                 0,
+                0,
                 0
             ],
             "custom": [
                 45,
                 67,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
                 0,
                 0
             ]
