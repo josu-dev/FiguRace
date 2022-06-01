@@ -1,4 +1,4 @@
-from typing import Callable
+from typing import Any, Callable, TypedDict
 
 import PySimpleGUI as sg
 
@@ -11,6 +11,12 @@ from src.handlers.screen import Screen
 SCREEN_NAME = '-CREATE-PROFILE-'
 LOAD_USER_FIELD = '-LOAD-USER-FIELD-'
 EVENT_ADD_PROFILE = '-ADD-PROFILE-'
+
+
+class FormInput(TypedDict):
+    input: sg.Input
+    state: bool
+    validate_fn: Callable[[sg.Input], bool]
 
 
 def create_input(key: str) -> sg.Input:
@@ -62,10 +68,14 @@ FIELDS_LIST = [
     ('gender', validate_gender),
 ]
 
-inputs: dict[str, list[sg.Input | bool | Callable[[sg.Input], bool]]] = {}
+inputs: dict[str, FormInput] = {}
 
 for type, validation_fn in FIELDS_LIST:
-    inputs[type] = [create_input(type), False, validation_fn]
+    inputs[type] = {
+        'input': create_input(type),
+        'state': False,
+        'validate_fn': validation_fn
+    }
 
 create_button = sg.Button(
     'Crear',
@@ -93,37 +103,24 @@ def enable_create_button() -> None:
     )
 
 
+def create_field(name: str, input: sg.Input) -> tuple[sg.Text, sg.Input]:
+    return (
+        sg.Text(
+            name,
+            size=(6, 1),
+            background_color=theme.BG_BASE,
+            font=(theme.FONT_FAMILY, theme.H3_SIZE),
+            pad=theme.scale(25)
+        ),
+        input
+    )
+
+
 def create_formulary() -> sg.Column:
     layout = [
-        [
-            sg.Text(
-                'Nick',
-                size=(6, 1),
-                background_color=theme.BG_BASE,
-                font=(theme.FONT_FAMILY, theme.H3_SIZE),
-                pad=theme.scale(25)
-            ),
-            inputs['nick'][0]
-        ],
-        [
-            sg.Text(
-                'Edad',
-                size=(6, 1),
-                background_color=theme.BG_BASE,
-                font=(theme.FONT_FAMILY, theme.H3_SIZE),
-                pad=theme.scale(25)
-            ),
-            inputs['age'][0]
-        ],
-        [
-            sg.Text(
-                'Género', size=(6, 1),
-                background_color=theme.BG_BASE,
-                font=(theme.FONT_FAMILY, theme.H3_SIZE),
-                pad=theme.scale(25)
-            ),
-            inputs['gender'][0]
-        ],
+        [*create_field('Nick', inputs['nick']['input'])],
+        [*create_field('Edad', inputs['age']['input'])],
+        [*create_field('Genero', inputs['gender']['input'])],
         [
             sg.Push(theme.BG_BASE),
             create_button,
@@ -139,13 +136,13 @@ def create_formulary() -> sg.Column:
 
 def reset_formulary() -> None:
     for value in inputs.values():
-        value[0].update('', background_color=theme.BG_BASE)
-        value[1] = False
+        value['input'].update('', background_color=theme.BG_BASE)
+        value['state'] = False
     disable_create_button()
 
 
 def validate_inputs(key: str):
-    inputs[key][1] = inputs[key][2](inputs[key][0])
+    inputs[key]['state'] = inputs[key]['validate_fn'](inputs[key]['input'])
 
     for _, valid, _ in inputs.values():
         if not valid:
@@ -158,13 +155,33 @@ def validate_inputs(key: str):
 observer.subscribe(LOAD_USER_FIELD, validate_inputs)
 
 
+def create_new_user_message(nick: str) -> list[list[Any]]:
+    return [
+        [sg.Text(
+            f'Perfil {nick}\ncreado exitosamente',
+            font=(theme.FONT_FAMILY, theme.T1_SIZE),
+            text_color=theme.TEXT_ACCENT,
+            background_color=theme.BG_SECONDARY,
+            pad=(theme.scale(32),)*2,
+            justification='center'
+        )],
+    ]
+
+
 def create_user():
+    nick: str = inputs['nick']['input'].get()
     users_ctr.add(
-        inputs['nick'][0].get(),
-        int(inputs['age'][0].get()),
-        inputs['gender'][0].get()
+        nick,
+        int(inputs['age']['input'].get()),
+        inputs['gender']['input'].get()
     )
     reset_formulary()
+    csg.custom_popup(
+        create_new_user_message(nick),
+        [],
+        background_color=theme.BG_SECONDARY,
+        duration=2
+    )
 
 
 observer.subscribe(EVENT_ADD_PROFILE, create_user)

@@ -4,7 +4,7 @@
         "age": "69",
         "gender": "Helic\u00f3ptero Austriaco",
         "preferred_color": "red",
-        "preferred_difficulty": "custom",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 50,
             "rounds_per_game": 20,
@@ -17,6 +17,7 @@
                 9,
                 10,
                 67,
+                0,
                 0,
                 0
             ],
@@ -57,6 +58,7 @@
             "custom": [
                 45,
                 67,
+                0,
                 0,
                 0,
                 0,
@@ -175,27 +177,32 @@
             ]
         }
     },
-    "Test31": {
-        "nick": "Test31",
-        "age": 1,
-        "gender": "No Binarie",
+    "Elim": {
+        "nick": "Elim",
+        "age": 45,
+        "gender": "sdsd",
         "preferred_color": "#000000",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
-            "time_per_round": 30,
-            "rounds_per_game": 10,
+            "time_per_round": 15,
+            "rounds_per_game": 8,
             "points_correct_answer": 50,
             "points_bad_answer": -1,
             "characteristics_shown": 5
         },
         "scores": {
-            "easy": [],
-            "normal": [],
+            "easy": [
+                90
+            ],
+            "normal": [
+                0,
+                0
+            ],
             "hard": [],
             "insane": [],
             "custom": [
-                0,
-                381
+                16,
+                340
             ]
         }
     }
