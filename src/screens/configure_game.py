@@ -116,9 +116,9 @@ def layout() -> list[list[Any]]:
         combo_boxes(),
         build_text(),
         [sg.VPush(background_color=theme.BG_BASE)],
-        [common.goback_button('<--'),
+        [common.goback_button('Menu Principal', padding=(theme.scale(64),)*2),
          sg.Push(background_color=theme.BG_BASE), common.navigation_button(
-             'Empezar !', screen_name='-GAME-')
+             'Empezar !', screen_name='-GAME-',padding=(theme.scale(64),)*2)
          ],
     ]
     return layout
