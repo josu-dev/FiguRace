@@ -1,4 +1,4 @@
-from os import remove
+from typing import Any
 import PySimpleGUI as sg
 
 from src import constants as const, csg, common
@@ -127,7 +127,10 @@ screen_layout = [
 ]
 
 
-def confirm():
+def enable_selection()->None:
+    """
+    Enables user interaction buttons and show the selected one.
+    """
     _play_button.update(disabled=False)
     _remove_button.update(disabled=False)
     _edit_button.update(disabled=False)
@@ -136,30 +139,45 @@ def confirm():
     users_ctr.current_user = _user_list.get()[0]
 
 
-observer.subscribe('-ENABLE-', confirm)
+observer.subscribe('-ENABLE-', enable_selection)
 
 
-def update_user_list():
+def update_user_list()-> None:
+    """
+    Update the list of profiles.
+    """
     _user_list.update(values=users_ctr.users_transform(lambda user: user.nick))
 
 
-def reset_select_user():
+def reset_select_user()-> None:
+    """ 
+    Reset the selected user and disables the play buttons - delete and edit profiles.
+    """
     _play_button.update(disabled=True)
     _remove_button.update(disabled=True)
     _edit_button.update(disabled=True)
     _current_user.update('Seleccionado: ')
 
 
-def reset():
+def reset()-> None:
+    """
+    Refresh the information after an action that produced changes.
+    """
     update_user_list()
     reset_select_user()
 
 
-def _new_popup_layout():
+def _new_popup_layout(popup_text: str = '')-> list[list[Any]]:
+    """
+    Args: 
+        popup_text: text to display in the popup
+    Returns: 
+        The layout for a popup window to accept or cancel an action.
+    """
     return [
         [
             sg.Text(
-                '¿Deseas eliminar este usuario?', background_color=theme.BG_POPUP,
+                popup_text, background_color=theme.BG_POPUP,
                 text_color=theme.BG_BASE,
                 font=(theme.FONT_FAMILY, theme.T1_SIZE)
             )
@@ -167,14 +185,14 @@ def _new_popup_layout():
         [
             sg.Button(
                 button_text='Cancelar', k='-CANCEL-',
-                font=(theme.FONT_FAMILY,theme.T2_SIZE),
+                font=(theme.FONT_FAMILY, theme.T2_SIZE),
                 border_width=theme.BD_SECONDARY, pad=theme.scale(20),
                 button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON)
             ),
             sg.Push(background_color=theme.BG_POPUP),
             sg.Button(
                 button_text='Aceptar', k='-OK-',
-                font=(theme.FONT_FAMILY,theme.T2_SIZE),
+                font=(theme.FONT_FAMILY, theme.T2_SIZE),
                 border_width=theme.BD_SECONDARY, pad=theme.scale(20),
                 button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON)
             ),
@@ -182,9 +200,11 @@ def _new_popup_layout():
     ]
 
 
-def remove():
+def remove()-> None:
+    """Check if you really want to delete the profile, by means of a popup, when affirming , the selected profile is deleted.
+    """
     response = csg.custom_popup(
-        _new_popup_layout(),
+        _new_popup_layout('¿Deseas eliminar este usuario?'),
         close_keys=['-OK-', '-CANCEL-'],
         background_color=theme.BG_POPUP
     )
