@@ -176,34 +176,5 @@
                 10
             ]
         }
-    },
-    "Elim": {
-        "nick": "Elim",
-        "age": 45,
-        "gender": "sdsd",
-        "preferred_color": "#000000",
-        "preferred_difficulty": "normal",
-        "custom_difficulty": {
-            "time_per_round": 15,
-            "rounds_per_game": 8,
-            "points_correct_answer": 50,
-            "points_bad_answer": -1,
-            "characteristics_shown": 5
-        },
-        "scores": {
-            "easy": [
-                90
-            ],
-            "normal": [
-                0,
-                0
-            ],
-            "hard": [],
-            "insane": [],
-            "custom": [
-                16,
-                340
-            ]
-        }
     }
 }
