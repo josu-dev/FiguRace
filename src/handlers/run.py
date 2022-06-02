@@ -138,7 +138,6 @@ class RunController:
     def options(self) -> list[str]:
         return self._round.options
 
-    # Implement timer on round
     @property
     def time(self) -> str:
         return str(self._time) + ':00'

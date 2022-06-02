@@ -18,7 +18,7 @@ class ChainedElement(ABC):
     """Wrapper to manage elements that will later be packaged depend on the type of list
     """
     @abstractmethod
-    def __init__(self, **column_parameters: Any):
+    def __init__(self, **column_parameters: Any) -> None:
         ...
 
     @abstractmethod
@@ -34,7 +34,7 @@ class HorizontalList(ChainedElement):
     """Horizontal list that extends from ChainedElement: class to manage the elements.
     """
 
-    def __init__(self, **column_parameters: Any):
+    def __init__(self, **column_parameters: Any) -> None:
         """Initializes the attributes _container and _config
         Args:
             column_parameters: all the column parameter that will be applied as a configuration.
@@ -66,11 +66,10 @@ class HorizontalList(ChainedElement):
 
 
 class VerticalList(ChainedElement):
-    """
-         Vertical list that extends from ChainedElement: class to manage the elements.
+    """Vertical list that extends from ChainedElement: class to manage the elements.
     """
 
-    def __init__(self, **column_parameters: Any):
+    def __init__(self, **column_parameters: Any) -> None:
         """Initializes the attributes _container and _config
         Args:
             column_parameters: all the column parameter that will be applied as a configuration.
