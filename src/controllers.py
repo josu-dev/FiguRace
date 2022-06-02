@@ -24,7 +24,7 @@ users_controller = UsersController(constants.PATH_USERS, settings.default_user)
 theme_controller = ThemeController(constants.PATH_THEME, settings.theme)
 theme = theme_controller.theme
 
-cards_controller = CardController()
+cards_controller = CardController(constants.PATHS_DATASETS)
 
 run_controller = RunController(cards_controller, difficulty_controller)
 

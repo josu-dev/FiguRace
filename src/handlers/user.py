@@ -31,7 +31,7 @@ def default_scores() -> dict[str, list[int]]:
 
 
 class User:
-    def __init__(self, definition: UserJSON):
+    def __init__(self, definition: UserJSON) -> None:
         self._nick = definition['nick']
         self._age = definition['age']
         self._gender = definition['gender']
@@ -89,7 +89,7 @@ class User:
         return {
             difficulty: sorted(results) for difficulty, results in self._scores.items()
         }
-    
+
     def update_score(self, difficulty: str, value: int) -> None:
         self._scores[difficulty].append(value)
         if len(self._scores[difficulty]) > RESULTS_LENGTH:
@@ -110,7 +110,7 @@ class User:
         }
 
 
-def new_user(nick: str, age: int, gender: str, preferred_color:str=DEFAULT_PREFERRED_COLOR) -> User:
+def new_user(nick: str, age: int, gender: str, preferred_color: str = DEFAULT_PREFERRED_COLOR) -> User:
     return User({
         'nick': nick,
         'age': age,
@@ -123,7 +123,7 @@ def new_user(nick: str, age: int, gender: str, preferred_color:str=DEFAULT_PREFE
 
 
 class UsersController:
-    def __init__(self, users_path: str, default_user: str = ''):
+    def __init__(self, users_path: str, default_user: str = '') -> None:
         self._file_path = users_path
         raw_users: dict[str, UserJSON] = file.load_json(users_path)
         self._users = {
@@ -134,13 +134,13 @@ class UsersController:
             difficulty.UPDATE_DIFFICULTY_TYPE, self._set_user_difficulty
         )
 
-    def add(self, nick:str, age: int, gender: str, preferred_color:str='#000000'):
+    def add(self, nick: str, age: int, gender: str, preferred_color: str = '#000000') -> None:
         self._users[nick] = new_user(nick, age, gender, preferred_color)
-    
-    def remove(self, nick:str):
+
+    def remove(self, nick: str) -> None:
         if self._current_user == nick:
             self.current_user = 'undefined'
-        self._users.pop(nick,None)
+        self._users.pop(nick, None)
 
     @property
     def user_list(self) -> list[User]:
@@ -158,7 +158,7 @@ class UsersController:
     @property
     def current_user(self) -> User:
         return self._users.get(
-            self._current_user, new_user('undefined',0,'undefined')
+            self._current_user, new_user('undefined', 0, 'undefined')
         )
 
     @current_user.setter

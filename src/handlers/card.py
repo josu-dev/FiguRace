@@ -3,11 +3,10 @@ from random import randint
 from typing import Any, Callable
 
 from src import file
-from src.constants import PATHS_DATASETS
 
 
 class Dataset:
-    def __init__(self, name: str, raw_dataset: list[list[str]]):
+    def __init__(self, name: str, raw_dataset: list[list[str]]) -> None:
         self._name = name
         self._header = raw_dataset[0]
         self._content = raw_dataset[1:]
@@ -22,12 +21,12 @@ class Dataset:
         return self._header
 
     def _random(self) -> list[str]:
-        sample = randint(0, len(self._content) -1)
+        sample = randint(0, len(self._content) - 1)
         return self._content[sample]
 
     def _random_unique(self) -> list[str]:
         while True:
-            sample = randint(0, len(self._content) -1)
+            sample = randint(0, len(self._content) - 1)
             if sample not in self._used:
                 self._used.add(sample)
                 break
@@ -67,13 +66,13 @@ class Card:
 
 
 class CardController:
-    def __init__(self):
-        self._datasets = PATHS_DATASETS
+    def __init__(self, datasets_path: dict[str, str]) -> None:
+        self._datasets = datasets_path
         default = list(self._datasets.keys())[0]
         self._load_dataset(default)
 
     def _load_dataset(self, name: str) -> None:
-        raw_dataset = file.load_csv(PATHS_DATASETS[name])
+        raw_dataset = file.load_csv(self._datasets[name])
         self._dataset = Dataset(name, raw_dataset)
         # This probably is unnecesary
         self._answers = self._dataset.apply(lambda line: line[-1])
@@ -89,7 +88,7 @@ class CardController:
 
     def set_type(self, type: str) -> None:
         self._load_dataset(type)
-    
+
     @property
     def current_type(self) -> str:
         return self._dataset.name

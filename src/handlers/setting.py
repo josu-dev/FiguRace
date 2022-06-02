@@ -25,7 +25,7 @@ class Settings:
 
 
 class SettingsController:
-    def __init__(self, settings_path: str):
+    def __init__(self, settings_path: str) -> None:
         self._file_path = settings_path
         raw_settings: dict[str, SettingsJSON] = file.load_json(settings_path)
         self._settings = {
@@ -39,10 +39,10 @@ class SettingsController:
         observer.subscribe(constants.USER_CHANGE, self._set_default_user)
 
     @property
-    def settings(self):
+    def settings(self) -> Settings:
         return self._setting
 
-    def _set_default_user(self, user:Any) -> None:
+    def _set_default_user(self, user: Any) -> None:
         self.settings.default_user = user.nick
 
     def set_starting_page(self, screen_name: str) -> None:

@@ -68,7 +68,7 @@ class Round:
 
 
 class RunController:
-    def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController):
+    def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController) -> None:
         self._cards = cards_ctr
         self._difficulty = difficulty_ctr.difficulty
         self._round = Round(self._cards.new_card, difficulty_ctr.difficulty)

@@ -15,7 +15,7 @@ class WindowController:
         self._timeout_key: str = constants.TIME_OUT
         observer.subscribe(constants.UPDATE_TIMEOUT, self.set_timeout)
 
-    def init(self, screens: list[screen.Screen], initial_screen: str, title: str, app_icon: Any=None, fullscreen: bool = True) -> None:
+    def init(self, screens: list[screen.Screen], initial_screen: str, title: str, app_icon: Any = None, fullscreen: bool = True) -> None:
         for screen in screens:
             self._screen_ctr.register(screen)
 

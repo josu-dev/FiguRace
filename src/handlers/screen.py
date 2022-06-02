@@ -8,7 +8,7 @@ from . import observer
 
 
 class Screen:
-    def __init__(self, key: str, layout: list[list[Any]], config: dict[str, Any], reset: Callable[..., None]):
+    def __init__(self, key: str, layout: list[list[Any]], config: dict[str, Any], reset: Callable[..., None]) -> None:
         config['key'] = key
         config['visible'] = False
         config['expand_x'] = True
@@ -30,7 +30,7 @@ class Screen:
 
 
 class ScreenController:
-    def __init__(self):
+    def __init__(self) -> None:
         self._actual_layout: str = ''
         self._layout_stack: list[str] = []
         self._layouts: dict[str, Screen] = {}

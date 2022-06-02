@@ -28,13 +28,13 @@ def apply_scale(value: int) -> int:
 
 
 class Theme:
-    def __init__(self, definition: dict[str, Any]):
+    def __init__(self, definition: dict[str, Any]) -> None:
         self.BG_BASE = definition['BG_BASE']
         self.BG_PRIMARY = definition['BG_PRIMARY']
         self.BG_SECONDARY = definition['BG_SECONDARY']
 
         self.BG_POPUP = definition['BG_POPUP']
-        
+
         self.BG_BUTTON = definition['BG_BUTTON']
         self.BG_BUTTON_DISABLED = definition['BG_BUTTON_DISABLED']
         self.BG_BUTTON_HOVER = definition['BG_BUTTON_HOVER']
@@ -68,11 +68,11 @@ class Theme:
         self.BG_ERROR_SOFT = definition['ERROR_BG_SOFT']
 
     @property
-    def height(self):
+    def height(self) -> int:
         return SCREEN_SIZE[1]
 
     @property
-    def width(self):
+    def width(self) -> int:
         return SCREEN_SIZE[0]
 
     def scale(self, value: int) -> int:
@@ -80,19 +80,19 @@ class Theme:
 
 
 class ThemeController:
-    def __init__(self, themes_path: str, default_theme_name: str):
+    def __init__(self, themes_path: str, default_theme_name: str) -> None:
         self._raw_themes: dict[str, Any] = file.load_json(themes_path)
         self._current_theme = default_theme_name
         self._theme = Theme(self._raw_themes[self._current_theme])
 
     @property
-    def theme(self):
+    def theme(self) -> Theme:
         return self._theme
 
     @property
-    def theme_name(self):
+    def theme_name(self) -> str:
         return self._current_theme
 
     @property
-    def theme_list(self):
+    def theme_list(self) -> list[str]:
         return [name for name in self._raw_themes]

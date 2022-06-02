@@ -55,7 +55,7 @@ class Difficulty:
 
 
 class DifficultyController:
-    def __init__(self, difficulties_path: str ,difficulty: str = DEFAULT_TYPE):
+    def __init__(self, difficulties_path: str, difficulty: str = DEFAULT_TYPE) -> None:
         self._file_path = difficulties_path
         self._current_difficulty = difficulty
         raw_difficulties: dict[str, DifficultyJSON] = file.load_json(
@@ -67,11 +67,11 @@ class DifficultyController:
         observer.subscribe(constants.USER_CHANGE, self._new_user)
 
     @property
-    def difficulty(self):
+    def difficulty(self) -> Difficulty:
         return self._difficulty
 
     @property
-    def difficulty_name(self):
+    def difficulty_name(self) -> str:
         return self._current_difficulty
 
     def update_difficulty(
@@ -99,7 +99,7 @@ class DifficultyController:
     def difficulties(self) -> dict[str, Difficulty]:
         return {name: copy(definition) for name, definition in self._difficulties.items()}
 
-    def _new_user(self, user:Any) -> None:
+    def _new_user(self, user: Any) -> None:
         self._difficulties['custom'] = user.custom_difficulty
         self.set_difficulty(user.preferred_difficulty)
 
