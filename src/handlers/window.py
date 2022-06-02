@@ -55,5 +55,5 @@ class WindowController:
             self._window.close()
 
     def set_timeout(self, duration: int | None = None, key: str = constants.TIME_OUT) -> None:
-        self._timeout = duration * 1000 if duration else None
+        self._timeout = duration if duration else None
         self._timeout_key = key

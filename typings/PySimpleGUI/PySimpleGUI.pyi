@@ -993,7 +993,7 @@ class Image(Element):
         Changes some of the se"""
         ...
     
-    def update_animation(self, source, time_between_frames=...):
+    def update_animation(self, source:str|bytes=..., time_between_frames:int=...) -> None:
         """
         Show an Animated GIF. """
         ...

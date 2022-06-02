@@ -93,10 +93,10 @@ class RunController:
             'average_time': 0,
             'total_tryes': 0
         }
-        self._time = 0
+        self._time = self._difficulty.time_per_round
         self._new_round()
         observer.subscribe(constants.TIME_OUT, self._update_time)
-        observer.post_event(constants.UPDATE_TIMEOUT, 1)
+        observer.post_event(constants.UPDATE_TIMEOUT, 1000)
 
     def _new_round(self) -> None:
         if self._rounds > -1:
