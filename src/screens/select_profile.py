@@ -161,7 +161,7 @@ def reset_select_user()-> None:
 
 def reset()-> None:
     """
-    Refresh the information after an action that produced changes.
+    Refresh the information in the list of users and the selected .
     """
     update_user_list()
     reset_select_user()
@@ -179,7 +179,7 @@ def _new_popup_layout(popup_text: str = '')-> list[list[Any]]:
             sg.Text(
                 popup_text, background_color=theme.BG_POPUP,
                 text_color=theme.BG_BASE,
-                font=(theme.FONT_FAMILY, theme.T1_SIZE)
+                font=(theme.FONT_FAMILY, theme.T2_SIZE)
             )
         ],
         [
