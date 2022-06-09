@@ -25,7 +25,3 @@
 [X] La “Pantalla de configuración” deberá almacenar/cargar los datos desde un archivo JSON. Se requiere la configuración de al menos 3 niveles (detalles en Anexo I - (e) Pantalla de configuración).
 
 [X] Se deberán implementar las funcionalidades de las “Pantalla de configuración” y creación/edición de perfil.
-
-<br>
-
-## Segunda entrega

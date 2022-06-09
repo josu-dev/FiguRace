@@ -168,9 +168,9 @@ def validate_inputs(key: str) -> None:
         key: key of the formulary to validate
     """
     inputs[key]['state'] = inputs[key]['validate_fn'](inputs[key]['input'])
-
-    for _, valid, _ in inputs.values():
-        if not valid:
+    
+    for input in inputs.values():
+        if not input['state']:
             disable_create_button()
             break
     else:
