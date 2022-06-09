@@ -1,5 +1,5 @@
 import csv
-from os import path
+import os
 from typing import Callable
 
 
@@ -37,9 +37,12 @@ def row_resample_factory(index_sequence: list[int]) -> RowTransformFn:
     return resample
 
 
-BASE_PATH = path.dirname(__file__)
-SRC_PATH = path.join(BASE_PATH, 'base_datasets')
-OUTPUT_PATH = path.join(BASE_PATH, 'processed_datasets')
+BASE_PATH = os.path.dirname(os.path.dirname(__file__))
+SRC_PATH = os.path.join(BASE_PATH, 'base_datasets')
+OUTPUT_PATH = os.path.join(BASE_PATH, 'processed_datasets')
+
+if not os.path.exists(OUTPUT_PATH):
+    os.mkdir(OUTPUT_PATH)
 
 
 # Spotify dataset
@@ -72,8 +75,8 @@ def spotify_content(row: list[str]) -> list[str]:
 
 
 transform_csv(
-    path.join(SRC_PATH, 'Spotify_2010-2019_Top_100.csv'),
-    path.join(OUTPUT_PATH, 'spotify.csv'),
+    os.path.join(SRC_PATH, 'Spotify_2010-2019_Top_100.csv'),
+    os.path.join(OUTPUT_PATH, 'spotify.csv'),
     spotify_header,
     spotify_content
 )
@@ -103,8 +106,8 @@ def lakes_content(row: list[str]) -> list[str]:
 
 
 transform_csv(
-    path.join(SRC_PATH, 'Lagos_Argentina - Hoja_1.csv'),
-    path.join(OUTPUT_PATH, 'lakes.csv'),
+    os.path.join(SRC_PATH, 'Lagos_Argentina - Hoja_1.csv'),
+    os.path.join(OUTPUT_PATH, 'lakes.csv'),
     lakes_resample,
     lakes_content
 )
@@ -161,8 +164,8 @@ def fifa_content(values: list[str]) -> list[str]:
 
 
 transform_csv(
-    path.join(SRC_PATH, 'FIFA-21_Complete.csv'),
-    path.join(OUTPUT_PATH, 'fifa.csv'),
+    os.path.join(SRC_PATH, 'FIFA-21_Complete.csv'),
+    os.path.join(OUTPUT_PATH, 'fifa.csv'),
     fifa_header,
     fifa_content,
     source_value_delimiter=';'
