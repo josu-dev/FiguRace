@@ -1,6 +1,9 @@
 """
     Introduction and 1st Screen of the App.
 """
+import time
+import tkinter as tk
+from typing import Any
 
 import PySimpleGUI as sg
 
@@ -9,6 +12,59 @@ from src.controllers import theme
 from src.handlers import observer
 from src.handlers.screen import Screen
 from src.assets import animated_intro
+
+
+def update_animation(self: Any, source: str | bytes, time_between_frames: int = 0) -> None:
+    if self.Source != source:
+        self.AnimatedFrames = None
+        self.Source = source
+    if self.AnimatedFrames is None:
+        self.TotalAnimatedFrames = 0
+        self.AnimatedFrames: list[tk.PhotoImage] = [] # type: ignore
+
+        if type(source) is bytes:
+            cfg = {'data': source}
+        else:
+            cfg = {'file': source}
+
+        for i in range(1000):
+            cfg['format'] = 'gif -index %i' % (i)  # type: ignore
+            try:
+                if self.ImageSubsample:
+                    self.AnimatedFrames.append(
+                        tk.PhotoImage(**cfg).subsample(self.ImageSubsample)
+                    )
+                else:
+                    self.AnimatedFrames.append(tk.PhotoImage(**cfg))
+            except Exception as e:
+                break
+
+        self.TotalAnimatedFrames = len(self.AnimatedFrames)
+        self.LastFrameTime = time.time()
+        self.CurrentFrameNumber = -1
+
+    now = time.time()
+
+    if time_between_frames:
+        if (now - self.LastFrameTime) * 1000 > time_between_frames:
+            self.LastFrameTime = now
+            self.CurrentFrameNumber = (
+                self.CurrentFrameNumber + 1) % self.TotalAnimatedFrames
+        else:
+            return
+    else:
+        self.CurrentFrameNumber = (
+            self.CurrentFrameNumber + 1) % self.TotalAnimatedFrames
+    image = self.AnimatedFrames[self.CurrentFrameNumber]
+    try:
+        self.tktext_label.configure(
+            image=image, width=image.width(), height=image.height()
+        )
+    except Exception as e:
+        print('Exception in update_animation', e)
+
+
+sg.Image.update_animation = update_animation
 
 
 SCREEN_NAME = '-INTRODUCTION-'
