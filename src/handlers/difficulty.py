@@ -86,6 +86,8 @@ class DifficultyController:
         if points_correct_answer:
             self._difficulties['custom'].points_correct_answer = points_correct_answer
         if points_bad_answer:
+            if points_bad_answer > 0:
+                points_bad_answer *= -1
             self._difficulties['custom'].points_bad_answer = points_bad_answer
         if characteristics_shown:
             self._difficulties['custom'].characteristics_shown = characteristics_shown

@@ -31,6 +31,7 @@ class RunState(TypedDict):
     user: sg.Text
     points: sg.Text
     rounds: sg.Multiline
+    forced_end: bool 
 
 
 def create_button(text: str, key: str) -> sg.Button:
@@ -47,7 +48,7 @@ def create_button(text: str, key: str) -> sg.Button:
     )
 
 
-run_state: RunState = {}
+run_state: RunState = {} # type: ignore
 
 
 def create_run_state() -> sg.Column:
@@ -86,6 +87,7 @@ def create_run_state() -> sg.Column:
         disabled=True,
         border_width=0
     )
+    run_state['forced_end'] = False
     layout = [
         [csg.vertical_spacer(theme.scale(24), theme.BG_SECONDARY)],
         [run_state['difficulty']],
@@ -115,6 +117,7 @@ def reset_run_state() -> None:
     run_state['rounds'].update(
         '\n'.join([f' {i+1:<2}. {"":>3}' for i in range(run_ctr.max_rounds)])
     )
+    run_state['forced_end'] = False
 
 
 def refresh_run_state() -> None:
@@ -140,7 +143,7 @@ def create_option_button(text: str, key: str) -> sg.Button:
     )
 
 
-card: CardState = {}
+card: CardState = {} # type: ignore
 
 
 def create_card() -> sg.Column:
@@ -279,9 +282,10 @@ def create_leave_button() -> sg.Button:
 def finish_game() -> None:
     observer.unsubscribe(constants.TIME_OUT, refresh_timer)
     total_score = sum(run_ctr.score)
-    users_ctr.current_user.update_score(
-        users_ctr.current_user.preferred_difficulty, total_score
-    )
+    if not run_state['forced_end']:
+        users_ctr.current_user.update_score(
+            users_ctr.current_user.preferred_difficulty, total_score
+        )
     observer.post_event(constants.GOTO_VIEW, '-RESULT-')
 
 
@@ -297,6 +301,7 @@ observer.subscribe(SKIP_CARD, force_end_round)
 
 
 def force_end_game() -> None:
+    run_state['forced_end'] = True
     run_ctr.end_run()
 
 

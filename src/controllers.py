@@ -13,13 +13,11 @@ from .handlers.run import RunController
 
 
 settings_controller = SettingsController(constants.PATH_SETTINGS)
-
 settings = settings_controller.settings
 
 difficulty_controller = DifficultyController(constants.PATH_DIFFICULTIES)
 
 users_controller = UsersController(constants.PATH_USERS, settings.default_user)
-
 
 theme_controller = ThemeController(constants.PATH_THEME, settings.theme)
 theme = theme_controller.theme

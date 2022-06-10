@@ -108,7 +108,7 @@ class RunController:
         self._time = self._difficulty.time_per_round
 
     def registry_event(self, type: str, fn: ResponseFn) -> None:
-        self._events[type].append(fn)
+        self._events[type].append(fn) # type: ignore
 
     @property
     def stats(self) -> dict[str, int]:
