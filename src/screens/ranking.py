@@ -14,7 +14,14 @@ SCREEN_NAME = '-RANKING-'
 HISTORIAL_SIZE = 20
 
 
-rankings: dict[str, sg.Multiline] = {
+rankings_runs: dict[str, sg.Multiline] = {
+    'easy': Any,
+    'normal': Any,
+    'hard': Any,
+    'insane': Any,
+    'custom': Any
+}
+rankings_averages: dict[str, sg.Multiline] = {
     'easy': Any,
     'normal': Any,
     'hard': Any,
@@ -95,34 +102,78 @@ def create_rank(scores: str) -> sg.Multiline:
     )
 
 
-def create_ranking() -> sg.Column:
-    """ Create all the rankings columns for each difficulty.
-    """
+def create_runs_rank() -> sg.Column:
+    'Create a global ranking of runs scores for each difficulty.'
     ranks = csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
     users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
 
-    for difficulty in rankings:
+    for difficulty in rankings_runs:
         all_scores = [
             (score, nick) for nick, scores in users for score in scores[difficulty]
         ]
-        rankings[difficulty] = create_rank(rank_content(all_scores))
+        rankings_runs[difficulty] = create_rank(rank_content(all_scores))
         ranks.add([
             [rank_header(difficulty)],
-            [rankings[difficulty]]
+            [rankings_runs[difficulty]]
         ])
     return ranks.pack()
 
 
-def refresh_rankings() -> None:
-    """Refresh ranking information to the last update
-    """
+def create_averages_rank() -> sg.Column:
+    'Create a global ranking of average runs scores by user for each difficulty.'
+    ranks = csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
     users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
 
-    for difficulty in rankings:
+    for difficulty in rankings_averages:
+        all_scores = [
+            (sum(scores[difficulty])//len(scores[difficulty]), nick) for nick, scores in users if len(scores[difficulty]) > 0
+        ]
+        rankings_averages[difficulty] = create_rank(rank_content(all_scores))
+        ranks.add([
+            [rank_header(difficulty)],
+            [rankings_averages[difficulty]]
+        ])
+    return ranks.pack()
+
+
+def create_ranking() -> sg.TabGroup:
+    'Create a TabGroup where each tab is a ranking.'
+    return sg.TabGroup(
+        [
+            [sg.Tab('Partidas', [[create_runs_rank()]], pad=0)],
+            [sg.Tab('Promedios', [[create_averages_rank()]], pad=0)]
+        ],
+        tab_location='top',
+        title_color=theme.TEXT_SECONDARY,
+        tab_background_color=theme.BG_PRIMARY,
+        selected_title_color=theme.TEXT_ACCENT,
+        selected_background_color=theme.BG_SECONDARY,
+        background_color=theme.BG_BASE,
+        focus_color=theme.BG_SECONDARY,
+        font=(theme.FONT_FAMILY, theme.H4_SIZE),
+        pad=0,
+        border_width=0,
+        tab_border_width=1,
+        expand_x=False,
+        expand_y=False,
+    )
+
+
+def refresh_ranking() -> None:
+    'Refresh all the rankings with the latest information'
+    users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
+
+    for difficulty in rankings_runs:
         all_scores = [
             (score, nick) for nick, scores in users for score in scores[difficulty]
         ]
-        rankings[difficulty].update(rank_content(all_scores))
+        rankings_runs[difficulty].update(rank_content(all_scores))
+
+    for difficulty in rankings_averages:
+        all_scores = [
+            (sum(scores[difficulty])//len(scores[difficulty]), nick) for nick, scores in users if len(scores[difficulty]) > 0
+        ]
+        rankings_averages[difficulty].update(rank_content(all_scores))
 
 
 screen_layout = [
@@ -130,12 +181,8 @@ screen_layout = [
     [sg.VPush(theme.BG_BASE)],
     [create_ranking()],
     [sg.VPush(theme.BG_BASE)],
-    [
-        common.navigation_button(
-            'Menu Principal', '-MENU-', padding=(theme.scale(64), theme.scale(64))
-        ),
-        sg.Push(theme.BG_BASE)
-    ],
+    [common.navigation_button('Menu Principal', '-MENU-', padding=(theme.scale(64),)*2),
+     sg.Push(theme.BG_BASE)],
 ]
 
 screen_config = {
@@ -145,10 +192,8 @@ screen_config = {
 
 
 def reset():
-    """
-    Refresh ranking information to the last update
-    """
-    refresh_rankings()
+    'Reset the screen content to a default/updated state'
+    refresh_ranking()
 
 
 screen = Screen(
