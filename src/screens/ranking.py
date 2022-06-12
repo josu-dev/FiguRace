@@ -4,10 +4,12 @@ from typing import Any
 
 import PySimpleGUI as sg
 
-from src import constants, csg, common
+from src import csg, common
 from src.controllers import theme, users_controller as users_ctr
 from src.handlers.screen import Screen
 from src.handlers.user import User
+
+from . import _translations
 
 
 SCREEN_NAME = '-RANKING-'
@@ -50,7 +52,7 @@ def rank_header(name: str) -> sg.Text:
         A sg.Text with the theme applied and the text passed by argument
     """
     return sg.Text(
-        constants.DIFFICULTY_TO_ES[name],
+        _translations.DIFFICULTY_TO_ES[name],
         size=(16, 1),
         background_color=theme.BG_PRIMARY,
         text_color=theme.TEXT_ACCENT,

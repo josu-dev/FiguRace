@@ -7,6 +7,8 @@ from src.controllers import theme, run_controller as run_ctr, users_controller a
 from src.handlers import observer
 from src.handlers.screen import Screen
 
+from . import _translations
+
 
 SCREEN_NAME = '-GAME-'
 SELECT_OPTION = '-SELECT-OPTION-'
@@ -53,7 +55,7 @@ run_state: RunState = {} # type: ignore
 
 def create_run_state() -> sg.Column:
     run_state['difficulty'] = sg.Text(
-        constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty],
+        _translations.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty],
         font=(theme.FONT_FAMILY, theme.H3_SIZE),
         background_color=theme.BG_SECONDARY
     )
@@ -110,7 +112,7 @@ def refresh_timer() -> None:
 
 def reset_run_state() -> None:
     run_state['difficulty'].update(
-        constants.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
+        _translations.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
     refresh_timer()
     run_state['user'].update(users_ctr.current_user.nick)
     run_state['points'].update(' 0 puntos')
@@ -148,7 +150,7 @@ card: CardState = {} # type: ignore
 
 def create_card() -> sg.Column:
     card['type'] = sg.Text(
-        constants.DATASET_TO_ES[run_ctr.dataset_type],
+        _translations.DATASET_TO_ES[run_ctr.dataset_type],
         font=(theme.FONT_FAMILY, theme.H2_SIZE),
         text_color=theme.TEXT_ACCENT,
         background_color=theme.BG_BASE
@@ -237,7 +239,7 @@ observer.subscribe(CONFIRM_SELECTED_OPTION, new_answer)
 
 
 def reset_card() -> None:
-    card['type'].update(constants.DATASET_TO_ES[run_ctr.dataset_type])
+    card['type'].update(_translations.DATASET_TO_ES[run_ctr.dataset_type])
     card['data'] = run_ctr.options
     characteristics = run_ctr.hints_types
     hints = run_ctr.hints

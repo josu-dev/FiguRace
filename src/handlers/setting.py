@@ -2,7 +2,7 @@ from copy import copy
 from dataclasses import dataclass
 from typing import Any, TypedDict
 
-from src import constants, file
+from src import constants, default, file
 
 from . import observer
 
@@ -27,7 +27,9 @@ class Settings:
 class SettingsController:
     def __init__(self, settings_path: str) -> None:
         self._file_path = settings_path
-        raw_settings: dict[str, SettingsJSON] = file.load_json(settings_path)
+        raw_settings: dict[str, SettingsJSON] = file.load_json(
+            settings_path, default.SETTINGS
+        )
         self._settings = {
             name: Settings(**definition) for name, definition in raw_settings.items()
         }
@@ -43,10 +45,10 @@ class SettingsController:
         return self._setting
 
     def _set_default_user(self, user: Any) -> None:
-        self.settings.default_user = user.nick
+        self._setting.default_user = user.nick
 
     def set_starting_page(self, screen_name: str) -> None:
-        self.settings.starting_page = screen_name
+        self._setting.starting_page = screen_name
 
     def _save_settings(self) -> None:
         file.save_json(

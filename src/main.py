@@ -4,26 +4,18 @@
 from . import constants, controllers as ctr
 from .assets import app_icon
 from .handlers import window
-from .screens import create_profile, introduction, menu, configuration, game, ranking, configure_game, result, select_profile
 
 
 def main() -> None:
     """
-        Register the screens of the app.
         Initializes the Window Controller and setup all for the visualization of the app.
         Runs the aplication loop.
     """
-    screens = [
-        introduction.screen,
-        select_profile.screen, create_profile.screen,
-        menu.screen, configuration.screen, ranking.screen,
-        configure_game.screen, game.screen, result.screen
-    ]
 
     window_ctr = window.WindowController()
 
     window_ctr.init(
-        screens,
+        constants.PATH_SCREENS,
         ctr.settings.starting_page,
         ctr.settings.title,
         app_icon,
@@ -52,24 +44,10 @@ def main_dev(args: list[str]) -> None:
             case _:
                 pass
 
-    screens = [
-        introduction.screen,
-        select_profile.screen, create_profile.screen,
-        menu.screen, configuration.screen, ranking.screen,
-        configure_game.screen, game.screen, result.screen
-    ]
-
-    for screen in screens:
-        if screen.key == initial_screen:
-            break
-    else:
-        print(f'Argument error: value for flag -is must be a registered screen, invalid \'{initial_screen}\'')
-        return
-
     window_ctr = window.WindowController()
 
     window_ctr.init(
-        screens,
+        constants.PATH_SCREENS,
         initial_screen,
         ctr.settings.title,
         app_icon,

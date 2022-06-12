@@ -1,32 +1,14 @@
 from copy import copy
 from dataclasses import dataclass
-from typing import Any, TypedDict
+from typing import Any
 
-from src import constants, file
+from src import constants, default, file
 
 from . import observer
 
 
 DEFAULT_TYPE = 'normal'
 UPDATE_DIFFICULTY_TYPE = '-UPDATE-DIFFICULTY-TYPE-'
-
-
-class DifficultyJSON(TypedDict):
-    time_per_round: int
-    rounds_per_game: int
-    points_correct_answer: int
-    points_bad_answer: int
-    characteristics_shown: int
-
-
-def default() -> DifficultyJSON:
-    return {
-        'time_per_round': 50,
-        'rounds_per_game': 10,
-        'points_correct_answer': 12,
-        'points_bad_answer': -2,
-        'characteristics_shown': 3
-    }
 
 
 @dataclass
@@ -44,7 +26,7 @@ class Difficulty:
         self.points_bad_answer = new.points_bad_answer
         self.characteristics_shown = new.characteristics_shown
 
-    def to_json(self) -> DifficultyJSON:
+    def to_json(self) -> dict[str, int]:
         return {
             'time_per_round': self.time_per_round,
             'rounds_per_game': self.rounds_per_game,
@@ -58,8 +40,9 @@ class DifficultyController:
     def __init__(self, difficulties_path: str, difficulty: str = DEFAULT_TYPE) -> None:
         self._file_path = difficulties_path
         self._current_difficulty = difficulty
-        raw_difficulties: dict[str, DifficultyJSON] = file.load_json(
-            difficulties_path)
+        raw_difficulties: dict[str, dict[str, int]] = file.load_json(
+            difficulties_path, default.DIFFICULTIES
+        )
         self._difficulties = {
             name: Difficulty(**definition) for name, definition in raw_difficulties.items()
         }

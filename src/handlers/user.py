@@ -1,6 +1,6 @@
 from typing import Any, Callable, TypedDict
 
-from src import constants, file
+from src import constants, default, file
 
 from . import observer, difficulty
 
@@ -16,7 +16,7 @@ class UserJSON(TypedDict):
     gender: str
     preferred_color: str
     preferred_difficulty: str
-    custom_difficulty: difficulty.DifficultyJSON
+    custom_difficulty: dict[str, int]
     scores: dict[str, list[int]]
 
 
@@ -40,7 +40,7 @@ class User:
             'preferred_difficulty', DEFAULT_PREFERRED_DIFFICULTY
         )
         self._custom_difficulty = difficulty.Difficulty(
-            **definition.get('custom_difficulty', difficulty.default())
+            **definition.get('custom_difficulty', default.DIFFICULTIES['custom'])
         )
         self._scores = definition.get('scores', default_scores())
 
@@ -117,7 +117,7 @@ def new_user(nick: str, age: int, gender: str, preferred_color: str = DEFAULT_PR
         'gender': gender,
         'preferred_color': preferred_color,
         'preferred_difficulty': DEFAULT_PREFERRED_DIFFICULTY,
-        'custom_difficulty': difficulty.default(),
+        'custom_difficulty': default.DIFFICULTIES['custom'],
         'scores': default_scores()
     })
 
@@ -125,7 +125,7 @@ def new_user(nick: str, age: int, gender: str, preferred_color: str = DEFAULT_PR
 class UsersController:
     def __init__(self, users_path: str, default_user: str = '') -> None:
         self._file_path = users_path
-        raw_users: dict[str, UserJSON] = file.load_json(users_path)
+        raw_users: dict[str, UserJSON] = file.load_json(users_path, dict())
         self._users = {
             nick: User(definition) for nick, definition in raw_users.items()
         }

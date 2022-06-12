@@ -6,10 +6,12 @@ from typing import Any
 
 import PySimpleGUI as sg
 
-from src import constants as const, csg, common
+from src import csg, common
 from src.controllers import theme, cards_controller as cards_ctr, difficulty_controller as difficulty_ctr
 from src.handlers import observer
 from src.handlers.screen import Screen
+
+from . import _translations
 
 
 SCREEN_NAME = '-CONFIGURE-GAME-'
@@ -128,7 +130,7 @@ def refresh_info() -> None:
     """Refresh the information displayed on screen of the current difficulty.
     """
     difficulty_ctr.set_difficulty(
-        const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
+        _translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     _difficulty_info.update(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
             Q de Características : {difficulty_ctr.difficulty.characteristics_shown}\
             Rounds por juego : {difficulty_ctr.difficulty.rounds_per_game}\
@@ -140,7 +142,7 @@ def change_difficult() -> None:
     """Change the difficulty to the one selected in the difficulty combo box.
     """
     difficulty_ctr.set_difficulty(
-        const.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
+        _translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     refresh_info()
 
 
@@ -149,12 +151,12 @@ def change_dataset() -> None:
     """
     dataset = _cmb_dataset.get()
     if dataset == 'Random':
-        shuffled = cards_ctr.types
+        shuffled = cards_ctr.types_list
         shuffle(shuffled)
         dataset = shuffled[0]
     else:
-        dataset = const.DATASET_TO_EN[dataset]
-    cards_ctr.set_type(dataset)
+        dataset = _translations.DATASET_TO_EN[dataset]
+    cards_ctr.type = dataset
 
 
 def reset() -> None:

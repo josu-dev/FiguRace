@@ -66,32 +66,37 @@ class Card:
 
 
 class CardController:
-    def __init__(self, datasets_path: dict[str, str]) -> None:
-        self._datasets = datasets_path
+    def __init__(self, datasets_folder_path: str) -> None:
+        self._datasets = {
+            file_name.split('.')[0] : path
+            for file_name, path  in file.scan_dir(datasets_folder_path, file_extension='csv')
+        }
+        if len(self._datasets) == 0:
+            raise Exception(
+                f'Must exist at least 1 dataset with csv format at \'{datasets_folder_path}\' to start the game'
+            )
+
         default = list(self._datasets.keys())[0]
         self._load_dataset(default)
 
     def _load_dataset(self, name: str) -> None:
         raw_dataset = file.load_csv(self._datasets[name])
         self._dataset = Dataset(name, raw_dataset)
-        # This probably is unnecesary
-        self._answers = self._dataset.apply(lambda line: line[-1])
 
     def reset(self) -> None:
-        if getattr(self, '_dataset', None) is None:
-            return
         self._dataset.reset()
 
     @property
-    def types(self) -> list[str]:
+    def types_list(self) -> list[str]:
         return [key for key in self._datasets]
 
-    def set_type(self, type: str) -> None:
-        self._load_dataset(type)
-
     @property
-    def current_type(self) -> str:
+    def type(self) -> str:
         return self._dataset.name
+    
+    @type.setter
+    def type(self, type: str) -> None:
+        self._load_dataset(type)
 
     @property
     def characteristics(self) -> list[str]:

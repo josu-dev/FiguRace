@@ -55,7 +55,7 @@ class ScreenController:
     def register(self, screen: Screen) -> None:
         if screen.key in self._layouts:
             raise Exception(
-                f'Already registered a layout with key {screen.key}')
+                f'Already registered a screen with key {screen.key}')
         self._layouts[screen.key] = screen
         self._composed_layout.append(screen.container)
 
@@ -65,6 +65,6 @@ class ScreenController:
 
     def init(self, key: str) -> None:
         if key not in self._layouts:
-            raise Exception(f'{key} wasn\'t registered')
+            raise Exception(f'Screen with key \'{key}\' wasn\'t registered')
         self._actual_layout = key
         self._layouts[key].turn_visivility()

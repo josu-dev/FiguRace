@@ -108,7 +108,7 @@ class RunController:
         self._time = self._difficulty.time_per_round
 
     def registry_event(self, type: str, fn: ResponseFn) -> None:
-        self._events[type].append(fn) # type: ignore
+        self._events[type].append(fn)  # type: ignore
 
     @property
     def stats(self) -> dict[str, int]:
@@ -116,7 +116,7 @@ class RunController:
 
     @property
     def dataset_type(self) -> str:
-        return self._cards.current_type
+        return self._cards.type
 
     @property
     def max_rounds(self) -> int:

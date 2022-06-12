@@ -1,8 +1,10 @@
+import importlib
+import os
 from typing import Any
 
 import PySimpleGUI as sg
 
-from src import constants
+from src import constants, file
 
 from . import observer, screen
 
@@ -15,9 +17,13 @@ class WindowController:
         self._timeout_key: str = constants.TIME_OUT
         observer.subscribe(constants.UPDATE_TIMEOUT, self.set_timeout)
 
-    def init(self, screens: list[screen.Screen], initial_screen: str, title: str, app_icon: Any = None, fullscreen: bool = True) -> None:
-        for screen in screens:
-            self._screen_ctr.register(screen)
+    def init(self, screens_folder_path: str, initial_screen: str, title: str, app_icon: Any = None, fullscreen: bool = True) -> None:
+        for file_name, path in file.scan_dir(screens_folder_path, 'py'):
+            if not file_name.startswith('_'):
+                names = path.split(os.path.sep)[-3:]
+                names[2] = names[2].split('.')[0]
+                module = importlib.import_module('.'.join(names))
+                self._screen_ctr.register(module.screen)
 
         self._window = sg.Window(
             title,

@@ -4,7 +4,7 @@ Configuration Screen
 from typing import Any
 import PySimpleGUI as sg
 
-from src import csg, common, constants
+from src import csg, common
 from src.controllers import theme, difficulty_controller as difficulty_ctr, users_controller as user_ctr
 from src.handlers import observer
 from src.handlers.screen import Screen

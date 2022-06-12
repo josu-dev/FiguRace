@@ -2,7 +2,7 @@ from typing import Any
 
 import PySimpleGUI as sg
 
-from src import file
+from src import default, file
 
 
 SCREEN_SIZE = sg.Window.get_screen_size()
@@ -81,7 +81,9 @@ class Theme:
 
 class ThemeController:
     def __init__(self, themes_path: str, default_theme_name: str) -> None:
-        self._raw_themes: dict[str, Any] = file.load_json(themes_path)
+        self._raw_themes: dict[str, Any] = file.load_json(
+            themes_path, default.THEMES
+        )
         self._current_theme = default_theme_name
         self._theme = Theme(self._raw_themes[self._current_theme])
 
