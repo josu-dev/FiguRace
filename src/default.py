@@ -1,3 +1,4 @@
+'''Contains dictionaries with default configurations.'''
 SETTINGS = {
     "default": {
         "title": "Figurace",

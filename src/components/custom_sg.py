@@ -1,5 +1,6 @@
-"""Wrappers of sg elements
-    Collection of wrapper classes/functions around sg elements to add facility when creating layouts
+"""Wrappers of sg elements.
+
+Collection of wrapper classes/functions around sg elements to add facility at layout creation.
 """
 from abc import ABC, abstractmethod
 from typing import Any
@@ -15,8 +16,7 @@ FullLayout = list[LayoutRow]
 
 
 class ChainedElement(ABC):
-    """Wrapper to manage elements that will later be packaged depend on the type of list
-    """
+    'Abstract Base Class to implement a method chaining behaviour for creating a sg layout.'
     @abstractmethod
     def __init__(self, **column_parameters: Any) -> None:
         ...
@@ -31,11 +31,11 @@ class ChainedElement(ABC):
 
 
 class HorizontalList(ChainedElement):
-    """Horizontal list that extends from ChainedElement: class to manage the elements.
-    """
+    'Class to create a layout like a horizontal list capable of method chaining.'
 
     def __init__(self, **column_parameters: Any) -> None:
-        """Initializes the attributes _container and _config
+        """Initializes the attributes _container and _config.
+
         Args:
             column_parameters: all the column parameter that will be applied as a configuration.
         """
@@ -43,7 +43,8 @@ class HorizontalList(ChainedElement):
         self._config = column_parameters
 
     def add(self, content: Element | LayoutRow | FullLayout) -> 'HorizontalList':
-        """Add to the list matching if is a element of a layout
+        """Add to the list matching if is a element of a layout.
+
         Args: 
             content: receive the content to add to the list.
         Returns: 
@@ -60,17 +61,16 @@ class HorizontalList(ChainedElement):
         return self
 
     def pack(self) -> sg.Column:
-        """Packs the list item into a column.
-        """
+        'Packs the list item into a column.'
         return sg.Column([self._container], **self._config)
 
 
 class VerticalList(ChainedElement):
-    """Vertical list that extends from ChainedElement: class to manage the elements.
-    """
+    'Class to create a layout like a vertical list capable of method chaining.'
 
     def __init__(self, **column_parameters: Any) -> None:
-        """Initializes the attributes _container and _config
+        """Initializes the attributes _container and _config.
+
         Args:
             column_parameters: all the column parameter that will be applied as a configuration.
         """
@@ -78,7 +78,8 @@ class VerticalList(ChainedElement):
         self._config = column_parameters
 
     def add(self, content: Element | LayoutRow | FullLayout) -> 'VerticalList':
-        """Add to the list matching if is a element of a layout
+        """Add to the list matching if is a element of a layout.
+
         Args: 
             content: receive the content to add to the list.
         Returns: 
@@ -95,13 +96,13 @@ class VerticalList(ChainedElement):
         return self
 
     def pack(self) -> sg.Column:
-        """Packs the list item into a column.
-        """
+        'Packs the list item into a column.'
         return sg.Column(self._container, **self._config)
 
 
 def CenteredElement(element: Element, horizontal_only: bool = False, **column_parameters: Any) -> sg.Column:
-    """ Create a column with elements at the center.
+    """Create a column with a element at the center.
+
     Args:
         element: element to add to the column.
         horizontal_only: default : false.
@@ -131,7 +132,8 @@ def CenteredElement(element: Element, horizontal_only: bool = False, **column_pa
 
 
 def CenteredLayout(layout: FullLayout, horizontal_only: bool = False, **column_parameters: Any) -> sg.Column:
-    """ Create a centered layout.
+    """Create a column with a layout at the center.
+
     Args:
         layout: receive list of element to be put on the screen.
         horizontal_only: default : false.
@@ -167,12 +169,13 @@ def vertical_spacer(height: int, background_color: str | None = None) -> sg.Colu
 
 
 def custom_popup(layout: FullLayout, close_keys: list[str], background_color: str | None = None, duration: int | None = None) -> str:
-    """Generates a custom pop up window
+    """Generates a custom pop up window.
+
     Args:
-         layout: layout that will display the popup
-         close_keys: list of keys to refer the elements
-         background_color: default : None
-         duration: duration in seconds to close the pop up. default: none(permanently until close it).
+        layout: layout that will display the popup
+        close_keys: list of keys to refer the elements
+        background_color: default : None
+        duration: duration in seconds to close the pop up. default: none(permanently until close it).
     Returns: 
         A pop up with the theme applied and a timer for close it if is specified.
     """

@@ -1,6 +1,4 @@
-"""
-    Constants of all the program.
-"""
+'''Contains global constants of the application.'''
 import os
 
 PATH_SRC = os.path.dirname(__file__)

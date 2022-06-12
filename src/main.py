@@ -1,16 +1,16 @@
-"""
-    Initialize the execution of the program and configure everything necessary.
-"""
+'''Initialize the execution of the application and configure everything necessary.'''
 from . import constants, controllers as ctr
 from .assets import app_icon
 from .handlers import window
 
 
 def main() -> None:
-    """
-        Initializes the Window Controller and setup all for the visualization of the app.
-        Runs the aplication loop.
-    """
+    '''Creates the application.
+
+    - Set up everything necessary.
+    - Initialize it.
+    - Runs the event loop.
+    '''
 
     window_ctr = window.WindowController()
 
@@ -26,6 +26,15 @@ def main() -> None:
 
 
 def main_dev(args: list[str]) -> None:
+    '''Creates the application on developer mode.
+
+    - Set up everything necessary.
+    - Initialize it.
+    - Runs the event loop.
+
+    Args:
+        args: list of developer arguments passed through the command line
+    '''
     duration = 5 * 1000
     initial_screen = '-SELECT-PROFILE-'
     for arg in args:

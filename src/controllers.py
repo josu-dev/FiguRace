@@ -1,7 +1,4 @@
-"""
-    Controllers consumed on the app that manage all the informations of the
-    difficulty, users, settings, theme, datasets, game run.
-"""
+'''Controllers consumed on the application for managing and accessing states.'''
 from . import constants
 from .handlers import observer
 from .handlers.card import CardController
