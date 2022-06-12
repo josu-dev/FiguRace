@@ -29,8 +29,8 @@ def main_dev(args: list[str]) -> None:
     duration = 5 * 1000
     initial_screen = '-SELECT-PROFILE-'
     for arg in args:
-        match arg.split(':'):
-            case '-to', timeout:
+        match arg.split('='):
+            case '--to', timeout:
                 if not timeout.isdecimal():
                     print(f'Argument error: value for flag -to must be an integer, invalid \'{timeout}\'')
                     return
@@ -39,7 +39,7 @@ def main_dev(args: list[str]) -> None:
                     print(f'Argument error: value for flag -to must be greater than 0')
                     return
                 duration = int(timeout) * 1000
-            case '-is', screen:
+            case '--is', screen:
                 initial_screen = screen
             case _:
                 pass

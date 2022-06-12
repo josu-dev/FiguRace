@@ -9,6 +9,8 @@ from typing import Any
 
 JSON = Any
 CSV = list[list[str]]
+FileName = str
+Path = str
 
 
 def ensure_dirs(path: str) -> None:
@@ -46,10 +48,6 @@ def load_csv(path: str, delimiter_char: str = ',', encoding_format: str = 'utf-8
     with open(path, mode='r', encoding=encoding_format) as file:
         csv_reader = csv.reader(file, delimiter=delimiter_char)
         return list(csv_reader)
-
-
-FileName = str
-Path = str
 
 
 def scan_dir(path: str, file_extension: str | None = None) -> list[tuple[FileName, Path]]:
