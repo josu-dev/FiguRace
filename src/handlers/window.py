@@ -18,10 +18,11 @@ class WindowController:
         observer.subscribe(constants.UPDATE_TIMEOUT, self.set_timeout)
 
     def init(self, screens_folder_path: str, initial_screen: str, title: str, app_icon: Any = None, fullscreen: bool = True) -> None:
-        for file_name, path in file.scan_dir(screens_folder_path, 'py'):
+        path_names = screens_folder_path.split(os.path.sep)
+        base_to_folder = path_names[path_names.index('src'):]
+        for file_name, _ in file.scan_dir(screens_folder_path, 'py'):
             if not file_name.startswith('_'):
-                names = path.split(os.path.sep)[-3:]
-                names[2] = names[2].split('.')[0]
+                names = base_to_folder + [file_name.split('.')[0]]
                 module = importlib.import_module('.'.join(names))
                 self._screen_ctr.register(module.screen)
 
