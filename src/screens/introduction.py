@@ -1,6 +1,7 @@
 """
     Introduction and 1st Screen of the App.
 """
+import math
 import time
 import tkinter as tk
 from typing import Any
@@ -69,8 +70,8 @@ sg.Image.update_animation = update_animation
 
 SCREEN_NAME = '-INTRODUCTION-'
 SHADOW_FRAMES = 31
-FRAMES = 17
-TIME_BETWEEN_FRAMES = 47
+FRAMES = animated_intro.frames
+FRAME_TIME = 47
 BACKGROUND_COLOR = '#000000'
 count = FRAMES + SHADOW_FRAMES
 
@@ -79,7 +80,7 @@ image = sg.Image(
     data=animated_intro.source,
     background_color=BACKGROUND_COLOR,
     size=(theme.width, theme.height),
-    subsample=animated_intro.size//theme.width
+    subsample=math.ceil(animated_intro.size/theme.width)
 )
 
 
@@ -90,7 +91,7 @@ def animation_loop() -> None:
         observer.unsubscribe(constants.TIME_OUT, animation_loop)
         observer.subscribe(constants.TIME_OUT, disable_screen)
     elif count >= SHADOW_FRAMES:
-        image.update_animation(animated_intro.source, TIME_BETWEEN_FRAMES)
+        image.update_animation(animated_intro.source, FRAME_TIME)
 
 
 def disable_screen() -> None:
@@ -113,7 +114,7 @@ def reset() -> None:
     global count
     count = FRAMES + SHADOW_FRAMES
     observer.subscribe(constants.TIME_OUT, animation_loop)
-    observer.post_event(constants.UPDATE_TIMEOUT, TIME_BETWEEN_FRAMES)
+    observer.post_event(constants.UPDATE_TIMEOUT, FRAME_TIME)
 
 
 screen = Screen(

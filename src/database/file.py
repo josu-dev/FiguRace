@@ -39,8 +39,6 @@ def save_json(path: str, value: Any, is_custom_class: bool = False, write_mode: 
 
 
 def load_csv(path: str, delimiter_char: str = ',', encoding_format: str = 'utf-8') -> CSV:
-    ensure_dirs(path)
-
     if not os.path.exists(path):
         raise Exception(f'No exist a csv file at: {path}')
 
