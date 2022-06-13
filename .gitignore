@@ -1,6 +1,6 @@
 .env
-test.*.py
 __pycache__
 __pycache__.*
 .vscode
+*.test.py
 processed_datasets/
