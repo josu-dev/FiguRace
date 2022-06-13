@@ -80,11 +80,11 @@ class Theme:
 
 
 class ThemeController:
-    def __init__(self, themes_path: str, default_theme_name: str) -> None:
+    def __init__(self, themes_path: str, default_theme: str) -> None:
         self._raw_themes: dict[str, Any] = file.load_json(
             themes_path, default.THEMES
         )
-        self._current_theme = default_theme_name
+        self._current_theme = default_theme
         self._theme = Theme(self._raw_themes[self._current_theme])
 
     @property

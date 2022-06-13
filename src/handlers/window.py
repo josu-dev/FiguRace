@@ -21,10 +21,11 @@ class WindowController:
         path_names = screens_folder_path.split(os.path.sep)
         base_to_folder = path_names[path_names.index('src'):]
         for file_name, _ in file.scan_dir(screens_folder_path, 'py'):
-            if not file_name.startswith('_'):
-                names = base_to_folder + [file_name.split('.')[0]]
-                module = importlib.import_module('.'.join(names))
-                self._screen_ctr.register(module.screen)
+            if file_name.startswith('_'):
+                continue
+            names = base_to_folder + [file_name.split('.')[0]]
+            module = importlib.import_module('.'.join(names))
+            self._screen_ctr.register(module.screen)
 
         self._window = sg.Window(
             title,

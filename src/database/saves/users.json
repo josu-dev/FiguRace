@@ -1,27 +1,23 @@
 {
     "Josu": {
         "nick": "Josu",
-        "age": 43,
-        "gender": "Helicoptero Apache",
+        "age": 21,
+        "gender": "Hombre",
         "preferred_color": "#000000",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
-            "time_per_round": 180,
+            "time_per_round": 50,
             "rounds_per_game": 10,
             "points_correct_answer": 12,
-            "points_bad_answer": -1,
-            "characteristics_shown": 1
+            "points_bad_answer": -2,
+            "characteristics_shown": 3
         },
         "scores": {
             "easy": [],
-            "normal": [
-                74
-            ],
+            "normal": [],
             "hard": [],
             "insane": [],
-            "custom": [
-                85
-            ]
+            "custom": []
         }
     }
 }
