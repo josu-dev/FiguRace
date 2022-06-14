@@ -1,3 +1,4 @@
+'''Contains dictionaries used for translation from logic to GUI and vice versa.'''
 DIFFICULTY_TO_ES = {
     'easy': 'Fácil',
     'normal': 'Intermedio',

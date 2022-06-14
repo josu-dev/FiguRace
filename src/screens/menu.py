@@ -1,9 +1,8 @@
-"""Menu Screen of the app"""
+'''Main menu of the application.'''
 import PySimpleGUI as sg
 
 from src import constants as const, common, csg
 from src.controllers import theme
-from src.handlers.screen import Screen
 from src.assets.menu import ic_profile, ic_setting, ic_score
 from src.assets import title
 
@@ -82,10 +81,6 @@ def menu_options() -> sg.Column:
     )
 
 
-def reset():
-    pass
-
-
 screen_layout = [
     [sg.VPush(theme.BG_BASE)],
     [sg.Image(
@@ -105,9 +100,5 @@ screen_config = {
 }
 
 
-screen = Screen(
-    SCREEN_NAME,
-    screen_layout,
-    screen_config,
-    reset
-)
+def screen_reset() -> None:
+    pass

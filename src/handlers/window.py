@@ -1,32 +1,27 @@
-import importlib
-import os
 from typing import Any
 
 import PySimpleGUI as sg
 
-from src import constants, file
-
+from .. import constants
 from . import observer, screen
 
 
 class WindowController:
-    def __init__(self) -> None:
-        self._screen_ctr = screen.ScreenController()
-        self._window: sg.Window
+    def __init__(self, screens_folder_path: str) -> None:
+        self._screen_ctr = screen.ScreenController(screens_folder_path)
         self._timeout: int | None = None
         self._timeout_key: str = constants.TIME_OUT
         observer.subscribe(constants.UPDATE_TIMEOUT, self.set_timeout)
 
-    def init(self, screens_folder_path: str, initial_screen: str, title: str, app_icon: Any = None, fullscreen: bool = True) -> None:
-        path_names = screens_folder_path.split(os.path.sep)
-        base_to_folder = path_names[path_names.index('src'):]
-        for file_name, _ in file.scan_dir(screens_folder_path, 'py'):
-            if file_name.startswith('_'):
-                continue
-            names = base_to_folder + [file_name.split('.')[0]]
-            module = importlib.import_module('.'.join(names))
-            self._screen_ctr.register(module.screen)
+    @property
+    def screen_ctr(self) -> screen.ScreenController:
+        return self._screen_ctr
 
+    def set_timeout(self, duration: int | None = None, key: str = constants.TIME_OUT) -> None:
+        self._timeout = duration
+        self._timeout_key = key
+
+    def init(self, initial_screen: str, title: str, app_icon: Any = None, fullscreen: bool = True) -> None:
         self._window = sg.Window(
             title,
             self._screen_ctr.composed_layout,
@@ -61,7 +56,3 @@ class WindowController:
         finally:
             observer.post_event(constants.EXIT_APLICATION)
             self._window.close()
-
-    def set_timeout(self, duration: int | None = None, key: str = constants.TIME_OUT) -> None:
-        self._timeout = duration if duration else None
-        self._timeout_key = key

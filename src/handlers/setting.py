@@ -2,9 +2,8 @@ from copy import copy
 from dataclasses import dataclass
 from typing import Any, TypedDict
 
-from src import constants, default, file
-
-from . import observer
+from .. import constants, default
+from . import observer, file
 
 
 class SettingsJSON(TypedDict):

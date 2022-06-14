@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from random import randint
 from typing import Any, Callable
 
-from src import file
+from . import file
 
 
 class Dataset:
@@ -68,8 +68,8 @@ class Card:
 class CardController:
     def __init__(self, datasets_folder_path: str) -> None:
         self._datasets = {
-            file_name.split('.')[0] : path
-            for file_name, path  in file.scan_dir(datasets_folder_path, file_extension='csv')
+            file_name.split('.')[0]: path
+            for file_name, path in file.scan_dir(datasets_folder_path, file_extension='csv')
         }
         if len(self._datasets) == 0:
             raise Exception(
@@ -93,7 +93,7 @@ class CardController:
     @property
     def type(self) -> str:
         return self._dataset.name
-    
+
     @type.setter
     def type(self, type: str) -> None:
         self._load_dataset(type)

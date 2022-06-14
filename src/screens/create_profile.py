@@ -5,7 +5,6 @@ import PySimpleGUI as sg
 from src import csg, common
 from src.controllers import theme, users_controller as users_ctr
 from src.handlers import observer
-from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-CREATE-PROFILE-'
@@ -232,16 +231,8 @@ screen_config = {
 }
 
 
-def reset() -> None:
+def screen_reset() -> None:
     """ 
     Reset the screen. 
     """
     reset_formulary()
-
-
-screen = Screen(
-    SCREEN_NAME,
-    screen_layout,
-    screen_config,
-    reset
-)

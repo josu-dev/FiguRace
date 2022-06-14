@@ -1,13 +1,13 @@
-"""
-Configuration Screen 
-"""
+'''Configuration Screen'''
+
 from typing import Any
+
 import PySimpleGUI as sg
 
 from src import csg, common
 from src.controllers import theme, difficulty_controller as difficulty_ctr, users_controller as user_ctr
 from src.handlers import observer
-from src.handlers.screen import Screen
+
 
 SCREEN_NAME = "-CONFIGURATION-"
 default_padding = 8
@@ -330,38 +330,23 @@ def refresh_inputs() -> None:
     _input_gender.update(value=user_ctr.current_user.gender)
 
 
-# def refresh_difficulty():
-#     difficulty_ctr.set_difficulty(
-#         constants.DIFFICULTY_TO_EN['Personalizada'])
-#     _cmb_features_per_level.update(
-#         value=difficulty_ctr.difficulty.characteristics_shown,)
-#     _cmb_plus_points.update(
-#         value=difficulty_ctr.difficulty.points_correct_answer)
-#     _cmb_rounds_per_game.update(
-#         value=difficulty_ctr.difficulty.rounds_per_game)
-#     _cmb_time_per_game.update(value=difficulty_ctr.difficulty.time_per_round)
-#     _cmb_sub_points.update(value=difficulty_ctr.difficulty.points_bad_answer)
+screen_layout = [
+    [common.screen_title('Configuración', spaced=True, alignment='center')],
+    [sg.Column(config_layout(), background_color=theme.BG_BASE, expand_x=True)],
+]
+
+screen_config = {
+    'background_color': theme.BG_BASE,
+    'element_justification': 'center'
+}
 
 
-def reset():
+def screen_reset():
     """Refresh information for the current user and current custom difficulty"""
     refresh_inputs()
     # refresh_difficulty()
     pass
 
-
-_configuration_layout = [
-    [common.screen_title('Configuración', spaced=True,
-                         alignment='center')],
-    [sg.Column(config_layout(), background_color=theme.BG_BASE, expand_x=True)],
-
-
-]
-
-_screen_config = {
-    'background_color': theme.BG_BASE,
-    'element_justification': 'c'
-}
 
 observer.subscribe(
     '-AGE-',
@@ -378,10 +363,4 @@ observer.subscribe(
 observer.subscribe(
     '-SAVE-DIFF-CUSTOM-',
     save_settings,
-)
-screen = Screen(
-    SCREEN_NAME,
-    _configuration_layout,
-    _screen_config,
-    reset
 )

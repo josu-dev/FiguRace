@@ -1,8 +1,7 @@
 from typing import Any, Callable, TypedDict
 
-from src import constants, default, file
-
-from . import observer, difficulty
+from .. import constants, default
+from . import observer, difficulty, file
 
 
 RESULTS_LENGTH = 20

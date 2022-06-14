@@ -11,6 +11,10 @@
         "full_screen": true,
         "starting_page": "-INTRODUCTION-",
         "theme": "Blue-Like",
+<<<<<<< HEAD
         "default_user": "Lucas"
+=======
+        "default_user": "Test"
+>>>>>>> bffe535a635bf31c0c8815c9769057f5554bb1b9
     }
 }

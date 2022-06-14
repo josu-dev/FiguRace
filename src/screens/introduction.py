@@ -1,6 +1,4 @@
-"""
-    Introduction and 1st Screen of the App.
-"""
+'''Introduction and 1st Screen of the Application.'''
 import math
 import time
 import tkinter as tk
@@ -11,7 +9,6 @@ import PySimpleGUI as sg
 from src import constants, csg
 from src.controllers import theme
 from src.handlers import observer
-from src.handlers.screen import Screen
 from src.assets import animated_intro
 
 
@@ -21,7 +18,7 @@ def update_animation(self: Any, source: str | bytes, time_between_frames: int = 
         self.Source = source
     if self.AnimatedFrames is None:
         self.TotalAnimatedFrames = 0
-        self.AnimatedFrames: list[tk.PhotoImage] = [] # type: ignore
+        self.AnimatedFrames: list[tk.PhotoImage] = []  # type: ignore
 
         if type(source) is bytes:
             cfg = {'data': source}
@@ -110,16 +107,8 @@ screen_config = {
 }
 
 
-def reset() -> None:
+def screen_reset() -> None:
     global count
     count = FRAMES + SHADOW_FRAMES
     observer.subscribe(constants.TIME_OUT, animation_loop)
     observer.post_event(constants.UPDATE_TIMEOUT, FRAME_TIME)
-
-
-screen = Screen(
-    SCREEN_NAME,
-    screen_layout,
-    screen_config,
-    reset
-)

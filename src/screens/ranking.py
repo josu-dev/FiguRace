@@ -1,12 +1,10 @@
-"""Ranking Screen with the 20 best scores of all difficulties
-"""
+'''Rankings of best scores for all difficulties.'''
 from typing import Any
 
 import PySimpleGUI as sg
 
 from src import csg, common
 from src.controllers import theme, users_controller as users_ctr
-from src.handlers.screen import Screen
 from src.handlers.user import User
 
 from . import _translations
@@ -193,14 +191,6 @@ screen_config = {
 }
 
 
-def reset():
-    'Reset the screen content to a default/updated state'
+def screen_reset() -> None:
+    'Reset the screen content to a default/updated state.'
     refresh_ranking()
-
-
-screen = Screen(
-    SCREEN_NAME,
-    screen_layout,
-    screen_config,
-    reset
-)

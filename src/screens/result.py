@@ -2,7 +2,6 @@ import PySimpleGUI as sg
 
 from src import csg, common
 from src.controllers import theme, run_controller as run_ctr
-from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-RESULT-'
@@ -119,15 +118,6 @@ screen_config = {
 }
 
 
-def reset():
-    """Updates the information put in the summary when the screen is entered.
-    """
+def screen_reset():
+    'Reset the screen content to a default/updated state.'
     refresh_summary()
-
-
-screen = Screen(
-    SCREEN_NAME,
-    screen_layout,
-    screen_config,
-    reset
-)

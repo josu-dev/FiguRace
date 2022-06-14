@@ -9,13 +9,11 @@ def main() -> None:
 
     - Set up everything necessary.
     - Initialize it.
-    - Runs the event loop.
-    '''
+    - Runs the event loop.'''
 
-    window_ctr = window.WindowController()
+    window_ctr = window.WindowController(constants.PATH_SCREENS)
 
     window_ctr.init(
-        constants.PATH_SCREENS,
         ctr.settings.starting_page,
         ctr.settings.title,
         app_icon,
@@ -33,30 +31,45 @@ def main_dev(args: list[str]) -> None:
     - Runs the event loop.
 
     Args:
-        args: list of developer arguments passed through the command line
-    '''
+        args: list of developer arguments passed through the command line.'''
+
+    HELP_MESSAGE = '''Available arguments:
+    --to=<seconds> : defines the duration in seconds of the application without the user generating events
+    --is=<screen name> :defines the starting screen of the application'''
+
     duration = 5 * 1000
     initial_screen = '-SELECT-PROFILE-'
     for arg in args:
         match arg.split('='):
             case '--to', timeout:
                 if not timeout.isdecimal():
-                    print(f'Argument error: value for flag -to must be an integer, invalid \'{timeout}\'')
+                    print(
+                        f'Argument error: value for --to must be an integer, invalid \'{timeout}\'')
                     return
                 timeout = int(timeout)
                 if timeout == 0:
-                    print(f'Argument error: value for flag -to must be greater than 0')
+                    print(f'Argument error: value for --to must be greater than 0')
                     return
                 duration = int(timeout) * 1000
             case '--is', screen:
                 initial_screen = screen
-            case _:
-                pass
+            case arg if arg[0].startswith('--help'):
+                print(HELP_MESSAGE)
+                return
+            case any:
+                print(
+                    f'Argument warning: \'{"=".join(any)}\' is not valid,'
+                    ' use --help to see available arguments'
+                )
 
-    window_ctr = window.WindowController()
+    window_ctr = window.WindowController(constants.PATH_SCREENS)
+
+    if not window_ctr.screen_ctr.is_registered(initial_screen):
+        print(
+            f'Screen error: the initial screen \'{initial_screen}\' is not a registered screen')
+        return
 
     window_ctr.init(
-        constants.PATH_SCREENS,
         initial_screen,
         ctr.settings.title,
         app_icon,
