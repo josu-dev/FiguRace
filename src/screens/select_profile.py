@@ -40,7 +40,7 @@ _user_list = sg.Listbox(values=users_ctr.users_transform(lambda user: user.nick)
                         text_color=theme.TEXT_PRIMARY,
                         highlight_text_color=theme.TEXT_PRIMARY,
                         font=(theme.FONT_FAMILY, theme.H3_SIZE),
-                        enable_events=True,
+                        enable_events = True,
                         key='-ENABLE-',
                         )
 
@@ -131,13 +131,14 @@ def enable_selection()->None:
     """
     Enables user interaction buttons and show the selected one.
     """
+    if len(_user_list.get_list_values()) == 0 :
+        return
     _play_button.update(disabled=False)
     _remove_button.update(disabled=False)
     _edit_button.update(disabled=False)
     _current_user.update(f'Selecionado: {_user_list.get()[0]}', font=(
         theme.FONT_FAMILY, theme.H3_SIZE))
     users_ctr.current_user = _user_list.get()[0]
-
 
 observer.subscribe('-ENABLE-', enable_selection)
 
@@ -146,7 +147,7 @@ def update_user_list()-> None:
     """
     Update the list of profiles.
     """
-    _user_list.update(values=users_ctr.users_transform(lambda user: user.nick))
+    _user_list.update(values = users_ctr.users_transform(lambda user: user.nick))
 
 
 def reset_select_user()-> None:
