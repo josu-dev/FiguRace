@@ -1,10 +1,22 @@
+from dataclasses import dataclass
+import importlib
+import os
 from typing import Any, Callable
 
 import PySimpleGUI as sg
 
-from src import constants
+from .. import constants
+from . import observer, file
 
-from . import observer
+
+@dataclass
+class NotRegisteredScreenError(Exception):
+    screen_name: str
+
+
+@dataclass
+class DuplicatedScreenError(Exception):
+    screen_name: str
 
 
 class Screen:
@@ -30,41 +42,57 @@ class Screen:
 
 
 class ScreenController:
-    def __init__(self) -> None:
-        self._actual_layout: str = ''
-        self._layout_stack: list[str] = []
-        self._layouts: dict[str, Screen] = {}
-        self._composed_layout: list[sg.Element] = []
-        observer.subscribe(constants.GOTO_VIEW, self.goto_layout)
+    def __init__(self, screens_folder_path: str) -> None:
+        self._current_screen: str = ''
+        self._screen_stack: list[str] = []
+        self._screens: dict[str, Screen] = {}
+        self._composed_layout: list[Any] = []
 
-    def goto_layout(self, key: str) -> None:
-        key = key.rstrip('0123456789')
-        self._layouts[self._actual_layout].turn_visivility()
-        if key == constants.LAST_SCREEN:
-            self._actual_layout = self._layout_stack.pop()
-        elif key in self._layout_stack:
-            while self._layout_stack.pop() != key:
+        path_names = screens_folder_path.split(os.path.sep)
+        base_to_folder = path_names[path_names.index('src'):]
+        for file_name, _ in file.scan_dir(screens_folder_path, 'py'):
+            if file_name.startswith('_'):
                 continue
-            self._actual_layout = key
+            names = base_to_folder + [file_name.split('.')[0]]
+            module = importlib.import_module('.'.join(names))
+            self._register(Screen(
+                module.SCREEN_NAME,
+                module.screen_layout,
+                module.screen_config,
+                module.screen_reset
+            ))
+        observer.subscribe(constants.GOTO_VIEW, self._goto_layout)
+
+    def _goto_layout(self, key: str) -> None:
+        key = key.rstrip('0123456789')
+        self._screens[self._current_screen].turn_visivility()
+        if key == constants.LAST_SCREEN:
+            self._current_screen = self._screen_stack.pop()
+        elif key in self._screen_stack:
+            while self._screen_stack.pop() != key:
+                continue
+            self._current_screen = key
         else:
-            self._layout_stack.append(self._actual_layout)
-            self._actual_layout = key
+            self._screen_stack.append(self._current_screen)
+            self._current_screen = key
 
-        self._layouts[self._actual_layout].turn_visivility()
+        self._screens[self._current_screen].turn_visivility()
 
-    def register(self, screen: Screen) -> None:
-        if screen.key in self._layouts:
-            raise Exception(
-                f'Already registered a screen with key {screen.key}')
-        self._layouts[screen.key] = screen
+    def _register(self, screen: Screen) -> None:
+        if screen.key in self._screens:
+            raise DuplicatedScreenError(screen.key)
+        self._screens[screen.key] = screen
         self._composed_layout.append(screen.container)
 
-    @property
-    def composed_layout(self) -> list[list[sg.Element]]:
-        return [self._composed_layout]
+    def is_registered(self, screen_name: str) -> bool:
+        return screen_name in self._screens
 
-    def init(self, key: str) -> None:
-        if key not in self._layouts:
-            raise Exception(f'Screen with key \'{key}\' wasn\'t registered')
-        self._actual_layout = key
-        self._layouts[key].turn_visivility()
+    def init(self, screen_name: str) -> None:
+        if screen_name not in self._screens:
+            raise NotRegisteredScreenError(screen_name)
+        self._current_screen = screen_name
+        self._screens[screen_name].turn_visivility()
+
+    @property
+    def composed_layout(self) -> list[list[Any]]:
+        return [self._composed_layout]

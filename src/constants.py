@@ -1,5 +1,5 @@
 '''Contains global constants of the application.'''
-import os
+import os.path
 
 PATH_SRC = os.path.dirname(__file__)
 

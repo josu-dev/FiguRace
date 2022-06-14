@@ -81,9 +81,9 @@ THEMES = {
         "F_C_BUTTON_HOVER": "#37576B",
 
         "BG_POPUP": "#178EBC",
-        
-        "ERROR_BG_ACCENT" : "#EF190C",
-        "ERROR_BG_NORMAL" : "#E42A1F",
-        "ERROR_BG_SOFT" : "#CD4840"
+
+        "ERROR_BG_ACCENT": "#EF190C",
+        "ERROR_BG_NORMAL": "#E42A1F",
+        "ERROR_BG_SOFT": "#CD4840"
     }
 }

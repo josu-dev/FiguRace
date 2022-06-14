@@ -1,6 +1,4 @@
-"""
-Screen PreGame
-"""
+'''Screen PreGame.'''
 from random import shuffle
 from typing import Any
 
@@ -9,7 +7,6 @@ import PySimpleGUI as sg
 from src import csg, common
 from src.controllers import theme, cards_controller as cards_ctr, difficulty_controller as difficulty_ctr
 from src.handlers import observer
-from src.handlers.screen import Screen
 
 from . import _translations
 
@@ -120,7 +117,7 @@ def layout() -> list[list[Any]]:
         [sg.VPush(background_color=theme.BG_BASE)],
         [common.goback_button('Menu Principal', padding=(theme.scale(64),)*2),
          sg.Push(background_color=theme.BG_BASE), common.navigation_button(
-             'Empezar !', screen_name='-GAME-',padding=(theme.scale(64),)*2)
+             'Empezar !', screen_name='-GAME-', padding=(theme.scale(64),)*2)
          ],
     ]
     return layout
@@ -159,23 +156,25 @@ def change_dataset() -> None:
     cards_ctr.type = dataset
 
 
-def reset() -> None:
-    """Updates the information when entered to the screen"""
-    refresh_info()
-    pass
-
-
-_configuration_layout = [
-    [common.screen_title('CONFIGURAR JUEGO',
-                         alignment='left', padding=theme.height//64)],
-    [sg.Column(layout(), background_color=theme.BG_BASE, expand_y=True,
-               expand_x=True, justification='right')],
+screen_layout = [
+    [common.screen_title(
+        'CONFIGURAR JUEGO',alignment='left', padding=theme.height//64
+    )],
+    [sg.Column(
+        layout(), background_color=theme.BG_BASE, expand_y=True,
+        expand_x=True, justification='right'
+    )],
 ]
 
-_screen_config = {
+screen_config = {
     'background_color': theme.BG_BASE,
     'element_justification': 'c',
 }
+
+
+def screen_reset() -> None:
+    """Updates the information when entered to the screen"""
+    refresh_info()
 
 
 observer.subscribe(
@@ -186,11 +185,4 @@ observer.subscribe(
 observer.subscribe(
     '-CHANGE-DATA-',
     change_dataset,
-)
-
-screen = Screen(
-    SCREEN_NAME,
-    _configuration_layout,
-    _screen_config,
-    reset
 )

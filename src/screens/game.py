@@ -5,7 +5,6 @@ import PySimpleGUI as sg
 from src import constants, csg
 from src.controllers import theme, run_controller as run_ctr, users_controller as users_ctr
 from src.handlers import observer
-from src.handlers.screen import Screen
 
 from . import _translations
 
@@ -33,7 +32,7 @@ class RunState(TypedDict):
     user: sg.Text
     points: sg.Text
     rounds: sg.Multiline
-    forced_end: bool 
+    forced_end: bool
 
 
 def create_button(text: str, key: str) -> sg.Button:
@@ -50,7 +49,7 @@ def create_button(text: str, key: str) -> sg.Button:
     )
 
 
-run_state: RunState = {} # type: ignore
+run_state: RunState = {}  # type: ignore
 
 
 def create_run_state() -> sg.Column:
@@ -145,7 +144,7 @@ def create_option_button(text: str, key: str) -> sg.Button:
     )
 
 
-card: CardState = {} # type: ignore
+card: CardState = {}  # type: ignore
 
 
 def create_card() -> sg.Column:
@@ -329,16 +328,8 @@ screen_config = {
 }
 
 
-def reset() -> None:
+def screen_reset() -> None:
     run_ctr.reset()
     reset_run_state()
     reset_card()
     observer.subscribe(constants.TIME_OUT, refresh_timer)
-
-
-screen = Screen(
-    SCREEN_NAME,
-    screen_layout,
-    screen_config,
-    reset
-)

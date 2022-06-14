@@ -2,7 +2,8 @@ from typing import Any
 
 import PySimpleGUI as sg
 
-from src import default, file
+from .. import default
+from . import file
 
 
 SCREEN_SIZE = sg.Window.get_screen_size()

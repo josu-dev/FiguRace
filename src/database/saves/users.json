@@ -1,8 +1,8 @@
 {
-    "Josu": {
-        "nick": "Josu",
-        "age": 21,
-        "gender": "Hombre",
+    "Test": {
+        "nick": "Test",
+        "age": 1,
+        "gender": "Binarie",
         "preferred_color": "#000000",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
@@ -14,7 +14,9 @@
         },
         "scores": {
             "easy": [],
-            "normal": [],
+            "normal": [
+                18
+            ],
             "hard": [],
             "insane": [],
             "custom": []

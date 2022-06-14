@@ -1,30 +1,23 @@
-"""
-    Base composition of all screens in the game.
-"""
-
+'''Base template of all screens in the application.'''
 import PySimpleGUI as sg
 
 from src import constants, csg, common
 from src.controllers import theme
 from src.handlers import observer
-from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-BASE-SCREEN-'
 
 
 def create_custom_element(text: str, key: str) -> sg.Button:
-    """
-    Create a generic theme button.
+    '''Create a generic theme button.
 
     Args:
         text : text displayed on the button
         key : key used to refer the button
 
     Returns:
-        an sg.Button with the theme applied with the text and key passed by args 
-
-    """
+        an sg.Button with the theme applied with the text and key passed by args'''
     return sg.Button(
         text,
         key=key,
@@ -69,18 +62,7 @@ screen_config = {
 }
 
 
-def reset() -> None:
-    """
-    This function resets the elements of the screen to defaults/configuration values
-    It runs every time that window view moves to this screen
-    """
-
+def screen_reset() -> None:
+    '''This function resets the elements of the screen to defaults/configuration values.
+    It runs every time that window view moves to this screen.'''
     pass
-
-
-screen = Screen(
-    SCREEN_NAME,
-    screen_layout,
-    screen_config,
-    reset
-)

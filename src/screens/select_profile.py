@@ -1,10 +1,10 @@
 from typing import Any
+
 import PySimpleGUI as sg
 
 from src import constants as const, csg, common
 from src.controllers import theme, users_controller as users_ctr
 from src.handlers import observer
-from src.handlers.screen import Screen
 
 
 SCREEN_NAME = '-SELECT-PROFILE-'
@@ -126,8 +126,19 @@ screen_layout = [
     ],
 ]
 
+screen_config = {
+    'background_color': theme.BG_BASE,
+    'element_justification': 'center'
+}
 
-def enable_selection()->None:
+
+def screen_reset() -> None:
+    '''Refresh the information in the list of users and the selected.'''
+    update_user_list()
+    reset_select_user()
+
+
+def enable_selection() -> None:
     """
     Enables user interaction buttons and show the selected one.
     """
@@ -142,14 +153,14 @@ def enable_selection()->None:
 observer.subscribe('-ENABLE-', enable_selection)
 
 
-def update_user_list()-> None:
+def update_user_list() -> None:
     """
     Update the list of profiles.
     """
     _user_list.update(values=users_ctr.users_transform(lambda user: user.nick))
 
 
-def reset_select_user()-> None:
+def reset_select_user() -> None:
     """ 
     Reset the selected user and disables the play buttons - delete and edit profiles.
     """
@@ -159,15 +170,7 @@ def reset_select_user()-> None:
     _current_user.update('Seleccionado: ')
 
 
-def reset()-> None:
-    """
-    Refresh the information in the list of users and the selected .
-    """
-    update_user_list()
-    reset_select_user()
-
-
-def _new_popup_layout(popup_text: str = '')-> list[list[Any]]:
+def _new_popup_layout(popup_text: str = '') -> list[list[Any]]:
     """
     Args: 
         popup_text: text to display in the popup
@@ -200,7 +203,7 @@ def _new_popup_layout(popup_text: str = '')-> list[list[Any]]:
     ]
 
 
-def remove()-> None:
+def remove() -> None:
     """Check if you really want to delete the profile, by means of a popup, when affirming , the selected profile is deleted.
     """
     response = csg.custom_popup(
@@ -210,19 +213,7 @@ def remove()-> None:
     )
     if response == '-OK-':
         users_ctr.remove(_user_list.get()[0])
-    reset()
+    screen_reset()
 
 
 observer.subscribe('-REMOVE-PROFILE-', remove)
-
-screen_config = {
-    'background_color': theme.BG_BASE,
-    'element_justification': 'center'
-}
-
-screen = Screen(
-    SCREEN_NAME,
-    screen_layout,
-    screen_config,
-    reset
-)
