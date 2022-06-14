@@ -1,25 +1,46 @@
-import csv
 import os
 import pandas as pd
-import pandas as to_csv
 
-SAVES_SPOTIFY = ["Top Genre", "Year Released","BPM", "Top Year", "Artist Type","Artist"]
+SAVES_COLS = {                  
+    'FIFA-21_Complete.csv':             ["team", "nationality", "position", "age", "potential" ,"name"],
+    'Lagos_Argentina - Hoja_1.csv':     ["Ubicación", "Superficie (km²)", "Profundidad máxima (m)", "Profundidad media (m)", "Coordenadas"],
+    'Spotify_2010-2019_Top_100.csv':    ["top genre", "artist type", "year released", "top year", "bpm" ,"artist"]
+}
+
+PATH_BASE = os.path.join(os.getcwd(),"base_datasets")
+PATH_PROSSED = os.path.join(os.getcwd(),"processed_datasets")
+
+def processed(name_file:str):
+    path_base = os.path.join(PATH_BASE,name_file)
+    path_prossed = os.path.join(PATH_PROSSED,name_file)
+    if name_file in SAVES_COLS:
+        df = pd. read_csv (path_base, sep = r';|,', engine='python',usecols = (SAVES_COLS[name_file]))
+        df = df[SAVES_COLS[name_file]]
+
+    df.to_csv(path_prossed, mode='a',index=False)
+
+names_files = os.listdir(PATH_BASE)
+list(map(processed, names_files))
 
 
-path = os.path.join(os.getcwd(),"base_datasets", "Spotify_2010-2019_Top_100.csv")
-data_set = pd.read_csv(path, encoding='utf-8')
-names_compare = (list(map(lambda x: x.lower(), SAVES_SPOTIFY))) 
-df = pd. read_csv (path, usecols = names_compare)
-
-df.to_csv('datos.csv', mode='a')
-
-print(df)
 
 
 
-# En formato csv
 
 
-#sep = ';'
 
-#print(data_set)
+
+
+
+
+
+
+
+
+
+
+
+
+#SAVES_COLS_LOWER = {
+#    key: [item.lower() for item in values] for key,values in SAVES_COLS.items()
+#}
