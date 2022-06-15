@@ -126,6 +126,8 @@ def layout() -> list[list[Any]]:
 def refresh_info() -> None:
     """Refresh the information displayed on screen of the current difficulty.
     """
+    _cmb_difficulty.update(value=translations.DIFFICULTY_TO_ES[
+        difficulty_ctr.difficulty_name])
     difficulty_ctr.set_difficulty(
         translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     _difficulty_info.update(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
