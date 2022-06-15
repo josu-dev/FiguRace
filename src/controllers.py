@@ -22,7 +22,8 @@ difficulty_controller = DifficultyController(
 theme_controller = ThemeController(constants.PATH_THEME, settings.theme)
 theme = theme_controller.theme
 
-run_event_controller = RunEventController(constants.PATH_EVENTS)
+run_event_controller = RunEventController(
+    constants.PATH_EVENTS, users_controller, difficulty_controller)
 
 cards_controller = CardController(constants.PATH_DATASETS)
 

@@ -1,34 +1,16 @@
 timestamp,id,evento,personas a adivinar,usuarie,estado,texto ingresado,respuesta,nivel
-1655327188,f787df5015e144e4b81b05902a03f05c,inicio_partida,10,pepe,-,-,-,Intermedio
-1655327190,f2a578bd550c422f99a66f73f9f08515,intento,10,pepe,error,Héctor Fertoli,Nicolás Delgadillo,Intermedio
-1655327191,12017b9b1c2e4089bd109efcbfd618cc,intento,10,pepe,ok,Nicolás Delgadillo,Teddy Bishop,Intermedio
-1655327192,424488007ef54e0d84b4c6377dda6ac2,intento,10,pepe,error,Oliver Norwood,Teddy Bishop,Intermedio
-1655327193,9d81ae13d8f04e8aa8072592a7277173,intento,10,pepe,error,Antolín Alcaraz,Teddy Bishop,Intermedio
-1655327194,106a3cb5cfca485bb78d9c0aaa46686e,intento,10,pepe,error,Ethan Laird,Teddy Bishop,Intermedio
-1655327195,9d74e9180b094fc2bc6ebf9180030a0b,intento,10,pepe,error,Aaron Pierre,Louka Prip,Intermedio
-1655327196,f972d787d044438eb0fcd72c989e4071,intento,10,pepe,error,John Lundstram,Louka Prip,Intermedio
-1655327197,141dc773f0e747f0906b8f4d51c5ee48,intento,10,pepe,error,Fran Cruz,Louka Prip,Intermedio
-1655327198,74543bcdf5984f3db4583eab0f615b4b,intento,10,pepe,error,Felix Hörberg,Louka Prip,Intermedio
-1655327198,6e5e5c3796554512890c283ecb894c5e,intento,10,pepe,error,Javi Vázquez,Jaber Asiri,Intermedio
-1655327200,ff5351c4d7b0461787fa5c77565c262d,intento,10,pepe,error,Artur Ioni?a,Jaber Asiri,Intermedio
-1655327201,707331da59d84eaf9de82e27db428b20,intento,10,pepe,error,Kiko Olivas,Jaber Asiri,Intermedio
-1655327202,efb66c83f461453eafa3540e231242fe,intento,10,pepe,error,Daniel Leadbitter,Jaber Asiri,Intermedio
-1655327203,591c8eac90ea4e34aa211ec9c3b4cfb2,intento,10,pepe,error,Stefano Sturaro,Ronald Matarrita,Intermedio
-1655327204,41489517af2d4bfaafd64554e87de287,intento,10,pepe,error,Louis Carnot,Ronald Matarrita,Intermedio
-1655327208,97a1d3b062734d19afc5a93a0f12dc59,intento,10,pepe,error,Ryosuke Shindo,Ronald Matarrita,Intermedio
-1655327209,de4f10331364459c95bfa7a685e99826,intento,10,pepe,error,Félix Eboa Eboa,Ronald Matarrita,Intermedio
-1655327210,5006d7fd0633474b9266e08b7e341521,intento,10,pepe,ok,Ronald Matarrita,Ahmet Canbaz,Intermedio
-1655327212,95fabebd860d42e68945f6ceb49d1a11,intento,10,pepe,error,Jordan Green,Ahmet Canbaz,Intermedio
-1655327213,05473d948d2d40739f35abe58da96248,intento,10,pepe,error,Jelle Bataille,Ahmet Canbaz,Intermedio
-1655327215,8f8b81e1e65b46d79bc38aab7538f0fe,intento,10,pepe,ok,Ahmet Canbaz,Diego Oyarzún,Intermedio
-1655327216,ed575ab8814c48c3af9815b8959245aa,intento,10,pepe,error,Andrea Tabanelli,Diego Oyarzún,Intermedio
-1655327217,f3fd0066e675468f870ee42b73767d47,intento,10,pepe,error,Damián Díaz,Diego Oyarzún,Intermedio
-1655327218,ea18ac037c8e48a18e97dce86f5a4dc1,intento,10,pepe,ok,Diego Oyarzún,Mauro Valiente,Intermedio
-1655327219,4444388f7fc34bf8a43ac7136da2dc85,intento,10,pepe,error,Lee Evans,Mauro Valiente,Intermedio
-1655327220,277b85aceda841acb7338c47819c64f9,intento,10,pepe,error,Eric Smith,Mauro Valiente,Intermedio
-1655327221,7d3651d44d684800ba7210a26ef8f2eb,intento,10,pepe,ok,Mauro Valiente,Kristoffer Peterson,Intermedio
-1655327222,e88503d56e0544da80a1935eedfa98b9,intento,10,pepe,error,Fedor Smolov,Kristoffer Peterson,Intermedio
-1655327223,62768be12edf43b29b9ba9e97eadc3bf,intento,10,pepe,error,Mitchell Weiser,Kristoffer Peterson,Intermedio
-1655327224,1265f2215c444fba805d9152b7794087,intento,10,pepe,error,Tramontinaldo,Kristoffer Peterson,Intermedio
-1655327226,6ec9ce1a88794fd58dba75903073405f,intento,10,pepe,error,Kaj Sierhuis,Nick Bakker,Intermedio
-1655327226,b7dcd653c14d41f98426c878ea5648fe,fin,10,pepe,finalizada,-,-,Intermedio
+1655329225,cdc08059179d455881d0d78846f03ad2,inicio_partida,10,Josu,-,-,-,Intermedio
+1655329226,f72b677ca19144bc837bc11e32cfb000,intento,10,Josu,ok,César Huanca,Aron Dønnum,Intermedio
+1655329227,aab6718268dd466fbf7f97d79abdee24,intento,10,Josu,error,Timothée Dieng,Aron Dønnum,Intermedio
+1655329228,a3d232a6efb64a5787e24c0cd8277a20,intento,10,Josu,error,Duško Tošic,Loïck Landre,Intermedio
+1655329229,3f29d49c83d9446780fb9fefb5d1785c,intento,10,Josu,ok,Loïck Landre,Cristian González,Intermedio
+1655329231,c0ecde03374544e9a3be45f19ee94cd6,intento,10,Josu,error,Finn Ole Becker,Cristian González,Intermedio
+1655329232,7de4ed4d875545c58224fd1363598050,intento,10,Josu,ok,Joe Lumley,Marc Endres,Intermedio
+1655329233,a5385464a3764539b711f98f1910c300,intento,10,Josu,error,Khalid Eissa,Marc Endres,Intermedio
+1655329235,97cfd28dd02d4855af4910e82f39cb32,intento,10,Josu,error,Noel Mbo,Mitsuki Saito,Intermedio
+1655329237,eee596571ab247fe8787455fdafd3632,intento,10,Josu,error,Armando Izzo,Jaílson,Intermedio
+1655329238,2655696a68134ff597fad0d1a1b36677,intento,10,Josu,error,Sandro Gotal,Jaílson,Intermedio
+1655329239,542c27e2831946d6b8bb23b876c71493,intento,10,Josu,error,Robin Becker,Jaílson,Intermedio
+1655329240,b3323ff1960445eea369f60741700296,intento,10,Josu,error,Marco Meyerhöfer,Jonny Howson,Intermedio
+1655329242,160e99dd274f4253b1207bbffc4f47b2,intento,10,Josu,error,Umberto Saracco,Jonny Howson,Intermedio
+1655329242,911d4d89e3f54781966479ac75e81ec2,fin,10,Josu,error,-,-,Intermedio
