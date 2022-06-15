@@ -16,6 +16,7 @@ class States(Enum):
     OK = 'ok'
     TIME_OUT = 'timeout'
     ENDED = 'finalizada'
+    CANCELED = 'cancelada'
     DEFAULT = '-'
 
 
