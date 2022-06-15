@@ -1,15 +1,8 @@
 {
-<<<<<<< HEAD
-    "Lucas": {
-        "nick": "Lucas",
-        "age": 19,
-        "gender": "Hombre",
-=======
     "Test": {
         "nick": "Test",
         "age": 1,
         "gender": "Binarie",
->>>>>>> bffe535a635bf31c0c8815c9769057f5554bb1b9
         "preferred_color": "#000000",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
@@ -22,7 +15,8 @@
         "scores": {
             "easy": [],
             "normal": [
-                18
+                18,
+                32
             ],
             "hard": [],
             "insane": [],

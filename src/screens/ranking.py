@@ -172,7 +172,7 @@ def refresh_ranking() -> None:
     for difficulty in rankings_averages:
         all_scores = [
             (sum(scores[difficulty])//len(scores[difficulty]), nick) for nick, scores in users if len(scores[difficulty]) > 0
-        ]
+        ] 
         rankings_averages[difficulty].update(rank_content(all_scores))
 
 
