@@ -11,7 +11,7 @@ from .. import translations, constants
 
 class EventNames(Enum):
     START = 'inicio_partida'
-    INTENT = 'intento'
+    TRY = 'intento'
     END = 'fin'
 
 
@@ -50,10 +50,10 @@ class RunEventController:
         event = [
             int(time.time()),
             uuid.uuid4().hex,
-            event_data['name'],
+            event_data['name'].value,
             event_data['rounds'],
             self._user_ctr.current_user.nick,
-            event_data['state'],
+            event_data.get('state', EventStates.DEFAULT).value,
             event_data.get('user_answer', EventStates.DEFAULT.value),
             event_data.get('correct_answer', EventStates.DEFAULT.value),
             translations.DIFFICULTY_TO_ES[self._difficulty_ctr.difficulty_name],
