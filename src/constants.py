@@ -2,7 +2,7 @@
 import os.path
 
 PATH_SRC = os.path.dirname(__file__)
-
+PATH_EVENTS = os.path.join(PATH_SRC, 'database', 'events')
 PATH_SAVES = os.path.join(PATH_SRC, 'database', 'saves')
 PATH_SETTINGS = os.path.join(PATH_SAVES, 'settings.json')
 PATH_DIFFICULTIES = os.path.join(PATH_SAVES, 'difficulties.json')
