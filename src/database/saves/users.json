@@ -1,8 +1,8 @@
 {
     "Josu": {
         "nick": "Josu",
-        "age": 12,
-        "gender": "342",
+        "age": 21,
+        "gender": "Hombre",
         "preferred_color": "#000000",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
