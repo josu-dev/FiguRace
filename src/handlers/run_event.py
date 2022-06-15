@@ -2,11 +2,12 @@ import os
 import time
 import uuid
 from enum import Enum
-from src.handlers.difficulty import DifficultyController
+from typing import Any
 
-from src.handlers.user import UsersController
+from .. import constants, translations
 from . import file, observer
-from .. import translations, constants
+from .user import UsersController
+from .difficulty import DifficultyController
 
 
 class EventNames(Enum):
@@ -26,9 +27,6 @@ class EventStates(Enum):
 
 class RunEventController:
     '''Controller of the events occurred during the execution of the game.'''
-    STATES = EventStates
-    NAMES = EventNames
-
     def __init__(self, path: str, user_ctr: UsersController, difficulty_ctr: DifficultyController) -> None:
         '''Initialization of the file used for save the information of the events.
 
@@ -42,7 +40,7 @@ class RunEventController:
         self._difficulty_ctr = difficulty_ctr
         observer.subscribe(constants.RUN_EVENT, self.register_event)
 
-    def register_event(self, event_data: dict[str, str | int]) -> None:
+    def register_event(self, event_data: dict[str, Any]) -> None:
         '''Register an event to add on the csv
         Args:
             event_data: data of the event composed by 
@@ -58,7 +56,7 @@ class RunEventController:
             event_data.get('correct_answer', EventStates.DEFAULT.value),
             translations.DIFFICULTY_TO_ES[self._difficulty_ctr.difficulty_name],
         ]
-        self._events.append(event)  # type: ignore
+        self._events.append(event) # type: ignore
 
     def default_header(self) -> list[str]:
         '''Return the header of the csv to use like default.'''
