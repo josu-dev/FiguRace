@@ -2,9 +2,11 @@ import os
 import time
 import uuid
 from enum import Enum
+from src.handlers.difficulty import DifficultyController
 
-from . import file
-from src import translations
+from src.handlers.user import UsersController
+from . import file, observer
+from .. import translations, constants
 
 
 class EventNames(Enum):
@@ -27,7 +29,7 @@ class RunEventController:
     STATES = EventStates
     NAMES = EventNames
 
-    def __init__(self, path: str) -> None:
+    def __init__(self, path: str, user_ctr: UsersController, difficulty_ctr: DifficultyController) -> None:
         '''Initialization of the file used for save the information of the events.
 
         Args:
@@ -36,32 +38,25 @@ class RunEventController:
         self._events = file.load_csv_safe(
             self._file_path, [self.default_header()]
         )
+        self._user_ctr = user_ctr
+        self._difficulty_ctr = difficulty_ctr
+        observer.subscribe(constants.RUN_EVENT, self.register_event)
 
-    def register_event(
-        self,
-        name: EventNames,
-        rounds: int,
-        user: str,
-        difficulty: str,
-        state: EventStates = EventStates.DEFAULT,
-        user_answer: str = '-',
-        correct_answer: str = '-'
-    ) -> None:
+    def register_event(self, event_data: dict[str, str | int]) -> None:
         '''Register an event to add on the csv
         Args:
-                name: event name
-                rounds : rounds of the current game
-                user : current user
-                difficulty : current difficulty
-                state : state of the action to register
-                user_answer : only if the event is an intent of answer
-                correct_answer : the correct answer to the current question. Only if the event is an intent of answer'''
-        timestamp = int(time.time())
-        uid = uuid.uuid4().hex
-        difficulty = translations.DIFFICULTY_TO_ES[difficulty]
+            event_data: data of the event composed by 
+                name,Q of rounds,current user,state,user answer, correct answer and difficulty'''
         event = [
-            timestamp, uid, name.value, rounds, user, state.value,
-            user_answer, correct_answer,  difficulty
+            int(time.time()),
+            uuid.uuid4().hex,
+            event_data['name'],
+            event_data['rounds'],
+            self._user_ctr.current_user.nick,
+            event_data['state'],
+            event_data.get('user_answer', EventStates.DEFAULT.value),
+            event_data.get('correct_answer', EventStates.DEFAULT.value),
+            translations.DIFFICULTY_TO_ES[self._difficulty_ctr.difficulty_name],
         ]
         self._events.append(event)  # type: ignore
 
