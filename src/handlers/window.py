@@ -10,14 +10,14 @@ class WindowController:
     def __init__(self, screens_folder_path: str) -> None:
         self._screen_ctr = screen.ScreenController(screens_folder_path)
         self._timeout: int | None = None
-        self._timeout_key: str = constants.TIME_OUT
+        self._timeout_key: str = constants.TIMEOUT
         observer.subscribe(constants.UPDATE_TIMEOUT, self.set_timeout)
 
     @property
     def screen_ctr(self) -> screen.ScreenController:
         return self._screen_ctr
 
-    def set_timeout(self, duration: int | None = None, key: str = constants.TIME_OUT) -> None:
+    def set_timeout(self, duration: int | None = None, key: str = constants.TIMEOUT) -> None:
         self._timeout = duration
         self._timeout_key = key
 

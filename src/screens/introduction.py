@@ -12,6 +12,9 @@ from src.handlers import observer
 from src.assets import animated_intro
 
 
+# Fix for frame loading at image animation
+# The normal behaviour no takes in count the subsample passed trought initialization at sg.Image instance
+# By this reason the element loose the property an displays the frames incorrectly
 def update_animation(self: Any, source: str | bytes, time_between_frames: int = 0) -> None:
     if self.Source != source:
         self.AnimatedFrames = None
@@ -62,6 +65,7 @@ def update_animation(self: Any, source: str | bytes, time_between_frames: int = 
         print('Exception in update_animation', e)
 
 
+# Fix appliement
 sg.Image.update_animation = update_animation
 
 
@@ -85,14 +89,14 @@ def animation_loop() -> None:
     global count
     count -= 1
     if count == 0:
-        observer.unsubscribe(constants.TIME_OUT, animation_loop)
-        observer.subscribe(constants.TIME_OUT, disable_screen)
+        observer.unsubscribe(constants.TIMEOUT, animation_loop)
+        observer.subscribe(constants.TIMEOUT, disable_screen)
     elif count >= SHADOW_FRAMES:
         image.update_animation(animated_intro.source, FRAME_TIME)
 
 
 def disable_screen() -> None:
-    observer.unsubscribe(constants.TIME_OUT, disable_screen)
+    observer.unsubscribe(constants.TIMEOUT, disable_screen)
     observer.post_event(constants.UPDATE_TIMEOUT, None)
     observer.post_event(constants.GOTO_VIEW, '-SELECT-PROFILE-')
 
@@ -110,5 +114,5 @@ screen_config = {
 def screen_reset() -> None:
     global count
     count = FRAMES + SHADOW_FRAMES
-    observer.subscribe(constants.TIME_OUT, animation_loop)
+    observer.subscribe(constants.TIMEOUT, animation_loop)
     observer.post_event(constants.UPDATE_TIMEOUT, FRAME_TIME)

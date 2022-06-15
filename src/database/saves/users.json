@@ -1,25 +1,29 @@
 {
-    "Test": {
-        "nick": "Test",
-        "age": 1,
-        "gender": "Binarie",
+    "Josu": {
+        "nick": "Josu",
+        "age": 21,
+        "gender": "Hombre",
         "preferred_color": "#000000",
         "preferred_difficulty": "normal",
         "custom_difficulty": {
-            "time_per_round": 50,
-            "rounds_per_game": 10,
-            "points_correct_answer": 12,
-            "points_bad_answer": -2,
-            "characteristics_shown": 3
+            "time_per_round": 15,
+            "rounds_per_game": 3,
+            "points_correct_answer": 20,
+            "points_bad_answer": -10,
+            "characteristics_shown": 1
         },
         "scores": {
-            "easy": [],
+            "easy": [
+                40
+            ],
             "normal": [
-                18,
-                32
+                42,
+                8
             ],
             "hard": [],
-            "insane": [],
+            "insane": [
+                0
+            ],
             "custom": []
         }
     }
