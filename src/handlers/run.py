@@ -3,6 +3,7 @@ from typing import Callable, TypedDict
 
 from .card import Card, CardController
 from .difficulty import Difficulty, DifficultyController
+from .run_event import RunEventController
 
 
 ResponseFn = Callable[..., None]
@@ -37,6 +38,10 @@ class Round:
         options = [*self._card.bad_anwers, self._card.correct_answer]
         shuffle(options)
         return options
+    
+    @property
+    def correct_option(self) -> str:
+        return self._card.correct_answer
 
     def _add_hint(self) -> None:
         self._hints_quantity += 1
@@ -65,11 +70,12 @@ class Round:
 
 
 class RunController:
-    def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController) -> None:
+    def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController, run_event_ctr: RunEventController) -> None:
         self._cards = cards_ctr
-        self._difficulty = difficulty_ctr.difficulty
+        self._difficulty_ctr = difficulty_ctr
+        self._events = run_event_ctr
         self._round = Round(self._cards.new_card, difficulty_ctr.difficulty)
-        self._events: RunEvent = {
+        self._events_fn: RunEvent = {
             'end_run': [],
             'win_round': [],
             'loose_round': [],
@@ -89,6 +95,12 @@ class RunController:
             'total_tryes': 0
         }
         self._new_round()
+        self._events.register_event(
+            self._events.NAMES.START,
+            self.max_rounds,
+            'pepe',
+            self._difficulty_ctr.difficulty_name,
+        )
 
     def _new_round(self) -> None:
         if self._rounds > -1:
@@ -98,7 +110,7 @@ class RunController:
         self._stats['total_rounds'] += 1
 
     def registry_event(self, type: str, fn: ResponseFn) -> None:
-        self._events[type].append(fn)  # type: ignore
+        self._events_fn[type].append(fn)  # type: ignore
 
     @property
     def stats(self) -> dict[str, int]:
@@ -110,7 +122,7 @@ class RunController:
 
     @property
     def max_rounds(self) -> int:
-        return self._difficulty.rounds_per_game
+        return self._difficulty_ctr.difficulty.rounds_per_game
 
     @property
     def score(self) -> list[int]:
@@ -136,7 +148,7 @@ class RunController:
         self._new_round()
         self._stats['rounds_loosed'] += 1
         self._stats['rounds_complete'] += 1
-        for fn in self._events['loose_round']:
+        for fn in self._events_fn['loose_round']:
             fn()
 
     def new_answer(self, option: str) -> None:
@@ -145,12 +157,39 @@ class RunController:
             self._new_round()
             self._stats['rounds_winned'] += 1
             self._stats['rounds_complete'] += 1
-            for fn in self._events['win_round']:
+            self._events.register_event(
+                self._events.NAMES.INTENT,
+                self.max_rounds,
+                'pepe',
+                self._difficulty_ctr.difficulty_name,
+                self._events.STATES.OK,
+                option,
+                self._round.correct_option
+            )
+            for fn in self._events_fn['win_round']:
                 fn()
         elif self._round.loose:
             self._force_loose()
+            self._events.register_event(
+                self._events.NAMES.INTENT,
+                self.max_rounds,
+                'pepe',
+                self._difficulty_ctr.difficulty_name,
+                self._events.STATES.ERROR,
+                option,
+                self._round.correct_option
+            )
         else:
-            for fn in self._events['bad_option']:
+            self._events.register_event(
+                self._events.NAMES.INTENT,
+                self.max_rounds,
+                'pepe',
+                self._difficulty_ctr.difficulty_name,
+                self._events.STATES.ERROR,
+                option,
+                self._round.correct_option
+            )
+            for fn in self._events_fn['bad_option']:
                 fn()
         self._is_run_end()
 
@@ -165,5 +204,13 @@ class RunController:
         self._stats['total_rounds'] = self.max_rounds
         for _ in range(self.max_rounds - len(self._scores)):
             self._scores.append(0)
-        for fn in self._events['end_run']:
+        for fn in self._events_fn['end_run']:
             fn()
+        
+        self._events.register_event(
+            self._events.NAMES.END,
+            self.max_rounds,
+            'pepe',
+            self._difficulty_ctr.difficulty_name,
+            self._events.STATES.ENDED,
+        )

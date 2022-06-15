@@ -1,1 +1,41 @@
 timestamp,id,evento,personas a adivinar,usuarie,estado,texto ingresado,respuesta,nivel
+1655326313,8274e12a89c04cadbac7db58bf3fd507,inicio_partida,pepe,-,-,-,10,easy
+1655326318,0ae6fc621b914e5a8efaf3767ae87fa9,intento,pepe,ok,Deng Hanwen,Carlos Vargas,10,easy
+1655326319,5b6ce28e4779481bbc7e3c5e44607164,intento,pepe,error,Pelly-Ruddock Mpanzu,Carlos Vargas,10,easy
+1655326320,f473187ea6bd4ecf9ad304ee966cb021,intento,pepe,ok,Carlos Vargas,Herbert Paul,10,easy
+1655326321,8bd982f180e442d1a22805d2de389b91,intento,pepe,error,Rafik Guitane,Herbert Paul,10,easy
+1655326322,ba6c6f36dcdf4a4d98bf2c1e6e504d92,intento,pepe,error,Sun Guowen,Herbert Paul,10,easy
+1655326323,152ccf6085734aa5b90bca95c0ae3b46,intento,pepe,error,Yuzo Kobayashi,Herbert Paul,10,easy
+1655326324,a4272fbd17cc4da5b401f66398af94de,intento,pepe,error,Mason Bloomfield,Thiago Santos,10,easy
+1655326325,a1091a41604b49eb9a75312f0a0ed476,intento,pepe,error,Vebjørn Hoff,Thiago Santos,10,easy
+1655326325,359dea2caa4249e4ae612de3d6b708b3,intento,pepe,error,Delvin N'Dinga,Thiago Santos,10,easy
+1655326326,9a990a65adc945ff8e673597273fac4d,intento,pepe,error,Juan Cruz Mascia,Thiago Santos,10,easy
+1655326326,97931231d17d44829097486ebb9c4171,intento,pepe,ok,Thiago Santos,Marius Hauptmann,10,easy
+1655326327,2a67d29ba4e44e8b8ac866dd9e7b7d41,intento,pepe,ok,Marius Hauptmann,Oliver Hein,10,easy
+1655326327,e7d79feb1dbc4b048736137a102093cc,fin,pepe,finalizada,-,-,10,easy
+1655326336,5fa359e511794604a274c7dcc48c1157,inicio_partida,pepe,-,-,-,10,insane
+1655326338,8b3d4afc523b47ed887a95c2e94d1100,intento,pepe,error,Lago Pueyrredón,Lago La Plata,10,insane
+1655326338,8ebb53aabcab4c669247b45a8b882050,intento,pepe,error,Lago Meliquina,Lago La Plata,10,insane
+1655326338,5e458ea6e1254022bb2a0f9388b30908,intento,pepe,error,Lago Fontana,Lago La Plata,10,insane
+1655326339,a901b761868d4c48b1146f21e269e0bc,intento,pepe,error,Lago Asador o Guitarra,Lago Futalaufquen,10,insane
+1655326340,f5235c288dcb49a6a1f5cf7804e63ba1,intento,pepe,ok,Lago Futalaufquen,Lago Río Chico,10,insane
+1655326341,d04d106c01ef4635b4e61f35577fe7e1,intento,pepe,error,Lago Pueyrredón,Lago Río Chico,10,insane
+1655326342,26d8abb992ad43aaa062b77c8d6b3921,intento,pepe,error,Lago Moquehue,Lago Río Chico,10,insane
+1655326342,ead385c5f4f3490d9e6fa90a1baee7a2,intento,pepe,ok,Lago Río Chico,Lago Musters,10,insane
+1655326343,3b2cfe316c394a9d8c2b2ecc50e5dc64,intento,pepe,error,Lago Futalaufquen,Lago Musters,10,insane
+1655326344,83b9b72259a94ef2b09810c05f7e0a2f,intento,pepe,error,Lago Azara,Lago Musters,10,insane
+1655326344,bb63bcc742f34a428c4687ada40e3cc2,intento,pepe,error,Lago General Vintter,Lago Musters,10,insane
+1655326345,0750726e494c482fa16894618cb92eff,intento,pepe,ok,Lago Musters,Lago Buenos Aires,10,insane
+1655326346,83f3d073f9164684bd57070019c69aa3,intento,pepe,error,Lago Cholila,Lago Buenos Aires,10,insane
+1655326346,61d05519da094a6d90c6308a8a78322e,intento,pepe,error,Lago Azara,Lago Buenos Aires,10,insane
+1655326347,6b5286b15f894dbabd03a2dde7faa36f,intento,pepe,error,Lago Rivadavia,Lago Buenos Aires,10,insane
+1655326347,531345cc4e4942939f9946524557accc,intento,pepe,error,Lago Río Bueno,Lago Viedma,10,insane
+1655326348,c5ee4cb3db2346a4b092f26aaf184070,intento,pepe,ok,Lago Viedma,Lago Aluminé,10,insane
+1655326349,fa9a1cb6b84d45458502492128c63a62,intento,pepe,ok,Lago Aluminé,Lago Pellegrini,10,insane
+1655326349,ecfe016509c849b1a6f4d333e76da61c,intento,pepe,ok,Lago Pellegrini,Lago General Vintter,10,insane
+1655326350,457ecd1bdf46494fbd2aa149fcb21b0f,intento,pepe,error,Lago Menéndez,Lago General Vintter,10,insane
+1655326351,3c1130b86abf4ad5b8138bb1b9199ef0,intento,pepe,error,Lago Pellegrini,Lago General Vintter,10,insane
+1655326351,8689df957dcf425097e552ff445c4616,intento,pepe,error,Lago Futalaufquen,Lago General Vintter,10,insane
+1655326352,a197f0fb73a5495e84c97c43ce13cc48,intento,pepe,ok,Lago General Vintter,Lago Ghío,10,insane
+1655326354,a587b904278f4c3499d4d39e84abd259,intento,pepe,ok,Lago Ghío,Lago Pueyrredón,10,insane
+1655326354,0bedd539686947aa95f9a24655e7c834,fin,pepe,finalizada,-,-,10,insane
