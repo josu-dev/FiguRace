@@ -12,6 +12,9 @@ from src.handlers import observer
 from src.assets import animated_intro
 
 
+# Fix for frame loading at image animation
+# The normal behaviour no takes in count the subsample passed trought initialization at sg.Image instance
+# By this reason the element loose the property an displays the frames incorrectly
 def update_animation(self: Any, source: str | bytes, time_between_frames: int = 0) -> None:
     if self.Source != source:
         self.AnimatedFrames = None
@@ -62,6 +65,7 @@ def update_animation(self: Any, source: str | bytes, time_between_frames: int = 
         print('Exception in update_animation', e)
 
 
+# Fix appliement
 sg.Image.update_animation = update_animation
 
 
