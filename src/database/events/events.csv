@@ -14,3 +14,4 @@ timestamp,id,evento,personas a adivinar,usuarie,estado,texto ingresado,respuesta
 1655329240,b3323ff1960445eea369f60741700296,intento,10,Josu,error,Marco Meyerhöfer,Jonny Howson,Intermedio
 1655329242,160e99dd274f4253b1207bbffc4f47b2,intento,10,Josu,error,Umberto Saracco,Jonny Howson,Intermedio
 1655329242,911d4d89e3f54781966479ac75e81ec2,fin,10,Josu,error,-,-,Intermedio
+1655331706,31469e068d4d4f2fa566664d90506a6b,inicio_partida,10,Josu,-,-,-,Intermedio
