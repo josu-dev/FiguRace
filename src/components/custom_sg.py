@@ -113,6 +113,7 @@ def CenteredElement(element: Element, horizontal_only: bool = False, **column_pa
     column_parameters['element_justification'] = 'center'
     column_parameters['expand_y'] = not horizontal_only
     column_parameters['expand_x'] = True
+    column_parameters['pad'] = 0
     background_color = column_parameters.get('background_color', None)
     if horizontal_only:
         return sg.Column(
@@ -144,6 +145,7 @@ def CenteredLayout(layout: FullLayout, horizontal_only: bool = False, **column_p
     column_parameters['element_justification'] = 'center'
     column_parameters['expand_y'] = not horizontal_only
     column_parameters['expand_x'] = True
+    column_parameters['pad'] = 0
     background_color = column_parameters.get('background_color', None)
     if horizontal_only:
         return sg.Column(

@@ -1,5 +1,3 @@
-from dataclasses import replace
-from gettext import translation
 import os
 import pandas as pd
 
@@ -118,7 +116,9 @@ def process_dataset(file_name:str):
                 },
                 inplace=True,
                 axis= 1
-            )                  
+            )      
+        df.fillna('Desconocido',  inplace=True)
+            
         df.to_csv(processed_path, mode='w',index=False)            
     
 names_files = os.listdir(PATH_SOURCE)
