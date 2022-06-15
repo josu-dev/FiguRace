@@ -1,20 +1,11 @@
 from random import shuffle
-from typing import Callable, TypedDict
+from typing import Callable
 
 from .. import constants
 from . import observer
 from .card import Card, CardController
 from .difficulty import Difficulty, DifficultyController
 from .run_event import EventNames, EventStates
-
-ResponseFn = Callable[..., None]
-
-
-class RunEvent(TypedDict):
-    end_run: list[ResponseFn]
-    win_round: list[ResponseFn]
-    loose_round: list[ResponseFn]
-    bad_option: list[ResponseFn]
 
 
 class Round:
@@ -39,7 +30,7 @@ class Round:
         options = [*self._card.bad_anwers, self._card.correct_answer]
         shuffle(options)
         return options
-    
+
     @property
     def correct_option(self) -> str:
         return self._card.correct_answer
@@ -75,12 +66,25 @@ class RunController:
         self._cards = cards_ctr
         self._difficulty_ctr = difficulty_ctr
         self._round = Round(self._cards.new_card, difficulty_ctr.difficulty)
-        self._events_fn: RunEvent = {
+        self._events_fn: dict[str, list[Callable[..., None]]] = {
             'end_run': [],
             'win_round': [],
             'loose_round': [],
             'bad_option': []
         }
+
+    def _post_event(self, name: EventNames, state: EventStates | None = None, option: str | None = None, correct_option: bool = False) -> None:
+        event_data = {
+            'name': name,
+            'rounds': self.max_rounds,
+        }
+        if state:
+            event_data['state'] = state  # type: ignore
+        if option:
+            event_data['user_answer'] = option  # type: ignore
+        if correct_option:
+            event_data['correct_answer'] = self._round.correct_option # type: ignore
+        observer.post_event(constants.RUN_EVENT, event_data)
 
     def reset(self) -> None:
         self._rounds = -1
@@ -95,13 +99,7 @@ class RunController:
             'total_tryes': 0
         }
         self._new_round()
-        observer.post_event(
-            constants.RUN_EVENT,
-            {
-                'name': EventNames.START,
-                'rounds': self.max_rounds,
-            }
-        )
+        self._post_event(EventNames.START)
 
     def _new_round(self) -> None:
         if self._rounds > -1:
@@ -110,8 +108,8 @@ class RunController:
         self._round.reset(self._cards.new_card)
         self._stats['total_rounds'] += 1
 
-    def registry_event(self, type: str, fn: ResponseFn) -> None:
-        self._events_fn[type].append(fn)  # type: ignore
+    def registry_event(self, type: str, response_fn: Callable[..., None]) -> None:
+        self._events_fn[type].append(response_fn)
 
     @property
     def stats(self) -> dict[str, int]:
@@ -158,41 +156,14 @@ class RunController:
             self._new_round()
             self._stats['rounds_winned'] += 1
             self._stats['rounds_complete'] += 1
-            observer.post_event(
-                constants.RUN_EVENT,
-                {
-                    'name': EventNames.INTENT,
-                    'rounds': self.max_rounds,
-                    'state': EventStates.OK,
-                    'user_answer': option,
-                    'correct_answer': self._round.correct_option
-                }
-            )
+            self._post_event(EventNames.TRY, EventStates.OK, option, True)
             for fn in self._events_fn['win_round']:
                 fn()
         elif self._round.loose:
             self._force_loose()
-            observer.post_event(
-                constants.RUN_EVENT,
-                {
-                    'name': EventNames.INTENT,
-                    'rounds': self.max_rounds,
-                    'state' : EventStates.ERROR,
-                    'user_answer': option,
-                    'correct_answer': self._round.correct_option
-                }
-            )
+            self._post_event(EventNames.TRY, EventStates.ERROR, option, True)
         else:
-            observer.post_event(
-                constants.RUN_EVENT,
-                {
-                    'name': EventNames.INTENT,
-                    'rounds': self.max_rounds,
-                    'state' : EventStates.ERROR,
-                    'user_answer': option,
-                    'correct_answer': self._round.correct_option
-                }
-            )
+            self._post_event(EventNames.TRY, EventStates.ERROR, option, True)
             for fn in self._events_fn['bad_option']:
                 fn()
         self._is_run_end()
@@ -201,6 +172,8 @@ class RunController:
         self._stats['rounds_skiped'] += 1
         self._round.end()
         self._new_round()
+        self._post_event(EventNames.TRY, EventStates.ERROR,
+                         correct_option=True)
         self._is_run_end()
 
     def end_run(self) -> None:
@@ -210,12 +183,4 @@ class RunController:
             self._scores.append(0)
         for fn in self._events_fn['end_run']:
             fn()
-        
-        observer.post_event(
-            constants.RUN_EVENT,
-            {
-                'name': EventNames.END,
-                'rounds': self.max_rounds,
-                'state' : EventStates.ERROR,
-            }
-        )
+        self._post_event(EventNames.END, EventStates.ENDED)

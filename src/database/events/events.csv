@@ -14,3 +14,31 @@ timestamp,id,evento,personas a adivinar,usuarie,estado,texto ingresado,respuesta
 1655329240,b3323ff1960445eea369f60741700296,intento,10,Josu,error,Marco Meyerhöfer,Jonny Howson,Intermedio
 1655329242,160e99dd274f4253b1207bbffc4f47b2,intento,10,Josu,error,Umberto Saracco,Jonny Howson,Intermedio
 1655329242,911d4d89e3f54781966479ac75e81ec2,fin,10,Josu,error,-,-,Intermedio
+1655330316,7093ee787ca94c96ab9f78aaa42a0036,inicio_partida,10,Josu,-,-,-,Fácil
+1655330316,1ae38cdcddaa4521ab8b056ab30b6e25,intento,10,Josu,error,-,Portu,Fácil
+1655330317,c04e8a6cb30f4db2bd2c5dd1a28813c5,intento,10,Josu,error,-,Francisco Venegas,Fácil
+1655330318,f703259fa6ad4cdb9ceb0b703c21e2f1,intento,10,Josu,error,-,Jake Cooper,Fácil
+1655330319,739febaf291840e88fc59e07b6b80ff5,intento,10,Josu,error,-,Lukas Daschner,Fácil
+1655330320,77f8c38133e348e0afe0ef59dc082723,intento,10,Josu,error,-,Andrea La Mantia,Fácil
+1655330321,94c56914f7f64949a301b84c34663d43,intento,10,Josu,error,Fabián González,Andrea La Mantia,Fácil
+1655330322,59ae2a7df26a41cf9d88241e6efca8f0,intento,10,Josu,error,Simao Mate,Andrea La Mantia,Fácil
+1655330322,6e679a2628b8486dbd4c09cfd9d1cc68,intento,10,Josu,error,Daniel Bentley,Andrea La Mantia,Fácil
+1655330323,c0ac48bd7c16450cace0c639c19d651d,intento,10,Josu,ok,Andrea La Mantia,Mateu Morey,Fácil
+1655330324,e9ec824fb0334270b73680a4b47a6de0,intento,10,Josu,error,Chiquinho,Mateu Morey,Fácil
+1655330325,878b905e24d94e9685aa3996876fcac4,intento,10,Josu,ok,Mateu Morey,Younès Belhanda,Fácil
+1655330326,98572c461d30487ba6671714af742592,intento,10,Josu,error,Kristian Opseth,Younès Belhanda,Fácil
+1655330326,90782dc2f5b644bf8347eb05955ef823,intento,10,Josu,error,Aaron Morley,Younès Belhanda,Fácil
+1655330327,af2e2db0e65941e987b9d622a59dc354,intento,10,Josu,error,Divock Origi,Younès Belhanda,Fácil
+1655330328,1096325d36734aa7b15163500089d8f8,intento,10,Josu,ok,Younès Belhanda,Alejandro Otero,Fácil
+1655330329,eca35cd6996f42fea8fcfdd7f0210b43,intento,10,Josu,error,Lee Grace,Alejandro Otero,Fácil
+1655330329,f021ee73042748019cbe97b9cc77c433,intento,10,Josu,ok,Alejandro Otero,Rúben Fernandes,Fácil
+1655330330,6730fd803971490f8ad7d7505ed5cf17,intento,10,Josu,error,Exequiel Benavidez,Rúben Fernandes,Fácil
+1655330331,b681c1213fb14c7491cc047046706eb7,intento,10,Josu,ok,Rúben Fernandes,Ethan Finlay,Fácil
+1655330331,9689d16af519441890013e581d8d1b97,fin,10,Josu,finalizada,-,-,Fácil
+1655331405,d56e3cebc8034a10a1201cf133545305,inicio_partida,10,Josu,-,-,-,Insano
+1655331405,dbf14bcfc55f4104a016c0f5e97716f5,intento,10,Josu,error,-,Georgios Giakoumakis,Insano
+1655331406,8d24de1ce9924899a078bf5af5044166,fin,10,Josu,finalizada,-,-,Insano
+1655331500,6367107f84924dfe82527ea12cb8723e,inicio_partida,10,test,-,-,-,Personalizada
+1655331501,54d1997a934440e8b8d356c5000bb72b,fin,10,test,finalizada,-,-,Personalizada
+1655331513,b60cc56788ea45b3b4946c087cad7575,inicio_partida,10,Josu,-,-,-,Fácil
+1655331514,b7ec412e00134ceb83e707a4434ce9aa,fin,10,Josu,finalizada,-,-,Fácil
