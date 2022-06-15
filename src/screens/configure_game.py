@@ -8,7 +8,7 @@ from src import csg, common
 from src.controllers import theme, cards_controller as cards_ctr, difficulty_controller as difficulty_ctr
 from src.handlers import observer
 
-from . import _translations
+from .. import translations
 
 
 SCREEN_NAME = '-CONFIGURE-GAME-'
@@ -127,7 +127,7 @@ def refresh_info() -> None:
     """Refresh the information displayed on screen of the current difficulty.
     """
     difficulty_ctr.set_difficulty(
-        _translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
+        translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     _difficulty_info.update(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
             Q de Características : {difficulty_ctr.difficulty.characteristics_shown}\
             Rounds por juego : {difficulty_ctr.difficulty.rounds_per_game}\
@@ -139,7 +139,7 @@ def change_difficult() -> None:
     """Change the difficulty to the one selected in the difficulty combo box.
     """
     difficulty_ctr.set_difficulty(
-        _translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
+        translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     refresh_info()
 
 
@@ -152,13 +152,13 @@ def change_dataset() -> None:
         shuffle(shuffled)
         dataset = shuffled[0]
     else:
-        dataset = _translations.DATASET_TO_EN[dataset]
+        dataset = translations.DATASET_TO_EN[dataset]
     cards_ctr.type = dataset
 
 
 screen_layout = [
     [common.screen_title(
-        'CONFIGURAR JUEGO',alignment='left', padding=theme.height//64
+        'CONFIGURAR JUEGO', alignment='left', padding=theme.height//64
     )],
     [sg.Column(
         layout(), background_color=theme.BG_BASE, expand_y=True,
