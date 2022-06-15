@@ -2,14 +2,26 @@ import os
 import time
 import uuid
 from . import file
+from enum import Enum
+
+
+class EventNames(Enum):
+    START = 'inicio_partida'
+    INTENT = 'intento'
+    END = 'fin'
+
+
+class States(Enum):
+    ERROR = 'error'
+    OK = 'ok'
+    TIME_OUT = 'timeout'
+    ENDED = 'finalizada'
+    DEFAULT = '-'
 
 
 class RunEventController:
     '''Controller of the events occurred during the execution of the game
     '''
-    START = 'inicio_partida'
-    INTENT = 'intento'
-    END = 'fin'
 
     def __init__(self, path) -> None:
         '''Initialization of the file used for save the information of the events
@@ -21,11 +33,11 @@ class RunEventController:
             self._file_path, self.default_header())
 
     def register_event(self,
-                       name: str,
+                       name: EventNames,
                        rounds: int,
                        user: str,
-                       state: str,
                        difficulty: str,
+                       state: States = States.DEFAULT,
                        user_answer: str = '-',
                        correct_answer: str = '-'
                        ) -> None:
@@ -34,8 +46,8 @@ class RunEventController:
                 name: event name
                 rounds : rounds of the current game
                 user : current user
-                state : state of the action to register
                 difficulty : current difficulty
+                state : state of the action to register
                 user_answer : only if the event is an intent of answer
                 correct_answer : the correct answer to the current question. Only if the event is an intent of answer
         '''
