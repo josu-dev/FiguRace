@@ -87,12 +87,9 @@ class DifficultyController:
         self._difficulties['custom'] = user.custom_difficulty
         self.set_difficulty(user.preferred_difficulty)
 
-    def _save_difficulties(self) -> None:
+    def save(self) -> None:
         file.save_json(
             self._file_path,
             self._difficulties,
             is_custom_class=True
         )
-
-    def save(self) -> None:
-        self._save_difficulties()

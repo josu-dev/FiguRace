@@ -1,6 +1,6 @@
-from dataclasses import dataclass
 import importlib
 import os
+from dataclasses import dataclass
 from typing import Any, Callable
 
 import PySimpleGUI as sg

@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+import time
 from typing import TypedDict
 
 import PySimpleGUI as sg
@@ -15,6 +17,8 @@ CONFIRM_SELECTED_OPTION = '-CONFIRM-SELECTED-OPTION-'
 SKIP_CARD = '-SKIP-CARD-'
 END_RUN = '-END-RUN-'
 ROUNDS_TABLE_SIZE = 20
+UPDATE_TIME = 100
+RUN_UPDATE_TIME = 1000
 
 
 class CardState(TypedDict):
@@ -33,6 +37,21 @@ class RunState(TypedDict):
     points: sg.Text
     rounds: sg.Multiline
     forced_end: bool
+
+
+@dataclass
+class TimeState:
+    run_start: int = 0
+    run_end: int = 0
+    round_start: int = 0
+    round_end: int = 0
+    last: int = 0
+    actual: int = 0
+    current: int = 0
+    round_duration: int = 0
+
+
+time_state = TimeState()
 
 
 def create_button(text: str, key: str) -> sg.Button:
@@ -59,7 +78,7 @@ def create_run_state() -> sg.Column:
         background_color=theme.BG_SECONDARY
     )
     run_state['time'] = sg.Text(
-        f'00:30',
+        f'00:00',
         font=(theme.FONT_FAMILY, theme.T1_SIZE),
         background_color=theme.BG_SECONDARY
     )
@@ -105,14 +124,16 @@ def create_run_state() -> sg.Column:
     )
 
 
-def refresh_timer() -> None:
-    run_state['time'].update(run_ctr.time)
+def refesh_timer() -> None:
+    run_state['time'].update(
+        # f'{(run_ctr.round_time - (time_state["current"]-time_state["round_start"])):<2}:00'
+    )
 
 
 def reset_run_state() -> None:
     run_state['difficulty'].update(
         _translations.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty])
-    refresh_timer()
+    # refresh_timer()
     run_state['user'].update(users_ctr.current_user.nick)
     run_state['points'].update(' 0 puntos')
     run_state['rounds'].update(
@@ -281,7 +302,6 @@ def create_leave_button() -> sg.Button:
 
 
 def finish_game() -> None:
-    observer.unsubscribe(constants.TIME_OUT, refresh_timer)
     total_score = sum(run_ctr.score)
     if not run_state['forced_end']:
         users_ctr.current_user.update_score(
@@ -308,6 +328,28 @@ def force_end_game() -> None:
 
 observer.subscribe(END_RUN, force_end_game)
 
+
+def reset_time() -> None:
+    time_stamp = int(time.time())
+    time_state.run_start = time_stamp
+    time_state.round_start = time_stamp
+    time_state.last = time_stamp
+    # time_state.round_duration = run_ctr.round_time
+
+
+def update_time() -> None:
+    time_state.actual = int(time.time())
+    delta_time = time_state.actual - time_state.last
+    if delta_time < RUN_UPDATE_TIME:
+        return
+    refesh_timer()
+    time_state.last = time_state.actual
+    if (time_state.actual - time_state.round_start) < time_state.round_duration:
+        return
+    time_state.round_end = time_state.actual
+    force_end_round()
+
+
 screen_layout = [
     [sg.VPush(theme.BG_BASE)],
     [
@@ -332,4 +374,5 @@ def screen_reset() -> None:
     run_ctr.reset()
     reset_run_state()
     reset_card()
-    observer.subscribe(constants.TIME_OUT, refresh_timer)
+    observer.subscribe(constants.TIMEOUT, update_time)
+    observer.post_event(constants.UPDATE_TIMEOUT, UPDATE_TIME)

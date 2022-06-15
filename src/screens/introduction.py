@@ -89,14 +89,14 @@ def animation_loop() -> None:
     global count
     count -= 1
     if count == 0:
-        observer.unsubscribe(constants.TIME_OUT, animation_loop)
-        observer.subscribe(constants.TIME_OUT, disable_screen)
+        observer.unsubscribe(constants.TIMEOUT, animation_loop)
+        observer.subscribe(constants.TIMEOUT, disable_screen)
     elif count >= SHADOW_FRAMES:
         image.update_animation(animated_intro.source, FRAME_TIME)
 
 
 def disable_screen() -> None:
-    observer.unsubscribe(constants.TIME_OUT, disable_screen)
+    observer.unsubscribe(constants.TIMEOUT, disable_screen)
     observer.post_event(constants.UPDATE_TIMEOUT, None)
     observer.post_event(constants.GOTO_VIEW, '-SELECT-PROFILE-')
 
@@ -114,5 +114,5 @@ screen_config = {
 def screen_reset() -> None:
     global count
     count = FRAMES + SHADOW_FRAMES
-    observer.subscribe(constants.TIME_OUT, animation_loop)
+    observer.subscribe(constants.TIMEOUT, animation_loop)
     observer.post_event(constants.UPDATE_TIMEOUT, FRAME_TIME)

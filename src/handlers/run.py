@@ -1,9 +1,6 @@
-from typing import Callable, TypedDict
 from random import shuffle
+from typing import Callable, TypedDict
 
-from src import constants
-
-from . import observer
 from .card import Card, CardController
 from .difficulty import Difficulty, DifficultyController
 
@@ -89,14 +86,9 @@ class RunController:
             'rounds_skiped': 0,
             'rounds_winned': 0,
             'rounds_loosed': 0,
-            'total_time': 0,
-            'average_time': 0,
             'total_tryes': 0
         }
-        self._time = self._difficulty.time_per_round
         self._new_round()
-        observer.subscribe(constants.TIME_OUT, self._update_time)
-        observer.post_event(constants.UPDATE_TIMEOUT, 1000)
 
     def _new_round(self) -> None:
         if self._rounds > -1:
@@ -104,8 +96,6 @@ class RunController:
         self._rounds += 1
         self._round.reset(self._cards.new_card)
         self._stats['total_rounds'] += 1
-        self._stats['total_time'] += self._difficulty.time_per_round - self._time
-        self._time = self._difficulty.time_per_round
 
     def registry_event(self, type: str, fn: ResponseFn) -> None:
         self._events[type].append(fn)  # type: ignore
@@ -137,15 +127,6 @@ class RunController:
     @property
     def options(self) -> list[str]:
         return self._round.options
-
-    @property
-    def time(self) -> str:
-        return str(self._time) + ':00'
-
-    def _update_time(self) -> None:
-        self._time -= 1
-        if self._time < 0:
-            self._force_loose()
 
     def _is_run_end(self) -> None:
         if self._rounds == self.max_rounds:
@@ -180,11 +161,8 @@ class RunController:
         self._is_run_end()
 
     def end_run(self) -> None:
-        observer.post_event(constants.UPDATE_TIMEOUT, None)
-        observer.unsubscribe(constants.TIME_OUT, self._update_time)
         self._stats['total_points'] = sum(self._scores)
         self._stats['total_rounds'] = self.max_rounds
-        self._stats['average_time'] = self._stats['total_time'] // self._stats['total_rounds']
         for _ in range(self.max_rounds - len(self._scores)):
             self._scores.append(0)
         for fn in self._events['end_run']:

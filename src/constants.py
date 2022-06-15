@@ -12,7 +12,7 @@ PATH_USERS = os.path.join(PATH_SAVES, 'users.json')
 PATH_DATASETS = os.path.join(PATH_SRC, 'database', 'datasets')
 PATH_SCREENS = os.path.join(PATH_SRC, 'screens')
 
-TIME_OUT = '-TIME-OUT-'
+TIMEOUT = '-TIME-OUT-'
 GOTO_VIEW = '-GOTO-VIEW-'
 LAST_SCREEN = '-LAST-SCREEN-'
 EXIT_APLICATION = '-EXIT-APP-'

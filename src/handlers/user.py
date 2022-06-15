@@ -166,13 +166,10 @@ class UsersController:
         observer.post_event(constants.USER_CHANGE, self.current_user)
 
     def _set_user_difficulty(self, type: str) -> None:
-        self.current_user.preferred_difficulty = type
+        self.current_user.preferred_difficulty = type 
 
-    def _save_users(self) -> None:
+    def save(self) -> None:
         file.save_json(
             self._file_path,
             {nick: user.to_json() for nick, user in self._users.items()},
         )
-
-    def save(self) -> None:
-        self._save_users()

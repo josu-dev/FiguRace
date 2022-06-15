@@ -568,7 +568,7 @@ class Listbox(Element):
         Set listbox highlighte"""
         ...
     
-    def get_list_values(self: Listbox):# -> List[Any]:
+    def get_list_values(self: Listbox) -> list[Any]:
         """
         Returns list of Values"""
         ...
