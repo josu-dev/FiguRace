@@ -26,9 +26,7 @@ run_event_controller = RunEventController(constants.PATH_EVENTS)
 
 cards_controller = CardController(constants.PATH_DATASETS)
 
-run_controller = RunController(
-    cards_controller, difficulty_controller, run_event_controller
-)
+run_controller = RunController(cards_controller, difficulty_controller)
 
 
 observer.subscribe(constants.EXIT_APLICATION, settings_controller.save)

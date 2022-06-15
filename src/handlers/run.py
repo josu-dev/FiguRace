@@ -1,10 +1,11 @@
 from random import shuffle
 from typing import Callable, TypedDict
 
+from .. import constants
+from . import observer
 from .card import Card, CardController
 from .difficulty import Difficulty, DifficultyController
-from .run_event import RunEventController
-
+from .run_event import EventNames, EventStates
 
 ResponseFn = Callable[..., None]
 
@@ -70,10 +71,9 @@ class Round:
 
 
 class RunController:
-    def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController, run_event_ctr: RunEventController) -> None:
+    def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController) -> None:
         self._cards = cards_ctr
         self._difficulty_ctr = difficulty_ctr
-        self._events = run_event_ctr
         self._round = Round(self._cards.new_card, difficulty_ctr.difficulty)
         self._events_fn: RunEvent = {
             'end_run': [],
@@ -95,11 +95,12 @@ class RunController:
             'total_tryes': 0
         }
         self._new_round()
-        self._events.register_event(
-            self._events.NAMES.START,
-            self.max_rounds,
-            'pepe',
-            self._difficulty_ctr.difficulty_name,
+        observer.post_event(
+            constants.RUN_EVENT,
+            {
+                'name': EventNames.START,
+                'rounds': self.max_rounds,
+            }
         )
 
     def _new_round(self) -> None:
@@ -157,37 +158,40 @@ class RunController:
             self._new_round()
             self._stats['rounds_winned'] += 1
             self._stats['rounds_complete'] += 1
-            self._events.register_event(
-                self._events.NAMES.INTENT,
-                self.max_rounds,
-                'pepe',
-                self._difficulty_ctr.difficulty_name,
-                self._events.STATES.OK,
-                option,
-                self._round.correct_option
+            observer.post_event(
+                constants.RUN_EVENT,
+                {
+                    'name': EventNames.INTENT,
+                    'rounds': self.max_rounds,
+                    'state': EventStates.OK,
+                    'user_answer': option,
+                    'correct_answer': self._round.correct_option
+                }
             )
             for fn in self._events_fn['win_round']:
                 fn()
         elif self._round.loose:
             self._force_loose()
-            self._events.register_event(
-                self._events.NAMES.INTENT,
-                self.max_rounds,
-                'pepe',
-                self._difficulty_ctr.difficulty_name,
-                self._events.STATES.ERROR,
-                option,
-                self._round.correct_option
+            observer.post_event(
+                constants.RUN_EVENT,
+                {
+                    'name': EventNames.INTENT,
+                    'rounds': self.max_rounds,
+                    'state' : EventStates.ERROR,
+                    'user_answer': option,
+                    'correct_answer': self._round.correct_option
+                }
             )
         else:
-            self._events.register_event(
-                self._events.NAMES.INTENT,
-                self.max_rounds,
-                'pepe',
-                self._difficulty_ctr.difficulty_name,
-                self._events.STATES.ERROR,
-                option,
-                self._round.correct_option
+            observer.post_event(
+                constants.RUN_EVENT,
+                {
+                    'name': EventNames.INTENT,
+                    'rounds': self.max_rounds,
+                    'state' : EventStates.ERROR,
+                    'user_answer': option,
+                    'correct_answer': self._round.correct_option
+                }
             )
             for fn in self._events_fn['bad_option']:
                 fn()
@@ -207,10 +211,11 @@ class RunController:
         for fn in self._events_fn['end_run']:
             fn()
         
-        self._events.register_event(
-            self._events.NAMES.END,
-            self.max_rounds,
-            'pepe',
-            self._difficulty_ctr.difficulty_name,
-            self._events.STATES.ENDED,
+        observer.post_event(
+            constants.RUN_EVENT,
+            {
+                'name': EventNames.END,
+                'rounds': self.max_rounds,
+                'state' : EventStates.ERROR,
+            }
         )
