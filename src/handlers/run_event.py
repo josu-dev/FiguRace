@@ -4,6 +4,7 @@ import uuid
 from enum import Enum
 
 from . import file
+from src import translations
 
 
 class EventNames(Enum):
@@ -57,6 +58,7 @@ class RunEventController:
                 correct_answer : the correct answer to the current question. Only if the event is an intent of answer'''
         timestamp = int(time.time())
         uid = uuid.uuid4().hex
+        difficulty = translations.DIFFICULTY_TO_ES[difficulty]
         event = [
             timestamp, uid, name.value, rounds, user, state.value,
             user_answer, correct_answer,  difficulty

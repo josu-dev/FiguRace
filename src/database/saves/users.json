@@ -4,7 +4,7 @@
         "age": 21,
         "gender": "Hombre",
         "preferred_color": "#000000",
-        "preferred_difficulty": "insane",
+        "preferred_difficulty": "normal",
         "custom_difficulty": {
             "time_per_round": 15,
             "rounds_per_game": 3,
@@ -17,7 +17,8 @@
                 40
             ],
             "normal": [
-                42
+                42,
+                8
             ],
             "hard": [],
             "insane": [

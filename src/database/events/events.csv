@@ -1,41 +1,34 @@
 timestamp,id,evento,personas a adivinar,usuarie,estado,texto ingresado,respuesta,nivel
-1655326313,8274e12a89c04cadbac7db58bf3fd507,inicio_partida,pepe,-,-,-,10,easy
-1655326318,0ae6fc621b914e5a8efaf3767ae87fa9,intento,pepe,ok,Deng Hanwen,Carlos Vargas,10,easy
-1655326319,5b6ce28e4779481bbc7e3c5e44607164,intento,pepe,error,Pelly-Ruddock Mpanzu,Carlos Vargas,10,easy
-1655326320,f473187ea6bd4ecf9ad304ee966cb021,intento,pepe,ok,Carlos Vargas,Herbert Paul,10,easy
-1655326321,8bd982f180e442d1a22805d2de389b91,intento,pepe,error,Rafik Guitane,Herbert Paul,10,easy
-1655326322,ba6c6f36dcdf4a4d98bf2c1e6e504d92,intento,pepe,error,Sun Guowen,Herbert Paul,10,easy
-1655326323,152ccf6085734aa5b90bca95c0ae3b46,intento,pepe,error,Yuzo Kobayashi,Herbert Paul,10,easy
-1655326324,a4272fbd17cc4da5b401f66398af94de,intento,pepe,error,Mason Bloomfield,Thiago Santos,10,easy
-1655326325,a1091a41604b49eb9a75312f0a0ed476,intento,pepe,error,Vebjørn Hoff,Thiago Santos,10,easy
-1655326325,359dea2caa4249e4ae612de3d6b708b3,intento,pepe,error,Delvin N'Dinga,Thiago Santos,10,easy
-1655326326,9a990a65adc945ff8e673597273fac4d,intento,pepe,error,Juan Cruz Mascia,Thiago Santos,10,easy
-1655326326,97931231d17d44829097486ebb9c4171,intento,pepe,ok,Thiago Santos,Marius Hauptmann,10,easy
-1655326327,2a67d29ba4e44e8b8ac866dd9e7b7d41,intento,pepe,ok,Marius Hauptmann,Oliver Hein,10,easy
-1655326327,e7d79feb1dbc4b048736137a102093cc,fin,pepe,finalizada,-,-,10,easy
-1655326336,5fa359e511794604a274c7dcc48c1157,inicio_partida,pepe,-,-,-,10,insane
-1655326338,8b3d4afc523b47ed887a95c2e94d1100,intento,pepe,error,Lago Pueyrredón,Lago La Plata,10,insane
-1655326338,8ebb53aabcab4c669247b45a8b882050,intento,pepe,error,Lago Meliquina,Lago La Plata,10,insane
-1655326338,5e458ea6e1254022bb2a0f9388b30908,intento,pepe,error,Lago Fontana,Lago La Plata,10,insane
-1655326339,a901b761868d4c48b1146f21e269e0bc,intento,pepe,error,Lago Asador o Guitarra,Lago Futalaufquen,10,insane
-1655326340,f5235c288dcb49a6a1f5cf7804e63ba1,intento,pepe,ok,Lago Futalaufquen,Lago Río Chico,10,insane
-1655326341,d04d106c01ef4635b4e61f35577fe7e1,intento,pepe,error,Lago Pueyrredón,Lago Río Chico,10,insane
-1655326342,26d8abb992ad43aaa062b77c8d6b3921,intento,pepe,error,Lago Moquehue,Lago Río Chico,10,insane
-1655326342,ead385c5f4f3490d9e6fa90a1baee7a2,intento,pepe,ok,Lago Río Chico,Lago Musters,10,insane
-1655326343,3b2cfe316c394a9d8c2b2ecc50e5dc64,intento,pepe,error,Lago Futalaufquen,Lago Musters,10,insane
-1655326344,83b9b72259a94ef2b09810c05f7e0a2f,intento,pepe,error,Lago Azara,Lago Musters,10,insane
-1655326344,bb63bcc742f34a428c4687ada40e3cc2,intento,pepe,error,Lago General Vintter,Lago Musters,10,insane
-1655326345,0750726e494c482fa16894618cb92eff,intento,pepe,ok,Lago Musters,Lago Buenos Aires,10,insane
-1655326346,83f3d073f9164684bd57070019c69aa3,intento,pepe,error,Lago Cholila,Lago Buenos Aires,10,insane
-1655326346,61d05519da094a6d90c6308a8a78322e,intento,pepe,error,Lago Azara,Lago Buenos Aires,10,insane
-1655326347,6b5286b15f894dbabd03a2dde7faa36f,intento,pepe,error,Lago Rivadavia,Lago Buenos Aires,10,insane
-1655326347,531345cc4e4942939f9946524557accc,intento,pepe,error,Lago Río Bueno,Lago Viedma,10,insane
-1655326348,c5ee4cb3db2346a4b092f26aaf184070,intento,pepe,ok,Lago Viedma,Lago Aluminé,10,insane
-1655326349,fa9a1cb6b84d45458502492128c63a62,intento,pepe,ok,Lago Aluminé,Lago Pellegrini,10,insane
-1655326349,ecfe016509c849b1a6f4d333e76da61c,intento,pepe,ok,Lago Pellegrini,Lago General Vintter,10,insane
-1655326350,457ecd1bdf46494fbd2aa149fcb21b0f,intento,pepe,error,Lago Menéndez,Lago General Vintter,10,insane
-1655326351,3c1130b86abf4ad5b8138bb1b9199ef0,intento,pepe,error,Lago Pellegrini,Lago General Vintter,10,insane
-1655326351,8689df957dcf425097e552ff445c4616,intento,pepe,error,Lago Futalaufquen,Lago General Vintter,10,insane
-1655326352,a197f0fb73a5495e84c97c43ce13cc48,intento,pepe,ok,Lago General Vintter,Lago Ghío,10,insane
-1655326354,a587b904278f4c3499d4d39e84abd259,intento,pepe,ok,Lago Ghío,Lago Pueyrredón,10,insane
-1655326354,0bedd539686947aa95f9a24655e7c834,fin,pepe,finalizada,-,-,10,insane
+1655327188,f787df5015e144e4b81b05902a03f05c,inicio_partida,10,pepe,-,-,-,Intermedio
+1655327190,f2a578bd550c422f99a66f73f9f08515,intento,10,pepe,error,Héctor Fertoli,Nicolás Delgadillo,Intermedio
+1655327191,12017b9b1c2e4089bd109efcbfd618cc,intento,10,pepe,ok,Nicolás Delgadillo,Teddy Bishop,Intermedio
+1655327192,424488007ef54e0d84b4c6377dda6ac2,intento,10,pepe,error,Oliver Norwood,Teddy Bishop,Intermedio
+1655327193,9d81ae13d8f04e8aa8072592a7277173,intento,10,pepe,error,Antolín Alcaraz,Teddy Bishop,Intermedio
+1655327194,106a3cb5cfca485bb78d9c0aaa46686e,intento,10,pepe,error,Ethan Laird,Teddy Bishop,Intermedio
+1655327195,9d74e9180b094fc2bc6ebf9180030a0b,intento,10,pepe,error,Aaron Pierre,Louka Prip,Intermedio
+1655327196,f972d787d044438eb0fcd72c989e4071,intento,10,pepe,error,John Lundstram,Louka Prip,Intermedio
+1655327197,141dc773f0e747f0906b8f4d51c5ee48,intento,10,pepe,error,Fran Cruz,Louka Prip,Intermedio
+1655327198,74543bcdf5984f3db4583eab0f615b4b,intento,10,pepe,error,Felix Hörberg,Louka Prip,Intermedio
+1655327198,6e5e5c3796554512890c283ecb894c5e,intento,10,pepe,error,Javi Vázquez,Jaber Asiri,Intermedio
+1655327200,ff5351c4d7b0461787fa5c77565c262d,intento,10,pepe,error,Artur Ioni?a,Jaber Asiri,Intermedio
+1655327201,707331da59d84eaf9de82e27db428b20,intento,10,pepe,error,Kiko Olivas,Jaber Asiri,Intermedio
+1655327202,efb66c83f461453eafa3540e231242fe,intento,10,pepe,error,Daniel Leadbitter,Jaber Asiri,Intermedio
+1655327203,591c8eac90ea4e34aa211ec9c3b4cfb2,intento,10,pepe,error,Stefano Sturaro,Ronald Matarrita,Intermedio
+1655327204,41489517af2d4bfaafd64554e87de287,intento,10,pepe,error,Louis Carnot,Ronald Matarrita,Intermedio
+1655327208,97a1d3b062734d19afc5a93a0f12dc59,intento,10,pepe,error,Ryosuke Shindo,Ronald Matarrita,Intermedio
+1655327209,de4f10331364459c95bfa7a685e99826,intento,10,pepe,error,Félix Eboa Eboa,Ronald Matarrita,Intermedio
+1655327210,5006d7fd0633474b9266e08b7e341521,intento,10,pepe,ok,Ronald Matarrita,Ahmet Canbaz,Intermedio
+1655327212,95fabebd860d42e68945f6ceb49d1a11,intento,10,pepe,error,Jordan Green,Ahmet Canbaz,Intermedio
+1655327213,05473d948d2d40739f35abe58da96248,intento,10,pepe,error,Jelle Bataille,Ahmet Canbaz,Intermedio
+1655327215,8f8b81e1e65b46d79bc38aab7538f0fe,intento,10,pepe,ok,Ahmet Canbaz,Diego Oyarzún,Intermedio
+1655327216,ed575ab8814c48c3af9815b8959245aa,intento,10,pepe,error,Andrea Tabanelli,Diego Oyarzún,Intermedio
+1655327217,f3fd0066e675468f870ee42b73767d47,intento,10,pepe,error,Damián Díaz,Diego Oyarzún,Intermedio
+1655327218,ea18ac037c8e48a18e97dce86f5a4dc1,intento,10,pepe,ok,Diego Oyarzún,Mauro Valiente,Intermedio
+1655327219,4444388f7fc34bf8a43ac7136da2dc85,intento,10,pepe,error,Lee Evans,Mauro Valiente,Intermedio
+1655327220,277b85aceda841acb7338c47819c64f9,intento,10,pepe,error,Eric Smith,Mauro Valiente,Intermedio
+1655327221,7d3651d44d684800ba7210a26ef8f2eb,intento,10,pepe,ok,Mauro Valiente,Kristoffer Peterson,Intermedio
+1655327222,e88503d56e0544da80a1935eedfa98b9,intento,10,pepe,error,Fedor Smolov,Kristoffer Peterson,Intermedio
+1655327223,62768be12edf43b29b9ba9e97eadc3bf,intento,10,pepe,error,Mitchell Weiser,Kristoffer Peterson,Intermedio
+1655327224,1265f2215c444fba805d9152b7794087,intento,10,pepe,error,Tramontinaldo,Kristoffer Peterson,Intermedio
+1655327226,6ec9ce1a88794fd58dba75903073405f,intento,10,pepe,error,Kaj Sierhuis,Nick Bakker,Intermedio
+1655327226,b7dcd653c14d41f98426c878ea5648fe,fin,10,pepe,finalizada,-,-,Intermedio
