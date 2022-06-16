@@ -64,7 +64,7 @@ class Round:
 class RunController:
     def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController) -> None:
         self._cards = cards_ctr
-        self._difficulty_ctr = difficulty_ctr
+        self._difficulty = difficulty_ctr.difficulty
         self._round = Round(self._cards.new_card, difficulty_ctr.difficulty)
         self._events_fn: dict[str, list[Callable[..., None]]] = {
             'end_run': [],
@@ -92,7 +92,7 @@ class RunController:
         self._stats = {
             'total_points': 0,
             'total_rounds': 0,
-            'rounds_complete': 0,
+            'rounds_completed': 0,
             'rounds_skiped': 0,
             'rounds_winned': 0,
             'rounds_loosed': 0,
@@ -106,7 +106,6 @@ class RunController:
             self._scores.append(self._round.score)
         self._rounds += 1
         self._round.reset(self._cards.new_card)
-        self._stats['total_rounds'] += 1
 
     def registry_event(self, type: str, response_fn: Callable[..., None]) -> None:
         self._events_fn[type].append(response_fn)
@@ -121,7 +120,11 @@ class RunController:
 
     @property
     def max_rounds(self) -> int:
-        return self._difficulty_ctr.difficulty.rounds_per_game
+        return self._difficulty.rounds_per_game
+    
+    @property
+    def round_time(self) -> int:
+        return self._difficulty.time_per_round
 
     @property
     def score(self) -> list[int]:
@@ -146,7 +149,7 @@ class RunController:
     def _force_loose(self) -> None:
         self._new_round()
         self._stats['rounds_loosed'] += 1
-        self._stats['rounds_complete'] += 1
+        self._stats['rounds_completed'] += 1
         for fn in self._events_fn['loose_round']:
             fn()
 
@@ -155,7 +158,7 @@ class RunController:
         if self._round.win(option):
             self._new_round()
             self._stats['rounds_winned'] += 1
-            self._stats['rounds_complete'] += 1
+            self._stats['rounds_completed'] += 1
             self._post_event(EventNames.TRY, EventStates.OK, option, True)
             for fn in self._events_fn['win_round']:
                 fn()
