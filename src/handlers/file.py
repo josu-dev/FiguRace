@@ -38,7 +38,7 @@ def save_json(path: str, value: Any, is_custom_class: bool = False, encoding_for
 
 def load_csv(path: str, encoding_format: str = 'utf-8') -> CSV:
     if not os.path.exists(path):
-        raise Exception(f'No exist a csv file at: {path}')
+        raise Exception(f'No exists a csv file at: {path}')
 
     with open(path, mode='r', encoding=encoding_format) as file:
         csv_reader = csv.reader(file, delimiter=',')
@@ -64,6 +64,7 @@ def save_csv(path: str, value: CSV, encoding_format: str = 'utf-8') -> None:
 
 def scan_dir(path: str, file_extension: str | None = None) -> list[tuple[FileName, Path]]:
     if not os.path.exists(path):
+        print(f'No exists a directory at: {path}')
         return []
 
     if file_extension is None:

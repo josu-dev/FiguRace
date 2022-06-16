@@ -5,7 +5,7 @@ from .handlers.card import CardController
 from .handlers.difficulty import DifficultyController
 from .handlers.user import UsersController
 from .handlers.setting import SettingsController
-from .handlers.run_event import RunEventController
+from .handlers.run_event import RunEventRecorder
 from .handlers.run import RunController
 from .handlers.theme import ThemeController
 
@@ -22,8 +22,9 @@ difficulty_controller = DifficultyController(
 theme_controller = ThemeController(constants.PATH_THEME, settings.theme)
 theme = theme_controller.theme
 
-run_event_controller = RunEventController(
-    constants.PATH_EVENTS, users_controller, difficulty_controller)
+run_event_recorder = RunEventRecorder(
+    constants.PATH_EVENTS, users_controller, difficulty_controller
+)
 
 cards_controller = CardController(constants.PATH_DATASETS)
 
@@ -33,4 +34,4 @@ run_controller = RunController(cards_controller, difficulty_controller)
 observer.subscribe(constants.EXIT_APLICATION, settings_controller.save)
 observer.subscribe(constants.EXIT_APLICATION, users_controller.save)
 observer.subscribe(constants.EXIT_APLICATION, difficulty_controller.save)
-observer.subscribe(constants.EXIT_APLICATION, run_event_controller.save)
+observer.subscribe(constants.EXIT_APLICATION, run_event_recorder.save)

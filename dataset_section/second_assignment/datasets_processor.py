@@ -101,26 +101,22 @@ def process_dataset(file_name:str):
     file_path = os.path.join(PATH_SOURCE,file_name)
     config = DATASETS[file_name]
     processed_path = os.path.join(PATH_PROSSED,config['name'])
+    try:
+        with open(file_path, mode = 'r',encoding="UTF-8") as file :
+            df = pd. read_csv (file, sep = None,engine="python",usecols = (config['order']))
+    except OSError as error:
+        print(error)
+        return
+    df.dropna(how="all" ,inplace=True)
+    df = df[config['order']] 
+    for columna,function in config['functions'].items():  
+        df[columna] = df[columna].apply(function) 
+    df.fillna('Desconocido',  inplace=True)
+    df.to_csv(processed_path, mode='w',index=False)            
     
-    with open(file_path, mode = 'r',encoding="UTF-8") as file :
-        df = pd. read_csv (file, sep = None,engine="python",usecols = (config['order']))
-        df.dropna(how="all" ,inplace=True)
-        df = df[config['order']] 
-        for columna,function in config['functions'].items():  
-            df[columna] = df[columna].apply(function) 
-        if 'translation' in config:
-            df.rename(
-                {   
-                    column_name:translation_name
-                    for column_name,translation_name in zip(config['order'],config['translation'])
-                },
-                inplace=True,
-                axis= 1
-            )      
-        df.fillna('Desconocido',  inplace=True)
-            
-        df.to_csv(processed_path, mode='w',index=False)            
-    
+if not os.path.exists(PATH_SOURCE):
+    print('no existe la ruta de los datasets')
+    exit()
 names_files = os.listdir(PATH_SOURCE)
 for file_name in names_files: 
     process_dataset(file_name)
