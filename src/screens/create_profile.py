@@ -1,10 +1,10 @@
+'''Formulary needed to create a new profile.'''
 from typing import Any, Callable, TypedDict
 
 import PySimpleGUI as sg
 
-from src import csg, common
-from src.controllers import theme, users_controller as users_ctr
-from src.handlers import observer
+from ..controllers import observer, theme, users_controller as users_ctr
+from . import _common, _csg
 
 
 SCREEN_NAME = '-CREATE-PROFILE-'
@@ -13,19 +13,16 @@ EVENT_ADD_PROFILE = '-ADD-PROFILE-'
 
 
 class FormInput(TypedDict):
-    """
-    Defines the data structure of an input for its logical handling.
-    """
+    '''Defines the data structure of an input for its logical handling.'''
     input: sg.Input
     state: bool
     validate_fn: Callable[[sg.Input], bool]
 
 
 def create_input(key: str) -> sg.Input:
-    """
-    return: 
-        A input with your own key and design.
-    """
+    '''
+    Returns: 
+        A input with your own key and design.'''
     return sg.Input(
         size=(20, 1),
         background_color=theme.BG_BASE,
@@ -110,9 +107,7 @@ def enable_create_button() -> None:
 
 
 def create_field(name: str, input: sg.Input) -> tuple[sg.Text, sg.Input]:
-    """
-        Create a field for a formulary. 
-    """
+    '''Creates a field for a formulary.'''
     return (
         sg.Text(
             name,
@@ -126,12 +121,10 @@ def create_field(name: str, input: sg.Input) -> tuple[sg.Text, sg.Input]:
 
 
 def create_formulary() -> sg.Column:
-    """
-    Create the structure of the formulary.
+    '''Create the structure of the formulary.
 
-    Return: 
-        The layout within a centered column.
-    """
+    Returns: 
+        The layout within a centered column.'''
     layout = [
         [*create_field('Nick', inputs['nick']['input'])],
         [*create_field('Edad', inputs['age']['input'])],
@@ -143,16 +136,14 @@ def create_formulary() -> sg.Column:
         ]
     ]
 
-    return csg.CenteredLayout(
+    return _csg.CenteredLayout(
         layout,
         background_color=theme.BG_BASE
     )
 
 
 def reset_formulary() -> None:
-    """
-        Reset the form to its default state
-    """
+    '''Reset the form to its default state.'''
     for value in inputs.values():
         value['input'].update('', background_color=theme.BG_BASE)
         value['state'] = False
@@ -160,14 +151,12 @@ def reset_formulary() -> None:
 
 
 def validate_inputs(key: str) -> None:
-    """
-    Validates input and update the state of the create button.
+    '''Validates input and update the state of the create button.
 
-    Arg: 
-        key: key of the formulary to validate
-    """
+    Args: 
+        key: key of the formulary to validate.'''
     inputs[key]['state'] = inputs[key]['validate_fn'](inputs[key]['input'])
-    
+
     for input in inputs.values():
         if not input['state']:
             disable_create_button()
@@ -180,12 +169,11 @@ observer.subscribe(LOAD_USER_FIELD, validate_inputs)
 
 
 def create_new_user_message(nick: str) -> list[list[Any]]:
-    """
-    Arg: 
-        nick: Nick of the new user 
+    '''
+    Args: 
+        nick: Nick of the new user.
     Return: 
-        The layout for the popup
-    """
+        The layout for the popup.'''
     return [
         [sg.Text(
             f'Perfil {nick}\ncreado exitosamente',
@@ -199,9 +187,7 @@ def create_new_user_message(nick: str) -> list[list[Any]]:
 
 
 def create_user() -> None:
-    """
-    A new profile is created and informed by a popup.
-    """
+    '''A new profile is created and informed by a popup.'''
     nick: str = inputs['nick']['input'].get()
     users_ctr.add(
         nick,
@@ -209,7 +195,7 @@ def create_user() -> None:
         inputs['gender']['input'].get()
     )
     reset_formulary()
-    csg.custom_popup(
+    _csg.custom_popup(
         create_new_user_message(nick),
         [],
         background_color=theme.BG_SECONDARY,
@@ -221,9 +207,9 @@ observer.subscribe(EVENT_ADD_PROFILE, create_user)
 
 
 screen_layout = [
-    [common.screen_title('crear perfil', True)],
+    [_common.screen_title('crear perfil', True)],
     [create_formulary()],
-    [common.goback_button('Menu Selección', padding=(theme.scale(64),)*2)],
+    [_common.goback_button('Menu Selección', padding=(theme.scale(64),)*2)],
 ]
 
 screen_config = {
@@ -232,7 +218,5 @@ screen_config = {
 
 
 def screen_reset() -> None:
-    """ 
-    Reset the screen. 
-    """
+    '''Reset the screen content to a default/updated state.'''
     reset_formulary()

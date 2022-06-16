@@ -1,11 +1,12 @@
 '''Base template of all screens in the application.'''
 import PySimpleGUI as sg
 
-from src import constants, csg, common
-from src.controllers import theme
-from src.handlers import observer
+from .. import constants
+from ..controllers import observer, theme
+from . import _common, _csg
 
 
+# REQUIRED - the name that identify the screen
 SCREEN_NAME = '-BASE-SCREEN-'
 
 
@@ -33,10 +34,10 @@ def create_custom_element(text: str, key: str) -> sg.Button:
 
 content_layout = [
     [sg.Text('This is for squema example', font=theme.FONT_FAMILY)],
-    [csg.vertical_spacer(theme.scale(64))],
+    [_csg.vertical_spacer(theme.scale(64))],
     [create_custom_element('My element', constants.EXIT_APLICATION)],
-    [csg.vertical_spacer(theme.scale(64))],
-    [common.navigation_button('Exit', constants.EXIT_APLICATION)]
+    [_csg.vertical_spacer(theme.scale(64))],
+    [_common.navigation_button('Exit', constants.EXIT_APLICATION)]
 ]
 
 
@@ -51,17 +52,20 @@ observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 # For example -MY-EVENT-NAME- some_data_here
 
 
+# REQUIRED - the layout that gives the estructure and content of the screen
 screen_layout = [
-    [common.screen_title('base screen', True)],
+    [_common.screen_title('base screen', True)],
     [sg.Column(content_layout)],
 ]
 
+# REQUIRED - the congifuration that change the estructure and style of the screen
 screen_config = {
     'background_color': theme.BG_BASE,
     'element_justification': 'center',
 }
 
 
+# REQUIRED - explanation in docstring
 def screen_reset() -> None:
     '''This function resets the elements of the screen to defaults/configuration values.
     It runs every time that window view moves to this screen.'''

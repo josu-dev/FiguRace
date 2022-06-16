@@ -2,9 +2,9 @@ from typing import Any
 
 import PySimpleGUI as sg
 
-from src import constants as const, csg, common
-from src.controllers import theme, users_controller as users_ctr
-from src.handlers import observer
+from .. import constants as const
+from ..controllers import observer, theme, users_controller as users_ctr
+from . import _common, _csg
 
 
 SCREEN_NAME = '-SELECT-PROFILE-'
@@ -56,7 +56,7 @@ _remove_button = sg.Button(
     enable_events=True
 )
 
-_edit_button = common.navigation_button(
+_edit_button = _common.navigation_button(
     'Editar',
     '-CONFIGURATION-',
     border=theme.BD_ACCENT,
@@ -70,7 +70,7 @@ _select_profile_layout = [
 
 _button_layout = [
     [
-        common.navigation_button(
+        _common.navigation_button(
             'Crear',
             '-CREATE-PROFILE-',
             border=theme.BD_ACCENT,
@@ -92,10 +92,10 @@ _play_layout = [
 
 screen_layout = [
     [
-        common.screen_title('Seleccionar perfiles', alignment='center')
+        _common.screen_title('Seleccionar perfiles', alignment='center')
     ],
     [
-        csg.horizontal_spacer(width=theme.scale(
+        _csg.horizontal_spacer(width=theme.scale(
             500),
             background_color=theme.BG_BASE
         ),
@@ -106,7 +106,7 @@ screen_layout = [
                   expand_y=True,
                   pad=theme.scale(40)
                   ),
-        csg.horizontal_spacer(width=theme.scale(
+        _csg.horizontal_spacer(width=theme.scale(
             200),
             background_color=theme.BG_BASE
         ),
@@ -207,7 +207,7 @@ def _new_popup_layout(popup_text: str = '') -> list[list[Any]]:
 def remove() -> None:
     """Check if you really want to delete the profile, by means of a popup, when affirming , the selected profile is deleted.
     """
-    response = csg.custom_popup(
+    response = _csg.custom_popup(
         _new_popup_layout('¿Deseas eliminar este usuario?'),
         close_keys=['-OK-', '-CANCEL-'],
         background_color=theme.BG_POPUP

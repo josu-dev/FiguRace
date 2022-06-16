@@ -1,17 +1,9 @@
 from copy import copy
 from dataclasses import dataclass
-from typing import Any, TypedDict
+from typing import Any
 
 from .. import constants, default
 from . import observer, file
-
-
-class SettingsJSON(TypedDict):
-    title: str
-    full_screen: bool
-    starting_page: str
-    theme: str
-    default_user: str
 
 
 @dataclass
@@ -26,7 +18,7 @@ class Settings:
 class SettingsController:
     def __init__(self, settings_path: str) -> None:
         self._file_path = settings_path
-        raw_settings: dict[str, SettingsJSON] = file.load_json(
+        raw_settings: dict[str, Any] = file.load_json(
             settings_path, default.SETTINGS
         )
         self._settings = {
@@ -48,15 +40,13 @@ class SettingsController:
 
     def set_starting_page(self, screen_name: str) -> None:
         self._setting.starting_page = screen_name
+        self._reset_starting_page = False
 
-    def _save_settings(self) -> None:
+    def save(self) -> None:
+        if self._reset_starting_page:
+            self._setting.starting_page = self._settings['default'].starting_page
         file.save_json(
             self._file_path,
             self._settings,
             is_custom_class=True
         )
-
-    def save(self) -> None:
-        if self._reset_starting_page:
-            self._setting.starting_page = self._settings['default'].starting_page
-        self._save_settings()

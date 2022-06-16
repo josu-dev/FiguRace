@@ -8,7 +8,6 @@ SETTINGS = {
         "default_user": ""
     },
 }
-
 DIFFICULTIES = {
     'easy': {
         'time_per_round': 60,
@@ -46,7 +45,6 @@ DIFFICULTIES = {
         'characteristics_shown': 3
     },
 }
-
 THEMES = {
     "Blue-Like": {
         "BG_BASE": "#112B3C",

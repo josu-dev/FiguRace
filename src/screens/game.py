@@ -1,11 +1,12 @@
+'''Screen where actually a run is developed.'''
 import time
 from dataclasses import dataclass
 
 import PySimpleGUI as sg
 
-from src import constants, csg, translations
-from src.controllers import theme, run_controller as run_ctr, users_controller as users_ctr
-from src.handlers import observer
+from .. import constants, translations
+from ..controllers import observer, theme, run_controller as run_ctr, users_controller as users_ctr
+from . import _csg
 
 
 SCREEN_NAME = '-GAME-'
@@ -128,13 +129,13 @@ run_section = RunSection(
 
 def create_run_state() -> sg.Column:
     layout = [
-        [csg.vertical_spacer(theme.scale(24), theme.BG_SECONDARY)],
+        [_csg.vertical_spacer(theme.scale(24), theme.BG_SECONDARY)],
         [run_section.difficulty],
         [run_section.time],
         [run_section.user],
         [run_section.points],
         [run_section.rounds],
-        [csg.vertical_spacer(theme.scale(16), theme.BG_SECONDARY)],
+        [_csg.vertical_spacer(theme.scale(16), theme.BG_SECONDARY)],
     ]
     return sg.Column(
         layout,
@@ -233,7 +234,7 @@ def create_card() -> sg.Column:
         [card_section.type],
         *[hint for hint in card_section.hints],
         *[[button] for button in card_section.options],
-        [csg.vertical_spacer(theme.scale(16), background_color=theme.BG_BASE)],
+        [_csg.vertical_spacer(theme.scale(16), background_color=theme.BG_BASE)],
         [
             card_section.confirm_button,
             sg.Push(theme.BG_BASE),
@@ -362,7 +363,7 @@ observer.subscribe(END_RUN, force_end_game)
 screen_layout = [
     [sg.VPush(theme.BG_BASE)],
     [
-        csg.CenteredElement(
+        _csg.CenteredElement(
             create_run_state(),
             background_color=theme.BG_BASE
         ),

@@ -1,10 +1,11 @@
 '''Main menu of the application.'''
 import PySimpleGUI as sg
 
-from src import constants as const, common, csg
-from src.controllers import theme
-from src.assets.menu import ic_profile, ic_setting, ic_score
-from src.assets import title
+from .. import constants as const
+from ..controllers import theme
+from ..assets.menu import ic_profile, ic_setting, ic_score
+from ..assets import title
+from . import _common, _csg
 
 
 SCREEN_NAME = "-MENU-"
@@ -19,7 +20,7 @@ def menu_options() -> sg.Column:
         A column correctly structured for use on the window.
     """
     layout = [
-        [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
+        [_csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [sg.Button(
             'Iniciar Partida',
             key=f'{const.GOTO_VIEW} -CONFIGURE-GAME-',
@@ -32,34 +33,34 @@ def menu_options() -> sg.Column:
             mouseover_colors=theme.BG_BUTTON_HOVER,
             border_width=theme.BD_ACCENT
         )],
-        [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
+        [_csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [
-            common.image_button(
+            _common.image_button(
                 ic_profile,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
                 key=f'{const.GOTO_VIEW} -SELECT-PROFILE-'
             ),
-            csg.horizontal_spacer(
+            _csg.horizontal_spacer(
                 theme.scale(16), background_color=theme.BG_BASE
             ),
-            common.image_button(
+            _common.image_button(
                 ic_setting,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
                 key=f'{const.GOTO_VIEW} -CONFIGURATION-'
             ),
-            csg.horizontal_spacer(
+            _csg.horizontal_spacer(
                 theme.scale(16), background_color=theme.BG_BASE
             ),
-            common.image_button(
+            _common.image_button(
                 ic_score,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
                 key=f'{const.GOTO_VIEW} -RANKING-'
             )
         ],
-        [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
+        [_csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [sg.Button(
             'Salir',
             key=const.EXIT_APLICATION,

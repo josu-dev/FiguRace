@@ -6,10 +6,10 @@ from typing import Any
 
 import PySimpleGUI as sg
 
-from src import constants, csg
-from src.controllers import theme
-from src.handlers import observer
-from src.assets import animated_intro
+from .. import constants
+from ..controllers import observer, theme
+from ..assets import animated_intro
+from . import _csg
 
 
 # Fix for frame loading at image animation
@@ -86,6 +86,7 @@ image = sg.Image(
 
 
 def animation_loop() -> None:
+    '''Takes care about the events and frames for displaying the introduction gif.'''
     global count
     count -= 1
     if count == 0:
@@ -96,13 +97,14 @@ def animation_loop() -> None:
 
 
 def disable_screen() -> None:
+    '''Finalize the animation events and change the view to profile selection screen.'''
     observer.unsubscribe(constants.TIMEOUT, disable_screen)
     observer.post_event(constants.UPDATE_TIMEOUT, None)
     observer.post_event(constants.GOTO_VIEW, '-SELECT-PROFILE-')
 
 
 screen_layout = [
-    [csg.CenteredElement(image, background_color=BACKGROUND_COLOR)],
+    [_csg.CenteredElement(image, background_color=BACKGROUND_COLOR)],
 ]
 
 screen_config = {
@@ -112,6 +114,7 @@ screen_config = {
 
 
 def screen_reset() -> None:
+    '''Reset the animation related variables to a starting point and starts the animation.'''
     global count
     count = FRAMES + SHADOW_FRAMES
     observer.subscribe(constants.TIMEOUT, animation_loop)

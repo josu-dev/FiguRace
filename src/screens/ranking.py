@@ -3,11 +3,9 @@ from typing import Any
 
 import PySimpleGUI as sg
 
-from src import csg, common
-from src.controllers import theme, users_controller as users_ctr
-from src.handlers.user import User
-
 from .. import translations
+from ..controllers import theme, users_controller as users_ctr
+from . import _common, _csg
 
 
 SCREEN_NAME = '-RANKING-'
@@ -32,23 +30,23 @@ rankings_averages: dict[str, sg.Multiline] = {
 NameScores = tuple[str, dict[str, list[int]]]
 
 
-def get_name_and_scores(user: User) -> NameScores:
-    """Return the name and score of an User
+def get_name_and_scores(user: Any) -> NameScores:
+    '''Return the name and score of an User.
+
     Args:
         user : the user to get the name and score.
     Returns:
-        A tuple with the nick and scores.
-    """
+        A tuple with the nick and scores.'''
     return user.nick, user.sorted_scores
 
 
 def rank_header(name: str) -> sg.Text:
-    """Header of a column .
+    '''Header of a column.
+
     Args:
         name: name of the header needed.
     Returns:
-        A sg.Text with the theme applied and the text passed by argument
-    """
+        A sg.Text with the theme applied and the text passed by argument.'''
     return sg.Text(
         translations.DIFFICULTY_TO_ES[name],
         size=(16, 1),
@@ -60,14 +58,14 @@ def rank_header(name: str) -> sg.Text:
 
 
 def rank_content(scores: list[tuple[int, str]]) -> str:
-    """Content of the ranking table.
-    Manipulate the information to display it correctly on the screen. Sort the first 20 scores
+    '''Content of the ranking table.
+
+    Manipulate the information to display it correctly on the screen. Sort the first 20 scores.
+
     Args:
         scores: scores that need to be ordered before display it.
-
     Returns:
-        A string of the 20 first scores line per line.
-    """
+        A string of the 20 first scores line per line.'''
     content: list[str] = []
     scores = sorted(scores, key=lambda x: x[0], reverse=True)
     for i in range(HISTORIAL_SIZE):
@@ -81,13 +79,12 @@ def rank_content(scores: list[tuple[int, str]]) -> str:
 
 
 def create_rank(scores: str) -> sg.Multiline:
-    """Create the content of a column.
+    '''Create the content of a column.
 
     Args:
-        scores: the string with the scores to display
+        scores: the string with the scores to display.
     Returns: 
-        A multiline text with all the info of the scores with the theme applied correctly for the layout. 
-    """
+        A multiline text with all the info of the scores with the theme applied correctly for the layout.'''
     return sg.Multiline(
         scores,
         size=(1, 20),
@@ -103,8 +100,8 @@ def create_rank(scores: str) -> sg.Multiline:
 
 
 def create_runs_rank() -> sg.Column:
-    'Create a global ranking of runs scores for each difficulty.'
-    ranks = csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
+    '''Create a global ranking of runs scores for each difficulty.'''
+    ranks = _csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
     users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
 
     for difficulty in rankings_runs:
@@ -120,8 +117,8 @@ def create_runs_rank() -> sg.Column:
 
 
 def create_averages_rank() -> sg.Column:
-    'Create a global ranking of average runs scores by user for each difficulty.'
-    ranks = csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
+    '''Create a global ranking of average runs scores by user for each difficulty.'''
+    ranks = _csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
     users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
 
     for difficulty in rankings_averages:
@@ -137,7 +134,7 @@ def create_averages_rank() -> sg.Column:
 
 
 def create_ranking() -> sg.TabGroup:
-    'Create a TabGroup where each tab is a ranking.'
+    '''Create a TabGroup where each tab is a ranking.'''
     return sg.TabGroup(
         [
             [sg.Tab('Partidas', [[create_runs_rank()]], pad=0)],
@@ -160,7 +157,7 @@ def create_ranking() -> sg.TabGroup:
 
 
 def refresh_ranking() -> None:
-    'Refresh all the rankings with the latest information'
+    '''Refresh all the rankings with the latest information.'''
     users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
 
     for difficulty in rankings_runs:
@@ -177,11 +174,11 @@ def refresh_ranking() -> None:
 
 
 screen_layout = [
-    [common.screen_title('ranking', True)],
+    [_common.screen_title('ranking', True)],
     [sg.VPush(theme.BG_BASE)],
     [create_ranking()],
     [sg.VPush(theme.BG_BASE)],
-    [common.navigation_button('Menu Principal', '-MENU-', padding=(theme.scale(64),)*2),
+    [_common.navigation_button('Menu Principal', '-MENU-', padding=(theme.scale(64),)*2),
      sg.Push(theme.BG_BASE)],
 ]
 
@@ -192,5 +189,5 @@ screen_config = {
 
 
 def screen_reset() -> None:
-    'Reset the screen content to a default/updated state.'
+    '''Reset the screen content to a default/updated state.'''
     refresh_ranking()

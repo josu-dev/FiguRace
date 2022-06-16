@@ -1,12 +1,10 @@
-'''Configuration Screen'''
-
+'''Configuration Screen.'''
 from typing import Any
 
 import PySimpleGUI as sg
 
-from src import csg, common
-from src.controllers import theme, difficulty_controller as difficulty_ctr, users_controller as user_ctr
-from src.handlers import observer
+from ..controllers import observer, theme, difficulty_controller as difficulty_ctr, users_controller as user_ctr
+from . import _common, _csg
 
 
 SCREEN_NAME = "-CONFIGURATION-"
@@ -30,7 +28,7 @@ def build_text(text: str, unit: str, combo: sg.Combo) -> list[Any]:
 
     """
     result = [
-        csg.horizontal_spacer(theme.width//16,
+        _csg.horizontal_spacer(theme.width//16,
                               background_color=theme.BG_BASE),
         sg.Multiline(text,
                      disabled=True,
@@ -41,7 +39,7 @@ def build_text(text: str, unit: str, combo: sg.Combo) -> list[Any]:
                      no_scrollbar=True,
                      background_color=theme.BG_BASE,
                      border_width=0,),
-        csg.horizontal_spacer(theme.width//16,
+        _csg.horizontal_spacer(theme.width//16,
                               background_color=theme.BG_BASE),
         sg.Text(unit, background_color=theme.BG_BASE),
         combo, ]
@@ -157,14 +155,14 @@ def header() -> list[Any]:
         A row of elements that specifies the configurations columns used on the screen.
     """
     return [
-        csg.horizontal_spacer(_padding,
+        _csg.horizontal_spacer(_padding,
                               background_color=theme.BG_BASE),
         sg.Text('DIFICULTAD PERSONALIZADA', pad=((50, 0), (20, 0)),
                 background_color=theme.BG_BASE, font=('System', theme.H3_SIZE)),
         sg.Push(background_color=theme.BG_BASE),
         sg.Text('EDITAR USUARIO', pad=((50, 0), (20, 0)),
                 background_color=theme.BG_BASE, font=('System', theme.H3_SIZE)),
-        csg.horizontal_spacer(_padding,
+        _csg.horizontal_spacer(_padding,
                               background_color=theme.BG_BASE)
     ]
 
@@ -174,7 +172,7 @@ def textv_spacer() -> list[Any]:
     Returns: 
         a list with a vertical spacer proportionally to the screen size
     """
-    return [csg.vertical_spacer(theme.height//92, background_color=theme.BG_BASE)]
+    return [_csg.vertical_spacer(theme.height//92, background_color=theme.BG_BASE)]
 
 
 def texth_spacer() -> sg.Column:
@@ -182,7 +180,7 @@ def texth_spacer() -> sg.Column:
     Returns: 
         a list with a horizontal spacer proportionally to the screen size
     """
-    return csg.horizontal_spacer(theme.width//6, background_color=theme.BG_BASE)
+    return _csg.horizontal_spacer(theme.width//6, background_color=theme.BG_BASE)
 
 
 def text_input(text: str) -> sg.Text:
@@ -210,7 +208,7 @@ def config_layout() -> list[list[Any]]:
     """
     config_layout = [
         header(),
-        [csg.vertical_spacer(
+        [_csg.vertical_spacer(
             theme.height//16, background_color=theme.BG_BASE)],
 
         [*build_text('Tiempo por ronda', 'Segundos:',
@@ -237,17 +235,17 @@ def config_layout() -> list[list[Any]]:
         [*build_text('Puntos añadidos ', 'Cantidad:  ',
                      _cmb_plus_points),
          texth_spacer(),
-         csg.horizontal_spacer(theme.scale(
+         _csg.horizontal_spacer(theme.scale(
              100), background_color=theme.BG_BASE),
          _btn_edit,
-         csg.horizontal_spacer(theme.scale(80), background_color=theme.BG_BASE)],
+         _csg.horizontal_spacer(theme.scale(80), background_color=theme.BG_BASE)],
         textv_spacer(),
 
         build_text('Puntos restados', 'Cantidad:  ', _cmb_sub_points),
         textv_spacer(),
 
-        [common.goback_button('<--'),
-            csg.horizontal_spacer(theme.scale(
+        [_common.goback_button('<--'),
+            _csg.horizontal_spacer(theme.scale(
                 200), background_color=theme.BG_BASE),
          _btn_save, ]
     ]
@@ -331,7 +329,7 @@ def refresh_inputs() -> None:
 
 
 screen_layout = [
-    [common.screen_title('Configuración', spaced=True, alignment='center')],
+    [_common.screen_title('Configuración', spaced=True, alignment='center')],
     [sg.Column(config_layout(), background_color=theme.BG_BASE, expand_x=True)],
 ]
 

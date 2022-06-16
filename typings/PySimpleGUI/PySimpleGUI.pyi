@@ -515,7 +515,7 @@ class Combo(Element):
         :param values:        """
         ...
     
-    def update(self, value=..., values=..., set_to_index=..., disabled=..., readonly=..., font=..., visible=..., size=...):
+    def update(self, value=..., values=..., set_to_index=..., disabled=..., readonly=..., font=..., visible=..., size=...) -> None:
         """
         Changes some of the se"""
         ...

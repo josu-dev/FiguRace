@@ -4,11 +4,9 @@ from typing import Any
 
 import PySimpleGUI as sg
 
-from src import csg, common
-from src.controllers import theme, cards_controller as cards_ctr, difficulty_controller as difficulty_ctr
-from src.handlers import observer
-
 from .. import translations
+from ..controllers import observer, theme, cards_controller as cards_ctr, difficulty_controller as difficulty_ctr
+from . import _common, _csg
 
 
 SCREEN_NAME = '-CONFIGURE-GAME-'
@@ -48,11 +46,11 @@ def combo_boxes() -> list[Any]:
         Returns: 
             A row/list of elements correctly structured for the layout
     """
-    return [csg.horizontal_spacer(_padding, background_color=theme.BG_BASE),
+    return [_csg.horizontal_spacer(_padding, background_color=theme.BG_BASE),
             _cmb_difficulty,
             sg.Push(background_color=theme.BG_BASE),
             _cmb_dataset,
-            csg.horizontal_spacer(_padding, background_color=theme.BG_BASE)]
+            _csg.horizontal_spacer(_padding, background_color=theme.BG_BASE)]
 
 
 def header() -> list[Any]:
@@ -62,14 +60,14 @@ def header() -> list[Any]:
     Returns:
         A list of elements correctly structured to use like a header of the columns
     """
-    return [csg.horizontal_spacer(_padding,
+    return [_csg.horizontal_spacer(_padding,
                                   background_color=theme.BG_BASE),
             sg.Text('ELEGIR DIFICULTAD', pad=((50, 0), (50, 0)),
                     background_color=theme.BG_BASE, font=_text_font),
             sg.Push(background_color=theme.BG_BASE),
             sg.Text('ELEGIR DATASET', pad=((50, 0), (50, 0)),
                     background_color=theme.BG_BASE, font=_text_font),
-            csg.horizontal_spacer(_padding,
+            _csg.horizontal_spacer(_padding,
                                   background_color=theme.BG_BASE)
             ]
 
@@ -97,7 +95,7 @@ def build_text() -> list[Any]:
     Returns:
         The current difficulty information correctly placed on the layout.
     """
-    return [csg.horizontal_spacer(_padding,
+    return [_csg.horizontal_spacer(_padding,
                                   background_color=theme.BG_BASE),
             _difficulty_info]
 
@@ -110,13 +108,13 @@ def layout() -> list[list[Any]]:
 
     """
     layout = [
-        [csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
+        [_csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         header(),
         combo_boxes(),
         build_text(),
         [sg.VPush(background_color=theme.BG_BASE)],
-        [common.goback_button('Menu Principal', padding=(theme.scale(64),)*2),
-         sg.Push(background_color=theme.BG_BASE), common.navigation_button(
+        [_common.goback_button('Menu Principal', padding=(theme.scale(64),)*2),
+         sg.Push(background_color=theme.BG_BASE), _common.navigation_button(
              'Empezar !', screen_name='-GAME-', padding=(theme.scale(64),)*2)
          ],
     ]
@@ -159,7 +157,7 @@ def change_dataset() -> None:
 
 
 screen_layout = [
-    [common.screen_title(
+    [_common.screen_title(
         'CONFIGURAR JUEGO', alignment='left', padding=theme.height//64
     )],
     [sg.Column(

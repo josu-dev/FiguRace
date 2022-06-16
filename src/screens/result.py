@@ -1,9 +1,9 @@
 '''Summary for the result of a run.'''
 import PySimpleGUI as sg
 
-from src import constants, csg, common
-from src.controllers import theme
-from src.handlers import observer
+from .. import constants
+from ..controllers import observer, theme
+from . import _common, _csg
 
 
 SCREEN_NAME = '-RESULT-'
@@ -68,7 +68,7 @@ def create_summary() -> sg.Column:
     return sg.Column(
         [[
             sg.Column(left_layout, background_color=theme.BG_PRIMARY),
-            csg.horizontal_spacer(
+            _csg.horizontal_spacer(
                 theme.scale(32), background_color=theme.BG_SECONDARY
             ),
             sg.Column(right_layout, background_color=theme.BG_PRIMARY),
@@ -92,13 +92,13 @@ observer.subscribe(constants.RUN_RESULT, refresh_summary)
 def create_nav_buttons() -> sg.Column:
     '''Generate the buttons to navigate to other screens.
 
-    Returns : 
+    Returns: 
         A column with the navigation buttons correctly themed.'''
     padding = (theme.scale(16), theme.scale(16))
     buttons = [
-        common.navigation_button('Menu Principal', '-MENU-', padding=padding),
-        common.navigation_button('Volver a Jugar', '-GAME-', padding=padding),
-        common.navigation_button(
+        _common.navigation_button('Menu Principal', '-MENU-', padding=padding),
+        _common.navigation_button('Volver a Jugar', '-GAME-', padding=padding),
+        _common.navigation_button(
             'Nuevo Juego', '-CONFIGURE-GAME-', padding=padding
         ),
     ]
@@ -110,12 +110,12 @@ def create_nav_buttons() -> sg.Column:
 
 
 screen_layout = [
-    [common.screen_title('resultado', True)],
+    [_common.screen_title('resultado', True)],
     [sg.VPush(theme.BG_BASE)],
     [create_summary()],
     [sg.VPush(theme.BG_BASE)],
     [create_nav_buttons()],
-    [csg.vertical_spacer(theme.scale(96), background_color=theme.BG_BASE)],
+    [_csg.vertical_spacer(theme.scale(96), background_color=theme.BG_BASE)],
 ]
 
 screen_config = {
@@ -125,5 +125,5 @@ screen_config = {
 
 
 def screen_reset():
-    'Reset the screen content to a default/updated state.'
+    '''Reset the screen content to a default/updated state.'''
     pass

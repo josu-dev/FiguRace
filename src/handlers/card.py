@@ -1,6 +1,5 @@
 from dataclasses import dataclass
 from random import randint
-from typing import Any, Callable
 
 from . import file
 
@@ -44,15 +43,6 @@ class Dataset:
                     sample = self._random()
                 samples.append(sample)
         return samples
-
-    # This probably is unnecesary
-    def apply(self, fn: Callable[[list[str]], Any]) -> list[Any]:
-        result_list: list[Any] = []
-        for line in self._content:
-            result = fn(line)
-            if result:
-                result_list.append(result)
-        return result_list
 
     def reset(self) -> None:
         self._used = set()
