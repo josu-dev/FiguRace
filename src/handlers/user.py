@@ -4,7 +4,6 @@ from .. import constants, default
 from . import observer, difficulty, file
 
 
-RESULTS_LENGTH = 20
 DEFAULT_PREFERRED_COLOR = '#000000'
 DEFAULT_PREFERRED_DIFFICULTY = difficulty.DEFAULT_TYPE
 
@@ -91,20 +90,18 @@ class User:
 
     def update_score(self, difficulty: str, value: int) -> None:
         self._scores[difficulty].append(value)
-        if len(self._scores[difficulty]) > RESULTS_LENGTH:
-            self._scores[difficulty].pop(0)
 
     def get_score(self, difficulty: str) -> list[int]:
         return self._scores[difficulty]
 
-    def to_json(self) -> UserJSON:
+    def jsonify(self) -> UserJSON:
         return {
             'nick': self._nick,
             'age': self._age,
             'gender': self._gender,
             'preferred_color': self._preferred_color,
             'preferred_difficulty': self._preferred_difficulty,
-            'custom_difficulty': self._custom_difficulty.to_json(),
+            'custom_difficulty': self._custom_difficulty.jsonify(),
             'scores': self._scores
         }
 
@@ -171,5 +168,5 @@ class UsersController:
     def save(self) -> None:
         file.save_json(
             self._file_path,
-            {nick: user.to_json() for nick, user in self._users.items()},
+            {nick: user.jsonify() for nick, user in self._users.items()},
         )

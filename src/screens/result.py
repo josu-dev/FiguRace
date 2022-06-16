@@ -1,7 +1,9 @@
+'''Summary for the result of a run.'''
 import PySimpleGUI as sg
 
-from src import csg, common
-from src.controllers import theme, run_controller as run_ctr
+from src import constants, csg, common
+from src.controllers import theme
+from src.handlers import observer
 
 
 SCREEN_NAME = '-RESULT-'
@@ -11,13 +13,13 @@ summary: dict[str, sg.Text] = {}
 
 
 def create_stat_type(text: str, width: int | None = None) -> sg.Text:
-    """ Create a description field for a stat.
+    ''' Create a description field for a stat.
+
     Args:
         text: the description of the field
         width: the length required for the field.
     Returns:
-        A descriptive text with the theme applied
-    """
+        A descriptive text with the theme applied.'''
     return sg.Text(
         text,
         size=(width, 1),
@@ -29,13 +31,13 @@ def create_stat_type(text: str, width: int | None = None) -> sg.Text:
 
 
 def create_stat_field(name: str, key: str) -> sg.Column:
-    """Create a stat field with his description and score.
+    '''Create a stat field with his description and score.
+
     Args: 
-        name : descriptive field
+        name : descriptive field.
         key : key on the summary of the score.
     Returns: 
-        A column with the stat and the score obtained.
-    """
+        A column with the stat and the score obtained.'''
     width = FIELD_MAX_CHARACTERS - len(name)
     summary[key] = create_stat_type(' ', width)
     return sg.Column(
@@ -45,26 +47,24 @@ def create_stat_field(name: str, key: str) -> sg.Column:
 
 
 def create_summary() -> sg.Column:
-    """Create the summary of the scores obtained for each field.
+    '''Create the summary of the scores obtained for each field.
 
     Returns:
-        Two columns with the information of the score obtained by the player. 
-    """
+        Two columns with the information of the score obtained by the player.'''
     left_layout = [
-        [create_stat_field('Total rondas:', 'total_rounds')],
-        [create_stat_field('Rondas completadas:', 'rounds_complete')],
+        [create_stat_field('Puntos totales:', 'total_points')],
+        [create_stat_field('Cantidad rondas:', 'total_rounds')],
         [create_stat_field('Rondas ganadas:', 'rounds_winned')],
+        [create_stat_field('Rondas salteadas:', 'rounds_skiped')],
         [create_stat_field('Tiempo total:', 'total_time')],
-        [create_stat_field('Total intentos:', 'total_tryes')],
     ]
     right_layout = [
-        [create_stat_field('Puntos totales:', 'total_points')],
-        [create_stat_field('Rondas salteadas:', 'rounds_skiped')],
+        [create_stat_field('Total intentos:', 'total_tryes')],
+        [create_stat_field('Rondas completadas:', 'rounds_completed')],
         [create_stat_field('Rondas perdidas:', 'rounds_loosed')],
+        [create_stat_field('Rondas sin tiempo:', 'rounds_timeout')],
         [create_stat_field('Tiempo promedio:', 'average_time')],
-        [create_stat_field(' ', 'undefined')],
     ]
-
     return sg.Column(
         [[
             sg.Column(left_layout, background_color=theme.BG_PRIMARY),
@@ -77,24 +77,30 @@ def create_summary() -> sg.Column:
     )
 
 
-def refresh_summary() -> None:
-    """Updates the information put on the summary
-    """
-    for key, value in run_ctr.stats.items():
+def refresh_summary(stats: dict[str, int]) -> None:
+    '''Updates the content for the run summary.
+
+    Args: 
+        stats : stadistics generated at game screen.'''
+    for key, value in stats.items():
         summary[key].update(str(value))
 
 
+observer.subscribe(constants.RUN_RESULT, refresh_summary)
+
+
 def create_nav_buttons() -> sg.Column:
-    """Generate the buttons to navigate to other screens.
+    '''Generate the buttons to navigate to other screens.
+
     Returns : 
-        A column with the buttons neccesaries and the theme applied correctly.
-    """
+        A column with the navigation buttons correctly themed.'''
     padding = (theme.scale(16), theme.scale(16))
     buttons = [
         common.navigation_button('Menu Principal', '-MENU-', padding=padding),
         common.navigation_button('Volver a Jugar', '-GAME-', padding=padding),
         common.navigation_button(
-            'Nuevo Juego', '-CONFIGURE-GAME-', padding=padding),
+            'Nuevo Juego', '-CONFIGURE-GAME-', padding=padding
+        ),
     ]
     return sg.Column(
         [buttons],
@@ -120,4 +126,4 @@ screen_config = {
 
 def screen_reset():
     'Reset the screen content to a default/updated state.'
-    refresh_summary()
+    pass

@@ -22,7 +22,7 @@ class EventStates(Enum):
     TIME_OUT = 'timeout'
     ENDED = 'finalizada'
     CANCELED = 'cancelada'
-    DEFAULT = '-'
+    DEFAULT = ''
 
 
 class RunEventController:
@@ -43,10 +43,11 @@ class RunEventController:
         observer.subscribe(constants.RUN_EVENT, self.register_event)
 
     def register_event(self, event_data: dict[str, Any]) -> None:
-        '''Register an event to add on the csv
+        '''Register an event to add on the csv.
+
         Args:
             event_data: data of the event composed by 
-                name,Q of rounds,current user,state,user answer, correct answer and difficulty'''
+                name,Q of rounds,current user,state,user answer, correct answer and difficulty.'''
         if(event_data['name'] == EventNames.START):
             self.uid = uuid.uuid4().hex
         event = [

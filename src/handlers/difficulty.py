@@ -25,7 +25,7 @@ class Difficulty:
         self.points_bad_answer = new.points_bad_answer
         self.characteristics_shown = new.characteristics_shown
 
-    def to_json(self) -> dict[str, int]:
+    def jsonify(self) -> dict[str, int]:
         return {
             'time_per_round': self.time_per_round,
             'rounds_per_game': self.rounds_per_game,
