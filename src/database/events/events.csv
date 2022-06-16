@@ -1,17 +1,26 @@
 timestamp,id,evento,personas a adivinar,usuarie,estado,texto ingresado,respuesta,nivel
-1655329225,cdc08059179d455881d0d78846f03ad2,inicio_partida,10,Josu,-,-,-,Intermedio
-1655329226,f72b677ca19144bc837bc11e32cfb000,intento,10,Josu,ok,César Huanca,Aron Dønnum,Intermedio
-1655329227,aab6718268dd466fbf7f97d79abdee24,intento,10,Josu,error,Timothée Dieng,Aron Dønnum,Intermedio
-1655329228,a3d232a6efb64a5787e24c0cd8277a20,intento,10,Josu,error,Duško Tošic,Loïck Landre,Intermedio
-1655329229,3f29d49c83d9446780fb9fefb5d1785c,intento,10,Josu,ok,Loïck Landre,Cristian González,Intermedio
-1655329231,c0ecde03374544e9a3be45f19ee94cd6,intento,10,Josu,error,Finn Ole Becker,Cristian González,Intermedio
-1655329232,7de4ed4d875545c58224fd1363598050,intento,10,Josu,ok,Joe Lumley,Marc Endres,Intermedio
-1655329233,a5385464a3764539b711f98f1910c300,intento,10,Josu,error,Khalid Eissa,Marc Endres,Intermedio
-1655329235,97cfd28dd02d4855af4910e82f39cb32,intento,10,Josu,error,Noel Mbo,Mitsuki Saito,Intermedio
-1655329237,eee596571ab247fe8787455fdafd3632,intento,10,Josu,error,Armando Izzo,Jaílson,Intermedio
-1655329238,2655696a68134ff597fad0d1a1b36677,intento,10,Josu,error,Sandro Gotal,Jaílson,Intermedio
-1655329239,542c27e2831946d6b8bb23b876c71493,intento,10,Josu,error,Robin Becker,Jaílson,Intermedio
-1655329240,b3323ff1960445eea369f60741700296,intento,10,Josu,error,Marco Meyerhöfer,Jonny Howson,Intermedio
-1655329242,160e99dd274f4253b1207bbffc4f47b2,intento,10,Josu,error,Umberto Saracco,Jonny Howson,Intermedio
-1655329242,911d4d89e3f54781966479ac75e81ec2,fin,10,Josu,error,-,-,Intermedio
-1655331706,31469e068d4d4f2fa566664d90506a6b,inicio_partida,10,Josu,-,-,-,Intermedio
+1655385908,0836456b142440fcb420550455e0b7df,inicio_partida,10,Josu,-,-,-,Fácil
+1655385908,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,-,Sami Al Najai,Fácil
+1655385910,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,Alfredo Donnarumma,Sami Al Najai,Fácil
+1655385911,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,Nils Petersen,Sami Al Najai,Fácil
+1655385912,0836456b142440fcb420550455e0b7df,intento,10,Josu,ok,Sami Al Najai,Kalidou Sidibé,Fácil
+1655385913,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,-,Edu Selneira,Fácil
+1655385914,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,Takashi Inui,Edu Selneira,Fácil
+1655385914,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,-,Vlad Chiriche?,Fácil
+1655385915,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,Aaron Leya Iseka,Vlad Chiriche?,Fácil
+1655385916,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,Ariel Borysiuk,Vlad Chiriche?,Fácil
+1655385916,0836456b142440fcb420550455e0b7df,intento,10,Josu,error,-,Terell Thomas,Fácil
+1655385917,0836456b142440fcb420550455e0b7df,fin,10,Josu,finalizada,-,-,Fácil
+1655385921,ae4d4634d65e46d6a006644bb40dab41,inicio_partida,10,Josu,-,-,-,Difícil
+1655385923,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,ok,Ashley Young,Sambou Sissoko,Difícil
+1655385924,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,Christian Beck,Sambou Sissoko,Difícil
+1655385925,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,Tan Long,Sambou Sissoko,Difícil
+1655385925,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,-,Sofiane Boufal,Difícil
+1655385926,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,Callan Elliot,Sofiane Boufal,Difícil
+1655385927,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,-,Simone Missiroli,Difícil
+1655385928,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,Anders Randrup,Simone Missiroli,Difícil
+1655385928,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,-,Andrea Beghetto,Difícil
+1655385930,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,ok,Andrea Beghetto,Mickaël Facchinetti,Difícil
+1655385931,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,Florin Ni?a,Mickaël Facchinetti,Difícil
+1655385931,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,-,Fabiem Jardim,Difícil
+1655385932,ae4d4634d65e46d6a006644bb40dab41,fin,10,Josu,finalizada,-,-,Difícil

@@ -27,6 +27,7 @@ class EventStates(Enum):
 
 class RunEventController:
     '''Controller of the events occurred during the execution of the game.'''
+
     def __init__(self, path: str, user_ctr: UsersController, difficulty_ctr: DifficultyController) -> None:
         '''Initialization of the file used for save the information of the events.
 
@@ -38,6 +39,7 @@ class RunEventController:
         )
         self._user_ctr = user_ctr
         self._difficulty_ctr = difficulty_ctr
+        self.uid = ''
         observer.subscribe(constants.RUN_EVENT, self.register_event)
 
     def register_event(self, event_data: dict[str, Any]) -> None:
@@ -45,9 +47,11 @@ class RunEventController:
         Args:
             event_data: data of the event composed by 
                 name,Q of rounds,current user,state,user answer, correct answer and difficulty'''
+        if(event_data['name'].value == EventNames.START.value):
+            self.uid = uuid.uuid4().hex
         event = [
             int(time.time()),
-            uuid.uuid4().hex,
+            self.uid,
             event_data['name'].value,
             event_data['rounds'],
             self._user_ctr.current_user.nick,
@@ -56,7 +60,7 @@ class RunEventController:
             event_data.get('correct_answer', EventStates.DEFAULT.value),
             translations.DIFFICULTY_TO_ES[self._difficulty_ctr.difficulty_name],
         ]
-        self._events.append(event) # type: ignore
+        self._events.append(event)  # type: ignore
 
     def default_header(self) -> list[str]:
         '''Return the header of the csv to use like default.'''
