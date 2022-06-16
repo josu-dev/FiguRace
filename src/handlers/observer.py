@@ -1,36 +1,36 @@
 from typing import Any, Callable
 
 
-subscribers: dict[str, list[Callable[..., None]]] = dict()
+_subscribers: dict[str, list[Callable[..., None]]] = dict()
 
 
-def subscribe(event_type: str, function: Callable[..., None]) -> None:
-    if event_type not in subscribers:
-        subscribers[event_type] = []
+def subscribe(event_type: str, response_fn: Callable[..., None]) -> None:
+    if event_type not in _subscribers:
+        _subscribers[event_type] = []
 
-    subscribers[event_type].append(function)
+    _subscribers[event_type].append(response_fn)
 
 
-def unsubscribe(event_type: str, function: Callable[..., None]) -> None:
-    if event_type not in subscribers:
+def unsubscribe(event_type: str, response_fn: Callable[..., None]) -> None:
+    if event_type not in _subscribers:
         return
 
-    subscribers[event_type].remove(function)
+    _subscribers[event_type].remove(response_fn)
 
 
 def post_event(event_type: str, data: Any = None) -> None:
-    if event_type not in subscribers:
+    if event_type not in _subscribers:
         return
 
-    for function in subscribers[event_type]:
+    for response_fn in _subscribers[event_type]:
         if data:
-            function(data)
+            response_fn(data)
         else:
-            function()
+            response_fn()
 
 
 def remove_event(event_type: str) -> None:
-    if event_type not in subscribers:
+    if event_type not in _subscribers:
         return
 
-    subscribers.pop(event_type)
+    _subscribers.pop(event_type)
