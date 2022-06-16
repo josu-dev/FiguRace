@@ -47,7 +47,7 @@ class RunEventController:
         Args:
             event_data: data of the event composed by 
                 name,Q of rounds,current user,state,user answer, correct answer and difficulty'''
-        if(event_data['name'].value == EventNames.START.value):
+        if(event_data['name'] == EventNames.START):
             self.uid = uuid.uuid4().hex
         event = [
             int(time.time()),
