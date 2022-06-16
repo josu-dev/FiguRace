@@ -32,14 +32,18 @@ class RunEventController:
         '''Initialization of the file used for save the information of the events.
 
         Args:
-           path : Path of the file that we will be working.'''
+           path : Path of the file that we will be working.
+           user_ctr : A user controller to access to the current user.
+           difficulty_ctr : A difficulty controller to access to the current difficulty.'''
         self._file_path = os.path.join(path, 'events.csv')
+
         self._events = file.load_csv_safe(
             self._file_path, [self.default_header()]
         )
         self._user_ctr = user_ctr
         self._difficulty_ctr = difficulty_ctr
-        self.uid = ''
+        self._uid = ''
+        self._playing = False
         observer.subscribe(constants.RUN_EVENT, self.register_event)
 
     def register_event(self, event_data: dict[str, Any]) -> None:
@@ -47,11 +51,15 @@ class RunEventController:
         Args:
             event_data: data of the event composed by 
                 name,Q of rounds,current user,state,user answer, correct answer and difficulty'''
+
         if(event_data['name'] == EventNames.START):
             self.uid = uuid.uuid4().hex
+            self.playing = True
+        elif(event_data['name'] == EventNames.END):
+            self.playing = False
         event = [
             int(time.time()),
-            self.uid,
+            self._uid,
             event_data['name'].value,
             event_data['rounds'],
             self._user_ctr.current_user.nick,
@@ -67,5 +75,10 @@ class RunEventController:
         return ['timestamp', 'id', 'evento', 'cantidad a adivinar', 'usuarie', 'estado', 'texto ingresado', 'respuesta', 'nivel']
 
     def save(self) -> None:
-        '''Save the list obtained into a csv.'''
+        '''Save the list obtained into a csv.
+        Before saving I check if the player was playing to do the END event.'''
+        if(self.playing):
+            event_data = {'name': EventNames.END,
+                          'rounds': self._difficulty_ctr.difficulty.rounds_per_game, 'state': EventStates.CANCELED}
+            self.register_event(event_data)
         file.save_csv(self._file_path, self._events)
