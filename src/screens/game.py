@@ -14,8 +14,8 @@ CONFIRM_SELECTED_OPTION = '-CONFIRM-SELECTED-OPTION-'
 SKIP_CARD = '-SKIP-CARD-'
 END_RUN = '-END-RUN-'
 ROUNDS_TABLE_SIZE = 20
-UPDATE_TIME = 100
-RUN_UPDATE_TIME = 1
+EVENT_LOOP_TIMEOUT = 100
+RUN_UPDATE_TIME_SEC = 1
 
 
 @dataclass
@@ -226,7 +226,6 @@ def create_card() -> sg.Column:
 
 def refresh_card() -> None:
     hints = run_ctr.hints
-
     for i, row in enumerate(card_section.hints):
         if i < len(hints):
             row[1].update(hints[i])
@@ -361,7 +360,7 @@ def reset_time() -> None:
 def update_time() -> None:
     time_state.actual = int(time.time())
     delta_time = time_state.actual - time_state.last
-    if delta_time < RUN_UPDATE_TIME:
+    if delta_time < RUN_UPDATE_TIME_SEC:
         return
     refresh_timer()
     time_state.last = time_state.actual
@@ -397,4 +396,4 @@ def screen_reset() -> None:
     reset_card()
     reset_time()
     observer.subscribe(constants.TIMEOUT, update_time)
-    observer.post_event(constants.UPDATE_TIMEOUT, UPDATE_TIME)
+    observer.post_event(constants.UPDATE_TIMEOUT, EVENT_LOOP_TIMEOUT)

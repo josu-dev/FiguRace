@@ -17,8 +17,7 @@ class Round:
         self._card = card
         self._tryes = 0
         self._max_tryes = len(card.hints) - 1
-        self._hints_quantity = self._settings.characteristics_shown
-        self._hints = self._card.hints[0:self._hints_quantity]
+        self._hints = self._card.hints[:self._settings.characteristics_shown]
         self._score = 0
 
     @property
@@ -36,9 +35,8 @@ class Round:
         return self._card.correct_answer
 
     def _add_hint(self) -> None:
-        self._hints_quantity += 1
-        if self._hints_quantity < len(self._card.hints):
-            self._hints = self._card.hints[0:self._hints_quantity]
+        if len(self._hints) < len(self._card.hints):
+            self._hints = self._card.hints[:len(self._hints) +1]
 
     def win(self, option: str) -> bool:
         if option == self._card.correct_answer:
@@ -47,6 +45,7 @@ class Round:
         self._score += self._settings.points_bad_answer
         self._tryes += 1
         self._add_hint()
+        print(self._hints)
         return False
 
     @property
@@ -121,7 +120,7 @@ class RunController:
     @property
     def max_rounds(self) -> int:
         return self._difficulty.rounds_per_game
-    
+
     @property
     def round_time(self) -> int:
         return self._difficulty.time_per_round
@@ -156,15 +155,15 @@ class RunController:
     def new_answer(self, option: str) -> None:
         self._stats['total_tryes'] += 1
         if self._round.win(option):
+            self._post_event(EventNames.TRY, EventStates.OK, option, True)
             self._new_round()
             self._stats['rounds_winned'] += 1
             self._stats['rounds_completed'] += 1
-            self._post_event(EventNames.TRY, EventStates.OK, option, True)
             for fn in self._events_fn['win_round']:
                 fn()
         elif self._round.loose:
-            self._force_loose()
             self._post_event(EventNames.TRY, EventStates.ERROR, option, True)
+            self._force_loose()
         else:
             self._post_event(EventNames.TRY, EventStates.ERROR, option, True)
             for fn in self._events_fn['bad_option']:
@@ -175,8 +174,9 @@ class RunController:
         self._stats['rounds_skiped'] += 1
         self._round.end()
         self._new_round()
-        self._post_event(EventNames.TRY, EventStates.ERROR,
-                         correct_option=True)
+        self._post_event(
+            EventNames.TRY, EventStates.ERROR, correct_option=True
+        )
         self._is_run_end()
 
     def end_run(self) -> None:

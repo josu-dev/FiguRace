@@ -13,6 +13,10 @@ DIFFICULTY_TO_EN = {
     'Insano': 'insane',
     'Personalizada': 'custom',
 }
+DATASET_HEADER = {
+    'spotify': ['Top genero', 'Tipo artista', 'Año lanzamiento','Mejor año', 'BPM', 'Artista'],
+    'fifa': ['Equipo', 'Nacionalidad', 'Posición', 'Edad', 'Potencial', 'Nombre'],
+}
 DATASET_TO_ES = {
     'fifa': 'FIFA 21',
     'spotify': 'Spotify',
