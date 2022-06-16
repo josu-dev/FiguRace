@@ -36,7 +36,7 @@ class Round:
 
     def _add_hint(self) -> None:
         if len(self._hints) < len(self._card.hints):
-            self._hints = self._card.hints[:len(self._hints) +1]
+            self._hints = self._card.hints[:len(self._hints) + 1]
 
     def win(self, option: str) -> bool:
         if option == self._card.correct_answer:
@@ -45,7 +45,6 @@ class Round:
         self._score += self._settings.points_bad_answer
         self._tryes += 1
         self._add_hint()
-        print(self._hints)
         return False
 
     @property
@@ -55,9 +54,6 @@ class Round:
     @property
     def score(self) -> int:
         return self._score
-
-    def end(self) -> None:
-        self._score = 0
 
 
 class RunController:
@@ -170,20 +166,25 @@ class RunController:
                 fn()
         self._is_run_end()
 
-    def end_round(self) -> None:
+    def end_round(self, timeout: bool = False) -> None:
         self._stats['rounds_skiped'] += 1
-        self._round.end()
+        if timeout:
+            self._post_event(
+                EventNames.TRY,
+                EventStates.TIME_OUT,
+                correct_option=True
+            )
         self._new_round()
-        self._post_event(
-            EventNames.TRY, EventStates.ERROR, correct_option=True
-        )
         self._is_run_end()
 
-    def end_run(self) -> None:
+    def end_run(self, forced: bool = False) -> None:
         self._stats['total_points'] = sum(self._scores)
         self._stats['total_rounds'] = self.max_rounds
         for _ in range(self.max_rounds - len(self._scores)):
             self._scores.append(0)
         for fn in self._events_fn['end_run']:
             fn()
-        self._post_event(EventNames.END, EventStates.ENDED)
+        self._post_event(
+            EventNames.END,
+            EventStates.CANCELED if forced else EventStates.ENDED
+        )

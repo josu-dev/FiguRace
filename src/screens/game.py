@@ -52,17 +52,38 @@ class TimeState:
 time_state = TimeState()
 
 
-def create_button(text: str, key: str) -> sg.Button:
+def reset_time() -> None:
+    time_stamp = int(time.time())
+    time_state.run_start = time_stamp
+    time_state.round_start = time_stamp
+    time_state.last = time_stamp
+    time_state.actual = time_stamp
+    time_state.round_duration = run_ctr.round_time
+    refresh_timer()
+
+
+def update_time() -> None:
+    time_state.actual = int(time.time())
+    delta_time = time_state.actual - time_state.last
+    if delta_time < RUN_UPDATE_TIME_SEC:
+        return
+    refresh_timer()
+    time_state.last = time_state.actual
+    if (time_state.actual - time_state.round_start) < time_state.round_duration:
+        return
+    time_state.round_end = time_state.actual
+    force_end_round(timeout=True)
+
+
+def create_button(text: str, key: str, padding: tuple[int, int] = (0, 0), border: int = theme.BD_SECONDARY) -> sg.Button:
     return sg.Button(
         text,
         key=key,
         font=(theme.FONT_FAMILY, theme.T1_SIZE),
-        button_color=(
-            theme.TEXT_BUTTON,
-            theme.BG_BUTTON
-        ),
+        button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
         mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=theme.BD_SECONDARY,
+        border_width=border,
+        pad=padding
     )
 
 
@@ -201,12 +222,13 @@ card_section = CardSection(
         ) for i, text in enumerate(run_ctr.options)
     ],
     create_button(
-        'Confirmar', f'{CONFIRM_SELECTED_OPTION}')
+        'Confirmar', f'{CONFIRM_SELECTED_OPTION}', padding=(theme.scale(8),)*2
+    )
 )
 
 
 def create_card() -> sg.Column:
-    
+
     layout = [
         [card_section.type],
         *[hint for hint in card_section.hints],
@@ -221,6 +243,32 @@ def create_card() -> sg.Column:
     return sg.Column(
         layout,
         background_color=theme.BG_BASE
+    )
+
+
+def reset_card() -> None:
+    card_section.type.update(translations.DATASET_TO_ES[run_ctr.dataset_type])
+    card_section.data = run_ctr.options
+    if run_ctr.dataset_type in translations.DATASET_HEADER:
+        characteristics = translations.DATASET_HEADER[run_ctr.dataset_type]
+    else:
+        characteristics = run_ctr.hints_types
+    hints = run_ctr.hints
+
+    for i, row in enumerate(card_section.hints):
+        row[0].update(f'{characteristics[i]}: ')
+        if i < len(hints):
+            row[1].update(hints[i])
+        else:
+            row[1].update('')
+
+    for option, content in zip(card_section.options, card_section.data):
+        option.update(content, disabled=False, button_color=(
+            theme.TEXT_BUTTON, theme.BG_BUTTON))
+
+    card_section.selected = -1
+    card_section.confirm_button.update(disabled=True, button_color=(
+        theme.TEXT_BUTTON_DISABLED, theme.BG_BUTTON_DISABLED)
     )
 
 
@@ -267,32 +315,6 @@ def new_answer() -> None:
 observer.subscribe(CONFIRM_SELECTED_OPTION, new_answer)
 
 
-def reset_card() -> None:
-    card_section.type.update(translations.DATASET_TO_ES[run_ctr.dataset_type])
-    card_section.data = run_ctr.options
-    if run_ctr.dataset_type in translations.DATASET_HEADER:
-        characteristics = translations.DATASET_HEADER[run_ctr.dataset_type]
-    else:
-        characteristics = run_ctr.hints_types
-    hints = run_ctr.hints
-
-    for i, row in enumerate(card_section.hints):
-        row[0].update(f'{characteristics[i]}: ')
-        if i < len(hints):
-            row[1].update(hints[i])
-        else:
-            row[1].update('')
-
-    for option, content in zip(card_section.options, card_section.data):
-        option.update(content, disabled=False, button_color=(
-            theme.TEXT_BUTTON, theme.BG_BUTTON))
-
-    card_section.selected = -1
-    card_section.confirm_button.update(disabled=True, button_color=(
-        theme.TEXT_BUTTON_DISABLED, theme.BG_BUTTON_DISABLED)
-    )
-
-
 def end_round() -> None:
     refresh_run_state()
     reset_card()
@@ -302,16 +324,12 @@ run_ctr.registry_event('win_round', end_round)
 run_ctr.registry_event('loose_round', end_round)
 
 
-def create_leave_button() -> sg.Button:
-    return sg.Button(
-        'Abandonar partida',
-        key=f'{END_RUN}',
-        font=(theme.FONT_FAMILY, theme.T1_SIZE),
-        button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
-        mouseover_colors=theme.BG_BUTTON_HOVER,
-        border_width=theme.BD_PRIMARY,
-        pad=(0, 0)
-    )
+def force_end_round(timeout: bool = False) -> None:
+    run_ctr.end_round(timeout)
+    end_round()
+
+
+observer.subscribe(SKIP_CARD, force_end_round)
 
 
 def finish_game() -> None:
@@ -324,6 +342,8 @@ def finish_game() -> None:
     stats = run_ctr.stats
     stats['total_time'] = time_state.run_end - time_state.run_start
     stats['average_time'] = stats['total_time'] // stats['rounds_completed'] if stats['rounds_completed'] else stats['total_time']
+    observer.unsubscribe(constants.TIMEOUT, update_time)
+    observer.post_event(constants.UPDATE_TIMEOUT, None)
     observer.post_event(constants.RUN_RESULT, stats)
     observer.post_event(constants.GOTO_VIEW, '-RESULT-')
 
@@ -331,43 +351,12 @@ def finish_game() -> None:
 run_ctr.registry_event('end_run', finish_game)
 
 
-def force_end_round() -> None:
-    run_ctr.end_round()
-    end_round()
-
-
-observer.subscribe(SKIP_CARD, force_end_round)
-
-
 def force_end_game() -> None:
     run_section.forced_end = True
-    run_ctr.end_run()
+    run_ctr.end_run(forced=True)
 
 
 observer.subscribe(END_RUN, force_end_game)
-
-
-def reset_time() -> None:
-    time_stamp = int(time.time())
-    time_state.run_start = time_stamp
-    time_state.round_start = time_stamp
-    time_state.last = time_stamp
-    time_state.actual = time_stamp
-    time_state.round_duration = run_ctr.round_time
-    refresh_timer()
-
-
-def update_time() -> None:
-    time_state.actual = int(time.time())
-    delta_time = time_state.actual - time_state.last
-    if delta_time < RUN_UPDATE_TIME_SEC:
-        return
-    refresh_timer()
-    time_state.last = time_state.actual
-    if (time_state.actual - time_state.round_start) < time_state.round_duration:
-        return
-    time_state.round_end = time_state.actual
-    force_end_round()
 
 
 screen_layout = [
@@ -380,7 +369,9 @@ screen_layout = [
         create_card(),
         sg.Push(theme.BG_BASE)
     ],
-    [create_leave_button()],
+    [create_button(
+        'Abandonar partida', key=f'{END_RUN}', border=theme.BD_PRIMARY
+    )],
     [sg.VPush(theme.BG_BASE)]
 ]
 
