@@ -54,10 +54,10 @@ class RunEventController:
                 name,Q of rounds,current user,state,user answer, correct answer and difficulty'''
 
         if(event_data['name'] == EventNames.START):
-            self.uid = uuid.uuid4().hex
-            self.playing = True
+            self._uid = uuid.uuid4().hex
+            self._playing = True
         elif(event_data['name'] == EventNames.END):
-            self.playing = False
+            self._playing = False
         event = [
             int(time.time()),
             self._uid,
@@ -78,7 +78,7 @@ class RunEventController:
     def save(self) -> None:
         '''Save the list obtained into a csv.
         Before saving I check if the player was playing to do the END event.'''
-        if(self.playing):
+        if(self._playing):
             event_data = {'name': EventNames.END,
                           'rounds': self._difficulty_ctr.difficulty.rounds_per_game, 'state': EventStates.CANCELED}
             self.register_event(event_data)
