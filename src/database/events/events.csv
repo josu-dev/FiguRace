@@ -24,3 +24,27 @@ timestamp,id,evento,personas a adivinar,usuarie,estado,texto ingresado,respuesta
 1655385931,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,Florin Ni?a,Mickaël Facchinetti,Difícil
 1655385931,ae4d4634d65e46d6a006644bb40dab41,intento,10,Josu,error,-,Fabiem Jardim,Difícil
 1655385932,ae4d4634d65e46d6a006644bb40dab41,fin,10,Josu,finalizada,-,-,Difícil
+1655386486,c08907c9f5924efd837cbef5a1a768ec,inicio_partida,10,Josu,-,-,-,Difícil
+1655386486,c08907c9f5924efd837cbef5a1a768ec,intento,10,Josu,error,-,Federico Girotti,Difícil
+1655386488,c08907c9f5924efd837cbef5a1a768ec,intento,10,Josu,error,Yhormar Hurtado,Federico Girotti,Difícil
+1655386489,c08907c9f5924efd837cbef5a1a768ec,intento,10,Josu,ok,Federico Girotti,Ezequiel Cérica,Difícil
+1655386489,c08907c9f5924efd837cbef5a1a768ec,intento,10,Josu,error,-,Nicolás Gaitán,Difícil
+1655386490,c08907c9f5924efd837cbef5a1a768ec,intento,10,Josu,error,-,Farid Díaz,Difícil
+1655386490,c08907c9f5924efd837cbef5a1a768ec,intento,10,Josu,error,-,Wang Yaopeng,Difícil
+1655386490,c08907c9f5924efd837cbef5a1a768ec,fin,10,Josu,finalizada,-,-,Difícil
+1655386492,b335f2f3b87045aea53b8d9740f179eb,inicio_partida,10,Josu,-,-,-,Difícil
+1655386494,b335f2f3b87045aea53b8d9740f179eb,intento,10,Josu,error,Guzmán Pereira,Eric Godoy,Difícil
+1655386494,b335f2f3b87045aea53b8d9740f179eb,intento,10,Josu,ok,Eric Godoy,Benjamín Berríos,Difícil
+1655386495,b335f2f3b87045aea53b8d9740f179eb,intento,10,Josu,error,-,Omar Bertel,Difícil
+1655386496,b335f2f3b87045aea53b8d9740f179eb,intento,10,Josu,error,-,Lucas Soares,Difícil
+1655386496,b335f2f3b87045aea53b8d9740f179eb,intento,10,Josu,error,-,Yao Hanlin,Difícil
+1655386496,b335f2f3b87045aea53b8d9740f179eb,fin,10,Josu,finalizada,-,-,Difícil
+1655397763,,inicio_partida,10,Josu,-,-,-,Intermedio
+1655397763,,intento,10,Josu,error,-,Samir Bouzar,Intermedio
+1655397764,,fin,10,Josu,cancelada,-,-,Intermedio
+1655397802,,inicio_partida,10,Josu,-,-,-,Intermedio
+1655397803,,intento,10,Josu,error,-,Jiang Jihong,Intermedio
+1655397805,,intento,10,Josu,error,Marcano,Jiang Jihong,Intermedio
+1655397806,,fin,10,Josu,finalizada,-,-,Intermedio
+1655397810,,inicio_partida,10,Josu,-,-,-,Fácil
+1655397811,,fin,10,Josu,cancelada,-,-,Fácil
