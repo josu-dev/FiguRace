@@ -81,5 +81,5 @@ class RunEventController:
         if(self._playing):
             event_data = {'name': EventNames.END,
                           'rounds': self._difficulty_ctr.difficulty.rounds_per_game, 'state': EventStates.CANCELED}
-            self.register_event(event_data)
+            self._register_event(event_data)
         file.save_csv(self._file_path, self._events)
