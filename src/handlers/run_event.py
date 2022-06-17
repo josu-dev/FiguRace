@@ -37,7 +37,7 @@ class RunEventRecorder:
            difficulty_ctr : A difficulty controller to access to the current difficulty.'''
         self._file_path = os.path.join(path, 'events.csv')
 
-        self._events = file.load_csv_safe(
+        self._events = file.load_csv(
             self._file_path, [self._default_header()]
         )
         self._users_ctr = users_ctr

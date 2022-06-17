@@ -89,7 +89,7 @@ class CardController:
         try:
             raw_dataset = file.load_csv(self._datasets[name])
             self._dataset = Dataset(name, raw_dataset)
-        except:
+        except FileNotFoundError:
             self._load_generic_dataset()
 
     def reset(self) -> None:
