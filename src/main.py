@@ -34,17 +34,20 @@ def main_dev(args: list[str]) -> None:
         args: list of developer arguments passed through the command line.'''
 
     HELP_MESSAGE = '''Available arguments:
-    --to=<seconds> : defines the duration in seconds of the application without the user generating events
-    --is=<screen name> :defines the starting screen of the application'''
+    --to=<seconds> : defines the duration in seconds of inactivity until application closes, default 5 seconds
+    --is=<screen name> : defines the starting screen of the application, default -SELECT-PROFILE-
+    --el=<true | false> : enables event loggin, default false'''
 
     duration = 5 * 1000
     initial_screen = '-SELECT-PROFILE-'
+    event_logging = False
     for arg in args:
         match arg.split('='):
             case '--to', timeout:
                 if not timeout.isdecimal():
                     print(
-                        f'Argument error: value for --to must be an integer, invalid \'{timeout}\'')
+                        f'Argument error: value for --to must be an integer, invalid \'{timeout}\''
+                    )
                     return
                 timeout = int(timeout)
                 if timeout == 0:
@@ -53,6 +56,13 @@ def main_dev(args: list[str]) -> None:
                 duration = int(timeout) * 1000
             case '--is', screen:
                 initial_screen = screen
+            case '--el', state:
+                if state not in ('true', 'false'):
+                    print(
+                        f'Argument error: value for --el must be \'true\' or \'false\', invalid \'{state}\''
+                    )
+                    return
+                event_logging = state == 'true'
             case arg if arg[0].startswith('--help'):
                 print(HELP_MESSAGE)
                 return
@@ -66,8 +76,11 @@ def main_dev(args: list[str]) -> None:
 
     if not window_ctr.screen_ctr.is_registered(initial_screen):
         print(
-            f'Screen error: the initial screen \'{initial_screen}\' is not a registered screen')
+            f'Screen error: the initial screen \'{initial_screen}\' is not a registered screen'
+        )
         return
+
+    ctr.observer.enable_logging(event_logging)
 
     window_ctr.init(
         initial_screen,
@@ -75,6 +88,7 @@ def main_dev(args: list[str]) -> None:
         app_icon,
         ctr.settings.full_screen
     )
+
     window_ctr.set_timeout(duration, constants.EXIT_APLICATION)
 
     window_ctr.loop()
