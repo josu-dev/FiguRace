@@ -13,6 +13,11 @@ Path = str
 
 
 def ensure_dirs(path: str) -> None:
+    if not os.path.exists(path):
+        os.makedirs(path, exist_ok=True)
+
+
+def ensure_file_dirs(path: str) -> None:
     parent_path = os.path.dirname(path)
     if not os.path.exists(parent_path):
         os.makedirs(parent_path, exist_ok=True)
@@ -27,7 +32,7 @@ def load_json(path: str, default_value: Any, encoding_format: str = 'utf-8') -> 
 
 
 def save_json(path: str, value: Any, is_custom_class: bool = False, encoding_format: str = 'utf-8') -> None:
-    ensure_dirs(path)
+    ensure_file_dirs(path)
 
     with open(path, mode='w', encoding=encoding_format) as file:
         if is_custom_class:
@@ -55,7 +60,7 @@ def load_csv_safe(path: str, default_value: CSV, encoding_format: str = 'utf-8')
 
 
 def save_csv(path: str, value: CSV, encoding_format: str = 'utf-8') -> None:
-    ensure_dirs(path)
+    ensure_file_dirs(path)
 
     with open(path, mode='w', encoding=encoding_format) as file:
         csv_writer = csv.writer(file, delimiter=',', lineterminator='\n')
@@ -64,7 +69,6 @@ def save_csv(path: str, value: CSV, encoding_format: str = 'utf-8') -> None:
 
 def scan_dir(path: str, file_extension: str | None = None) -> list[tuple[FileName, Path]]:
     if not os.path.exists(path):
-        print(f'No exists a directory at: {path}')
         return []
 
     if file_extension is None:

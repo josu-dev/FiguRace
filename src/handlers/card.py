@@ -62,12 +62,22 @@ class CardController:
             for file_name, path in file.scan_dir(datasets_folder_path, file_extension='csv')
         }
         if len(self._datasets) == 0:
-            raise Exception(
-                f'Must exist at least 1 dataset with csv format at \'{datasets_folder_path}\' to start the game'
+            file.ensure_dirs(datasets_folder_path)
+            self._dataset = Dataset(
+                'error',
+                [
+                    [f'error-{n_rows}-{n_columns}' for n_columns in range(6)]
+                    for n_rows in range(64)
+                ]
             )
+            return
 
         default = list(self._datasets.keys())[0]
         self._load_dataset(default)
+
+    @property
+    def no_datasets(self) -> bool:
+        return len(self._datasets) == 0
 
     def _load_dataset(self, name: str) -> None:
         raw_dataset = file.load_csv(self._datasets[name])
