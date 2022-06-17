@@ -57,37 +57,47 @@ class Card:
 
 class CardController:
     def __init__(self, datasets_folder_path: str) -> None:
+        self._folder_path = datasets_folder_path
+        self._find_datasets()
+        if self.no_datasets:
+            self._load_generic_dataset()
+        else:
+            default = list(self._datasets.keys())[0]
+            self._load_dataset(default)
+    
+    def _find_datasets(self) -> None:
+        file.ensure_dirs(self._folder_path)
         self._datasets = {
             file_name.split('.')[0]: path
-            for file_name, path in file.scan_dir(datasets_folder_path, file_extension='csv')
+            for file_name, path in file.scan_dir(self._folder_path, file_extension='csv')
         }
-        if len(self._datasets) == 0:
-            file.ensure_dirs(datasets_folder_path)
-            self._dataset = Dataset(
-                'error',
-                [
-                    [f'error-{n_rows}-{n_columns}' for n_columns in range(6)]
-                    for n_rows in range(64)
-                ]
-            )
-            return
-
-        default = list(self._datasets.keys())[0]
-        self._load_dataset(default)
+    
+    def _load_generic_dataset(self) -> None:
+        self._dataset = Dataset(
+            'error',
+            [
+                [f'error-{n_rows}-{n_columns}' for n_columns in range(6)]
+                for n_rows in range(64)
+            ]
+        )
 
     @property
     def no_datasets(self) -> bool:
         return len(self._datasets) == 0
 
     def _load_dataset(self, name: str) -> None:
-        raw_dataset = file.load_csv(self._datasets[name])
-        self._dataset = Dataset(name, raw_dataset)
+        try:
+            raw_dataset = file.load_csv(self._datasets[name])
+            self._dataset = Dataset(name, raw_dataset)
+        except:
+            self._load_generic_dataset()
 
     def reset(self) -> None:
         self._dataset.reset()
 
     @property
     def types_list(self) -> list[str]:
+        self._find_datasets()
         return [key for key in self._datasets]
 
     @property
