@@ -42,7 +42,7 @@ def screen_title(title: str, spaced: bool = False, alignment: str = 'center', up
 
 def navigation_button(
     text: str, screen_name: str, font_size: int = theme.T1_SIZE,
-    padding: tuple[int, int] = (0, 0), border: int = theme.BD_PRIMARY
+    padding: tuple[int, int] = (0, 0), border: int = theme.BD_PRIMARY, disabled: bool = False
 ) -> sg.Button:
     '''Create a generic navigation button.
 
@@ -56,6 +56,7 @@ def navigation_button(
         A button with the style, theme and function applied.'''
     return sg.Button(
         text,
+        disabled=disabled,
         key=f'{constants.GOTO_VIEW} {screen_name}',
         font=(theme.FONT_FAMILY, font_size),
         button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),

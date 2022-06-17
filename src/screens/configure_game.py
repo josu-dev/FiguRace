@@ -28,14 +28,31 @@ _cmb_difficulty = sg.Combo(('Fácil', 'Intermedio', 'Difícil', 'Insano', 'Perso
                            key='-CHANGE-DIFFICULT-')
 
 
-_cmb_dataset = sg.Combo(('Lagos Argentina', 'Spotify', 'FIFA 21', 'Random'),
-                        'Random',
+def load_datasets():
+    datasets = []
+    for data in cards_ctr.types_list:
+        datasets.append(translations.DATASET_TO_ES[data])
+    if len(datasets) > 1:
+        datasets.append('Random')
+    elif len(datasets) <= 0:
+        datasets.append('No hay Datasets')
+    return datasets
+
+
+def is_loaded():
+    return not cards_ctr.no_datasets
+
+
+datasets: list = load_datasets()
+
+_cmb_dataset = sg.Combo(datasets,
+                        datasets[-1],
                         background_color='#8DC3E4',
                         pad=((50, 0), (50, 0)),
                         font=_text_font,
                         text_color=theme.BG_BASE,
                         readonly=True,
-                        enable_events=True,
+                        enable_events=is_loaded(),
                         size=(15, 30),
                         key='-CHANGE-DATA-')
 
@@ -61,14 +78,14 @@ def header() -> list[Any]:
         A list of elements correctly structured to use like a header of the columns
     """
     return [_csg.horizontal_spacer(_padding,
-                                  background_color=theme.BG_BASE),
+                                   background_color=theme.BG_BASE),
             sg.Text('ELEGIR DIFICULTAD', pad=((50, 0), (50, 0)),
                     background_color=theme.BG_BASE, font=_text_font),
             sg.Push(background_color=theme.BG_BASE),
             sg.Text('ELEGIR DATASET', pad=((50, 0), (50, 0)),
                     background_color=theme.BG_BASE, font=_text_font),
             _csg.horizontal_spacer(_padding,
-                                  background_color=theme.BG_BASE)
+                                   background_color=theme.BG_BASE)
             ]
 
 
@@ -96,7 +113,7 @@ def build_text() -> list[Any]:
         The current difficulty information correctly placed on the layout.
     """
     return [_csg.horizontal_spacer(_padding,
-                                  background_color=theme.BG_BASE),
+                                   background_color=theme.BG_BASE),
             _difficulty_info]
 
 
@@ -108,17 +125,38 @@ def layout() -> list[list[Any]]:
 
     """
     layout = [
-        [_csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
+        [_csg.vertical_spacer(theme.scale(
+            24), background_color=theme.BG_BASE)],
         header(),
         combo_boxes(),
         build_text(),
         [sg.VPush(background_color=theme.BG_BASE)],
         [_common.goback_button('Menu Principal', padding=(theme.scale(64),)*2),
          sg.Push(background_color=theme.BG_BASE), _common.navigation_button(
-             'Empezar !', screen_name='-GAME-', padding=(theme.scale(64),)*2)
+             'Empezar !', screen_name='-GAME-', padding=(theme.scale(64),)*2, disabled=not is_loaded(),)
          ],
     ]
     return layout
+
+
+def pop_up_layout():
+    return [
+        [sg.Text('No hay datasets cargados \nIntente descargarlos y ubicarlos en src/database/datasets ',
+                 font=(theme.FONT_FAMILY, theme.T1_SIZE),
+                 text_color=theme.TEXT_ACCENT,
+                 background_color=theme.BG_SECONDARY,
+                 justification='center')],
+        [
+            sg.Push(background_color=theme.BG_SECONDARY),
+            sg.Button(
+                button_text='Aceptar', k='-OK-',
+                font=(theme.FONT_FAMILY, theme.T2_SIZE),
+                border_width=theme.BD_SECONDARY, pad=theme.scale(20),
+                button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON)
+            ),
+            sg.Push(background_color=theme.BG_SECONDARY)
+        ]
+    ]
 
 
 def refresh_info() -> None:
@@ -133,6 +171,9 @@ def refresh_info() -> None:
             Rounds por juego : {difficulty_ctr.difficulty.rounds_per_game}\
             Puntos añadidos : {difficulty_ctr.difficulty.points_correct_answer}\
             Puntos Restados : {difficulty_ctr.difficulty.points_bad_answer}")
+    if not is_loaded():
+        _csg.custom_popup(
+            pop_up_layout(), ['-OK-'], background_color=theme.BG_SECONDARY)
 
 
 def change_difficult() -> None:
