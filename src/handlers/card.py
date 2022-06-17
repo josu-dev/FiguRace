@@ -62,28 +62,28 @@ class CardController:
         if self.no_datasets:
             self._load_generic_dataset()
         else:
-            default = list(self._datasets.keys())[0]
-            self._load_dataset(default)
-    
+            name = list(self._datasets.keys())[0]
+            self._load_dataset(name)
+
     def _find_datasets(self) -> None:
         file.ensure_dirs(self._folder_path)
         self._datasets = {
             file_name.split('.')[0]: path
             for file_name, path in file.scan_dir(self._folder_path, file_extension='csv')
         }
-    
+
+    @property
+    def no_datasets(self) -> bool:
+        return len(self._datasets) == 0
+
     def _load_generic_dataset(self) -> None:
         self._dataset = Dataset(
-            'error',
+            'file not found',
             [
                 [f'error-{n_rows}-{n_columns}' for n_columns in range(6)]
                 for n_rows in range(64)
             ]
         )
-
-    @property
-    def no_datasets(self) -> bool:
-        return len(self._datasets) == 0
 
     def _load_dataset(self, name: str) -> None:
         try:
