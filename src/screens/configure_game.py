@@ -105,6 +105,9 @@ _difficulty_info = sg.Multiline(f"Tiempo por ronda : {difficulty_ctr.difficulty.
                                 key='-DIFFCAR-',
                                 pad=((50, 0), (50, 0)))
 
+_btn_start = _common.navigation_button(
+    'Empezar !', screen_name='-GAME-', padding=(theme.scale(64),)*2, disabled=not is_loaded(),)
+
 
 def build_text() -> list[Any]:
     """Creates the text with the current difficulty settings selected.
@@ -132,8 +135,7 @@ def layout() -> list[list[Any]]:
         build_text(),
         [sg.VPush(background_color=theme.BG_BASE)],
         [_common.goback_button('Menu Principal', padding=(theme.scale(64),)*2),
-         sg.Push(background_color=theme.BG_BASE), _common.navigation_button(
-             'Empezar !', screen_name='-GAME-', padding=(theme.scale(64),)*2, disabled=not is_loaded(),)
+         sg.Push(background_color=theme.BG_BASE), _btn_start
          ],
     ]
     return layout
@@ -171,6 +173,9 @@ def refresh_info() -> None:
             Rounds por juego : {difficulty_ctr.difficulty.rounds_per_game}\
             Puntos añadidos : {difficulty_ctr.difficulty.points_correct_answer}\
             Puntos Restados : {difficulty_ctr.difficulty.points_bad_answer}")
+    datasets = load_datasets()
+    _cmb_dataset.update(datasets[-1], datasets)
+    _btn_start.update(disabled=not is_loaded())
     if not is_loaded():
         _csg.custom_popup(
             pop_up_layout(), ['-OK-'], background_color=theme.BG_SECONDARY)
