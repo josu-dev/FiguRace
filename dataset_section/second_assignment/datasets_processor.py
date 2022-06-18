@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 
+
 POTENTIAL_TABLE_FIFA = {
     90: 'Sobresaliente',
     80: 'Muy bueno',
@@ -75,7 +76,7 @@ DATASETS = {
         'name':"fifa.csv"     
     },
     'Lagos_Argentina - Hoja_1.csv':{
-        'order': ["Ubicación", "Superficie (km²)", "Profundidad máxima (m)", "Profundidad media (m)", "Coordenadas"],
+        'order': ["Ubicación", "Superficie (km²)", "Profundidad máxima (m)", "Profundidad media (m)", "Coordenadas","Nombre"],
         'functions': {
             "Coordenadas": transform_coords
             },  
@@ -103,15 +104,18 @@ def process_dataset(file_name):
     processed_path = os.path.join(PATH_PROSSED,config['name'])
     try:
         with open(file_path, mode = 'r',encoding="UTF-8") as file :
-            df = pd. read_csv (file, sep = None,engine="python",usecols = (config['order']))
+            df = pd. read_csv (file, sep = None,engine="python",usecols = (config['order']),dtype=str)
     except OSError as error:
         print(error)
         return
     df.dropna(how="all" ,inplace=True)
+    
     df = df[config['order']] 
+    
     for columna,function in config['functions'].items():  
         df[columna] = df[columna].apply(function) 
     df.fillna('Desconocido',  inplace=True)
+    
     df.to_csv(processed_path, mode='w',index=False)            
     
 if not os.path.exists(PATH_SOURCE):
