@@ -31,7 +31,7 @@ cards_controller = CardController(constants.PATH_DATASETS)
 run_controller = RunController(cards_controller, difficulty_controller)
 
 
-observer.subscribe(constants.EXIT_APLICATION, settings_controller.save)
-observer.subscribe(constants.EXIT_APLICATION, users_controller.save)
-observer.subscribe(constants.EXIT_APLICATION, difficulty_controller.save)
-observer.subscribe(constants.EXIT_APLICATION, run_event_recorder.save)
+observer.subscribe(constants.EXIT_APPLICATION, settings_controller.save)
+observer.subscribe(constants.EXIT_APPLICATION, users_controller.save)
+observer.subscribe(constants.EXIT_APPLICATION, difficulty_controller.save)
+observer.subscribe(constants.EXIT_APPLICATION, run_event_recorder.save)

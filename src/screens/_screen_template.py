@@ -35,9 +35,9 @@ def create_custom_element(text: str, key: str) -> sg.Button:
 content_layout = [
     [sg.Text('This is for squema example', font=theme.FONT_FAMILY)],
     [_csg.vertical_spacer(theme.scale(64))],
-    [create_custom_element('My element', constants.EXIT_APLICATION)],
+    [create_custom_element('My element', constants.EXIT_APPLICATION)],
     [_csg.vertical_spacer(theme.scale(64))],
-    [_common.navigation_button('Exit', constants.EXIT_APLICATION)]
+    [_common.navigation_button('Exit', constants.EXIT_APPLICATION)]
 ]
 
 

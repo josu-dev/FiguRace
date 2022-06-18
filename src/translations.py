@@ -11,7 +11,9 @@ class TranslationDict:
         return self._dict[key]
 
     def __call__(self, key: str) -> str:
-        return self.__getitem__(key)
+        if key not in self._dict:
+            return key
+        return self._dict[key]
 
     def __contains__(self, key: str) -> bool:
         return key in self._dict

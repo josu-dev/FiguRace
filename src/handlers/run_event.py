@@ -26,16 +26,15 @@ class EventStates(Enum):
 
 
 class RunEventRecorder:
-    '''Controller of the events occurred during the execution of the game.'''
-
-    def __init__(self, path: str, users_ctr: UsersController, difficulty_ctr: DifficultyController) -> None:
+    '''Recorder of the events occurred during the execution of the game.'''
+    def __init__(self, events_folder_path: str, users_ctr: UsersController, difficulty_ctr: DifficultyController) -> None:
         '''Initialization of the file used for save the information of the events.
 
         Args:
-           path : Path of the file that we will be working.
+           events_folder_path : Path of the file that we will be working.
            user_ctr : A user controller to access to the current user.
            difficulty_ctr : A difficulty controller to access to the current difficulty.'''
-        self._file_path = os.path.join(path, 'events.csv')
+        self._file_path = os.path.join(events_folder_path, 'events.csv')
 
         self._events = file.load_csv(
             self._file_path, [self._default_header()]
@@ -47,12 +46,11 @@ class RunEventRecorder:
         observer.subscribe(constants.RUN_EVENT, self.record)
 
     def record(self, event_data: dict[str, Any]) -> None:
-        '''Register an event to add on the csv.
+        '''Register an event on the event list.
 
         Args:
             event_data: data of the event composed by 
                 name,Q of rounds,current user,state,user answer, correct answer and difficulty'''
-
         if event_data['name'] == EventNames.START:
             self._uid = uuid.uuid4().hex
             self._playing = True
@@ -70,14 +68,14 @@ class RunEventRecorder:
             event_data.get('correct_answer', EventStates.DEFAULT.value),
             event_data.get('user_answer', EventStates.DEFAULT.value),
         ]
-        self._events.append(event)  # type: ignore
+        self._events.append(event)
 
     def _default_header(self) -> list[str]:
         '''Return the header of the csv to use like default.'''
         return ['timestamp', 'id', 'usuarie', 'genero', 'nivel', 'cantidad a adivinar', 'evento', 'estado', 'correcta', 'respuesta']
 
     def save(self) -> None:
-        '''Save the list obtained into a csv.
+        '''Save the list of events into a csv file.
 
         Before saving checks if the player was playing to do the END event.'''
         if self._playing:
