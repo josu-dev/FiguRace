@@ -41,17 +41,10 @@ def save_json(path: str, value: Any, is_custom_class: bool = False, encoding_for
             json.dump(value, file, indent=4)
 
 
-def load_csv(path: str, encoding_format: str = 'utf-8') -> CSV:
+def load_csv(path: str, default_value: CSV | None = None, encoding_format: str = 'utf-8') -> CSV:
     if not os.path.exists(path):
-        raise Exception(f'No exists a csv file at: {path}')
-
-    with open(path, mode='r', encoding=encoding_format) as file:
-        csv_reader = csv.reader(file, delimiter=',')
-        return list(csv_reader)
-
-
-def load_csv_safe(path: str, default_value: CSV, encoding_format: str = 'utf-8') -> CSV:
-    if not os.path.exists(path):
+        if default_value is None:
+            raise FileNotFoundError
         save_csv(path, default_value)
 
     with open(path, mode='r', encoding=encoding_format) as file:

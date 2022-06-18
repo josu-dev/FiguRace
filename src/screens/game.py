@@ -148,7 +148,7 @@ def refresh_timer() -> None:
     time_left = time_state.round_duration - \
         (time_state.actual - time_state.round_start)
     run_section.time.update(
-        f'{time_left:<2}:00'
+        f'{time_left:>2}:00'
     )
 
 

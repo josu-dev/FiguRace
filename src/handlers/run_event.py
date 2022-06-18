@@ -37,7 +37,7 @@ class RunEventRecorder:
            difficulty_ctr : A difficulty controller to access to the current difficulty.'''
         self._file_path = os.path.join(path, 'events.csv')
 
-        self._events = file.load_csv_safe(
+        self._events = file.load_csv(
             self._file_path, [self._default_header()]
         )
         self._users_ctr = users_ctr
@@ -59,21 +59,22 @@ class RunEventRecorder:
         elif event_data['name'] == EventNames.END:
             self._playing = False
         event = [
-            int(time.time()),
+            f'{time.time():.4f}',
             self._uid,
-            event_data['name'].value,
-            event_data['rounds'],
             self._users_ctr.current_user.nick,
-            event_data.get('state', EventStates.DEFAULT).value,
-            event_data.get('user_answer', EventStates.DEFAULT.value),
-            event_data.get('correct_answer', EventStates.DEFAULT.value),
+            self._users_ctr.current_user.gender,
             translations.DIFFICULTY_TO_ES[self._difficulty_ctr.difficulty_name],
+            event_data['rounds'],
+            event_data['name'].value,
+            event_data.get('state', EventStates.DEFAULT).value,
+            event_data.get('correct_answer', EventStates.DEFAULT.value),
+            event_data.get('user_answer', EventStates.DEFAULT.value),
         ]
         self._events.append(event)  # type: ignore
 
     def _default_header(self) -> list[str]:
         '''Return the header of the csv to use like default.'''
-        return ['timestamp', 'id', 'evento', 'cantidad a adivinar', 'usuarie', 'estado', 'texto ingresado', 'respuesta', 'nivel']
+        return ['timestamp', 'id', 'usuarie', 'genero', 'nivel', 'cantidad a adivinar', 'evento', 'estado', 'correcta', 'respuesta']
 
     def save(self) -> None:
         '''Save the list obtained into a csv.
