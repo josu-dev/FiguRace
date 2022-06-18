@@ -69,7 +69,7 @@ class CardController:
         file.ensure_dirs(self._folder_path)
         self._datasets = {
             file_name.split('.')[0]: path
-            for file_name, path in file.scan_dir(self._folder_path, file_extension='csv')
+            for file_name, path in file.scan_dir(self._folder_path, file_extension='.csv')
         }
 
     @property
@@ -78,19 +78,19 @@ class CardController:
 
     def _load_generic_dataset(self) -> None:
         self._dataset = Dataset(
-            'file not found',
+            'Error at loading dataset',
             [
-                [f'error-{n_rows}-{n_columns}' for n_columns in range(6)]
+                [f'empty-{n_rows}-{n_columns}' for n_columns in range(6)]
                 for n_rows in range(64)
             ]
         )
 
     def _load_dataset(self, name: str) -> None:
-        try:
-            raw_dataset = file.load_csv(self._datasets[name])
-            self._dataset = Dataset(name, raw_dataset)
-        except FileNotFoundError:
+        raw_dataset = file.load_csv(self._datasets[name], [], read_only=True)
+        if raw_dataset == []:
             self._load_generic_dataset()
+        else:
+            self._dataset = Dataset(name, raw_dataset)
 
     def reset(self) -> None:
         self._dataset.reset()
