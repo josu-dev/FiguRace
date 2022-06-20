@@ -95,6 +95,9 @@ DATASETS = {
 PATH_BASE = os.path.dirname(os.path.dirname(__file__))
 PATH_SOURCE = os.path.join(PATH_BASE,"base_datasets")
 PATH_PROSSED = os.path.join(PATH_BASE,"processed_datasets")
+if not os.path.exists(PATH_PROSSED):
+    os.makedirs(PATH_PROSSED,exist_ok=True)
+
 
 def process_dataset(file_name):
     if file_name not in DATASETS:
@@ -118,9 +121,11 @@ def process_dataset(file_name):
     
     df.to_csv(processed_path, mode='w',index=False)            
     
-if not os.path.exists(PATH_SOURCE):
-    print('no existe la ruta de los datasets')
-    exit()
-names_files = os.listdir(PATH_SOURCE)
+try: 
+    names_files = os.listdir(PATH_SOURCE)
+except: 
+    print('No se encontraron datasets para procesar')
+    names_files = []
+
 for file_name in names_files: 
     process_dataset(file_name)
