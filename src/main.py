@@ -76,7 +76,7 @@ def main_dev(args: list[str]) -> None:
 
     if not window_ctr.screen_ctr.is_registered(initial_screen):
         print(
-            f'Screen error: the initial screen \'{initial_screen}\' is not a registered screen'
+            f'Screen error: initial screen \'{initial_screen}\' is not registered'
         )
         return
 
@@ -89,7 +89,7 @@ def main_dev(args: list[str]) -> None:
         ctr.settings.full_screen
     )
 
-    window_ctr.set_timeout(duration, constants.EXIT_APLICATION)
+    window_ctr.set_timeout(duration, constants.EXIT_APPLICATION)
 
     window_ctr.loop()
 

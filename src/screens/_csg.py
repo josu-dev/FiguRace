@@ -180,14 +180,16 @@ def custom_popup(layout: FullLayout, close_keys: list[str], background_color: st
     )
 
     timeout = duration * 1000 if duration else None
-
-    while True:
-        event, _ = window.read(timeout=timeout, timeout_key='-TIME-OUT-')
-        if event is None or event == '-TIME-OUT-':
-            event = constants.EXIT_APLICATION
-            break
-        if event in close_keys:
-            break
-
-    window.close()
-    return event
+    try:
+        while True:
+            event, _ = window.read(timeout=timeout, timeout_key='-TIME-OUT-')
+            if event is None or event == '-TIME-OUT-':
+                event = constants.EXIT_APPLICATION
+                break
+            if event in close_keys:
+                break
+    except:
+        event = constants.EXIT_APPLICATION
+    finally:
+        window.close()
+        return event

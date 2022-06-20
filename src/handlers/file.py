@@ -1,15 +1,9 @@
 '''Contains helper functions to work with files.'''
+import copy
 import csv
 import json
 import os
-
 from typing import Any
-
-
-JSON = Any
-CSV = list[list[str]]
-FileName = str
-Path = str
 
 
 def ensure_dirs(path: str) -> None:
@@ -23,12 +17,15 @@ def ensure_file_dirs(path: str) -> None:
         os.makedirs(parent_path, exist_ok=True)
 
 
-def load_json(path: str, default_value: Any, encoding_format: str = 'utf-8') -> JSON:
+def load_json(path: str, default_value: Any, encoding_format: str = 'utf-8') -> Any:
     if not os.path.exists(path):
         save_json(path, default_value)
 
     with open(path, mode='r', encoding=encoding_format) as file:
-        return json.load(file)
+        try:
+            return json.load(file)
+        except json.JSONDecodeError:
+            return copy.deepcopy(default_value)
 
 
 def save_json(path: str, value: Any, is_custom_class: bool = False, encoding_format: str = 'utf-8') -> None:
@@ -41,26 +38,29 @@ def save_json(path: str, value: Any, is_custom_class: bool = False, encoding_for
             json.dump(value, file, indent=4)
 
 
-def load_csv(path: str, default_value: CSV | None = None, encoding_format: str = 'utf-8') -> CSV:
+def load_csv(path: str, default_value: list[list[str]], encoding_format: str = 'utf-8', read_only: bool = False) -> list[list[str]]:
     if not os.path.exists(path):
-        if default_value is None:
-            raise FileNotFoundError
+        if read_only:
+            return copy.deepcopy(default_value)
         save_csv(path, default_value)
 
-    with open(path, mode='r', encoding=encoding_format) as file:
+    with open(path, mode='r', encoding=encoding_format, newline='') as file:
         csv_reader = csv.reader(file, delimiter=',')
-        return list(csv_reader)
+        try:
+            return list(csv_reader)
+        except csv.Error:
+            return copy.deepcopy(default_value)
 
 
-def save_csv(path: str, value: CSV, encoding_format: str = 'utf-8') -> None:
+def save_csv(path: str, value: list[list[str]], encoding_format: str = 'utf-8') -> None:
     ensure_file_dirs(path)
 
-    with open(path, mode='w', encoding=encoding_format) as file:
-        csv_writer = csv.writer(file, delimiter=',', lineterminator='\n')
+    with open(path, mode='w', encoding=encoding_format, newline='') as file:
+        csv_writer = csv.writer(file, delimiter=',')
         csv_writer.writerows(value)
 
 
-def scan_dir(path: str, file_extension: str | None = None) -> list[tuple[FileName, Path]]:
+def scan_dir(path: str, file_extension: str | None = None) -> list[tuple[str, str]]:
     if not os.path.exists(path):
         return []
 

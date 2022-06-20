@@ -28,8 +28,8 @@ _cmb_difficulty = sg.Combo(('Fácil', 'Intermedio', 'Difícil', 'Insano', 'Perso
                            key='-CHANGE-DIFFICULT-')
 
 
-def load_datasets():
-    datasets = []
+def load_datasets() -> list[str]:
+    datasets: list[str] = []
     for data in cards_ctr.types_list:
         datasets.append(translations.DATASET_TO_ES[data])
     if len(datasets) > 1:
@@ -43,7 +43,7 @@ def is_loaded():
     return not cards_ctr.no_datasets
 
 
-datasets: list = load_datasets()
+datasets: list[str] = load_datasets()
 
 _cmb_dataset = sg.Combo(datasets,
                         datasets[-1],

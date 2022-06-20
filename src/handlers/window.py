@@ -40,19 +40,14 @@ class WindowController:
     def loop(self) -> None:
         try:
             while True:
-                event, _ = self._window.read(
-                    timeout=self._timeout, timeout_key=self._timeout_key
-                )
-                if event is None or event.startswith(constants.EXIT_APLICATION):
+                event, _ = self._window.read(self._timeout, self._timeout_key)
+                if event is None or event.startswith(constants.EXIT_APPLICATION):
                     break
 
-                event = event.split()
-                if len(event) == 1:
-                    observer.post_event(event[0])
-                else:
-                    observer.post_event(event[0], *event[1:])
+                event_type, *event_data = event.split()
+                observer.post_event(event_type, *event_data)
         except Exception as error:
             raise error
         finally:
-            observer.post_event(constants.EXIT_APLICATION)
+            observer.post_event(constants.EXIT_APPLICATION)
             self._window.close()

@@ -63,7 +63,7 @@ def menu_options() -> sg.Column:
         [_csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [sg.Button(
             'Salir',
-            key=const.EXIT_APLICATION,
+            key=const.EXIT_APPLICATION,
             size=(16, 1),
             font=TEXT_BUTTON_FONT,
             auto_size_button=True,
