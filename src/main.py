@@ -92,7 +92,3 @@ def main_dev(args: list[str]) -> None:
     window_ctr.set_timeout(duration, constants.EXIT_APPLICATION)
 
     window_ctr.loop()
-
-
-if __name__ == '__main__':
-    main()

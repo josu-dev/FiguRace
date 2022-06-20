@@ -5,9 +5,9 @@
 
 [X] Sistema de ayudas (hecho en primer entrega)
 
-[ ] Rehacer el procesamiento de los datsets con Pandas y generar el Jupyter Notebook correspondiente
+[X] Rehacer el procesamiento de los datsets con Pandas y generar el Jupyter Notebook correspondiente
 
-[ ] Pantalla de puntajes, con dos columnas:
+[X] Pantalla de puntajes, con dos columnas:
 
 - Primera columna mejores 20 puntajes para cada dificultad
 
@@ -15,7 +15,7 @@
 
 > Si se abandona la partida no se guardan los puntos
 
-[ ] Registro de jugadas y partidas
+[X] Registro de jugadas y partidas
 
 [ ] Análisis de datos y estadísticas
 
