@@ -21,7 +21,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     Se necesita tener python version mayor o igual a 3.10
 
-    > En caso de que no, una de estas guias puede ser de ayuda:
+    > En caso de que no, una de estas guías puede ser de ayuda:
     > - [Windows](https://docs.python.org/es/3.10/using/windows.html)
     > - [Linux](https://docs.python.org/es/3.10/using/unix.html)
     > - [Mac](https://docs.python.org/es/3.10/using/mac.html)
@@ -32,9 +32,9 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     - Clonar el repositorio por medio de SSH o HTTPS
 
-    - Descargar el .zip (luego realizar la descompresion)
+    - Descargar el .zip (luego de descomprimir)
 
-1. #### Instalacion de dependencias
+1. #### Instalación de dependencias
 
     Las dependencias son:
 
@@ -44,9 +44,9 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     - Analysis: Pandas, MatPlotLib
 
-    Para su instalacion:
+    Para su instalación:
 
-    1. Primero abrir una terminal/consola en la ubicacion donde descargo el contenido del repositorio
+    1. Primero abrir una terminal/consola en la ubicación donde descargo el contenido del repositorio
 
     2. Luego ejecutar el siguiente comando
         ```bash
@@ -55,9 +55,9 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
 1. #### Ejecución
 
-    Ejecucion de los diferentes apartados:
+    Ejecución de los diferentes apartados:
 
-    > Se asume que se encuentra en una terminal/consola en la ubicacion donde descargo el contenido del repositorio y realizo los pasos previos de la guia
+    > Se asume que se encuentra en una terminal/consola en la ubicación donde descargo el contenido del repositorio y realizo los pasos previos de la guía
 
     - **Juego**
 
@@ -67,17 +67,17 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     - **Procesamiento Datasets**
 
-        Esta seccion se encuentra en la carpeta dataset_section
+        Esta sección se encuentra en la carpeta dataset_section
 
         El procesamiento de los datasets se encuentra como un script de python o un cuaderno interactivo de [JupyterNotebook](https://jupyter.org/) en la carpeta second_assignment
 
         Los datasets a procesar en la carpeta base_datasets
 
-    - **Analizis de eventos**
+    - **Análisis de eventos**
 
-        Esta seccion se encuentra en la carpeta analysis_section
+        Esta sección se encuentra en la carpeta analysis_section
 
-        El analisis de los eventos generados al jugar partidas se encuentra como un script de python o un cuaderno interactivo de [JupyterNotebook](https://jupyter.org/)
+        El análisis de los eventos generados al jugar partidas se encuentra como un script de python o un cuaderno interactivo de [JupyterNotebook](https://jupyter.org/)
 
 
 <br>
@@ -91,7 +91,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
     --- | --- | --- 
     <img src = "https://user-images.githubusercontent.com/55964635/170844079-de18c35d-138a-4c24-af09-c74086ffcab8.jpg" width = "150" height = "150" alt = "ejemplo" align = "center" /> | <img src = "https://user-images.githubusercontent.com/55964635/170844002-7aa0ba0d-7b8b-4c2c-adfa-2adec352e59c.jpg" width = "150" height = "150" alt = "ejemplo" align = "center" /> | <img src = "https://user-images.githubusercontent.com/55964635/170844054-57c7460d-62d0-4cc1-988e-32232ef88e15.jpg" width = "150" height = "150" alt = "ejemplo" align = "center" />
 
-- Imagenes:
+- Imágenes:
 
     - [README](https://pixabay.com/es/)
 
@@ -106,8 +106,8 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
 ## Comentarios adicionales
 
-La carpeta .vscode contiene configuraciones particulares de este proyecyo para el editor VisualStudioCode
+La carpeta .vscode contiene configuraciones particulares de este proyecto para el editor VisualStudioCode
 
-La carpeta typings los tipados necesarios de la libreria PySimpleGUI para que el LanguageServer pueda funcionar adecuadamente al hacer el static type checking
+La carpeta typings, los tipados necesarios de la librería PySimpleGUI para que el LanguageServer pueda funcionar adecuadamente al hacer el static type checking
 
-La carpeta documents contiene enunciados y otros archivos relaciones a que se tenia que realizar con el proyecto
+La carpeta documents contiene enunciados y otros archivos relaciones a que se tenía que realizar con el proyecto
