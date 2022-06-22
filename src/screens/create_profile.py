@@ -35,6 +35,7 @@ def create_input(key: str) -> sg.Input:
 
 
 def validate_nick(input: sg.Input) -> bool:
+    '''Make sure the input nick field is completed correctly'''
     nick = input.get()
     if nick == '' or nick in users_ctr.users_transform(lambda user: user.nick):
         input.update(background_color=theme.BG_ERROR_NORMAL)
@@ -44,6 +45,7 @@ def validate_nick(input: sg.Input) -> bool:
 
 
 def validate_age(input: sg.Input) -> bool:
+    '''Make sure the input age field is completed correctly'''
     age = input.get()
     try:
         age = int(age)
@@ -57,6 +59,7 @@ def validate_age(input: sg.Input) -> bool:
 
 
 def validate_gender(input: sg.Input) -> bool:
+    '''Make sure the input field is completed correctly'''
     gender = input.get()
     if gender == '':
         input.update(background_color=theme.BG_ERROR_NORMAL)

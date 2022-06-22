@@ -142,6 +142,7 @@ def layout() -> list[list[Any]]:
 
 
 def pop_up_layout():
+    '''Pop up that was displayed if the datasets are deleted or his charge failed'''
     return [
         [sg.Text('No hay datasets cargados \nIntente descargarlos y ubicarlos en src/database/datasets ',
                  font=(theme.FONT_FAMILY, theme.T1_SIZE),
@@ -182,16 +183,14 @@ def refresh_info() -> None:
 
 
 def change_difficult() -> None:
-    """Change the difficulty to the one selected in the difficulty combo box.
-    """
+    """Change the difficulty to the one selected in the difficulty combo box."""
     difficulty_ctr.set_difficulty(
         translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
     refresh_info()
 
 
 def change_dataset() -> None:
-    """Change the dataset to the one selected in the dataset combo box.
-    """
+    """Change the dataset to the one selected in the dataset combo box."""
     dataset = _cmb_dataset.get()
     if dataset == 'Random':
         shuffled = cards_ctr.types_list
