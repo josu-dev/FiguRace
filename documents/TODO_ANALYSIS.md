@@ -4,7 +4,7 @@
 
 - [ ] Top 10 de palabras que se encuentran primero de todas las partidas. - PREGUNTAR
 
-- [ ] Gráfico que muestre el porcentaje de partidas por estado (fin, cancelada, error,timeout). También debe tener en cuenta las partidas que se terminaron inesperadamente o de forma repentina (partidas sin evento de fin). - PREGUNTAR
+- [ ] Gráfico que muestre el porcentaje de partidas por estado (finalizada, cancelada, error, timeout). También debe tener en cuenta las partidas que se terminaron inesperadamente o de forma repentina (partidas sin evento de fin). - PREGUNTAR
 
 - [x] Gráfico que muestre el porcentaje de partidas finalizadas según género.
 
@@ -18,11 +18,11 @@
 
 - [x] Promedio de tiempo de partida general.
 
-- [ ] Porcentaje de aciertos por usuarie.
+- [x] Porcentaje de aciertos por usuarie.
 
-- [ ] Cantidad de tarjetas para las que el usuarie no dió respuesta (timeout).
+- [x] Cantidad de tarjetas para las que el usuarie no dió respuesta (timeout).
 
-- [ ] Cantidad de tarjetas en las que el usuarie dió una respuesta errónea.
+- [x] Cantidad de tarjetas en las que el usuarie dió una respuesta errónea.
 
 ### Opcional
 
