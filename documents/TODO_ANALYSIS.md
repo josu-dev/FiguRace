@@ -12,9 +12,9 @@
 
 - [ ] Duración total de la partida (desde que el usuarie empieza a jugar hasta que presiona salir o pasan las N rondas definidas para el nivel de dificultad actual).
 
-- [ ] Tiempo de la respuesta exitosa más rápida.
+- [x] Tiempo de la respuesta exitosa más rápida.
 
-- [ ] Promedio de tiempo de respuesta para respuestas exitosas.
+- [x] Promedio de tiempo de respuesta para respuestas exitosas.
 
 - [x] Promedio de tiempo de partida general.
 
