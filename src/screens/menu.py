@@ -23,7 +23,7 @@ def menu_options() -> sg.Column:
         [_csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],
         [sg.Button(
             'Iniciar Partida',
-            key=f'{const.GOTO_SCREEN} -CONFIGURE-GAME-',
+            key=f'{const.GOTO_VIEW} -CONFIGURE-GAME-',
             size=(16, 1),
             font=TEXT_BUTTON_FONT,
             auto_size_button=True,
@@ -39,7 +39,7 @@ def menu_options() -> sg.Column:
                 ic_profile,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_SCREEN} -SELECT-PROFILE-'
+                key=f'{const.GOTO_VIEW} -SELECT-PROFILE-'
             ),
             _csg.horizontal_spacer(
                 theme.scale(16), background_color=theme.BG_BASE
@@ -48,7 +48,7 @@ def menu_options() -> sg.Column:
                 ic_setting,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_SCREEN} -CONFIGURATION-'
+                key=f'{const.GOTO_VIEW} -CONFIGURATION-'
             ),
             _csg.horizontal_spacer(
                 theme.scale(16), background_color=theme.BG_BASE
@@ -57,7 +57,7 @@ def menu_options() -> sg.Column:
                 ic_score,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_SCREEN} -RANKING-'
+                key=f'{const.GOTO_VIEW} -RANKING-'
             )
         ],
         [_csg.vertical_spacer(theme.scale(24), background_color=theme.BG_BASE)],

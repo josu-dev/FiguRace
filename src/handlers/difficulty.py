@@ -11,6 +11,7 @@ from . import observer, file # El observer
 
 
 DEFAULT_TYPE = 'normal'
+UPDATE_DIFFICULTY_TYPE = '-UPDATE-DIFFICULTY-TYPE-'
 
 #Este módulo proporciona un decorador y funciones para agregar automáticamente métodos especiales generados como __init__() a clases definidas por el usuario.
 # El decorador devuelve la misma clase, no crea ninguna nueva
@@ -81,13 +82,13 @@ class DifficultyController:
         #    self._difficulties['custom'].time_per_round = time_per_round
         if rounds_per_game:
             self._difficulties['custom'].rounds_per_game = rounds_per_game
-        if points_correct_answer is not None:
+        if points_correct_answer:
             self._difficulties['custom'].points_correct_answer = points_correct_answer
-        if points_bad_answer is not None:
+        if points_bad_answer:
             if points_bad_answer > 0:
                 points_bad_answer *= -1
             self._difficulties['custom'].points_bad_answer = points_bad_answer
-        if characteristics_shown is not None:
+        if characteristics_shown:
             self._difficulties['custom'].characteristics_shown = characteristics_shown
         self.set_difficulty('custom')
 
@@ -96,7 +97,7 @@ class DifficultyController:
         self._difficulty.swap(self._difficulties[type])
         # Publico un envento y cambio la dificultad
         # notifica a posibles suscriptores y la data asociada
-        observer.post_event(constants.UPDATE_DIFFICULTY_TYPE, type) # type informacion asociada al evento
+        observer.post_event(UPDATE_DIFFICULTY_TYPE, type) # type informacion asociada al evento
         
     # Retorno un diccionario con el nombre de la dificultad
     # y un objeto que contiene los datos asociados a la dificultad

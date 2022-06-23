@@ -89,7 +89,6 @@ class RunController:
             'total_rounds': 0,
             'rounds_completed': 0,
             'rounds_skiped': 0,
-            'rounds_timeout': 0,
             'rounds_winned': 0,
             'rounds_loosed': 0,
             'total_tryes': 0
@@ -168,10 +167,7 @@ class RunController:
         self._is_run_end()
 
     def end_round(self, timeout: bool = False) -> None:
-        if timeout:
-            self._stats['rounds_timeout'] += 1
-        else:
-            self._stats['rounds_skiped'] += 1
+        self._stats['rounds_skiped'] += 1
         if timeout:
             self._post_event(
                 EventNames.TRY,

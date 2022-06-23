@@ -5,30 +5,26 @@ class TranslationDict:
     '''Acts like a dict object but instead of raising a KeyError if key not present, returns the key as value.'''
 
     def __init__(self, translation_dict: dict[str, str]) -> None:
-        '''Initializes the inner translation dictionary.
-
-        Args:
-            translation_dict: a dict in which key is the world/frase to be translated and value is the translation.'''
         self._dict = translation_dict
 
     def __getitem__(self, key: str) -> str:
-        '''Method called when using [].'''
+        '''Method that its called when using [].'''
         if key not in self._dict:
             return key
         return self._dict[key]
 
     def __call__(self, key: str) -> str:
-        '''Method called when using ().'''
+        '''Method that its called when using ().'''
         if key not in self._dict:
             return key
         return self._dict[key]
 
     def __contains__(self, key: str) -> bool:
-        '''Method called at operation 'in'.'''
+        '''Method that its called on operation 'in'.'''
         return key in self._dict
 
     def __str__(self) -> str:
-        '''Method called to get the string representation.'''
+        '''Method that its called to get the string representation.'''
         return 'Translations = ' + ', '.join([f'{key} : {value}' for key, value in self._dict.items()])
 
 

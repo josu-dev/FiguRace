@@ -1,4 +1,4 @@
-'''Base template for an application screen.'''
+'''Base template of all screens in the application.'''
 import PySimpleGUI as sg
 
 from .. import constants
@@ -42,20 +42,20 @@ content_layout = [
 
 
 def function_to_execute_on_event() -> None:
-    # This function calls updates on controllers, elements of ui, or do other things
+    # This function calls updates on database, updates elements of ui, or do other stuff
     pass
 
 
 observer.subscribe('-EVENT-TYPE-EVENT-EMITTER-', function_to_execute_on_event)
 
-# If an element(usually a button) needs to emit and event, the way it works is that the button key has the event name first and optional data
-# For example '-MY-EVENT-NAME- some_data_here'
+# If an element(normaly a button) needs to emit and event, the way it works is that the button key has the event name first and optional data
+# For example -MY-EVENT-NAME- some_data_here
 
 
 # REQUIRED - the layout that gives the estructure and content of the screen
 screen_layout = [
     [_common.screen_title('base screen', True)],
-    [_csg.centered(content_layout, background_color=theme.BG_BASE)],
+    [sg.Column(content_layout)],
 ]
 
 # REQUIRED - the congifuration that change the estructure and style of the screen

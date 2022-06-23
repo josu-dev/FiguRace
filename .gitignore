@@ -8,4 +8,3 @@ processed_datasets/
 !*/database/datasets/
 *.test.ipynb
 *.test.csv
-.ipynb_checkpoints/

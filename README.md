@@ -38,11 +38,11 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     Las dependencias son:
 
-    - Juego: [PySimpleGUI](https://pysimplegui.readthedocs.io/en/latest/)
+    - Juego: PySimpleGui
 
-    - Datasets: [pandas](https://pandas.pydata.org/)
+    - Datasets: Pandas
 
-    - Analysis: [pandas](https://pandas.pydata.org/), [matplotlib](https://matplotlib.org/)
+    - Analysis: Pandas, MatPlotLib
 
     Para su instalación:
 
@@ -100,34 +100,6 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
     - Otras, creación propia
 
 
-<br>
-
-
-## Modo desarollador
-
-Se puede iniciar el juego en modo dev (desarrollador), este modo fue pensado para desarrollar la aplicacion de una manera mas facil. Este modo se activa al ejecutar la aplicacion con el argumento extra `--dev`
-
-```bash
-py figurace.py --dev
-```
-
-Por defecto el modo dev inicia la aplicacion en la pantalla de seleccion de perfiles y a su vez pone un tiempo de inactividad maximo de 5 segundos para el cierre automatico de la aplicacion (si se juega una partida se desactiva el cierre automatico).
-
-Los argumentos adicionales para este modo siguen el siguiente formato:
-
---(nombre argumento)=(valor para el argumento)
-
-Los argumentos posibles son:
-
-| Nombre | Valor/es | Descripcion | Ejemplo |
-| :-: | :-: | :-: | :-: |
-| help | | Informa en consola sobre los argumentos posibles en el modo dev | <nobr>`--help`</nobr> |
-| to | duracion (segundos) | El tiempo de inactividad para el cierre de la aplicacion | <nobr>`--to=10`</nobr> |
-| is | pantalla inicial (SCREEN_NAME) | La pantalla en la cual iniciar la aplicacion | <nobr>`--is=-MENU-`</nobr> |
-| el | booleano (true o false) | Habilita el logeo en consola informacion sobre los eventos | <nobr>`--el=true`</nobr> |
-
-
-<br>
 <br>
 <br>
 
