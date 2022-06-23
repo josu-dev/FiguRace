@@ -10,7 +10,7 @@
 
 - [x] Gráfico que muestre el porcentaje de partidas finalizadas según nivel.
 
-- [ ] Duración total de la partida (desde que el usuarie empieza a jugar hasta que presiona salir o pasan las N rondas definidas para el nivel de dificultad actual).
+- [x] Duración total de la partida (desde que el usuarie empieza a jugar hasta que presiona salir o pasan las N rondas definidas para el nivel de dificultad actual).
 
 - [x] Tiempo de la respuesta exitosa más rápida.
 
