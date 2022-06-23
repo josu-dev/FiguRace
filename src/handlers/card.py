@@ -129,5 +129,5 @@ class CardController:
     def new_card(self) -> Card: # Retorna la pregunta correcta y todas las incorrectas
         correct, *bads = self._dataset.random_sample(5, unique=1)
         return Card(
-            correct[:-1], correct[-1], [bad[-1] for bad in bads] #pregunta
+            correct[:-1], correct[-1], [bad[-1] for bad in bads] # pregunta
         )

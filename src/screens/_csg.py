@@ -1,6 +1,6 @@
 '''Wrappers of sg elements.
 
-Collection of wrapper classes/functions around sg elements to add facility at layout creation.'''
+Collection of wrapper classes/functions around sg elements to add facility at GUI development.'''
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -11,7 +11,7 @@ from .. import constants
 
 Element = Any
 LayoutRow = list[Element]
-FullLayout = list[LayoutRow]
+CompleteLayout = list[LayoutRow]
 
 
 class ChainedElement(ABC):
@@ -21,7 +21,7 @@ class ChainedElement(ABC):
         ...
 
     @abstractmethod
-    def add(self, content: Element | LayoutRow | FullLayout) -> Any:
+    def add(self, content: Element | LayoutRow | CompleteLayout) -> Any:
         ...
 
     @abstractmethod
@@ -40,11 +40,11 @@ class HorizontalList(ChainedElement):
         self._container: list[Element] = []
         self._config = column_parameters
 
-    def add(self, content: Element | LayoutRow | FullLayout) -> 'HorizontalList':
+    def add(self, content: Element | LayoutRow | CompleteLayout) -> 'HorizontalList':
         '''Add to the list matching if is a element of a layout.
 
         Args: 
-            content: receives the content to add to the list.
+            content: the content to add to the list.
         Returns: 
             the current information of the class after add the element pass by argument.'''
         match content:
@@ -70,14 +70,14 @@ class VerticalList(ChainedElement):
 
         Args:
             column_parameters: kargs that a normal sg.Column would accept.'''
-        self._container: FullLayout = []
+        self._container: CompleteLayout = []
         self._config = column_parameters
 
-    def add(self, content: Element | LayoutRow | FullLayout) -> 'VerticalList':
+    def add(self, content: Element | LayoutRow | CompleteLayout) -> 'VerticalList':
         '''Add to the list matching if is a element of a layout.
 
         Args: 
-            content: receives the content to add to the list.
+            content: content to add to the list.
         Returns: 
             the current information of the class after add the element pass by argument.'''
         match content:
@@ -95,62 +95,37 @@ class VerticalList(ChainedElement):
         return sg.Column(self._container, **self._config)
 
 
-def CenteredElement(element: Element, horizontal_only: bool = False, **column_parameters: Any) -> sg.Column:
-    '''Create a column with a element at the center.
+def centered(content: Element | LayoutRow | CompleteLayout, horizontal_only: bool = False, **column_parameters: Any) -> sg.Column:
+    '''Centers a content into a column.
 
     Args:
-        element: element to add to the column.
-        horizontal_only: default : false.
-        column_parameters: all the column parameter that will be applied as a configuration.
-    Returns:
-        A center column with all the configuration passed by args with the theme applied.'''
-    column_parameters['element_justification'] = 'center'
-    column_parameters['expand_y'] = not horizontal_only
-    column_parameters['expand_x'] = True
-    column_parameters['pad'] = 0
-    background_color = column_parameters.get('background_color', None)
-    if horizontal_only:
-        return sg.Column(
-            [
-                [element]
-            ],
-            **column_parameters
-        )
-    return sg.Column(
-        [
-            [sg.VPush(background_color)],
-            [element],
-            [sg.VPush(background_color)]
-        ],
-        **column_parameters
-    )
-
-
-def CenteredLayout(layout: FullLayout, horizontal_only: bool = False, **column_parameters: Any) -> sg.Column:
-    '''Create a column with a layout at the center.
-
-    Args:
-        layout: receive list of element to be put on the screen.
+        content: content to be centered.
         horizontal_only: default : false.
         column_parameters: all the column parameter that will be applied as a configuration.
     Returns: 
-        A center layout with all the configuration passed by args with the theme applied.'''
+        A column with the content centered and column parameters applied.'''
     column_parameters['element_justification'] = 'center'
     column_parameters['expand_y'] = not horizontal_only
     column_parameters['expand_x'] = True
     column_parameters['pad'] = 0
     background_color = column_parameters.get('background_color', None)
-    if horizontal_only:
-        return sg.Column(
-            layout,
-            **column_parameters
-        )
+
+    match content:
+        case [[sg.Element(), *_], *_]:
+            layout = content
+        case [sg.Element(), *_]:
+            layout = [content]
+        case sg.Element():
+            layout = [[content]]
+        case _:
+            raise ValueError(
+                f'content must be a Element | LayoutRow | CompleteLayout, content={content} not correct'
+            )
+    layout = layout if horizontal_only else [
+        [sg.VPush(background_color)], *layout, [sg.VPush(background_color)]
+    ]
     return sg.Column(
-        [
-            [sg.VPush(background_color)],
-            *layout,
-            [sg.VPush(background_color)]
-        ],
+        layout,
         **column_parameters
     )
 
@@ -163,7 +138,7 @@ def vertical_spacer(height: int, background_color: str | None = None) -> sg.Colu
     return sg.Column([[]], size=(0, height), background_color=background_color)
 
 
-def custom_popup(layout: FullLayout, close_keys: list[str], background_color: str | None = None, duration: int | None = None) -> str:
+def custom_popup(layout: CompleteLayout, close_keys: list[str], background_color: str | None = None, duration: int | None = None) -> str:
     '''Generates a custom pop up window.
 
     Args:
@@ -186,10 +161,9 @@ def custom_popup(layout: FullLayout, close_keys: list[str], background_color: st
             if event is None or event == '-TIME-OUT-':
                 event = constants.EXIT_APPLICATION
                 break
+            event = event.rstrip('0123456789')
             if event in close_keys:
                 break
-    except:
-        event = constants.EXIT_APPLICATION
     finally:
         window.close()
-        return event
+    return event
