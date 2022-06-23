@@ -16,7 +16,7 @@ LOAD_USER_FIELD = '-LOAD-FIELD-'
 
 
 _play_button = sg.Button('-<-Jugar->-',
-                         key=f'{const.GOTO_VIEW} -MENU-',
+                         key=f'{const.GOTO_SCREEN} -MENU-',
                          border_width=theme.BD_ACCENT,
                          button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
                          mouseover_colors=theme.BG_BUTTON_HOVER,

@@ -106,7 +106,7 @@ def disable_screen() -> None:
     '''Finalize the animation events and change the view to profile selection screen.'''
     observer.unsubscribe(constants.TIMEOUT, disable_screen)
     observer.post_event(constants.UPDATE_TIMEOUT, None)
-    observer.post_event(constants.GOTO_VIEW, '-SELECT-PROFILE-')
+    observer.post_event(constants.GOTO_SCREEN, '-SELECT-PROFILE-')
 
 
 screen_layout = [

@@ -359,7 +359,7 @@ def finish_game() -> None:
     observer.unsubscribe(constants.TIMEOUT, update_time)
     observer.post_event(constants.UPDATE_TIMEOUT, None)
     observer.post_event(constants.RUN_RESULT, stats)
-    observer.post_event(constants.GOTO_VIEW, '-RESULT-')
+    observer.post_event(constants.GOTO_SCREEN, '-RESULT-')
 
 
 run_ctr.registry_event('end_run', finish_game)
