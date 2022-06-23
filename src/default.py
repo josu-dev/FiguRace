@@ -1,11 +1,11 @@
 '''Contains dictionaries with default configurations.'''
 SETTINGS = {
-    "default": {
-        "title": "Figurace",
-        "full_screen": True,
-        "starting_page": "-INTRODUCTION-",
-        "theme": "Blue-Like",
-        "default_user": ""
+    'default': {
+        'title': 'Figurace',
+        'full_screen': True,
+        'starting_page': '-INTRODUCTION-',
+        'theme': 'Blue-Like',
+        'default_user': ''
     },
 }
 DIFFICULTIES = {
@@ -45,43 +45,44 @@ DIFFICULTIES = {
         'characteristics_shown': 3
     },
 }
+DIFFICULTY_TYPE = 'normal'
 THEMES = {
-    "Blue-Like": {
-        "BG_BASE": "#112B3C",
-        "BG_PRIMARY": "#1A5276",
-        "BG_SECONDARY": "#39769C",
+    'Blue-Like': {
+        'BG_BASE': '#112B3C',
+        'BG_PRIMARY': '#1A5276',
+        'BG_SECONDARY': '#39769C',
 
-        "F_C_ACCENT": "#F0F0F0",
-        "F_C_PRIMARY": "#CCDAE3",
-        "F_C_SECONDARY": "#B6C4CC",
+        'F_C_ACCENT': '#F0F0F0',
+        'F_C_PRIMARY': '#CCDAE3',
+        'F_C_SECONDARY': '#B6C4CC',
 
-        "F_F_UI": "System",
-        "F_F_CONTENT": "Consolas",
+        'F_F_UI': 'System',
+        'F_F_CONTENT': 'Consolas',
 
-        "F_SIZE_H1": 86,
-        "F_SIZE_H2": 48,
-        "F_SIZE_H3": 32,
-        "F_SIZE_H4": 26,
-        "F_SIZE_T1": 24,
-        "F_SIZE_T2": 16,
-        "F_SIZE_T3": 8,
+        'F_SIZE_H1': 86,
+        'F_SIZE_H2': 48,
+        'F_SIZE_H3': 32,
+        'F_SIZE_H4': 26,
+        'F_SIZE_T1': 24,
+        'F_SIZE_T2': 16,
+        'F_SIZE_T3': 8,
 
-        "BD_ACCENT": 16,
-        "BD_PRIMARY": 11,
-        "BD_SECONDARY": 5,
-        "BD_DELIMITER": 1,
+        'BD_ACCENT': 16,
+        'BD_PRIMARY': 11,
+        'BD_SECONDARY': 5,
+        'BD_DELIMITER': 1,
 
-        "BG_BUTTON": "#6FC5FF",
-        "BG_BUTTON_DISABLED": "#ADCFE6",
-        "BG_BUTTON_HOVER": "#5A9ECC",
-        "F_C_BUTTON": "#243F50",
-        "F_C_BUTTON_DISABLED": "#4F616C",
-        "F_C_BUTTON_HOVER": "#37576B",
+        'BG_BUTTON': '#6FC5FF',
+        'BG_BUTTON_DISABLED': '#ADCFE6',
+        'BG_BUTTON_HOVER': '#5A9ECC',
+        'F_C_BUTTON': '#243F50',
+        'F_C_BUTTON_DISABLED': '#4F616C',
+        'F_C_BUTTON_HOVER': '#37576B',
 
-        "BG_POPUP": "#178EBC",
+        'BG_POPUP': '#178EBC',
 
-        "ERROR_BG_ACCENT": "#EF190C",
-        "ERROR_BG_NORMAL": "#E42A1F",
-        "ERROR_BG_SOFT": "#CD4840"
+        'ERROR_BG_ACCENT': '#EF190C',
+        'ERROR_BG_NORMAL': '#E42A1F',
+        'ERROR_BG_SOFT': '#CD4840'
     }
 }
