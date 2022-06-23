@@ -16,6 +16,12 @@ from . import _csg
 # The normal behaviour no takes in count the subsample passed trought initialization at sg.Image instance
 # By this reason the element loose the property an displays the frames incorrectly
 def update_animation(self: Any, source: str | bytes, time_between_frames: int = 0) -> None:
+    '''Show an Animated GIF. Call the function as often as you like. The function will determine when to show the next frame and will automatically advance to the next frame at the right time.
+        NOTE - does NOT perform a sleep call to delay
+        :param source:              Filename or Base64 encoded string containing Animated GIF
+        :type source:               str | bytes | None
+        :param time_between_frames: Number of milliseconds to wait between showing frames
+        :type time_between_frames:  (int)'''
     if self.Source != source:
         self.AnimatedFrames = None
         self.Source = source
