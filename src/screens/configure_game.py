@@ -10,7 +10,7 @@ from . import _common, _csg
 
 
 SCREEN_NAME = '-CONFIGURE-GAME-'
-
+NO_DATASETS = 'No hay Datasets'
 
 _text_font = ('System', theme.H3_SIZE)
 _padding = theme.width // 4
@@ -35,7 +35,7 @@ def load_datasets() -> list[str]:
     if len(datasets) > 1:
         datasets.append('Random')
     elif len(datasets) <= 0:
-        datasets.append('No hay Datasets')
+        datasets.append(NO_DATASETS)
     return datasets
 
 
@@ -165,10 +165,12 @@ def pop_up_layout():
 def refresh_info() -> None:
     """Refresh the information displayed on screen of the current difficulty.
     """
-    _cmb_difficulty.update(value=translations.DIFFICULTY_TO_ES[
-        difficulty_ctr.difficulty_name])
+    _cmb_difficulty.update(
+        value=translations.DIFFICULTY_TO_ES[difficulty_ctr.difficulty_name]
+    )
     difficulty_ctr.set_difficulty(
-        translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()])
+        translations.DIFFICULTY_TO_EN[_cmb_difficulty.get()]
+    )
     _difficulty_info.update(f"Tiempo por ronda : {difficulty_ctr.difficulty.time_per_round}\
             Q de Características : {difficulty_ctr.difficulty.characteristics_shown}\
             Rounds por juego : {difficulty_ctr.difficulty.rounds_per_game}\
@@ -192,6 +194,8 @@ def change_difficult() -> None:
 def change_dataset() -> None:
     """Change the dataset to the one selected in the dataset combo box."""
     dataset = _cmb_dataset.get()
+    if dataset == NO_DATASETS:
+        return
     if dataset == 'Random':
         shuffled = cards_ctr.types_list
         shuffle(shuffled)
@@ -220,6 +224,7 @@ screen_config = {
 def screen_reset() -> None:
     """Updates the information when entered to the screen"""
     refresh_info()
+    change_dataset()
 
 
 observer.subscribe(
