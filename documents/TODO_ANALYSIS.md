@@ -4,7 +4,7 @@
 
 - [ ] Top 10 de palabras que se encuentran primero de todas las partidas. - PREGUNTAR
 
-- [ ] Gráfico que muestre el porcentaje de partidas por estado (finalizada, cancelada, error, timeout). También debe tener en cuenta las partidas que se terminaron inesperadamente o de forma repentina (partidas sin evento de fin). - PREGUNTAR
+- [x] Gráfico que muestre el porcentaje de partidas por estado (finalizada, cancelada, error, timeout). También debe tener en cuenta las partidas que se terminaron inesperadamente o de forma repentina (partidas sin evento de fin). - PREGUNTAR
 
 - [x] Gráfico que muestre el porcentaje de partidas finalizadas según género.
 
