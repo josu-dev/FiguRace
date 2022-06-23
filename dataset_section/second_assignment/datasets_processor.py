@@ -113,7 +113,7 @@ def process_dataset(file_name):
     try:
         with open(file_path, mode='r', encoding="UTF-8") as file:
             df = pd. read_csv(file, sep=None, engine="python",
-                              usecols=(config['order']), dtype=str,on_bad_lines='skip') 
+                              usecols=(config['order']), dtype=str,error_bad_lines=False)
     except FileNotFoundError:
         print('No existe la ruta', PATH_SOURCE)
         return
@@ -127,11 +127,17 @@ def process_dataset(file_name):
 
     df.to_csv(processed_path, mode='w', index=False)
 
+
 try:
     names_files = os.listdir(PATH_SOURCE)
-    for file_name in names_files:
-        process_dataset(file_name)
-except FileNotFoundError:
-    print('No existe la ruta', PATH_SOURCE)
-except NotADirectoryError:
-    print('La ruta no es un directorio ', PATH_SOURCE)
+except (FileNotFoundError, NotADirectoryError) as error:
+    match error:
+        case FileNotFoundError():
+            print('No existe la ruta', PATH_SOURCE)
+        case NotADirectoryError():
+            print('La ruta no es un directorio ', PATH_SOURCE)
+    names_files = []
+
+
+for file_name in names_files:
+    process_dataset(file_name)

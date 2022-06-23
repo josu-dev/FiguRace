@@ -1,15 +1,10 @@
 from typing import Any, Callable
 
-# clave, el tipo de evento
+
 _subscribers: dict[str, list[Callable[..., None]]] = dict()
 
 
 def _subscribe(event_type: str, response_fn: Callable[..., None]) -> None:
-    '''Agrega una función para ser ejecutada en cierto evento.
-
-    Args:
-        event_type: el tipo en el que se registrará la función.
-        response_fn: función a ejecutar en la emisión del evento.'''
     if event_type not in _subscribers:
         _subscribers[event_type] = []
 
@@ -17,26 +12,16 @@ def _subscribe(event_type: str, response_fn: Callable[..., None]) -> None:
 
 
 def _unsubscribe(event_type: str, response_fn: Callable[..., None]) -> None:
-    '''Removes a function subscribed at certain event.
-
-    Args:
-        event_type: the type in which the function is registered.
-        response_fn: function to be removed on the specified event.'''
-    if event_type not in _subscribers:  # suscriptores
+    if event_type not in _subscribers:
         return
 
     _subscribers[event_type].remove(response_fn)
 
 
-def _post_event(event_type, data=None) -> None:
-    '''Emits a event.
-
-    Args:
-        event_type: the type of event to be emitted.
-        data: optional value to be sended at every registered function.'''
+def _post_event(event_type: str, data: Any = None) -> None:
     if event_type not in _subscribers:
         return
-    # las funciones asociadas al tipo de evento
+
     for response_fn in _subscribers[event_type]:
         if data is None:
             response_fn()
@@ -45,10 +30,6 @@ def _post_event(event_type, data=None) -> None:
 
 
 def _remove_event(event_type: str) -> None:
-    '''Removes a event type.
-
-    Args:
-        event_type: the type of event to be removed.'''
     if event_type not in _subscribers:
         return
 
@@ -102,10 +83,6 @@ def _remove_event_logger(event_type: str) -> None:
 
 
 def enable_logging(state: bool) -> None:
-    '''Enable/disable the logging of event related information.
-
-    Args:
-        state: True for logging events otherwise False.'''
     global subscribe, unsubscribe, post_event, remove_event
     if state:
         print('Event Logger: enabled')
