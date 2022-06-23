@@ -110,7 +110,7 @@ def disable_screen() -> None:
 
 
 screen_layout = [
-    [_csg.CenteredElement(image, background_color=BACKGROUND_COLOR)],
+    [_csg.centered(image, background_color=BACKGROUND_COLOR)],
 ]
 
 screen_config = {

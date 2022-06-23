@@ -139,10 +139,7 @@ def create_formulary() -> sg.Column:
         ]
     ]
 
-    return _csg.CenteredLayout(
-        layout,
-        background_color=theme.BG_BASE
-    )
+    return _csg.centered(layout, background_color=theme.BG_BASE)
 
 
 def reset_formulary() -> None:
