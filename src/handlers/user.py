@@ -4,9 +4,6 @@ from .. import constants, default
 from . import observer, difficulty, file
 
 
-DEFAULT_DIFFICULTY = difficulty.DEFAULT_TYPE
-
-
 class UserJSON(TypedDict):
     nick: str
     age: int
@@ -31,9 +28,7 @@ class User:
         self._nick = definition['nick']
         self._age = definition['age']
         self._gender = definition['gender']
-        self._preferred_difficulty = definition.get(
-            'preferred_difficulty', DEFAULT_DIFFICULTY
-        )
+        self._preferred_difficulty = definition['preferred_difficulty']
         self._custom_difficulty = difficulty.Difficulty(
             **definition.get('custom_difficulty', default.DIFFICULTIES['custom'])
         )
@@ -103,7 +98,7 @@ def new_user(nick: str, age: int, gender: str) -> User:
         'nick': nick,
         'age': age,
         'gender': gender,
-        'preferred_difficulty': DEFAULT_DIFFICULTY,
+        'preferred_difficulty': default.DIFFICULTY_TYPE,
         'custom_difficulty': default.DIFFICULTIES['custom'],
         'scores': default_scores()
     })

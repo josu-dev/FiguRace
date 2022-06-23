@@ -46,7 +46,7 @@ class SettingsController:
         self._setting.default_user = user.nick
 
     def save(self) -> None:
-        '''Saves the settings state into a json file.'''
+        '''Saves the settings state into its json file path.'''
         if self._reset_starting_page:
             self._setting.starting_page = self._settings['default'].starting_page
         file.save_json(

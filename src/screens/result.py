@@ -56,14 +56,14 @@ def create_summary() -> sg.Column:
         [create_stat_field('Cantidad rondas:', 'total_rounds')],
         [create_stat_field('Rondas ganadas:', 'rounds_winned')],
         [create_stat_field('Rondas salteadas:', 'rounds_skiped')],
-        [create_stat_field('Tiempo total:', 'total_time')],
+        [create_stat_field('Tiempo total (seg):', 'total_time')],
     ]
     right_layout = [
         [create_stat_field('Total intentos:', 'total_tryes')],
         [create_stat_field('Rondas completadas:', 'rounds_completed')],
         [create_stat_field('Rondas perdidas:', 'rounds_loosed')],
         [create_stat_field('Rondas sin tiempo:', 'rounds_timeout')],
-        [create_stat_field('Tiempo promedio:', 'average_time')],
+        [create_stat_field('Tiempo promedio (seg):', 'average_time')],
     ]
     return sg.Column(
         [[

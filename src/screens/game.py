@@ -346,7 +346,7 @@ observer.subscribe(SKIP_CARD, force_end_round)
 
 
 def finish_game() -> None:
-    '''Calculates the stats of the game played'''
+    '''Calculates the stats of the game played and changes the view to result screen.'''
     total_score = sum(run_ctr.score)
     if not run_section.forced_end:
         users_ctr.current_user.update_score(
@@ -359,7 +359,7 @@ def finish_game() -> None:
     observer.unsubscribe(constants.TIMEOUT, update_time)
     observer.post_event(constants.UPDATE_TIMEOUT, None)
     observer.post_event(constants.RUN_RESULT, stats)
-    observer.post_event(constants.GOTO_VIEW, '-RESULT-')
+    observer.post_event(constants.GOTO_SCREEN, '-RESULT-')
 
 
 run_ctr.registry_event('end_run', finish_game)
@@ -376,10 +376,7 @@ observer.subscribe(END_RUN, force_end_game)
 screen_layout = [
     [sg.VPush(theme.BG_BASE)],
     [
-        _csg.CenteredElement(
-            create_run_state(),
-            background_color=theme.BG_BASE
-        ),
+        _csg.centered(create_run_state(), background_color=theme.BG_BASE),
         create_card(),
         sg.Push(theme.BG_BASE)
     ],

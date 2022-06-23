@@ -60,7 +60,7 @@ def navigation_button(
     return sg.Button(
         text,
         disabled=disabled,
-        key=f'{constants.GOTO_VIEW} {screen_name}',
+        key=f'{constants.GOTO_SCREEN} {screen_name}',
         font=(theme.FONT_FAMILY, font_size),
         button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
         mouseover_colors=theme.BG_BUTTON_HOVER,

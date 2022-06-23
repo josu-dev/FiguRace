@@ -68,13 +68,13 @@ class RunEventRecorder:
         '''Return the header of the csv to use like default.'''
         return ['timestamp', 'id', 'usuarie', 'genero', 'nivel', 'cantidad a adivinar', 'evento', 'estado', 'correcta', 'respuesta']
 
-    def _save(self, events: list[str]) -> None:
-        '''Save the event at the end of the csv file '''
+    def _save(self, event: list[str]) -> None:
+        '''Save the event at the end of the csv file.'''
         try:
             with open(self._file_path, mode='r+', encoding='utf-8', newline='') as csvfile:
                 csvfile.seek(0, 2)
                 writer = csv.writer(csvfile)
-                writer.writerow(events)
+                writer.writerow(event)
         except FileNotFoundError:
-            events: list[list[str]] = [self._default_header(), events]
+            events: list[list[str]] = [self._default_header(), event]
             file.save_csv(self._file_path, events)

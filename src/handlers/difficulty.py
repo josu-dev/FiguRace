@@ -6,11 +6,9 @@ from .. import constants, default
 from . import observer, file
 
 
-DEFAULT_TYPE = 'normal'
-
-
 @dataclass
 class Difficulty:
+    '''Class that contains a difficulty configuration.'''
     time_per_round: int
     rounds_per_game: int
     points_correct_answer: int
@@ -18,6 +16,10 @@ class Difficulty:
     characteristics_shown: int
 
     def swap(self, new: 'Difficulty') -> None:
+        '''Updates self from another difficulty.
+        
+        Args:
+            new: a Difficulty instance '''
         self.time_per_round = new.time_per_round
         self.rounds_per_game = new.rounds_per_game
         self.points_correct_answer = new.points_correct_answer
@@ -35,7 +37,7 @@ class Difficulty:
 
 
 class DifficultyController:
-    def __init__(self, difficulties_path: str, difficulty: str = DEFAULT_TYPE) -> None:
+    def __init__(self, difficulties_path: str, difficulty: str = default.DIFFICULTY_TYPE) -> None:
         self._file_path = difficulties_path
         self._current_difficulty = difficulty
         raw_difficulties: dict[str, dict[str, int]] = file.load_json(
