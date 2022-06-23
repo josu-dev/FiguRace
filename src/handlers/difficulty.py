@@ -19,7 +19,7 @@ class Difficulty:
         '''Updates self from another difficulty.
         
         Args:
-            new: a Difficulty instance '''
+            new: the Difficulty instance to upgrade from.'''
         self.time_per_round = new.time_per_round
         self.rounds_per_game = new.rounds_per_game
         self.points_correct_answer = new.points_correct_answer
@@ -27,6 +27,10 @@ class Difficulty:
         self.characteristics_shown = new.characteristics_shown
 
     def jsonify(self) -> dict[str, int]:
+        '''Generates a dict representation of every attribute.
+        
+        Returns:
+            the generated dictionary.'''
         return {
             'time_per_round': self.time_per_round,
             'rounds_per_game': self.rounds_per_game,
@@ -37,7 +41,14 @@ class Difficulty:
 
 
 class DifficultyController:
-    def __init__(self, difficulties_path: str, difficulty: str = default.DIFFICULTY_TYPE) -> None:
+    '''Class for controlling application difficulties.'''
+
+    def __init__(self, difficulties_path: str, difficulty: str = default.DIFFICULTY_NAME) -> None:
+        '''Tries to load the saved difficulties if it fails, loads from default difficulties.
+
+        Args:
+            difficulties_path: absolute json file path of saved difficulties.
+            difficulty: the name for the starting difficulty.'''
         self._file_path = difficulties_path
         self._current_difficulty = difficulty
         raw_difficulties: dict[str, dict[str, int]] = file.load_json(
@@ -62,6 +73,14 @@ class DifficultyController:
         rounds_per_game: int | None = None, points_correct_answer: int | None = None,
         points_bad_answer: int | None = None, characteristics_shown: int | None = None,
     ) -> None:
+        '''Updates the current custom difficulty.
+        
+        Args:
+            time_per_round: round duration in seconds.
+            rounds_per_game: number of rounds per game.
+            points_correct_answer: points added on correct answer.
+            points_bad_answer: points added on bad answer.
+            characteristics_shown: number of starting hints per round.'''
         if time_per_round is not None:
             self._difficulties['custom'].time_per_round = time_per_round
         if rounds_per_game is not None:
@@ -76,19 +95,35 @@ class DifficultyController:
             self._difficulties['custom'].characteristics_shown = characteristics_shown
         self.set_difficulty('custom')
 
-    def set_difficulty(self, type: str) -> None:
-        self._current_difficulty = type
-        self._difficulty.swap(self._difficulties[type])
-        observer.post_event(constants.UPDATE_DIFFICULTY_TYPE, type)
+    def set_difficulty(self, name: str) -> None:
+        '''Changes the current difficulty to the indicated.
+        
+        Args:
+            name: the difficulty name to be setted as current.'''
+        self._current_difficulty = name
+        self._difficulty.swap(self._difficulties[name])
+        observer.post_event(constants.UPDATE_DIFFICULTY_TYPE, name)
 
     def difficulties(self) -> dict[str, Difficulty]:
+        '''Generates a copy of the application difficulties.
+        
+        Keys are the difficulty names.
+        Values are the corresponding Difficulty for each key.
+        
+        Returns:
+            the dictionary with the copies.'''
         return {name: copy(definition) for name, definition in self._difficulties.items()}
 
     def _new_user(self, user: Any) -> None:
+        '''Updates the current state with the new user.
+        
+        Args:
+            user: the new User instanse.'''
         self._difficulties['custom'] = user.custom_difficulty
         self.set_difficulty(user.preferred_difficulty)
 
     def save(self) -> None:
+        '''Saves the difficulties states into its json file path.'''
         file.save_json(
             self._file_path,
             self._difficulties,

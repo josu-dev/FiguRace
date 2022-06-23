@@ -45,7 +45,7 @@ DIFFICULTIES = {
         'characteristics_shown': 3
     },
 }
-DIFFICULTY_TYPE = 'normal'
+DIFFICULTY_NAME = 'normal'
 THEMES = {
     'Blue-Like': {
         'BG_BASE': '#112B3C',

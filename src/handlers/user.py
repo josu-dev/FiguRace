@@ -5,6 +5,7 @@ from . import observer, difficulty, file
 
 
 class UserJSON(TypedDict):
+    '''Dict version of a user.'''
     nick: str
     age: int
     gender: str
@@ -24,7 +25,13 @@ def default_scores() -> dict[str, list[int]]:
 
 
 class User:
+    '''Class that models an application user.'''
+
     def __init__(self, definition: UserJSON) -> None:
+        '''Initializes the user object.
+
+        Args:
+            definition: a dict containing user related values.'''
         self._nick = definition['nick']
         self._age = definition['age']
         self._gender = definition['gender']
@@ -68,21 +75,38 @@ class User:
 
     @property
     def scores(self) -> dict[str, list[int]]:
+        '''A dict containing user's scores for each difficulty.'''
         return self._scores
 
     @property
     def sorted_scores(self) -> dict[str, list[int]]:
+        '''A dict containing user's sorted scores for each difficulty.'''
         return {
             difficulty: sorted(results) for difficulty, results in self._scores.items()
         }
 
     def update_score(self, difficulty: str, value: int) -> None:
+        '''Adds a new score to the specified difficulty.
+
+        Args:
+            difficulty: the difficulty name in which the score will be added.
+            value: the score itself.'''
         self._scores[difficulty].append(value)
 
     def get_score(self, difficulty: str) -> list[int]:
+        '''Returns all scores for the specified difficulty.
+
+        Args:
+            difficulty: the difficulty of the scores.
+        Returns
+            all scores.'''
         return self._scores[difficulty]
 
     def jsonify(self) -> UserJSON:
+        '''Generates a dict representation of every attribute.
+
+        Returns:
+            the generated dictionary.'''
         return {
             'nick': self._nick,
             'age': self._age,
@@ -94,18 +118,26 @@ class User:
 
 
 def new_user(nick: str, age: int, gender: str) -> User:
+    '''Creates a new User instance with predefined initializations.'''
     return User({
         'nick': nick,
         'age': age,
         'gender': gender,
-        'preferred_difficulty': default.DIFFICULTY_TYPE,
+        'preferred_difficulty': default.DIFFICULTY_NAME,
         'custom_difficulty': default.DIFFICULTIES['custom'],
         'scores': default_scores()
     })
 
 
 class UsersController:
+    '''Class for controlling application users.'''
+
     def __init__(self, users_path: str, default_user: str = '') -> None:
+        '''Loads the saved users if there are.
+
+        Args:
+            settings_path: absolute json file path of saved users.
+            default_user: the nick for the starting user.'''
         self._file_path = users_path
         raw_users: dict[str, UserJSON] = file.load_json(users_path, dict())
         self._users = {
@@ -117,24 +149,38 @@ class UsersController:
         )
 
     def add(self, nick: str, age: int, gender: str) -> None:
+        '''Creates a new user.'''
         self._users[nick] = new_user(nick, age, gender)
 
     def remove(self, nick: str) -> None:
+        '''Removes the specified user and its saved state.
+
+        Args:
+            nick: the nick of the user to be removed.'''
         if self._current_user == nick:
             self.current_user = 'undefined'
         self._users.pop(nick, None)
 
     @property
     def user_list(self) -> list[User]:
+        '''A list of all registered users.'''
         return [user for _, user in self._users.items()]
 
     def users_transform(self, fn: Callable[[User], Any]) -> list[Any]:
+        '''A map implementation for users.
+
+        Args:
+            fn: a function that receives a user and return something.
+        Returns:
+            a list with the result of the function applied for every user.'''
         return [fn(user) for _, user in self._users.items()]
 
     def user(self, nick: str) -> User:
+        '''Returns a user by the specified nick.'''
         return self._users[nick]
 
-    def user_transform(self, nick: str, fn: Callable[[User], Any]) -> User:
+    def user_transform(self, nick: str, fn: Callable[[User], Any]) -> Any:
+        '''Returns the result of applying a fn to the specified user by nick.'''
         return fn(self._users[nick])
 
     @property
@@ -148,10 +194,11 @@ class UsersController:
         self._current_user = nick
         observer.post_event(constants.USER_CHANGE, self.current_user)
 
-    def _set_user_difficulty(self, type: str) -> None:
-        self.current_user.preferred_difficulty = type 
+    def _set_user_difficulty(self, name: str) -> None:
+        self.current_user.preferred_difficulty = name
 
     def save(self) -> None:
+        '''Saves the users states into its json file path.'''
         file.save_json(
             self._file_path,
             {nick: user.jsonify() for nick, user in self._users.items()},
