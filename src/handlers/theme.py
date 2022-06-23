@@ -25,10 +25,13 @@ else:
 
 
 def apply_scale(value: int) -> int:
+    '''Scale a value to fit the user's screen.'''
     return round(value * screen_factor)
 
 
 class Theme:
+    '''Class that contains GUI theming resources.'''
+
     def __init__(self, definition: dict[str, Any]) -> None:
         self.BG_BASE = definition['BG_BASE']
         self.BG_PRIMARY = definition['BG_PRIMARY']
@@ -70,22 +73,33 @@ class Theme:
 
     @property
     def height(self) -> int:
+        '''Height in px of the user's screen.'''
         return SCREEN_SIZE[1]
 
     @property
     def width(self) -> int:
+        '''Width in px of the user's screen.'''
         return SCREEN_SIZE[0]
 
     def scale(self, value: int) -> int:
+        '''Scale a value to fit the user's screen.'''
         return apply_scale(value)
 
 
 class ThemeController:
+    '''Class for controlling application theming.'''
+
     def __init__(self, themes_path: str, default_theme: str) -> None:
+        '''Tries to load the saved themes if it fails, loads from default themes.
+        Also sets the application theme.
+
+        Args:
+            themes_path: absolute json file path of saved themes.
+            default_theme: the application theme.'''
         self._raw_themes: dict[str, Any] = file.load_json(
             themes_path, default.THEMES
         )
-        self._current_theme = default_theme
+        self._current_theme = default_theme if default_theme in self._raw_themes else list(self._raw_themes.keys())[0]
         self._theme = Theme(self._raw_themes[self._current_theme])
 
     @property
@@ -98,4 +112,5 @@ class ThemeController:
 
     @property
     def theme_list(self) -> list[str]:
+        '''List of available themes.'''
         return [name for name in self._raw_themes]

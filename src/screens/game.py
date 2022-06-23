@@ -329,7 +329,6 @@ observer.subscribe(CONFIRM_SELECTED_OPTION, new_answer)
 
 
 def end_round() -> None:
-
     refresh_run_state()
     reset_card()
 

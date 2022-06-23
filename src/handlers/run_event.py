@@ -27,6 +27,7 @@ class EventStates(Enum):
 
 class RunEventRecorder:
     '''Recorder of the events occurred during the execution of the game.'''
+
     def __init__(self, events_folder_path: str, users_ctr: UsersController, difficulty_ctr: DifficultyController) -> None:
         '''Initialization of the file used for save the information of the events.
 

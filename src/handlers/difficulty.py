@@ -7,7 +7,6 @@ from . import observer, file
 
 
 DEFAULT_TYPE = 'normal'
-UPDATE_DIFFICULTY_TYPE = '-UPDATE-DIFFICULTY-TYPE-'
 
 
 @dataclass
@@ -61,24 +60,24 @@ class DifficultyController:
         rounds_per_game: int | None = None, points_correct_answer: int | None = None,
         points_bad_answer: int | None = None, characteristics_shown: int | None = None,
     ) -> None:
-        if time_per_round:
+        if time_per_round is not None:
             self._difficulties['custom'].time_per_round = time_per_round
-        if rounds_per_game:
+        if rounds_per_game is not None:
             self._difficulties['custom'].rounds_per_game = rounds_per_game
-        if points_correct_answer:
+        if points_correct_answer is not None:
             self._difficulties['custom'].points_correct_answer = points_correct_answer
-        if points_bad_answer:
+        if points_bad_answer is not None:
             if points_bad_answer > 0:
                 points_bad_answer *= -1
             self._difficulties['custom'].points_bad_answer = points_bad_answer
-        if characteristics_shown:
+        if characteristics_shown is not None:
             self._difficulties['custom'].characteristics_shown = characteristics_shown
         self.set_difficulty('custom')
 
     def set_difficulty(self, type: str) -> None:
         self._current_difficulty = type
         self._difficulty.swap(self._difficulties[type])
-        observer.post_event(UPDATE_DIFFICULTY_TYPE, type)
+        observer.post_event(constants.UPDATE_DIFFICULTY_TYPE, type)
 
     def difficulties(self) -> dict[str, Difficulty]:
         return {name: copy(definition) for name, definition in self._difficulties.items()}

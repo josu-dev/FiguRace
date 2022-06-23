@@ -12,7 +12,10 @@ from ..controllers import theme
 ImageFile = Any
 
 
-def screen_title(title: str, spaced: bool = False, alignment: str = 'center', upper: bool = True, size: int = theme.H2_SIZE, padding: int = 0) -> sg.Text:
+def screen_title(
+    title: str, spaced: bool = False, alignment: str = 'center',
+    upper: bool = True, size: int = theme.H2_SIZE, padding: int = 0
+) -> sg.Text:
     '''Generic screen title used on most screen.
 
     Args:

@@ -1,3 +1,4 @@
+'''Module for controlling event comunication.'''
 from typing import Any, Callable
 
 
@@ -5,6 +6,11 @@ _subscribers: dict[str, list[Callable[..., None]]] = dict()
 
 
 def _subscribe(event_type: str, response_fn: Callable[..., None]) -> None:
+    '''Adds a function to be executed at certain event.
+
+    Args:
+        event_type: the type in which the function will be registered.
+        response_fn: function to be executed on event emission.'''
     if event_type not in _subscribers:
         _subscribers[event_type] = []
 
@@ -12,6 +18,11 @@ def _subscribe(event_type: str, response_fn: Callable[..., None]) -> None:
 
 
 def _unsubscribe(event_type: str, response_fn: Callable[..., None]) -> None:
+    '''Removes a function subscribed at certain event.
+
+    Args:
+        event_type: the type in which the function is registered.
+        response_fn: function to be removed on the specified event.'''
     if event_type not in _subscribers:
         return
 
@@ -19,6 +30,11 @@ def _unsubscribe(event_type: str, response_fn: Callable[..., None]) -> None:
 
 
 def _post_event(event_type: str, data: Any = None) -> None:
+    '''Emits a event.
+
+    Args:
+        event_type: the type of event to be emitted.
+        data: optional value to be sended at every registered function.'''
     if event_type not in _subscribers:
         return
 
@@ -30,6 +46,10 @@ def _post_event(event_type: str, data: Any = None) -> None:
 
 
 def _remove_event(event_type: str) -> None:
+    '''Removes a event type.
+
+    Args:
+        event_type: the type of event to be removed.'''
     if event_type not in _subscribers:
         return
 
@@ -83,6 +103,10 @@ def _remove_event_logger(event_type: str) -> None:
 
 
 def enable_logging(state: bool) -> None:
+    '''Enable/disable the logging of event related information.
+
+    Args:
+        state: True for logging events otherwise False.'''
     global subscribe, unsubscribe, post_event, remove_event
     if state:
         print('Event Logger: enabled')

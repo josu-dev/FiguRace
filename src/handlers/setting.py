@@ -8,6 +8,7 @@ from . import observer, file
 
 @dataclass
 class Settings:
+    '''Class that contains general application settings.'''
     title: str
     full_screen: bool
     starting_page: str
@@ -16,7 +17,13 @@ class Settings:
 
 
 class SettingsController:
+    '''Class for controlling general application settings.'''
+
     def __init__(self, settings_path: str) -> None:
+        '''Tries to load the saved settings if it fails, loads from default settings.
+
+        Args:
+            settings_path: absolute json file path of saved settings.'''
         self._file_path = settings_path
         raw_settings: dict[str, Any] = file.load_json(
             settings_path, default.SETTINGS
@@ -38,11 +45,8 @@ class SettingsController:
     def _set_default_user(self, user: Any) -> None:
         self._setting.default_user = user.nick
 
-    def set_starting_page(self, screen_name: str) -> None:
-        self._setting.starting_page = screen_name
-        self._reset_starting_page = False
-
     def save(self) -> None:
+        '''Saves the settings state into a json file.'''
         if self._reset_starting_page:
             self._setting.starting_page = self._settings['default'].starting_page
         file.save_json(

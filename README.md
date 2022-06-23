@@ -38,11 +38,11 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     Las dependencias son:
 
-    - Juego: PySimpleGui
+    - Juego: [PySimpleGUI](https://pysimplegui.readthedocs.io/en/latest/)
 
-    - Datasets: Pandas
+    - Datasets: [pandas](https://pandas.pydata.org/)
 
-    - Analysis: Pandas, MatPlotLib
+    - Analysis: [pandas](https://pandas.pydata.org/), [matplotlib](https://matplotlib.org/)
 
     Para su instalación:
 
