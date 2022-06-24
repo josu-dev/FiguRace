@@ -220,6 +220,10 @@ def change_dataset() -> None:
     cards_ctr.type = dataset
 
 
+observer.subscribe(CHANGE_DIFFICULT, change_difficult)
+observer.subscribe(CHANGE_DATASET,change_dataset)
+
+
 screen_layout = [
     [_common.screen_title(
         'CONFIGURAR JUEGO', alignment='left', padding=theme.height//64
@@ -240,13 +244,3 @@ def screen_reset() -> None:
     """Updates the information when entered to the screen."""
     refresh_info()
     change_dataset()
-
-
-observer.subscribe(
-    '-CHANGE-DIFFICULT-',
-    change_difficult,
-)
-observer.subscribe(
-    '-CHANGE-DATA-',
-    change_dataset,
-)
