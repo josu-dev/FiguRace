@@ -1,8 +1,19 @@
 <h1> Grupo <img src="https://media.giphy.com/media/lkTunMhUitIEITABuS/giphy.gif" height="40"/></h1>
 
 
-<br>
 
+
+### Indice
+
+- [integrantes](#integrantes)
+- [Guia primer uso](#guia-primer-uso)
+    - [Requerimientos del sistema](#1--requerimientos-de-sistema) 
+    - [Obtener el repositorio](#1--obtener-el-repositorio)
+    - [Instalación de dependencias](#1--instalación-de-dependencias)
+    - [Ejecución](#1--ejecución)
+- [Fuentes](#fuentes)
+- [Modo desarollador](#modo-desarollador)
+- [Comentarios adicionales](#comentarios-adicionales)
 
 ## Integrantes
 
