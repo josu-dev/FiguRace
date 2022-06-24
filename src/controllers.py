@@ -16,7 +16,7 @@ settings = settings_controller.settings
 users_controller = UsersController(constants.PATH_USERS, settings.default_user)
 
 difficulty_controller = DifficultyController(
-    constants.PATH_DIFFICULTIES, users_controller.current_user.preferred_difficulty
+    constants.PATH_DIFFICULTIES, users_controller.user.preferred_difficulty
 )
 
 theme_controller = ThemeController(constants.PATH_THEME, settings.theme)

@@ -158,15 +158,34 @@ class UsersController:
         Args:
             nick: the nick of the user to be removed.'''
         if self._current_user == nick:
-            self.current_user = 'undefined'
+            self._current_user = 'undefined'
         self._users.pop(nick, None)
+
+    @property
+    def user(self) -> User:
+        return self._users.get(
+            self._current_user, new_user('undefined', 0, 'undefined')
+        )
+
+    @user.setter
+    def user(self, nick: str) -> None:
+        self._current_user = nick
+        observer.post_event(constants.USER_CHANGE, self.user)
+
+    def get_user(self, nick: str) -> User:
+        '''Returns a user by the specified nick (must be valid).'''
+        return self._users[nick]
 
     @property
     def user_list(self) -> list[User]:
         '''A list of all registered users.'''
         return [user for _, user in self._users.items()]
 
-    def users_transform(self, fn: Callable[[User], Any]) -> list[Any]:
+    def transform_user(self, nick: str, fn: Callable[[User], Any]) -> Any:
+        '''Returns the result of applying a fn to the specified user by nick.'''
+        return fn(self._users[nick])
+
+    def transform_users(self, fn: Callable[[User], Any]) -> list[Any]:
         '''A map implementation for users.
 
         Args:
@@ -175,27 +194,8 @@ class UsersController:
             a list with the result of the function applied for every user.'''
         return [fn(user) for _, user in self._users.items()]
 
-    def user(self, nick: str) -> User:
-        '''Returns a user by the specified nick.'''
-        return self._users[nick]
-
-    def user_transform(self, nick: str, fn: Callable[[User], Any]) -> Any:
-        '''Returns the result of applying a fn to the specified user by nick.'''
-        return fn(self._users[nick])
-
-    @property
-    def current_user(self) -> User:
-        return self._users.get(
-            self._current_user, new_user('undefined', 0, 'undefined')
-        )
-
-    @current_user.setter
-    def current_user(self, nick: str) -> None:
-        self._current_user = nick
-        observer.post_event(constants.USER_CHANGE, self.current_user)
-
     def _set_user_difficulty(self, name: str) -> None:
-        self.current_user.preferred_difficulty = name
+        self.user.preferred_difficulty = name
 
     def save(self) -> None:
         '''Saves the users states into its json file path.'''

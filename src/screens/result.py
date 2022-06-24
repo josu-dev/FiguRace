@@ -68,9 +68,7 @@ def create_summary() -> sg.Column:
     return sg.Column(
         [[
             sg.Column(left_layout, background_color=theme.BG_PRIMARY),
-            _csg.horizontal_spacer(
-                theme.scale(32), background_color=theme.BG_SECONDARY
-            ),
+            _csg.horizontal_spacer(theme.scale(32), theme.BG_SECONDARY),
             sg.Column(right_layout, background_color=theme.BG_PRIMARY),
         ]],
         background_color=theme.BG_SECONDARY,
@@ -115,7 +113,7 @@ screen_layout = [
     [create_summary()],
     [sg.VPush(theme.BG_BASE)],
     [create_nav_buttons()],
-    [_csg.vertical_spacer(theme.scale(96), background_color=theme.BG_BASE)],
+    [_csg.vertical_spacer(theme.scale(96), theme.BG_BASE)],
 ]
 
 screen_config = {

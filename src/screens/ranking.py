@@ -101,12 +101,14 @@ def create_rank(scores: str) -> sg.Multiline:
 
 def create_runs_rank() -> sg.Column:
     '''Create a global ranking of runs scores for each difficulty.'''
-    ranks = _csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
-    users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
+    ranks = _csg.HorizontalList(
+        pad=(0, 0), background_color=theme.BG_SECONDARY)
+    users: list[NameScores] = users_ctr.transform_users(get_name_and_scores)
 
     for difficulty in rankings_runs:
         all_scores = [
-            (score, nick) for nick, scores in users for score in scores[difficulty]
+            (score, nick)
+            for nick, scores in users for score in scores[difficulty]
         ]
         rankings_runs[difficulty] = create_rank(rank_content(all_scores))
         ranks.add([
@@ -118,12 +120,13 @@ def create_runs_rank() -> sg.Column:
 
 def create_averages_rank() -> sg.Column:
     '''Create a global ranking of average runs scores by user for each difficulty.'''
-    ranks = _csg.HorizontalList(pad=(0, 0), background_color=theme.BG_SECONDARY)
-    users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
+    ranks = _csg.HorizontalList(pad=0, background_color=theme.BG_SECONDARY)
+    users: list[NameScores] = users_ctr.transform_users(get_name_and_scores)
 
     for difficulty in rankings_averages:
         all_scores = [
-            (sum(scores[difficulty])//len(scores[difficulty]), nick) for nick, scores in users if len(scores[difficulty]) > 0
+            (sum(scores[difficulty])//len(scores[difficulty]), nick)
+            for nick, scores in users if len(scores[difficulty]) > 0
         ]
         rankings_averages[difficulty] = create_rank(rank_content(all_scores))
         ranks.add([
@@ -158,18 +161,20 @@ def create_ranking() -> sg.TabGroup:
 
 def refresh_ranking() -> None:
     '''Refresh all the rankings with the latest information.'''
-    users: list[NameScores] = users_ctr.users_transform(get_name_and_scores)
+    users: list[NameScores] = users_ctr.transform_users(get_name_and_scores)
 
     for difficulty in rankings_runs:
         all_scores = [
-            (score, nick) for nick, scores in users for score in scores[difficulty]
+            (score, nick)
+            for nick, scores in users for score in scores[difficulty]
         ]
         rankings_runs[difficulty].update(rank_content(all_scores))
 
     for difficulty in rankings_averages:
         all_scores = [
-            (sum(scores[difficulty])//len(scores[difficulty]), nick) for nick, scores in users if len(scores[difficulty]) > 0
-        ] 
+            (sum(scores[difficulty])//len(scores[difficulty]), nick)
+            for nick, scores in users if len(scores[difficulty]) > 0
+        ]
         rankings_averages[difficulty].update(rank_content(all_scores))
 
 
@@ -178,8 +183,12 @@ screen_layout = [
     [sg.VPush(theme.BG_BASE)],
     [create_ranking()],
     [sg.VPush(theme.BG_BASE)],
-    [_common.navigation_button('Menu Principal', '-MENU-', padding=(theme.scale(64),)*2),
-     sg.Push(theme.BG_BASE)],
+    [
+        _common.navigation_button(
+            'Menu Principal', '-MENU-', padding=(theme.scale(64),)*2
+        ),
+        sg.Push(theme.BG_BASE)
+    ],
 ]
 
 screen_config = {

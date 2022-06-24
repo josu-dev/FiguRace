@@ -21,7 +21,7 @@ RUN_UPDATE_TIME_SEC = 1
 
 @dataclass
 class CardSection:
-    '''Layout with the Card information'''
+    '''Layout with the Card information.'''
     type: sg.Text
     data: list[str]
     hints: list[list[sg.Text]]
@@ -32,7 +32,7 @@ class CardSection:
 
 @dataclass
 class RunSection:
-    '''Layout with the data of the game'''
+    '''Layout with the data of the game.'''
     difficulty: sg.Text
     time: sg.Text
     user: sg.Text
@@ -43,7 +43,7 @@ class RunSection:
 
 @dataclass
 class TimeState:
-    '''Timer configuration'''
+    '''Timer configuration.'''
     run_start: int = 0
     run_end: int = 0
     round_start: int = 0
@@ -93,7 +93,7 @@ def create_button(text: str, key: str, padding: tuple[int, int] = (0, 0), border
 
 run_section = RunSection(
     sg.Text(
-        translations.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty],
+        translations.DIFFICULTY_TO_ES[users_ctr.user.preferred_difficulty],
         font=(theme.FONT_FAMILY, theme.H3_SIZE),
         background_color=theme.BG_SECONDARY
     ),
@@ -103,7 +103,7 @@ run_section = RunSection(
         background_color=theme.BG_SECONDARY
     ),
     sg.Text(
-        users_ctr.current_user.nick,
+        users_ctr.user.nick,
         font=(theme.FONT_FAMILY, theme.T1_SIZE),
         background_color=theme.BG_SECONDARY,
         size=24,
@@ -131,7 +131,7 @@ run_section = RunSection(
 
 
 def create_run_state() -> sg.Column:
-    '''Returns the layout referring to the current game information'''
+    '''Returns the layout referring to the current game information.'''
     layout = [
         [_csg.vertical_spacer(theme.scale(24), theme.BG_SECONDARY)],
         [run_section.difficulty],
@@ -149,7 +149,7 @@ def create_run_state() -> sg.Column:
 
 
 def refresh_timer() -> None:
-    '''Calculate and display the timer'''
+    '''Calculate and display the timer.'''
     time_left = time_state.round_duration - \
         (time_state.actual - time_state.round_start)
     run_section.time.update(
@@ -158,12 +158,12 @@ def refresh_timer() -> None:
 
 
 def reset_run_state() -> None:
-    '''Reset all the states to begin a new game'''
+    '''Reset all the states to begin a new game.'''
     run_section.difficulty.update(
-        translations.DIFFICULTY_TO_ES[users_ctr.current_user.preferred_difficulty]
+        translations.DIFFICULTY_TO_ES[users_ctr.user.preferred_difficulty]
     )
     refresh_timer()
-    run_section.user.update(users_ctr.current_user.nick)
+    run_section.user.update(users_ctr.user.nick)
     run_section.points.update(' 0 puntos')
     run_section.rounds.update(
         '\n'.join([f' {i+1:<2}. {"":>3}' for i in range(run_ctr.max_rounds)])
@@ -172,7 +172,7 @@ def reset_run_state() -> None:
 
 
 def refresh_run_state() -> None:
-    '''Refresh the information and score of the game/round'''
+    '''Refresh the information and score of the game/round.'''
     score = run_ctr.score
     run_section.points.update(f'{sum(score)} puntos')
     scores = [
@@ -236,13 +236,11 @@ card_section = CardSection(
 
 
 def create_card() -> sg.Column:
-
     layout = [
         [card_section.type],
         *[hint for hint in card_section.hints],
         *[[button] for button in card_section.options],
-        [_csg.vertical_spacer(theme.scale(
-            16), background_color=theme.BG_BASE)],
+        [_csg.vertical_spacer(theme.scale(16), theme.BG_BASE)],
         [
             card_section.confirm_button,
             sg.Push(theme.BG_BASE),
@@ -256,7 +254,7 @@ def create_card() -> sg.Column:
 
 
 def reset_card() -> None:
-    '''Reset the configurations referred to the Cards and set everything for the new game'''
+    '''Reset the configurations referred to the Cards and set everything for the new game.'''
     card_section.type.update(translations.DATASET_TO_ES[run_ctr.dataset_type])
     card_section.data = run_ctr.options
     if run_ctr.dataset_type in translations.DATASET_HEADER:
@@ -283,7 +281,7 @@ def reset_card() -> None:
 
 
 def refresh_card() -> None:
-    '''Refresh the card and update the hints for the current question'''
+    '''Refresh the card and update the hints for the current question.'''
     hints = run_ctr.hints
     for i, row in enumerate(card_section.hints):
         if i < len(hints):
@@ -296,7 +294,7 @@ run_ctr.registry_event('bad_option', refresh_card)
 
 
 def current_answer(index: str) -> None:
-    '''Register and change the button of the current answer selected'''
+    '''Register and change the button of the current answer selected.'''
     if card_section.selected >= 0:
         card_section.options[card_section.selected].update(
             button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON)
@@ -314,9 +312,10 @@ observer.subscribe(SELECT_OPTION, current_answer)
 
 
 def new_answer() -> None:
-    '''Process the user answer'''
-    card_section.confirm_button.update(disabled=True, button_color=(
-        theme.TEXT_BUTTON_DISABLED, theme.BG_BUTTON_DISABLED)
+    '''Process the user answer.'''
+    card_section.confirm_button.update(
+        disabled=True,
+        button_color=(theme.TEXT_BUTTON_DISABLED, theme.BG_BUTTON_DISABLED)
     )
     card_section.options[card_section.selected].update(
         disabled=True, button_color=(theme.TEXT_PRIMARY, theme.BG_ERROR_SOFT)
@@ -349,8 +348,8 @@ def finish_game() -> None:
     '''Calculates the stats of the game played and changes the view to result screen.'''
     total_score = sum(run_ctr.score)
     if not run_section.forced_end:
-        users_ctr.current_user.update_score(
-            users_ctr.current_user.preferred_difficulty, total_score
+        users_ctr.user.update_score(
+            users_ctr.user.preferred_difficulty, total_score
         )
     time_state.run_end = time_state.actual
     stats = run_ctr.stats

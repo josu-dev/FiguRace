@@ -53,8 +53,8 @@ class RunEventRecorder:
         event = [
             f'{time.time():.4f}',
             self._uid,
-            self._users_ctr.current_user.nick,
-            self._users_ctr.current_user.gender,
+            self._users_ctr.user.nick,
+            self._users_ctr.user.gender,
             translations.DIFFICULTY_TO_ES[self._difficulty_ctr.difficulty_name],
             event_data['rounds'],
             event_data['name'].value,
