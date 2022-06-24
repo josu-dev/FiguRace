@@ -5,7 +5,14 @@ from . import file
 
 
 class Dataset:
+    '''Class that models a dataset.'''
+
     def __init__(self, name: str, raw_dataset: list[list[str]]) -> None:
+        '''Initializes the dataset object.
+
+        Args:
+            name: the name that identifies the dataset.
+            raw_dataset: the dataset definition.'''
         self._name = name
         self._header = raw_dataset[0]
         self._content = raw_dataset[1:]
@@ -32,6 +39,13 @@ class Dataset:
         return self._content[sample]
 
     def random_sample(self, size: int, unique: int = 0) -> list[list[str]]:
+        '''Generates a sample from the dataset content.
+
+        Args:
+            size: the number of samples.
+            unique: the number of samples that wasn't previously sampled in terms of others unique samples.    
+        Returns:
+            the list of samples, uniques samples are first on the list'''
         samples: list[list[str]] = []
         for _ in range(size):
             if unique > 0:
@@ -45,18 +59,26 @@ class Dataset:
         return samples
 
     def reset(self) -> None:
+        '''Resets the used samples record.'''
         self._used = set()
 
 
 @dataclass
 class Card:
+    '''Class that contains card information.'''
     hints: list[str]
     correct_answer: str
     bad_anwers: list[str]
 
 
 class CardController:
+    '''Class for controlling logic related to cards.'''
+
     def __init__(self, datasets_folder_path: str) -> None:
+        '''Stores the path to the datasets and scans it.
+
+        Args:
+            datasets_folder_path: absolute directory path of datasets.'''
         self._folder_path = datasets_folder_path
         self._find_datasets()
         if self.no_datasets:
@@ -93,15 +115,18 @@ class CardController:
             self._dataset = Dataset(name, raw_dataset)
 
     def reset(self) -> None:
+        '''Resets the current dataset state.'''
         self._dataset.reset()
 
     @property
     def types_list(self) -> list[str]:
+        '''Updated list of available datasets.'''
         self._find_datasets()
         return [key for key in self._datasets]
 
     @property
     def type(self) -> str:
+        '''The current dataset type.'''
         return self._dataset.name
 
     @type.setter
@@ -110,6 +135,7 @@ class CardController:
 
     @property
     def characteristics(self) -> list[str]:
+        '''List of meanings for the card hints and answers.'''
         return self._dataset.header
 
     @property

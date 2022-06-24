@@ -18,7 +18,6 @@ _text_font = ('System', theme.H3_SIZE)
 _padding = theme.width // 4
 
 
-
 _cmb_difficulty = _common.styled_combo(
     ('Fácil', 'Intermedio', 'Difícil', 'Insano', 'Personalizada'),
     'Intermedio',
@@ -26,7 +25,7 @@ _cmb_difficulty = _common.styled_combo(
     ch_width=15,
     emit_event=True,
     key=CHANGE_DIFFICULT,
-    padding=(theme.scale(64),0)
+    padding=(theme.scale(64), 0)
 )
 
 
@@ -54,7 +53,7 @@ _cmb_dataset = _common.styled_combo(
     ch_width=15,
     emit_event=is_loaded(),
     key=CHANGE_DATASET,
-    padding=(theme.scale(64),0)
+    padding=(theme.scale(64), 0)
 )
 
 
@@ -221,7 +220,7 @@ def change_dataset() -> None:
 
 
 observer.subscribe(CHANGE_DIFFICULT, change_difficult)
-observer.subscribe(CHANGE_DATASET,change_dataset)
+observer.subscribe(CHANGE_DATASET, change_dataset)
 
 
 screen_layout = [
