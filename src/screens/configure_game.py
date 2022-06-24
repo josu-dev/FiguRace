@@ -188,13 +188,6 @@ def refresh_info() -> None:
             Puntos añadidos : {difficulty_ctr.difficulty.points_correct_answer}\
             Puntos Restados : {difficulty_ctr.difficulty.points_bad_answer}"
     )
-    datasets = load_datasets()
-    _cmb_dataset.update(datasets[-1], datasets)
-    _btn_start.update(disabled=not is_loaded())
-    if not is_loaded():
-        _csg.custom_popup(
-            pop_up_layout(), background_color=theme.BG_SECONDARY
-        )
 
 
 def change_difficult() -> None:
@@ -242,4 +235,11 @@ screen_config = {
 def screen_reset() -> None:
     """Updates the information when entered to the screen."""
     refresh_info()
+    datasets = load_datasets()
+    _cmb_dataset.update(datasets[-1], datasets)
+    _btn_start.update(disabled=not is_loaded())
+    if not is_loaded():
+        _csg.custom_popup(
+            pop_up_layout(), background_color=theme.BG_SECONDARY
+        )
     change_dataset()

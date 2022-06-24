@@ -104,7 +104,7 @@ _cmb_sub_points = sg.Combo(
 _btn_save = sg.Button(
     'Guardar Dificultad', size=(16, 1),
     key='-SAVE-DIFF-CUSTOM-',
-    font=('System', theme.H3_SIZE),
+    font=('System', theme.H4_SIZE),
     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
     pad=default_padding,
     mouseover_colors=theme.BG_BUTTON_HOVER,
@@ -149,7 +149,7 @@ _btn_edit = sg.Button(
     key='-EDIT-USER-',
     button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
     mouseover_colors=theme.BG_BUTTON_HOVER,
-    font=(theme.FONT_FAMILY, theme.T1_SIZE),
+    font=(theme.FONT_FAMILY, theme.H4_SIZE),
     border_width=theme.BD_ACCENT
 )
 
@@ -335,7 +335,7 @@ def refresh_inputs() -> None:
 
 
 screen_layout = [
-    [_common.screen_title('Configuración', spaced=True, alignment='center')],
+    [_common.screen_title('Configuración', spaced=True)],
     [sg.Column(config_layout(), background_color=theme.BG_BASE, expand_x=True)],
 ]
 
@@ -348,7 +348,6 @@ screen_config = {
 def screen_reset():
     """Refresh information for the current user and current custom difficulty."""
     refresh_inputs()
-    # refresh_difficulty()
 
 
 observer.subscribe(
