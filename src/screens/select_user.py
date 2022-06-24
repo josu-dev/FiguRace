@@ -7,7 +7,7 @@ from ..controllers import observer, theme, users_controller as users_ctr
 from . import _common, _csg
 
 
-SCREEN_NAME = '-SELECT-PROFILE-'
+SCREEN_NAME = '-SELECT-USER-'
 EVENT_CREATE_PROFILE = '-CREATE-PROFILE-'
 EVENT_REMOVE_PROFILE = '-REMOVE-PROFILE-'
 EVENT_EDIT_PROFILE = '-EDIT-PROFILE-'
@@ -61,7 +61,7 @@ _remove_button = sg.Button(
 
 _edit_button = _common.navigation_button(
     'Editar',
-    '-CONFIGURATION-',
+    '-CONFIGURE-USER-',
     border=theme.BD_ACCENT,
     padding=(theme.scale(30),)*2
 )
@@ -74,7 +74,7 @@ _select_profile_layout = [
 _button_layout = [
     [_common.navigation_button(
         'Crear',
-        '-CREATE-PROFILE-',
+        '-CREATE-USER-',
         border=theme.BD_ACCENT,
         padding=(theme.scale(30),)*2,
     )],
@@ -198,7 +198,6 @@ def remove() -> None:
     """Check if you really want to delete the profile, by means of a popup, when affirming , the selected profile is deleted."""
     response = _csg.custom_popup(
         _new_popup_layout('¿Deseas eliminar este usuario?'),
-        close_keys=['-OK-', '-CANCEL-'],
         background_color=theme.BG_POPUP
     )
     if response == '-OK-':

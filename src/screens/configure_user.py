@@ -7,7 +7,7 @@ from ..controllers import observer, theme, difficulty_controller as difficulty_c
 from . import _common, _csg
 
 
-SCREEN_NAME = "-CONFIGURATION-"
+SCREEN_NAME = "-CONFIGURE-USER-"
 default_padding = 8
 _font = (theme.FONT_FAMILY_TEXT, theme.T1_SIZE)
 _padding = theme.width // 8

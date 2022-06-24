@@ -39,7 +39,7 @@ def main_dev(args: list[str]) -> None:
     --el=<true | false> : enables event loggin, default false'''
 
     duration = 5 * 1000
-    initial_screen = '-SELECT-PROFILE-'
+    initial_screen = '-SELECT-USER-'
     event_logging = False
     for arg in args:
         match arg.split('='):

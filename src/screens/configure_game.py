@@ -10,23 +10,23 @@ from . import _common, _csg
 
 
 SCREEN_NAME = '-CONFIGURE-GAME-'
+CHANGE_DIFFICULT = '-CHANGE-DIFFICULT-'
+CHANGE_DATASET = '-CHANGE-DATASET-'
 NO_DATASETS = 'No hay Datasets'
 
 _text_font = ('System', theme.H3_SIZE)
 _padding = theme.width // 4
 
 
-_cmb_difficulty = sg.Combo(
+
+_cmb_difficulty = _common.styled_combo(
     ('Fácil', 'Intermedio', 'Difícil', 'Insano', 'Personalizada'),
     'Intermedio',
-    background_color='#8DC3E4',
     font=_text_font,
-    text_color=theme.BG_BASE,
-    readonly=True,
-    size=(15, 30),
-    enable_events=True,
-    pad=((50, 0), (50, 0)),
-    key='-CHANGE-DIFFICULT-'
+    ch_width=15,
+    emit_event=True,
+    key=CHANGE_DIFFICULT,
+    padding=(theme.scale(64),0)
 )
 
 
@@ -47,17 +47,14 @@ def is_loaded():
 
 datasets: list[str] = load_datasets()
 
-_cmb_dataset = sg.Combo(
+_cmb_dataset = _common.styled_combo(
     datasets,
     datasets[-1],
-    background_color='#8DC3E4',
-    pad=((50, 0), (50, 0)),
     font=_text_font,
-    text_color=theme.BG_BASE,
-    readonly=True,
-    enable_events=is_loaded(),
-    size=(15, 30),
-    key='-CHANGE-DATA-'
+    ch_width=15,
+    emit_event=is_loaded(),
+    key=CHANGE_DATASET,
+    padding=(theme.scale(64),0)
 )
 
 
@@ -66,11 +63,13 @@ def combo_boxes() -> list[Any]:
 
     Returns:
         A row/list of elements correctly structured for the layout."""
-    return [_csg.horizontal_spacer(_padding, background_color=theme.BG_BASE),
-            _cmb_difficulty,
-            sg.Push(background_color=theme.BG_BASE),
-            _cmb_dataset,
-            _csg.horizontal_spacer(_padding, background_color=theme.BG_BASE)]
+    return [
+        _csg.horizontal_spacer(_padding, theme.BG_BASE),
+        _cmb_difficulty,
+        sg.Push(theme.BG_BASE),
+        _cmb_dataset,
+        _csg.horizontal_spacer(_padding, theme.BG_BASE)
+    ]
 
 
 def header() -> list[Any]:
@@ -81,21 +80,17 @@ def header() -> list[Any]:
     Returns:
         A list of elements correctly structured to use like a header of the columns."""
     return [
-        _csg.horizontal_spacer(
-            _padding, background_color=theme.BG_BASE
-        ),
+        _csg.horizontal_spacer(_padding, theme.BG_BASE),
         sg.Text(
             'ELEGIR DIFICULTAD', pad=((50, 0), (50, 0)),
             background_color=theme.BG_BASE, font=_text_font
         ),
-        sg.Push(background_color=theme.BG_BASE),
+        sg.Push(theme.BG_BASE),
         sg.Text(
             'ELEGIR DATASET', pad=((50, 0), (50, 0)),
             background_color=theme.BG_BASE, font=_text_font
         ),
-        _csg.horizontal_spacer(
-            _padding, background_color=theme.BG_BASE
-        )
+        _csg.horizontal_spacer(_padding, theme.BG_BASE)
     ]
 
 
@@ -139,10 +134,9 @@ def layout() -> list[list[Any]]:
     Returns:
         A list with all the elements used on the layout."""
     layout = [
-        [_csg.vertical_spacer(
-            theme.scale(24), background_color=theme.BG_BASE
-        )],
+        [_csg.vertical_spacer(theme.scale(24), theme.BG_BASE)],
         header(),
+        [_csg.vertical_spacer(theme.scale(48), theme.BG_BASE)],
         combo_boxes(),
         build_text(),
         [sg.VPush(background_color=theme.BG_BASE)],
@@ -200,7 +194,7 @@ def refresh_info() -> None:
     _btn_start.update(disabled=not is_loaded())
     if not is_loaded():
         _csg.custom_popup(
-            pop_up_layout(), ['-OK-'], background_color=theme.BG_SECONDARY
+            pop_up_layout(), background_color=theme.BG_SECONDARY
         )
 
 

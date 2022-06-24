@@ -1,7 +1,7 @@
 '''Styled sg elements.
 
 Collection of helper functions to style sg elements that are common between screens.'''
-from typing import Any
+from typing import Any, Sequence
 
 import PySimpleGUI as sg
 
@@ -104,4 +104,27 @@ def image_button(image: ImageFile, size: tuple[int, int], key: str, border: int 
         pad=padding,
         mouseover_colors=theme.BG_BUTTON_HOVER,
         border_width=border
+    )
+
+
+def styled_combo(
+    values: Sequence[str], default: str | None = None, key: str | None = None, emit_event: bool = False,
+    ch_width: int | None = None, font: tuple[str, int] = (theme.FONT_FAMILY_TEXT, theme.T1_SIZE),
+    padding: tuple[int, int] | None = None
+) -> sg.Combo:
+    if ch_width is None:
+        ch_width = max([len(value) for value in values]) + 1
+    return sg.Combo(
+        values,
+        default_value=default,
+        size=(ch_width, 1),
+        background_color=theme.BG_BUTTON,
+        text_color=theme.TEXT_BUTTON,
+        button_background_color=theme.BG_SECONDARY,
+        button_arrow_color=theme.TEXT_ACCENT,
+        enable_events=emit_event,
+        key=key,
+        readonly=True,
+        font=font,
+        pad = padding
     )
