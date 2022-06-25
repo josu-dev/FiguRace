@@ -2,7 +2,7 @@
 __pycache__
 __pycache__.*
 .vscode
-*.test.py
+*.test.*
 processed_datasets/
 */database/*
 !*/database/datasets/

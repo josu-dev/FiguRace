@@ -9,11 +9,21 @@ from .run_event import EventNames, EventStates
 
 
 class Round:
-    def __init__(self, card: Card, difficulty: Difficulty) -> None:
+    '''Class for controlling a run round.'''
+    def __init__(self, difficulty: Difficulty, card: Card) -> None:
+        '''Saves the difficulty and resets to a initial round state.
+        
+        Args:
+            card: a new Card instance.
+            difficulty: the configuration that determines a round.'''
         self._settings = difficulty
         self.reset(card)
 
     def reset(self, card: Card) -> None:
+        '''Resets to start a new round.
+        
+        Args:
+            card: a new Card instance.'''
         self._card = card
         self._tryes = 0
         self._max_tryes = len(card.hints) - 1
@@ -39,6 +49,12 @@ class Round:
             self._hints = self._card.hints[:len(self._hints) + 1]
 
     def win(self, option: str) -> bool:
+        '''Validates if the option is the correct answer.
+        
+        Args:
+            option: a valid option.
+        Returns:
+            True if the option was correct otherwise False'''
         if option == self._card.correct_answer:
             self._score += self._settings.points_correct_answer
             return True
@@ -57,10 +73,17 @@ class Round:
 
 
 class RunController:
+    '''Class for controlling a game run.'''
+
     def __init__(self, cards_ctr: CardController, difficulty_ctr: DifficultyController) -> None:
+        '''Initilize self.
+
+        Args:
+            cards_ctr: the controller that provides new Card intances.
+            difficulty_ctr: the controller that provides the configurarion for runs.'''
         self._cards = cards_ctr
         self._difficulty = difficulty_ctr.difficulty
-        self._round = Round(self._cards.new_card, difficulty_ctr.difficulty)
+        self._round = Round(difficulty_ctr.difficulty, self._cards.new_card)
         self._events_fn: dict[str, list[Callable[..., None]]] = {
             'end_run': [],
             'win_round': [],
@@ -82,6 +105,7 @@ class RunController:
         observer.post_event(constants.RUN_EVENT, event_data)
 
     def reset(self) -> None:
+        '''Resets the state to a fresh run state.'''
         self._rounds = -1
         self._scores: list[int] = []
         self._stats = {
@@ -104,6 +128,13 @@ class RunController:
         self._round.reset(self._cards.new_card)
 
     def registry_event(self, type: str, response_fn: Callable[..., None]) -> None:
+        '''Registers a function to be executed at a certain run event.
+        
+        Possible event types:
+        - end_run
+        - win_round
+        - loose_round
+        - bad_option'''
         self._events_fn[type].append(response_fn)
 
     @property
@@ -150,6 +181,10 @@ class RunController:
             fn()
 
     def new_answer(self, option: str) -> None:
+        '''Registers a new answer and makes the related updates.
+        
+        Args:
+            option: a valid option.'''
         self._stats['total_tryes'] += 1
         if self._round.win(option):
             self._post_event(EventNames.TRY, EventStates.OK, option, True)
@@ -168,6 +203,10 @@ class RunController:
         self._is_run_end()
 
     def end_round(self, timeout: bool = False) -> None:
+        '''Finalize the current round and makes the related updates.
+        
+        Args:
+            timeout: indicates if the reason of the end is a timeout.'''
         if timeout:
             self._stats['rounds_timeout'] += 1
         else:
@@ -182,6 +221,10 @@ class RunController:
         self._is_run_end()
 
     def end_run(self, forced: bool = False) -> None:
+        '''Finalize the current run and makes the related updates.
+        
+        Args:
+            forced: indicates if the reason of the end is forced.'''
         self._stats['total_points'] = sum(self._scores)
         self._stats['total_rounds'] = self.max_rounds
         for _ in range(self.max_rounds - len(self._scores)):

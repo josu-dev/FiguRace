@@ -33,6 +33,7 @@ class Theme:
     '''Class that contains GUI theming resources.'''
 
     def __init__(self, definition: dict[str, Any]) -> None:
+        '''Initialize from the definition and adjust sizes depending on the user's screen.'''
         self.BG_BASE = definition['BG_BASE']
         self.BG_PRIMARY = definition['BG_PRIMARY']
         self.BG_SECONDARY = definition['BG_SECONDARY']

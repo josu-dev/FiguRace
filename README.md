@@ -1,6 +1,19 @@
 <h1> Grupo <img src="https://media.giphy.com/media/lkTunMhUitIEITABuS/giphy.gif" height="40"/></h1>
 
 
+### Indice
+
+- [Integrantes](#integrantes)
+- [Guia primer uso](#guia-primer-uso)
+    - [Requerimientos del sistema](#requerimientos-de-sistema) 
+    - [Obtener el repositorio](#obtener-el-repositorio)
+    - [Instalación de dependencias](#instalación-de-dependencias)
+    - [Ejecución](#ejecución)
+- [Fuentes](#fuentes)
+- [Modo desarollador](#modo-desarollador)
+- [Comentarios adicionales](#comentarios-adicionales)
+
+
 <br>
 
 
@@ -40,9 +53,9 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     - Juego: [PySimpleGUI](https://pysimplegui.readthedocs.io/en/latest/)
 
-    - Datasets: [pandas](https://pandas.pydata.org/)
+    - Datasets: [notebook](https://jupyter.org/), [pandas](https://pandas.pydata.org/)
 
-    - Analysis: [pandas](https://pandas.pydata.org/), [matplotlib](https://matplotlib.org/)
+    - Analysis: [notebook](https://jupyter.org/), [pandas](https://pandas.pydata.org/), [matplotlib](https://matplotlib.org/)
 
     Para su instalación:
 
@@ -77,7 +90,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
         Esta sección se encuentra en la carpeta analysis_section
 
-        El análisis de los eventos generados al jugar partidas se encuentra como un script de python o un cuaderno interactivo de [JupyterNotebook](https://jupyter.org/)
+        El análisis de los eventos generados al jugar partidas se encuentra como un cuaderno interactivo de [JupyterNotebook](https://jupyter.org/)
 
 
 <br>

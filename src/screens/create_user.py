@@ -1,5 +1,5 @@
 '''Formulary needed to create a new profile.'''
-from typing import Any, Callable, TypedDict
+from typing import Callable, TypedDict
 
 import PySimpleGUI as sg
 
@@ -7,7 +7,7 @@ from ..controllers import observer, theme, users_controller as users_ctr
 from . import _common, _csg
 
 
-SCREEN_NAME = '-CREATE-PROFILE-'
+SCREEN_NAME = '-CREATE-USER-'
 LOAD_USER_FIELD = '-LOAD-USER-FIELD-'
 EVENT_ADD_PROFILE = '-ADD-PROFILE-'
 
@@ -68,15 +68,15 @@ def validate_gender(input: sg.Input) -> bool:
     return True
 
 
-FIELDS_LIST = [
+FORMULARY_FIELDS = (
     ('nick', validate_nick),
     ('age', validate_age),
     ('gender', validate_gender),
-]
+)
 
 inputs: dict[str, FormInput] = {}
 
-for type, validation_fn in FIELDS_LIST:
+for type, validation_fn in FORMULARY_FIELDS:
     inputs[type] = {
         'input': create_input(type),
         'state': False,
@@ -91,7 +91,7 @@ create_button = sg.Button(
     pad=theme.scale(32),
     disabled=True,
     key=EVENT_ADD_PROFILE,
-    border_width=theme.BD_ACCENT
+    border_width=theme.BD_PRIMARY
 )
 
 
@@ -131,7 +131,7 @@ def create_formulary() -> sg.Column:
     layout = [
         [*create_field('Nick', inputs['nick']['input'])],
         [*create_field('Edad', inputs['age']['input'])],
-        [*create_field('Genero', inputs['gender']['input'])],
+        [*create_field('Género', inputs['gender']['input'])],
         [
             sg.Push(theme.BG_BASE),
             create_button,
@@ -168,24 +168,6 @@ def validate_inputs(key: str) -> None:
 observer.subscribe(LOAD_USER_FIELD, validate_inputs)
 
 
-def create_new_user_message(nick: str) -> list[list[Any]]:
-    '''
-    Args: 
-        nick: Nick of the new user.
-    Returns: 
-        The layout for the popup.'''
-    return [
-        [sg.Text(
-            f'Perfil {nick}\ncreado exitosamente',
-            font=(theme.FONT_FAMILY, theme.T1_SIZE),
-            text_color=theme.TEXT_ACCENT,
-            background_color=theme.BG_SECONDARY,
-            pad=(theme.scale(32),)*2,
-            justification='center'
-        )],
-    ]
-
-
 def create_user() -> None:
     '''A new profile is created and informed by a popup.'''
     nick: str = inputs['nick']['input'].get()
@@ -196,8 +178,16 @@ def create_user() -> None:
     )
     reset_formulary()
     _csg.custom_popup(
-        create_new_user_message(nick),
-        [],
+        [
+            [sg.Text(
+                f'Perfil {nick}\ncreado exitosamente',
+                font=(theme.FONT_FAMILY, theme.T1_SIZE),
+                text_color=theme.TEXT_ACCENT,
+                background_color=theme.BG_SECONDARY,
+                pad=theme.scale(32),
+                justification='center'
+            )],
+        ],
         background_color=theme.BG_SECONDARY,
         duration=2
     )

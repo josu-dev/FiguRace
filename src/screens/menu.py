@@ -37,14 +37,14 @@ def menu_options() -> sg.Column:
                 menu.ic_profile,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_SCREEN} -SELECT-PROFILE-'
+                key=f'{const.GOTO_SCREEN} -SELECT-USER-'
             ),
             _csg.horizontal_spacer(theme.scale(16), theme.BG_BASE),
             _common.image_button(
                 menu.ic_setting,
                 ICON_BUTTON_SIZE,
                 border=theme.BD_ACCENT,
-                key=f'{const.GOTO_SCREEN} -CONFIGURATION-'
+                key=f'{const.GOTO_SCREEN} -CONFIGURE-USER-'
             ),
             _csg.horizontal_spacer(theme.scale(16), theme.BG_BASE),
             _common.image_button(

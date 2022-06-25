@@ -138,20 +138,22 @@ def vertical_spacer(height: int, background_color: str | None = None) -> sg.Colu
     return sg.Column([[]], size=(0, height), background_color=background_color)
 
 
-def custom_popup(layout: CompleteLayout, close_keys: list[str], background_color: str | None = None, duration: int | None = None) -> str:
+def custom_popup(layout: CompleteLayout, background_color: str | None = None, duration: int | None = None) -> str:
     '''Generates a custom pop up window.
+
+    The pop-up closes on any event produced returning the key of the event or constants.EXIT_APPLICATION in other case.
 
     Args:
         layout: layout that will display the popup.
-        close_keys: list of keys to refer the elements.
         background_color: default : None.
         duration: duration in seconds to close the pop up. default: none(permanently until close it).
     Returns: 
         A pop up with the theme applied and a timer for close it if is specified.'''
     window = sg.Window(
-        '', layout, background_color=background_color,
+        'pop-up', layout, background_color=background_color,
         no_titlebar=True, keep_on_top=True, finalize=True,
-        margins=(0, 0), resizable=False, modal=True
+        margins=(0, 0), resizable=False, modal=True,
+        use_default_focus=False
     )
 
     timeout = duration * 1000 if duration else None
@@ -162,8 +164,7 @@ def custom_popup(layout: CompleteLayout, close_keys: list[str], background_color
                 event = constants.EXIT_APPLICATION
                 break
             event = event.rstrip('0123456789')
-            if event in close_keys:
-                break
+            break
     finally:
         window.close()
     return event
