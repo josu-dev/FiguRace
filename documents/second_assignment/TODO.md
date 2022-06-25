@@ -17,6 +17,6 @@
 
 [X] Registro de jugadas y partidas
 
-[ ] Análisis de datos y estadísticas
+[X] Análisis de datos y estadísticas
 
-[ ] Documentar el código usando docstrings en las funciones y clases
+[X] Documentar el código usando docstrings en las funciones y clases

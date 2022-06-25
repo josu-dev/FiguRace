@@ -19,12 +19,12 @@ def screen_title(
     '''Generic screen title used on most screen.
 
     Args:
-        title: String to display on screen generally the screen name
-        spaced: whether the letters are spaced or close together , default is false
-        alignment: default =  center
-        upper: if is uper or lower case
-        size: size of the font, default is H2
-        padding: amount of padding
+        title: String to display on screen generally the screen name.
+        spaced: whether the letters are spaced or close together , default is false.
+        alignment: default =  center.
+        upper: if is uper or lower case.
+        size: size of the font, default is H2.
+        padding: amount of padding.
     Returns: 
         A sg.Text structured to use like a title.'''
     if upper:
@@ -50,10 +50,10 @@ def navigation_button(
     '''Create a generic navigation button.
 
     Args:
-        text: text displayed on the button
-        screen_name: screen name to go
-        font_size: default is T1
-        padding: amount of padding default is 0,0
+        text: text displayed on the button.
+        screen_name: screen name to go.
+        font_size: default is T1.
+        padding: amount of padding default is 0,0.
         border: size of border default is primary.
     Returns 
         A button with the style, theme and function applied.'''
@@ -69,15 +69,15 @@ def navigation_button(
     )
 
 
-def goback_button(text: str, font_size: int = theme.H4_SIZE, padding: tuple[int, int] = (0, 0)) -> sg.Button:
+def goback_button(text: str, font_size: int = theme.T1_SIZE, padding: tuple[int, int] = (0, 0)) -> sg.Button:
     '''Create the generic back button.
 
     This buttons allows you back to the last screen.
 
     Args:
-        text: text displayed on the button
-        font_size: default is H4
-        padding: default is (0,0)
+        text: text displayed on the button.
+        font_size: default is T1.
+        padding: default is (0,0).
     Returns 
         A button with the style, theme and function applied.'''
     return navigation_button(text, constants.LAST_SCREEN, font_size, padding)
@@ -88,10 +88,10 @@ def image_button(image: ImageFile, size: tuple[int, int], key: str, border: int 
 
     Args:
         image: image displayed on the button.
-        size: size of the button
-        key: key to refer the button
+        size: size of the button.
+        key: key to refer the button.
         border: border size, default: BD_PRIMARY.
-        padding: amount of padding , default: 0
+        padding: amount of padding , default: 0.
     Returns: 
         A Image button with the style theme applied.'''
     return sg.Button(
@@ -112,6 +112,18 @@ def styled_combo(
     ch_width: int | None = None, font: tuple[str, int] = (theme.FONT_FAMILY_TEXT, theme.T1_SIZE),
     padding: tuple[int, int] | None = None
 ) -> sg.Combo:
+    '''Create a generic combo.
+
+    Args:
+        values: list of availible options.
+        default: default selected option.
+        key: key to refer the combo.
+        emit_event: if combo should emit a event on interaction with it.
+        ch_width: width in terms of characters.
+        font: the font family and the font size.
+        padding: amount of padding default is (0,0).
+    Returns 
+        A Combo with the style, theme and function applied.'''
     if ch_width is None:
         ch_width = max([len(value) for value in values]) + 1
     return sg.Combo(

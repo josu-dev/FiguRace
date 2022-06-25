@@ -45,7 +45,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     - Clonar el repositorio por medio de SSH o HTTPS
 
-    - Descargar el .zip (luego de descomprimir)
+    - Descargar el .zip (luego descomprimirlo)
 
 1. #### Instalación de dependencias
 
