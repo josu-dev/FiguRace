@@ -61,7 +61,7 @@ class ScreenController:
         self._current_screen: str = ''
         self._screen_stack: list[str] = []
         self._screens: dict[str, Screen] = {}
-        self._composed_layout: list[Any] = []
+        self._composed_layout: list[sg.Column] = []
 
         path_names = screens_folder_path.split(os.path.sep)
         base_to_folder = path_names[path_names.index('src'):]

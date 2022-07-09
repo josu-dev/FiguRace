@@ -48,12 +48,14 @@ class HorizontalList(ChainedElement):
         Returns: 
             the current information of the class after add the element pass by argument.'''
         match content:
-            case [[*_], *_]:
+            case [*elements] if all(isinstance(element, list) for element in elements):
                 element = sg.Column(content, **self._config)
-            case [*_]:
+            case [*elements] if all(issubclass(type(element), sg.Element) for element in elements):
                 element = sg.Column([content], **self._config)
-            case _:
+            case sg.Element():
                 element = content
+            case _:
+                raise ValueError(f'{content=} must be a Element | LayoutRow | CompleteLayout')
         self._container.append(element)
         return self
 
@@ -81,12 +83,14 @@ class VerticalList(ChainedElement):
         Returns: 
             the current information of the class after add the element pass by argument.'''
         match content:
-            case [[*_], *_]:
+            case [*elements] if all(isinstance(element, list) for element in elements):
                 element = [sg.Column(content, **self._config)]
-            case [*_]:
+            case [*elements] if all(issubclass(type(element), sg.Element) for element in elements):
                 element = content
-            case _:
+            case sg.Element():
                 element = [content]
+            case _:
+                raise ValueError(f'{content=} must be a Element | LayoutRow | CompleteLayout')
         self._container.append(element)
         return self
 
@@ -111,16 +115,14 @@ def centered(content: Element | LayoutRow | CompleteLayout, horizontal_only: boo
     background_color = column_parameters.get('background_color', None)
 
     match content:
-        case [[sg.Element(), *_], *_]:
+        case [*elements] if all(isinstance(element, list) for element in elements):
             layout = content
-        case [sg.Element(), *_]:
+        case [*elements] if all(issubclass(type(element), sg.Element) for element in elements):
             layout = [content]
         case sg.Element():
             layout = [[content]]
         case _:
-            raise ValueError(
-                f'content must be a Element | LayoutRow | CompleteLayout, content={content} not correct'
-            )
+            raise ValueError(f'{content=} must be a Element | LayoutRow | CompleteLayout')
     layout = layout if horizontal_only else [
         [sg.VPush(background_color)], *layout, [sg.VPush(background_color)]
     ]
@@ -158,13 +160,9 @@ def custom_popup(layout: CompleteLayout, background_color: str | None = None, du
 
     timeout = duration * 1000 if duration else None
     try:
-        while True:
-            event, _ = window.read(timeout=timeout, timeout_key='-TIME-OUT-')
-            if event is None or event == '-TIME-OUT-':
-                event = constants.EXIT_APPLICATION
-                break
-            event = event.rstrip('0123456789')
-            break
+        event, _ = window.read(timeout=timeout, timeout_key='-TIME-OUT-')
+        if event is None or event == '-TIME-OUT-':
+            return constants.EXIT_APPLICATION
+        return event.rstrip('0123456789')
     finally:
         window.close()
-    return event
