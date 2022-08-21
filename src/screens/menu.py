@@ -1,4 +1,6 @@
 '''Main menu of the application.'''
+from typing import Any
+
 import PySimpleGUI as sg
 
 from .. import constants as const
@@ -7,65 +9,62 @@ from ..assets import menu, title
 from . import _common, _csg
 
 
-SCREEN_NAME = "-MENU-"
-_default_padding = 2
+SCREEN_NAME = '-MENU-'
 ICON_BUTTON_SIZE = (theme.scale(96), theme.scale(96))
 TEXT_BUTTON_FONT = (theme.FONT_FAMILY, theme.H3_SIZE)
 
 
+def text_button(text: str, key: str) -> sg.Button:
+    return sg.Button(
+        text,
+        key=key,
+        size=(16, 1),
+        font=TEXT_BUTTON_FONT,
+        auto_size_button=True,
+        button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
+        pad=2,
+        mouseover_colors=theme.BG_BUTTON_HOVER,
+        border_width=theme.BD_ACCENT
+    )
+
+
+def icon_button(icon: Any, screen_name: str) -> sg.Button:
+    return _common.image_button(
+        icon,
+        ICON_BUTTON_SIZE,
+        border=theme.BD_ACCENT,
+        key=f'{const.GOTO_SCREEN} {screen_name}'
+    )
+
+
 def menu_options() -> sg.Column:
-    """The layout with the options proportioned by the menu screen.
+    '''The layout with the options proportioned by the menu screen.
 
     Returns:
-        A column correctly structured for use on the window."""
+        A column correctly structured for use on the window.'''
     layout = [
-        [_csg.vertical_spacer(theme.scale(24), theme.BG_BASE)],
-        [sg.Button(
+        [_csg.vertical_spacer(theme.scale(16), theme.BG_BASE)],
+        [text_button(
             'Iniciar Partida',
-            key=f'{const.GOTO_SCREEN} -CONFIGURE-GAME-',
-            size=(16, 1),
-            font=TEXT_BUTTON_FONT,
-            auto_size_button=True,
-            button_color=(theme.TEXT_BUTTON, theme.BG_BUTTON),
-            pad=_default_padding,
-            mouseover_colors=theme.BG_BUTTON_HOVER,
-            border_width=theme.BD_ACCENT
+            f'{const.GOTO_SCREEN} -CONFIGURE-GAME-'
         )],
         [_csg.vertical_spacer(theme.scale(24), theme.BG_BASE)],
         [
-            _common.image_button(
-                menu.ic_profile,
-                ICON_BUTTON_SIZE,
-                border=theme.BD_ACCENT,
-                key=f'{const.GOTO_SCREEN} -SELECT-USER-'
-            ),
+            icon_button(menu.ic_profile, '-SELECT-USER-'),
             _csg.horizontal_spacer(theme.scale(16), theme.BG_BASE),
-            _common.image_button(
-                menu.ic_setting,
-                ICON_BUTTON_SIZE,
-                border=theme.BD_ACCENT,
-                key=f'{const.GOTO_SCREEN} -CONFIGURE-USER-'
-            ),
+            icon_button(menu.ic_setting, '-CONFIGURE-USER-'),
             _csg.horizontal_spacer(theme.scale(16), theme.BG_BASE),
-            _common.image_button(
-                menu.ic_score,
-                ICON_BUTTON_SIZE,
-                border=theme.BD_ACCENT,
-                key=f'{const.GOTO_SCREEN} -RANKING-'
-            )
+            icon_button(menu.ic_score, '-RANKING-'),
         ],
+        [_csg.vertical_spacer(theme.scale(16), theme.BG_BASE)],
+        [text_button(
+            'Configurar tema',
+            key=f'{const.GOTO_SCREEN} -CONFIGURE-THEME-',
+        )],
         [_csg.vertical_spacer(theme.scale(24), theme.BG_BASE)],
-        [sg.Button(
+        [text_button(
             'Salir',
             key=const.EXIT_APPLICATION,
-            size=(16, 1),
-            font=TEXT_BUTTON_FONT,
-            auto_size_button=True,
-            button_color=(theme.TEXT_BUTTON,
-                          theme.BG_BUTTON),
-            pad=_default_padding,
-            mouseover_colors=theme.BG_BUTTON_HOVER,
-            border_width=theme.BD_ACCENT
         )],
     ]
     return sg.Column(

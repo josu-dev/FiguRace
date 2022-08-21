@@ -1,0 +1,33 @@
+{
+    "Pink-Like": {
+        "BG_BASE": "#3C1128",
+        "BG_PRIMARY": "#8B044C",
+        "BG_SECONDARY": "#C80E71",
+        "F_C_ACCENT": "#F0F0F0",
+        "F_C_PRIMARY": "#D9D8D9",
+        "F_C_SECONDARY": "#C4BFC2",
+        "F_F_UI": "System",
+        "F_F_CONTENT": "Consolas",
+        "F_SIZE_H1": 86,
+        "F_SIZE_H2": 48,
+        "F_SIZE_H3": 32,
+        "F_SIZE_H4": 26,
+        "F_SIZE_T1": 24,
+        "F_SIZE_T2": 16,
+        "F_SIZE_T3": 8,
+        "BD_ACCENT": 16,
+        "BD_PRIMARY": 11,
+        "BD_SECONDARY": 5,
+        "BD_DELIMITER": 1,
+        "BG_BUTTON": "#C9A6B9",
+        "BG_BUTTON_DISABLED": "#CDC6CA",
+        "BG_BUTTON_HOVER": "#D35598",
+        "F_C_BUTTON": "#6B0A3E",
+        "F_C_BUTTON_DISABLED": "#972662",
+        "F_C_BUTTON_HOVER": "#931056",
+        "BG_POPUP": "#CE036F",
+        "ERROR_BG_ACCENT": "#EF190C",
+        "ERROR_BG_NORMAL": "#E42A1F",
+        "ERROR_BG_SOFT": "#CD4840"
+    }
+}

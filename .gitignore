@@ -6,6 +6,4 @@ __pycache__.*
 processed_datasets/
 */database/*
 !*/database/datasets/
-*.test.ipynb
-*.test.csv
 .ipynb_checkpoints/

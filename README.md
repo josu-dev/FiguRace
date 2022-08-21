@@ -4,11 +4,7 @@
 ### Indice
 
 - [Integrantes](#integrantes)
-- [Guia primer uso](#guia-primer-uso)
-    - [Requerimientos del sistema](#requerimientos-de-sistema) 
-    - [Obtener el repositorio](#obtener-el-repositorio)
-    - [Instalación de dependencias](#instalación-de-dependencias)
-    - [Ejecución](#ejecución)
+- [Guia primer uso:](#guia-primer-uso)
 - [Fuentes](#fuentes)
 - [Modo desarollador](#modo-desarollador)
 - [Comentarios adicionales](#comentarios-adicionales)
@@ -152,3 +148,5 @@ La carpeta .vscode contiene configuraciones particulares de este proyecto para e
 La carpeta typings, los tipados necesarios de la librería PySimpleGUI para que el LanguageServer pueda funcionar adecuadamente al hacer el static type checking
 
 La carpeta documents contiene enunciados y otros archivos relaciones a que se tenía que realizar con el proyecto
+
+La carpeta presentation_section contiene el material para el cierre del trabajo y su presentacion
