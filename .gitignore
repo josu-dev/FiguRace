@@ -1,7 +1,6 @@
 .env
 __pycache__
 __pycache__.*
-.vscode
 *.test.*
 processed_datasets/
 */database/*
