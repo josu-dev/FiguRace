@@ -16,7 +16,7 @@
 ## Integrantes
 Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 --- | --- | --- | ---
-![@NomaDiix](https://avatars.githubusercontent.com/u/55964635?s=150&v=1) | ![@J-Josu](https://avatars.githubusercontent.com/J-Josu?s=150&v=1) | ![@Lucas-Andres-GF](https://avatars.githubusercontent.com/u/91075804?s=150&v=1) | ![@KinnaGt](https://avatars.githubusercontent.com/KinnaGt?s=150&v=1)
+![@FabianMartinez](https://avatars.githubusercontent.com/u/55964635?s=150&v=1) | ![@J-Josu](https://avatars.githubusercontent.com/J-Josu?s=150&v=1) | ![@Lucas-Andres-GF](https://avatars.githubusercontent.com/u/91075804?s=150&v=1) | ![@KinnaGt](https://avatars.githubusercontent.com/KinnaGt?s=150&v=1)
 [@NomaDiix](https://github.com/NomaDiix) | [@J-Josu](https://github.com/J-Josu) | [@Lucas-Andres-GF](https://github.com/Lucas-Andres-GF) | [@KinnaGt](https://github.com/KinnaGt)
 
 
