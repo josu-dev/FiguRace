@@ -1,7 +1,7 @@
 <h1> Grupo <img src="https://media.giphy.com/media/lkTunMhUitIEITABuS/giphy.gif" height="40"/></h1>
 
 
-### Indice
+## Indice
 
 - [Integrantes](#integrantes)
 - [Guia primer uso:](#guia-primer-uso)
@@ -10,22 +10,23 @@
 - [Comentarios adicionales](#comentarios-adicionales)
 
 
-<br>
+<br />
 
 
 ## Integrantes
+
 Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 --- | --- | --- | ---
-![@FabianMartinez](https://avatars.githubusercontent.com/u/55964635?s=150&v=1) | ![@J-Josu](https://avatars.githubusercontent.com/J-Josu?s=150&v=1) | ![@Lucas-Andres-GF](https://avatars.githubusercontent.com/u/91075804?s=150&v=1) | ![@KinnaGt](https://avatars.githubusercontent.com/KinnaGt?s=150&v=1)
-[@NomaDiix](https://github.com/NomaDiix) | [@J-Josu](https://github.com/J-Josu) | [@Lucas-Andres-GF](https://github.com/Lucas-Andres-GF) | [@KinnaGt](https://github.com/KinnaGt)
+![@FabianMartinez](https://avatars.githubusercontent.com/u/55964635?s=150&v=1) | ![@josu-dev](https://avatars.githubusercontent.com/josu-dev?s=150&v=1) | ![@Lucas-Andres-GF](https://avatars.githubusercontent.com/u/91075804?s=150&v=1) | ![@KinnaGt](https://avatars.githubusercontent.com/KinnaGt?s=150&v=1)
+[@fabian-martinez-rincon](https://github.com/fabian-martinez-rincon) | [@josu-dev](https://github.com/josu-dev) | [@Lucas-Andres-GF](https://github.com/Lucas-Andres-GF) | [@KinnaGt](https://github.com/KinnaGt)
 
 
-<br>
+<br />
 
 
 ## Guia primer uso:
 
-1. #### Requerimientos de sistema
+1. ### Requerimientos de sistema
 
     Se necesita tener python version mayor o igual a 3.10
 
@@ -34,7 +35,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
     > - [Linux](https://docs.python.org/es/3.10/using/unix.html)
     > - [Mac](https://docs.python.org/es/3.10/using/mac.html)
 
-1. #### Obtener el repositorio
+1. ### Obtener el repositorio
 
     Existen dos maneras:
 
@@ -42,7 +43,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
     - Descargar el .zip (luego descomprimirlo)
 
-1. #### Instalación de dependencias
+1. ### Instalación de dependencias
 
     Las dependencias son:
 
@@ -61,7 +62,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
         pip install -r requirements.txt
         ```
 
-1. #### Ejecución
+1. ### Ejecución
 
     Ejecución de los diferentes apartados:
 
@@ -88,7 +89,7 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
         El análisis de los eventos generados al jugar partidas se encuentra como un cuaderno interactivo de [JupyterNotebook](https://jupyter.org/)
 
 
-<br>
+<br />
 
 
 ## Fuentes
@@ -101,14 +102,14 @@ Fabian Martinez Rincon | Josue Suarez | Lucas Gallardo | Iñaki Agustin Lapeyre
 
 - Imágenes:
 
-    - [README](https://pixabay.com/es/)
+    - [README.md](https://pixabay.com/es/)
 
     - [Menu del juego](https://romannurik.github.io/AndroidAssetStudio/icons-notification.html)
 
-    - Otras, creación propia
+    - Las demas de creación propia
 
 
-<br>
+<br />
 
 
 ## Modo desarollador
@@ -135,9 +136,7 @@ Los argumentos posibles son:
 | el | booleano (true o false) | Habilita el logeo en consola informacion sobre los eventos | <nobr>`--el=true`</nobr> |
 
 
-<br>
-<br>
-<br>
+<br />
 
 
 ## Comentarios adicionales
